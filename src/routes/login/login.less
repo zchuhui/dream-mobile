@@ -1,0 +1,61 @@
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.clear {
+    zoom: 1
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: visible;
+    clear: both
+}
+
+.loginWrap {
+    padding: 15px;
+    .logo {
+        display: block;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #fff;
+        text-align: center;
+        padding: 10px;
+        margin: 50px auto;
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    .iconUser {
+        width: 20px;
+        height: 20px;
+        background: ~"url(../../assets/images/login-user.svg) center center / 21px 21px no-repeat";
+    }
+    .iconPwd {
+        width: 20px;
+        height: 20px;
+        background: ~"url(../../assets/images/login-pwd.svg) center center / 21px 21px no-repeat";
+    }
+    .loginBtn {
+        margin-top: 15px;
+    }
+    .more {
+        line-height: 50px;
+        padding: 0 10px;
+        span {
+            color: #108ee9;
+        }
+    }
+}
+
+.am-input-label-5 {
+    width: 50px !important;
+}

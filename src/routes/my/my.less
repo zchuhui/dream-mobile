@@ -1,0 +1,39 @@
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.clear {
+    zoom: 1
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: visible;
+    clear: both
+}
+
+.myWrap {
+    background: #fff;
+    .headImg {
+        height: 150px;
+        text-align: center;
+        padding: 20px auto;
+        img {
+            width: 80px;
+            height: 80px;
+            margin-top: 30px;
+            border-radius: 50%;
+            border: 2px solid #eee;
+        }
+    }
+    .graySpace {
+        height: 10px;
+        background: #f5f5f9;
+    }
+}
