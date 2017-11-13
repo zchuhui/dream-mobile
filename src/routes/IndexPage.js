@@ -12,7 +12,7 @@ class Home extends React.Component {
     super(props, context);
 
     this.state = {
-      selectedTab: "greenTab"
+      selectedTab: "blueTab"
     };
   }
 
@@ -41,8 +41,8 @@ class Home extends React.Component {
             <ChartList />
         </TabBar.Item>
         <TabBar.Item
-          icon={< div style={{ width: "22px", height: "22px", background: "url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center / 21px 21px no-repeat" }} />}
-          selectedIcon={< div style={{ width: "22px", height: "22px", background: "url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center / 21px 21px no-repeat" }} />}
+          icon={< div className={styles.iconFriend} />}
+          selectedIcon={< div className={styles.iconFriend2} />}
           title="梦友"
           key="Koubei"
           selected={this.state.selectedTab === "redTab"}
