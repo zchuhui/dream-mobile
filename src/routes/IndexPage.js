@@ -25,7 +25,7 @@ class Home extends React.Component {
         width: "100%",
         top: 0
       }}>
-
+      
       <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
         <TabBar.Item
           title="梦聊"

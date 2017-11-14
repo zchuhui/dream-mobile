@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import { hashHistory } from 'react-router';
 import { Icon, List, InputItem, Button, Toast } from "antd-mobile";
 import styles from "./login.less";
-import Logo from "../../assets/images/logo.svg"
+import Logo from "../../assets/images/logo.png"
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -53,7 +53,7 @@ class Login extends React.Component {
     }else if(password==""){
       Toast.info("请输入密码",1);
     }else{
-      hashHistory.push('/');
+      hashHistory.push('/home');
     }
   }
 
