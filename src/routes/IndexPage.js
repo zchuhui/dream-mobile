@@ -6,6 +6,7 @@ import ChartList from "./chat/chat-list";
 import FriendList from "./friends/friend-list";
 import My from "./my/my";
 import Circle from "./circle/index";
+import Fly from "./fly/index";
 
 class Home extends React.Component {
   constructor(props, context) {
@@ -25,7 +26,7 @@ class Home extends React.Component {
         width: "100%",
         top: 0
       }}>
-      
+
       <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
         <TabBar.Item
           title="梦聊"
@@ -38,7 +39,7 @@ class Home extends React.Component {
             this.setState({ selectedTab: "blueTab" });
           }}
           data-seed="logId">
-            <ChartList />
+          <ChartList />
         </TabBar.Item>
         <TabBar.Item
           icon={< div className={styles.iconFriend} />}
@@ -50,11 +51,22 @@ class Home extends React.Component {
             this.setState({ selectedTab: "redTab" });
           }}
           data-seed="logId1">
-            <FriendList />
+          <FriendList />
         </TabBar.Item>
         <TabBar.Item
-          icon={< div className={styles.iconCircle}/>}
-          selectedIcon={< div className={styles.iconCircle2}  />}
+          icon={< div className={styles.iconFly} />}
+          selectedIcon={< div className={styles.iconFly2} />}
+          title=""
+          key="fly"
+          selected={this.state.selectedTab === "recordTab"}
+          onPress={() => {
+            this.setState({ selectedTab: "recordTab" });
+          }}>
+          <Fly /> 
+        </TabBar.Item>
+        <TabBar.Item
+          icon={< div className={styles.iconCircle} />}
+          selectedIcon={< div className={styles.iconCircle2} />}
           title="梦圈"
           key="Friend"
           dot
@@ -63,7 +75,7 @@ class Home extends React.Component {
             this.setState({ selectedTab: "greenTab" });
           }}>
           <Circle />
-          </TabBar.Item>
+        </TabBar.Item>
         <TabBar.Item
           icon={<div className={styles.iconMy} />}
           selectedIcon={<div className={styles.iconMySelected} />}
@@ -72,10 +84,10 @@ class Home extends React.Component {
           selected={this.state.selectedTab === "yellowTab"}
           onPress={() => {
             this.setState({ selectedTab: "yellowTab" });
-          }} > 
+          }} >
 
           <My />
-          </TabBar.Item>
+        </TabBar.Item>
       </TabBar>
     </div>;
   }
