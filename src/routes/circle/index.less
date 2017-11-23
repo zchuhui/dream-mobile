@@ -18,15 +18,49 @@
     clear: both
 }
 
-.circleWrap {
-    text-align: left;
-    .headImg{
-        width:50px;
-        height: 50px;
+.chatWrap {
+    .item {
+        text-align: left;
+        padding: 15px 10px;
+        line-height: 30px;
+        .head {
+            img {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+            }
+            .name {
+                display: inline-block;
+                line-height: 40px;
+                vertical-align: top;
+                margin-left: 10px;
+            }
+            .time {
+                float: right;
+                font-size: 12px;
+                color: #999;
+            }
+        }
+        .itemContent {
+            display: block;
+            .title {
+                font-size: 16px;
+                font-weight: bold;
+                margin: 3px 0;
+            }
+            .des {
+                line-height: 20px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+                color: #999;
+            }
+        }
+    }
+}
 
-    }
-    .item{
-        margin-bottom: 5px;
-        padding:10px 0;
-    }
+.headImg {
+    width: 40px !important;
+    height: 40px !important;
 }

@@ -33,7 +33,7 @@ class ChatList extends React.Component {
   }
 
   componentDidMount(){
-    this.props.dispatch({ type: 'chat/fetch' });
+    /* this.props.dispatch({ type: 'chat/fetch' }); */
   }
 
   componentWillReceiveProps(nextProps) { 
@@ -44,7 +44,7 @@ class ChatList extends React.Component {
       this.setState({
         list:[...this.state.list,...nextProps.list],
       })
-      console.log(this.state.list, nextProps.list);
+      console.log('chat:',this.state.list, nextProps.list);
 
       setTimeout(()=>{
         this.setState({
@@ -75,7 +75,6 @@ class ChatList extends React.Component {
     if (this.state.isLoading && !this.state.hasMore) {
       return;
     }
-    console.log('reach end', event);
     this.setState({ isLoading: true });
     this.props.dispatch({ type: 'chat/fetch' });
   }
@@ -83,7 +82,7 @@ class ChatList extends React.Component {
 
 
   render() {
-
+    
     const separator = (sectionID, rowID) => (
       <div
         key={`${sectionID}-${rowID}`}

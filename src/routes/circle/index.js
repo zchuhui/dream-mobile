@@ -1,57 +1,130 @@
 import React from "react";
 import { connect } from "dva";
-import { Link } from 'dva/router';
-import { hashHistory } from 'react-router';
-import {Card} from "antd-mobile";
+import { ListView, Icon } from "antd-mobile";
 import styles from "./index.less";
 
 
-class Circle extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+/* function MyBody(props) {
+  return (
+    <div className="am-list-body my-body">
+      <span style={{ display: 'none' }}>you can custom body wrap element</span>
+      {props.children}
+    </div>
+  );
+} */
 
-    this.state = {
-    };
-  }
+class Index extends React.Component {
+	constructor(props, context) {
+		super(props, context);
 
-  render() {
+		const dataSource = new ListView.DataSource({
+			rowHasChanged: (row1, row2) => row1 !== row2,
+			sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+		});
 
-    return (
-      <div className={styles.circleWrap}> 
-        <Card full className={styles.item}>
-          <Card.Header
-            title="我昨晚做了一个可怕的梦"
-            thumb={<div><img className={styles.headImg} src='http://qq1234.org/uploads/allimg/140701/3_140701150032_4.jpg' /></div>}
-            
-          />
-          <Card.Body>
-            <div>这是一个非常可怕的噩梦，吓得我尿床了~~~~~~这是一个非常可怕的噩梦，吓得我尿床了~~~~~~这是一个非常可怕的噩梦，吓得我尿床了~~~~~~</div>
-            <div>这是一个非常可怕的噩梦，吓得我尿床了~~~~~~这是一个非常可怕的噩梦，吓得我尿床了~~~~~~这是一个非常可怕的噩梦，吓得我尿床了~~~~~~</div>
-            <div>这是一个非常可怕的噩梦，吓得我尿床了~~~~~~这是一个非常可怕的噩梦，吓得我尿床了~~~~~~这是一个非常可怕的噩梦，吓得我尿床了~~~~~~</div>
-          </Card.Body>
-          <Card.Footer content="" extra={<div>10:30</div>} />
-        </Card>
-        <Card full className={styles.item}>
-          <Card.Header
-            title="我梦见了一个美女"
-            thumb={<div><img className={styles.headImg} src='http://p0.so.qhimgs1.com/t01c1a6a949e0c1aed0.jpg' /></div>}
+		this.state = {
+			dataSource,
+			list: [],
+			isLoading: true,
+			height: document.documentElement.clientHeight * 3 / 4,
+		};
+	}
 
-          />
-          <Card.Body>
-            <div>哇，好漂亮啊！！！</div>
-          </Card.Body>
-          <Card.Footer content="" extra={<div>昨天</div>} />
-        </Card>
-      </div>
-    )
-  }
+	componentDidMount() {
+		this.props.dispatch({ type: 'circle/fetch' });
+	}
+
+	componentWillReceiveProps(nextProps) {
+
+		const hei = document.documentElement.clientHeight;
+		if (this.state.list !== nextProps.list) {
+
+			this.setState({
+				list: [...this.state.list, ...nextProps.list],
+			})
+
+			setTimeout(() => {
+				this.setState({
+					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
+					isLoading: false,
+					height: hei,
+				});
+			}, 500)
+		}
+	}
 
 
+	row = (rowData, sectionID, rowID) => {
+		const obj = rowData;
+		return (
+			<div className={styles.item}>
+				<div className={styles.head}>
+					<img src={obj.img_url} />
+					<span className={styles.name}>{obj.username}</span>
+					<span className={styles.time}>{obj.time}</span>
+				</div>
+				<div className={styles.itemContent}>
+					<div className={styles.title}>{obj.title}</div>
+					<div className={styles.des}>{obj.content}</div>
+				</div>
+			</div>
+		);
+	};
+
+
+	onEndReached = (event) => {
+		if (this.state.isLoading && !this.state.hasMore) {
+			return;
+		}
+		this.setState({ isLoading: true });
+		this.props.dispatch({ type: 'circle/fetch' });
+	}
+
+
+
+	render() {
+
+		const separator = (sectionID, rowID) => (
+			<div
+				key={`${sectionID}-${rowID}`}
+				style={{
+					backgroundColor: '#F5F5F9',
+					height: 8,
+					borderTop: '1px solid #ECECED',
+					borderBottom: '1px solid #ECECED',
+				}}
+			/>
+		);
+
+		return (
+			<div className={styles.chatWrap}>
+				<ListView
+					ref={el => this.lv = el}
+					dataSource={this.state.dataSource}
+					renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+						{this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
+					</div>)}
+					renderRow={this.row}
+					renderSeparator={separator}
+					style={{
+						height: this.state.height,
+						overflow: 'auto',
+					}}
+					pageSize={4}
+					onScroll={() => { console.log('scroll'); }}
+					scrollRenderAheadDistance={500}
+					onEndReached={this.onEndReached}
+					onEndReachedThreshold={10}
+				/>
+			</div>
+		)
+	}
 }
+
 
 function mapStateToProps(state) {
-  return {
-    ...state.circle
-  };
+	return {
+		...state.circle
+	};
 }
-export default connect(mapStateToProps)(Circle);
+export default connect(mapStateToProps)(Index);
