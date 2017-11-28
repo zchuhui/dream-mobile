@@ -31,7 +31,7 @@ class Home extends React.Component {
         <TabBar.Item
           icon={< div className={styles.iconCircle} />}
           selectedIcon={< div className={styles.iconCircle2} />}
-          title="梦圈"
+          title="探索"
           key="Friend"
           dot
           selected={this.state.selectedTab === "greenTab"}
@@ -39,6 +39,19 @@ class Home extends React.Component {
             this.setState({ selectedTab: "greenTab" });
           }}>
           <Circle />
+        </TabBar.Item>
+        <TabBar.Item
+          icon={< div className={styles.iconFriend} />}
+          selectedIcon={< div className={styles.iconFriend2} />}
+          title="搜索"
+          key="Koubei"
+          selected={this.state.selectedTab === "redTab"}
+          onPress={() => {
+            this.setState({ selectedTab: "redTab" });
+          }}
+          data-seed="logId1">
+          {/* <FriendList /> */}
+          <h2>搜索中....</h2>
         </TabBar.Item>
         <TabBar.Item
           title="通知"
@@ -51,19 +64,8 @@ class Home extends React.Component {
             this.setState({ selectedTab: "blueTab" });
           }}
           data-seed="logId">
-          <ChartList />
-        </TabBar.Item>
-        <TabBar.Item
-          icon={< div className={styles.iconFriend} />}
-          selectedIcon={< div className={styles.iconFriend2} />}
-          title="搜索"
-          key="Koubei"
-          selected={this.state.selectedTab === "redTab"}
-          onPress={() => {
-            this.setState({ selectedTab: "redTab" });
-          }}
-          data-seed="logId1">
-          <FriendList />
+          {/* <ChartList /> */}
+          <h2>这里是通知</h2>
         </TabBar.Item>
         {/* <TabBar.Item
           icon={< div className={styles.iconFly} />}
@@ -87,7 +89,8 @@ class Home extends React.Component {
             this.setState({ selectedTab: "yellowTab" });
           }} >
 
-          <My />
+          {/* <My /> */}
+          <h2>我的资料</h2>
         </TabBar.Item>
       </TabBar>
     </div>;

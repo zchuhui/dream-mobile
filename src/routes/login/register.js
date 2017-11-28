@@ -29,7 +29,7 @@ class Login extends React.Component {
             className={styles.text}
             id="username"
             ref={el => this.username = el}
-            placeholder="用户名/邮箱"
+            placeholder="注册邮箱"
           >
             {/* <div className={styles.iconUser} /> */}
           </InputItem>
@@ -37,16 +37,26 @@ class Login extends React.Component {
             className={styles.text}
             id="password"
             type="password"
-            placeholder="密 码"
+            placeholder="设置密码"
           >
+          
+            {/* <div className={styles.iconPwd} /> */}
+          </InputItem>
+          <InputItem
+            className={styles.text}
+            id="password2"
+            type="password"
+            placeholder="确认密码"
+          >
+
             {/* <div className={styles.iconPwd} /> */}
           </InputItem>
         </List>
-        <Button className={styles.loginBtn} type="primary" onClick={this.onSubmit}>登录</Button>
+        <Button className={styles.loginBtn} type="primary" onClick={this.onSubmit}>创建</Button>
 
-        <Link to="/forget" className={styles.forgetPwd}><span>忘记密码 ?</span></Link>
+        <Link to="/login" className={styles.forgetPwd}><span>返回登录</span></Link>
 
-        <Link to="/register"><Button type="ghost"  className={styles.registerBtn}><span>注册账号</span></Button></Link>
+        {/* <Link to=""><Button type="ghost"  className={styles.registerBtn}><span>注册账号</span></Button></Link> */}
         
       </div>
     )
@@ -56,17 +66,27 @@ class Login extends React.Component {
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    const password2 = document.getElementById("password2").value;
 
     if (username == "") {
-      Toast.info("请输入用户名", 1);
+      Toast.info("请输入邮箱", 1);
     } else if (password == "") {
       Toast.info("请输入密码", 1);
-    } else if (username == "admin" && password=="123456") {
-      hashHistory.push('/');
+    } else if (password2 == ""){
+      Toast.info("请确认密码", 1);
+    } else if (password2 !== password) {
+      Toast.info("密码不一致", 1);
+    }else{
+      Toast.info("注册中...", 5);
+
+      setTimeout(()=>{
+        Toast.info("注册成功！", 1);
+         setTimeout(()=>{
+           hashHistory.push('/login');
+         },1000)
+      },2000);
     }
-     else {
-      Toast.info("账号或密码有误！", 1);
-    }
+    
   }
 
 
