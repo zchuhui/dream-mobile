@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "dva";
-import { List, TextareaItem } from "antd-mobile";
+import { List, TextareaItem, NavBar,Icon,Button} from "antd-mobile";
 import styles from "./index.less";
 import { createForm } from 'rc-form';  
 
@@ -18,18 +18,27 @@ class Fly extends React.Component {
   render() {
     const { getFieldProps } = this.props.form;
     return (
-      <div>
+      <div className={styles.flyWrap}>
+        <NavBar
+          mode="light"
+          icon={<Icon type="left" />}
+          onLeftClick={() => history.back()}
+          style={{ borderBottom: "1px solid #eee" }}
+        >iDream</NavBar>
         <TextareaItem
-          placeholder="梦题，可不填"
+          placeholder="梦境标题"
           data-seed="logId"
           autoHeight
+          className={styles.title}
           ref={el => this.customFocusInst = el}
         />
         <TextareaItem
           {...getFieldProps('note1') }
-          rows={20}
-          placeholder="你的梦是怎样的呢，好好描述吧~~"
+          rows={10}
+          className={styles.textarea}
+          placeholder="真诚面对梦境，记下吧~~"
         />
+        <Button icon={<span className={styles.icon}></span>} type="primary" className={styles.flyBtn}>发梦</Button>
       </div>
     )
   }

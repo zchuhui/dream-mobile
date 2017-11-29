@@ -1,18 +1,9 @@
 import React from "react";
 import { connect } from "dva";
-import {Link} from "dva/router"
-import { ListView, Icon } from "antd-mobile";
+import { Link } from "dva/router"
+import { ListView, Icon, NavBar } from "antd-mobile";
 import styles from "./index.less";
 
-
-/* function MyBody(props) {
-  return (
-    <div className="am-list-body my-body">
-      <span style={{ display: 'none' }}>you can custom body wrap element</span>
-      {props.children}
-    </div>
-  );
-} */
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -22,10 +13,10 @@ class Index extends React.Component {
 			rowHasChanged: (row1, row2) => row1 !== row2,
 			sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
 		});
- 
+
 		this.state = {
 			dataSource,
-			list: [], 
+			list: [],
 			isLoading: true,
 			height: document.documentElement.clientHeight * 3 / 4,
 		};
@@ -58,24 +49,24 @@ class Index extends React.Component {
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
-				<div className={styles.item}>
-					<div className={styles.head}>
-						<img src={obj.img_url} />
-						<span className={styles.name}>{obj.username}</span>
-						<span className={styles.time}>{obj.time}</span>
-					</div>
-					<div className={styles.itemContent}>
-						<Link to="/home/detail">
-							<div className={styles.title}>{obj.title}</div>
-							<div className={styles.des}>{obj.content}</div>
-						</Link>
-					</div>
-					<div className={styles.icons}>
-					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
-						<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
-					</div>
+			<div className={styles.item}>
+				<div className={styles.head}>
+					<img src={obj.img_url} />
+					<span className={styles.name}>{obj.username}</span>
+					<span className={styles.time}>{obj.time}</span>
 				</div>
-			
+				<div className={styles.itemContent}>
+					<Link to="/home/detail">
+						<div className={styles.title}>{obj.title}</div>
+						<div className={styles.des}>{obj.content}</div>
+					</Link>
+				</div>
+				<div className={styles.icons}>
+					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
+					<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
+				</div>
+			</div>
+
 		);
 	};
 
@@ -88,8 +79,8 @@ class Index extends React.Component {
 		this.props.dispatch({ type: 'home/fetch' });
 	}
 
-	onPraise=(t)=>{
-		console.log(t);  
+	onPraise = (t) => {
+		console.log(t);
 	}
 
 	render() {
@@ -99,7 +90,7 @@ class Index extends React.Component {
 				key={`${sectionID}-${rowID}`}
 				style={{
 					backgroundColor: '#F5F5F9',
-					height: 8,
+					height: 7,
 					borderTop: '1px solid #ECECED',
 					borderBottom: '1px solid #ECECED',
 				}}
@@ -108,6 +99,15 @@ class Index extends React.Component {
 
 		return (
 			<div className={styles.chatWrap}>
+				<NavBar
+					mode="light"
+					icon={<div className={styles.logo}></div>}
+					onLeftClick={() => console.log('onLeftClick')}
+					rightContent={
+						<Link to="/fly"><div className={styles.fly}></div></Link>}
+					style={{ borderBottom: "1px solid #ECECED" }}
+				>iDream</NavBar>
+
 				<ListView
 					ref={el => this.lv = el}
 					dataSource={this.state.dataSource}

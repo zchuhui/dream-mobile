@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router";
-import { List, TextareaItem, Icon, Button, Toast, Modal } from "antd-mobile";
+import { NavBar, TextareaItem, Icon, Button, Toast, Modal } from "antd-mobile";
 import { createForm } from 'rc-form';
 import styles from "./detail.less";
 import Fly from './fly.png';
@@ -70,6 +70,12 @@ class Detail extends React.Component {
     render() {
         return (
             <div className={styles.detailWrap}>
+                <NavBar
+                    mode="light"
+                    icon={<Icon type="left" />}
+                    onLeftClick={() => history.back()}
+                    style={{ borderBottom: "1px solid #eee" }}
+                >梦境</NavBar>
                 {
                     this.props.detail && !this.props.detailLoading ?
 
