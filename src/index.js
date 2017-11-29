@@ -8,7 +8,7 @@ const app = dva();
 
 // 3. Model
 app.model(require('./models/chat'));
-app.model(require('./models/circle'));
+app.model(require('./models/home'));
 
 // 4. Router
 app.router(require('./router'));

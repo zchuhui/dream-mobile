@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'dva/router';
 import IndexPage from './routes/IndexPage';
+import DetailPage from './routes/home/detail';
 import LoginPage from './routes/login/login';
 import RegisterPage from './routes/login/register';
 import ForgetPage from './routes/login/forget';
@@ -12,6 +13,7 @@ function RouterConfig({ history }) {
       <Route path="/register" component={RegisterPage} />
       <Route path="/forget" component={ForgetPage} />
       <Route path="/" component={IndexPage} />
+      <Route path="/home/detail" component={DetailPage} />
     </Router>
   );
 }

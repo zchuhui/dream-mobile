@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "dva";
+import {Link} from "dva/router"
 import { ListView, Icon } from "antd-mobile";
 import styles from "./index.less";
 
@@ -21,17 +22,17 @@ class Index extends React.Component {
 			rowHasChanged: (row1, row2) => row1 !== row2,
 			sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
 		});
-
+ 
 		this.state = {
 			dataSource,
-			list: [],
+			list: [], 
 			isLoading: true,
 			height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
 
 	componentDidMount() {
-		this.props.dispatch({ type: 'circle/fetch' });
+		this.props.dispatch({ type: 'home/fetch' });
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -57,17 +58,24 @@ class Index extends React.Component {
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
-			<div className={styles.item}>
-				<div className={styles.head}>
-					<img src={obj.img_url} />
-					<span className={styles.name}>{obj.username}</span>
-					<span className={styles.time}>{obj.time}</span>
+				<div className={styles.item}>
+					<div className={styles.head}>
+						<img src={obj.img_url} />
+						<span className={styles.name}>{obj.username}</span>
+						<span className={styles.time}>{obj.time}</span>
+					</div>
+					<div className={styles.itemContent}>
+						<Link to="/home/detail">
+							<div className={styles.title}>{obj.title}</div>
+							<div className={styles.des}>{obj.content}</div>
+						</Link>
+					</div>
+					<div className={styles.icons}>
+					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
+						<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
+					</div>
 				</div>
-				<div className={styles.itemContent}>
-					<div className={styles.title}>{obj.title}</div>
-					<div className={styles.des}>{obj.content}</div>
-				</div>
-			</div>
+			
 		);
 	};
 
@@ -77,10 +85,12 @@ class Index extends React.Component {
 			return;
 		}
 		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'circle/fetch' });
+		this.props.dispatch({ type: 'home/fetch' });
 	}
 
-
+	onPraise=(t)=>{
+		console.log(t);  
+	}
 
 	render() {
 
@@ -124,7 +134,7 @@ class Index extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		...state.circle
+		...state.home
 	};
 }
 export default connect(mapStateToProps)(Index);

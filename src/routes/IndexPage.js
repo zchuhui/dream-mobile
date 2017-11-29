@@ -5,7 +5,7 @@ import styles from "./IndexPage.less";
 import ChartList from "./chat/chat-list";
 import FriendList from "./friends/friend-list";
 import My from "./my/my";
-import Circle from "./circle/index";
+import HomePage from "./home/index";
 import Fly from "./fly/index";
 
 class Home extends React.Component {
@@ -38,7 +38,7 @@ class Home extends React.Component {
           onPress={() => {
             this.setState({ selectedTab: "greenTab" });
           }}>
-          <Circle />
+          <HomePage />
         </TabBar.Item>
         <TabBar.Item
           icon={< div className={styles.iconFriend} />}

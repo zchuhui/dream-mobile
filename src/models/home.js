@@ -1,10 +1,10 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
-import { query } from '../services/circle.js';
+import { query,detail } from '../services/home.js';
 
 export default modelExtend(model, {
 
-	namespace: 'circle',
+	namespace: 'home',
 
 	state: {
 		loading:true,
@@ -17,16 +17,20 @@ export default modelExtend(model, {
 	},
 
 	effects: {
-		*fetch({ payload }, { call, put }) {  
+		*fetch({ payload }, { call, put }) { 
 			const { data } = yield call(query, payload); 
 			yield put({ type: 'updateState', payload: { list: data } });
+		},
+
+		*getDetail({ payload }, { call, put }) {
+			yield put({ type: 'updateState', payload: { detailLoading: true } });
+			const { data } = yield call(detail, payload);
+			yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
 		},
 	},
 
 	reducers: {
-		save(state, action) {
-			return { ...state, ...action.payload };
-		},
+		
 	},
 
 });
