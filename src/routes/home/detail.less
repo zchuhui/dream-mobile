@@ -1,7 +1,5 @@
 .detailWrap {
-    
     font-size: 14px;
-
     .item {
         text-align: left;
         padding: 15px 10px;
@@ -27,7 +25,6 @@
         }
         .itemContent {
             display: block;
-
             .title {
                 font-size: 16px;
                 color: #333;
@@ -44,28 +41,26 @@
                 color: #999;
             }
         }
-        .icons{
+        .icons {
             height: 40px;
             margin: 10px -10px -15px -10px;
-            margin-bottom:-15px;
+            margin-bottom: -15px;
             line-height: 40px;
-            color:#bfbfbf; 
+            color: #bfbfbf;
             text-align: center;
-
-            span{
+            span {
                 position: relative;
                 float: right;
                 display: block;
-                width:33%;
+                width: 33%;
                 height: 40px;
-
-                i{
-                    display: inline-block; 
-                    width:30px;
+                i {
+                    display: inline-block;
+                    width: 30px;
                     height: 40px;
                     vertical-align: top;
                 }
-                label{
+                label {
                     display: inline-block;
                     height: 40px;
                     min-width: 40px;
@@ -73,26 +68,94 @@
                     text-align: left;
                 }
             }
-            .review{
-                i{
-                    background: ~"url(../../assets/images/message.png) center center / 22px 22px no-repeat"; 
+            .review {
+                color: #1296db;
+                i {
+                    background: ~"url(../../assets/images/message_fill.png) center center / 22px 22px no-repeat";
                     background-position-y: 8px;
                 }
             }
-            .praise{
-               i{
-                    background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat"; 
-                    background-position-y: 8px;
-               }
-                
+            .review::after {
+                content: ' ';
+                display: block;
+                height: 1px;
+                width: 80px;
+                background: #1296db;
+                margin: 0 auto;
             }
-            
+            .praise {
+                i {
+                    background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat";
+                    background-position-y: 8px;
+                }
+            }
         }
     }
+    .reviewList {
+        border-top: 1px solid #eee;
+        padding: 10px;
+        .reviewItem {
+            text-align: left;
+            padding: 15px 10px;
+            line-height: 30px;
+            .head {
+                img {
+                    float: left;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                }
+                .name {
+                    display: block;
+                    line-height: 20px;
+                    margin-left: 10px;
+                    text-indent: 10px;
+                }
+            }
+            .itemContent {
+                display: block;
+                margin-left: 50px;
+                border-bottom: 1px solid #eee;
+                .des {
+                    font-size: 14px;
+                    line-height: 20px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                    color: #999;
+                }
+                .time {
+                    display: block;
+                    font-size: 10px;
+                    color: #999;
+                }
+            }
+        }
+    }
+}
 
-    .reviewList{
-        border-top:1px solid #eee;
-        padding:10px;
-        
+.reviewText {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 34px;
+    padding: 5px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    input {
+        float: left;
+        text-indent: 10px;
+        width: 84%;
+        height: 30px;
+        background: #eee;
+        border-radius: 5px;
+        border: none;
+    }
+    img {
+        float: left;
+        width: 30px;
+        height: 30px;
+        margin-left:10px;
     }
 }
