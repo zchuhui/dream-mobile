@@ -24,5 +24,12 @@
         ]
       ]
     }
+  },
+  "proxy": {
+      "/api": {
+        "target": "http://h5.xiaoyiwo.net/index.php",
+        "changeOrigin": true,
+        "pathRewrite": { "^/api" : "" }
+      }
   }
 }

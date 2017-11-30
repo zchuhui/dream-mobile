@@ -5,7 +5,7 @@ import { hashHistory } from 'react-router';
 import { Icon, List, InputItem, Button, Toast } from "antd-mobile";
 import styles from "./login.less";
 
-class Login extends React.Component {
+class Forget extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -26,7 +26,7 @@ class Login extends React.Component {
         <List style={{marginTop:50}}>
           <InputItem
             className={styles.text}
-            id="username"
+            id="email"
             ref={el => this.username = el}
             placeholder="注册邮箱"
           >
@@ -41,21 +41,23 @@ class Login extends React.Component {
     )
   }
 
-  onSubmit() {
+  onSubmit=()=> {
 
-    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
 
-    if (username == "") {
+    if (email == "") {
       Toast.info("请输入邮箱", 1);
     } else {
       Toast.info("发送中...", 3);
 
-      setTimeout(() => {
+      this.props.dispatch({ 'type': 'user/resetPassword', 'payload': { 'email': email } });
+
+      /* setTimeout(() => {
         Toast.info("发送成功！", 1);
         setTimeout(() => {
           hashHistory.push('/login');
         }, 1000)
-      }, 2000);
+      }, 2000); */
     }
   }
 
@@ -64,7 +66,7 @@ class Login extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    ...state.login
+    ...state.user
   };
 }
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Forget);

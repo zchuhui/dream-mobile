@@ -52,20 +52,19 @@ class Login extends React.Component {
     )
   }
 
-  onSubmit() {
+  // 登录
+  onSubmit=()=>{
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-
+    
     if (username == "") {
       Toast.info("请输入用户名", 1);
     } else if (password == "") {
       Toast.info("请输入密码", 1);
-    } else if (username == "admin" && password=="123456") {
-      hashHistory.push('/');
-    }
-     else {
-      Toast.info("账号或密码有误！", 1);
+    } else {
+      this.props.dispatch({'type':'user/login','payload':{'name':username,'password':password}});
+      //hashHistory.push('/');
     }
   }
 
@@ -74,7 +73,8 @@ class Login extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    ...state.login
+    ...state.user
   };
 }
+
 export default connect(mapStateToProps)(Login);

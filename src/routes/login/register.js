@@ -6,7 +6,7 @@ import { Icon, List, InputItem, Button, Toast } from "antd-mobile";
 import styles from "./login.less";
 import Logo from "../../assets/images/logo.png"
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -29,9 +29,15 @@ class Login extends React.Component {
             className={styles.text}
             id="username"
             ref={el => this.username = el}
+            placeholder="昵称"
+          >
+          </InputItem>
+          <InputItem
+            className={styles.text}
+            id="email"
+            ref={el => this.username = el}
             placeholder="注册邮箱"
           >
-            {/* <div className={styles.iconUser} /> */}
           </InputItem>
           <InputItem
             className={styles.text}
@@ -39,7 +45,7 @@ class Login extends React.Component {
             type="password"
             placeholder="设置密码"
           >
-          
+
             {/* <div className={styles.iconPwd} /> */}
           </InputItem>
           <InputItem
@@ -57,44 +63,54 @@ class Login extends React.Component {
         <Link to="/login" className={styles.forgetPwd}><span>返回登录</span></Link>
 
         {/* <Link to=""><Button type="ghost"  className={styles.registerBtn}><span>注册账号</span></Button></Link> */}
-        
+
       </div>
     )
   }
 
-  onSubmit() {
+  onSubmit=()=>{
 
     const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const password2 = document.getElementById("password2").value;
 
     if (username == "") {
+      Toast.info("请输入用户名", 1);
+    } 
+    else if (email == "") {
       Toast.info("请输入邮箱", 1);
-    } else if (password == "") {
+    } 
+    else if (password == "") {
       Toast.info("请输入密码", 1);
-    } else if (password2 == ""){
+    } else if (password2 == "") {
       Toast.info("请确认密码", 1);
     } else if (password2 !== password) {
       Toast.info("密码不一致", 1);
-    }else{
-      Toast.info("注册中...", 5);
+    } else {
+      this.props.dispatch({
+        'type': 'user/register', 
+        'payload': {
+          'name':username,
+          'email':email,
+          'password':password,
+          'repassword':password2
+        }
+      });
 
-      setTimeout(()=>{
-        Toast.info("注册成功！", 1);
-         setTimeout(()=>{
-           hashHistory.push('/login');
-         },1000)
-      },2000);
+      /*  setTimeout(()=>{
+         Toast.info("注册成功！", 1);
+          setTimeout(()=>{
+            hashHistory.push('/login');
+          },1000)
+       },2000); */
     }
-    
   }
-
-
 }
 
 function mapStateToProps(state) {
   return {
-    ...state.login
+    ...state.user
   };
 }
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Register);
