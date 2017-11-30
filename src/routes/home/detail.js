@@ -122,31 +122,31 @@ class Detail extends React.Component {
                                 animationType="slide-up"
                                 onClose={()=>{this.setState({modal1:false})}}
                             >
-                                <div style={{ height: 50 }}>
-                                    <div className={styles.reviewText}>
+                                <div style={{ height: 150 }}>
+                                    {/* <div className={styles.reviewText}>
                                         <input type="text" placeholder={this.state.placeholder} id="txtId" autoFocus />
                                         <img src={Fly} onClick={this.onReview}/>
-                                    </div>
-                                    {/* <TextareaItem
+                                    </div> */}
+                                    <TextareaItem
                                         style={{
                                             float:left,
-                                            width: '75%',
+                                            width: '98%',
                                             border: '1px solid #eee',
                                             borderRadius: 5,
-                                            marginLeft: -10,
+                                            marginLeft: -10, 
                                             padding: 5,
                                             fontSize: 14,
                                             lineHeight: '16px',
                                             value: "",
                                         }}
-                                        rows={1}
+                                        rows={5}
                                         placeholder={this.state.placeholder}
                                         ref={el => this.customFocusInst = el}
                                         id="txtId"
                                     />
 
-                                    <Button type="primary" inline size="small" style={{position:'absolute',right:10,top:10 }} onClick={this.onReview}>发表</Button>
-                                     */}
+                                    <Button type="primary" inline size="small" style={{ float:'right',marginRight:5 }} onClick={this.onReview}>发表</Button>
+                                    
                                 </div>
                             </Modal>
                         </div>
