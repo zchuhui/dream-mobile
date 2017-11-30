@@ -4,11 +4,10 @@
 
 ```
 git clone https://github.com/zchuhui/dream-mobile.git
-
 ```
 
 
-## 2.安装依赖：
+## 2.安装依赖
 
 ```
 cnpm install 
@@ -18,7 +17,7 @@ or
 yarn 
 ```
 
-## 运行
+## 3.运行
 
 ```
 npm start 
