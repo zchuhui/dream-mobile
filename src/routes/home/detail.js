@@ -20,7 +20,7 @@ class Detail extends React.Component {
         this.props.dispatch({ type: 'home/getDetail' });
     }
 
-    componentDidMount(){
+    componentDidMount() {
     }
 
 
@@ -44,7 +44,6 @@ class Detail extends React.Component {
 
     }
     onClose = key => () => {
-        debugger
         this.setState({
             [key]: false,
         });
@@ -55,14 +54,9 @@ class Detail extends React.Component {
         if (val == "") {
             Toast.info("总得输入点什么吧？");
         } else {
-            Toast.info("提交中...");
-
-            setTimeout(() => {
-                this.setState({
-                    "modal1": false,
-                });
-                Toast.info("提交成功");
-            }, 1500)
+            this.setState({
+                "modal1": false,
+            });
         }
     }
 
@@ -111,21 +105,32 @@ class Detail extends React.Component {
                                     ))
                                 }
                             </div>
-                            <div className={styles.reviewText} onClick={this.showModal("modal1")}>
-                                <input type="text" placeholder="开始评论" disabled />
-                                <img src={Fly} alt="" />
-                            </div>
+
+                            {
+                                !this.state.modal1?
+                                    <div className={styles.reviewText} onClick={this.showModal("modal1")}>
+                                        <input type="text" placeholder="开始评论" disabled />
+                                        <img src={Fly} alt="" />
+                                    </div>:null
+                            }
+                            
 
                             <Modal
                                 popup
                                 visible={this.state.modal1}
-                                maskClosable={false}
+                                maskClosable={true}
                                 animationType="slide-up"
+                                onClose={()=>{this.setState({modal1:false})}}
                             >
-                                <div style={{ height: 140 }}>
-                                    <TextareaItem
+                                <div style={{ height: 50 }}>
+                                    <div className={styles.reviewText}>
+                                        <input type="text" placeholder={this.state.placeholder} id="txtId" autoFocus />
+                                        <img src={Fly} onClick={this.onReview}/>
+                                    </div>
+                                    {/* <TextareaItem
                                         style={{
-                                            width: '98%',
+                                            float:left,
+                                            width: '75%',
                                             border: '1px solid #eee',
                                             borderRadius: 5,
                                             marginLeft: -10,
@@ -134,16 +139,14 @@ class Detail extends React.Component {
                                             lineHeight: '16px',
                                             value: "",
                                         }}
-                                        rows={4}
+                                        rows={1}
                                         placeholder={this.state.placeholder}
                                         ref={el => this.customFocusInst = el}
                                         id="txtId"
-                                        
                                     />
-                                    <div style={{ textAlign: 'right', width: '98%' }}>
-                                        <Button type="primary" inline size="small" style={{ marginRight: '4px' }} onClick={this.onReview}>发表</Button>
-                                        <Button type="ghost" inline size="small" style={{ marginRight: '4px' }} onClick={this.onClose('modal1')} >取消</Button>
-                                    </div>
+
+                                    <Button type="primary" inline size="small" style={{position:'absolute',right:10,top:10 }} onClick={this.onReview}>发表</Button>
+                                     */}
                                 </div>
                             </Modal>
                         </div>
