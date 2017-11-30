@@ -89,8 +89,7 @@ class Home extends React.Component {
             this.setState({ selectedTab: "yellowTab" });
           }} >
 
-          {/* <My /> */}
-          <h2>我的资料</h2>
+          <My />
         </TabBar.Item>
       </TabBar>
     </div>;
