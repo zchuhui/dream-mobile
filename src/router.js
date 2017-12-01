@@ -6,6 +6,7 @@ import LoginPage from './routes/login/login';
 import RegisterPage from './routes/login/register';
 import ForgetPage from './routes/login/forget';
 import FlyPage from './routes/fly/index';
+import UserinfoPage from './routes/my/userinfo';
 
 function RouterConfig({ history }) {
   return (
@@ -16,6 +17,7 @@ function RouterConfig({ history }) {
       <Route path="/" component={IndexPage} />
       <Route path="/fly" component={FlyPage} />
       <Route path="/home/detail" component={DetailPage} />
+      <Route path="/my/userinfo" component={UserinfoPage} />
     </Router>
   );
 }

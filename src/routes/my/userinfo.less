@@ -1,0 +1,80 @@
+html,
+body {
+    font-family: '微软雅黑';
+    font-size: 14px;
+    background-color: #F5F5F9;
+}
+
+ul,
+ol {
+    list-style: none;
+    padding: 0
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.clear {
+    zoom: 1
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: visible;
+    clear: both
+}
+
+.userinfoWrap {
+    background: #fff;
+    .userinfo {
+        border-bottom: 1px solid rgb(236, 236, 237);
+        padding: 15px 0;
+        .title {
+            text-align: center;
+            img {
+                width: 80px;
+                height: 80px;
+                border: 1px solid #ddd;
+                border-radius: 50%;
+                margin: 0 auto;
+            }
+            b {
+                text-align: center;
+                line-height: 30px;
+                font-size: 16px;
+            }
+        }
+        ul {
+            li {
+                height: 30px;
+                line-height: 30px;
+                padding: 0 20px;
+                font-size: 14px;
+                text-indent: 20px;
+            }
+        }
+        .opinion {
+            padding: 0 30px;
+        }
+    }
+    .dreamWrap {
+        border-top: 10px solid #F5F5F9;
+    }
+    .logo {
+        width: 30px;
+        height: 30px;
+        background: ~"url(../../assets/images/logo.png) center center / 30px 30px no-repeat";
+    }
+    .fly {
+        width: 30px;
+        height: 30px;
+        background: ~"url(../../assets/images/fly2.png) center center / 30px 30px no-repeat";
+    }
+}
