@@ -7,7 +7,7 @@ import Face1 from './face1.png';
 import Face2 from './face2.png';
 import Face3 from './face3.png';
 import Face_1 from './face1_1.png';
-import Face_2 from './face2_1.png';
+import Face_2 from './face2-1.png';
 import Face_3 from './face3_1.png';
 
 class Fly extends React.Component {
@@ -22,7 +22,7 @@ class Fly extends React.Component {
   }
 
   onFace=(key)=>{
-    console.log(key)
+
     this.setState({
       face1:1,
       face2:1,

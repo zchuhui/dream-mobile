@@ -50,18 +50,20 @@ class My extends React.Component {
                     </Link>
                 </List>
                 <List className={styles.listItem}>
-                    <Item
-                        arrow="horizontal"
-                        thumb={< img src = {
-                        SetupPng
-                    }
-                    alt = "" />}
-                        multipleLine
-                        onClick={() => {}}>
-                        设置
-                    </Item>
+                    <Link to="/my/setup"> 
+                        <Item
+                            arrow="horizontal"
+                            thumb={< img src = {
+                            SetupPng
+                        }
+                        alt = "" />}
+                            multipleLine
+                            onClick={() => {}}>
+                            消息设置
+                        </Item>
+                    </Link>
                 </List>
-                <List className={styles.listItem}>
+                {/* <List className={styles.listItem}>
                     <Item
                         arrow="horizontal"
                         thumb={< img src = {
@@ -72,17 +74,19 @@ class My extends React.Component {
                         onClick={() => {}}>
                         使用与帮助
                     </Item>
-                </List>
+                </List> */}
 
-                {/* <List className={styles.listItem}>
-          <Item
-            arrow="horizontal"
-            thumb={< img src = {PromptPng} alt = "" />}
-            multipleLine
-            onClick={() => {}}>
-            关于
-          </Item>
-        </List> */}
+                <List className={styles.listItem}>
+                    <Link to="/my/about">
+                        <Item
+                            arrow="horizontal"
+                            thumb={< img src = {PromptPng} alt = "" />}
+                            multipleLine
+                            onClick={() => {}}>
+                            关于
+                        </Item>
+                    </Link>
+                </List>
 
                 <List className={styles.listItem}>
                     <Item
