@@ -19,7 +19,15 @@ import styles from "./edit.less";
 import UserPng from './user.png';
 import ProfessionPng from './profession-blue.png';
 import AgePng from './age.png';
-import SexPng from './sex.png';
+import AddressPng from './address_blue.png';
+
+import SexM from './image/sex_m.png';
+import SexW from './image/sex_w.png';
+import SexMM from './image/sex_mm.png';
+import SexWW from './image/sex_ww.png';
+import SexYx from './image/sex_yx.png';
+import SexNo from './image/sex_no.png';
+import SexWn from './image/sex_wn.png';
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -44,9 +52,9 @@ class Edit extends React.Component {
             multiple:false
         }
     }
-
-    ages = () => {
-
+    
+    // 年纪列表
+    /* ages = () => {
         let arr = [],
             aAge = [];
         let i = 0;
@@ -62,33 +70,40 @@ class Edit extends React.Component {
 
         arr.push(aAge);
         return arr;
-    }
+    } */
 
     render() {
         const {getFieldProps} = this.props.form;
-
+        // 性别列表
         const sexs = [
             {
                 value: 0,
-                label: '男'
+                label: '男',
+                icon:SexM,
             }, {
                 value: 1,
-                label: '女'
+                label: '女',
+                icon: SexW,
             }, {
                 value: 2,
-                label: '男男'
+                label: '男男',
+                icon: SexMM,
             }, {
                 value: 3,
-                label: '女女'
+                label: '女女',
+                icon: SexWW,
             }, {
                 value: 4,
-                label: '异性'
+                label: '异性',
+                icon: SexYx,
             }, {
                 value: 5,
-                label: '双性'
+                label: '双性',
+                icon: SexWn
             }, {
                 value: 6,
-                label: '无性'
+                label: '无性',
+                icon: SexNo
             }
         ];
         return (
@@ -96,11 +111,11 @@ class Edit extends React.Component {
                 <NavBar
                     mode="light"
                     icon={< Icon type = "left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => history.go(-1)}
                     style={{
                     borderBottom: "1px solid #ECECED"
                 }}>编辑个人信息</NavBar>
-
+                
                 <div className={styles.head}>
                     <img src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png" onClick={this.onUpdateImg} />
                     <input type="file" id="fileId" onChange={this.fileChange} accept="image/gif, image/jpeg" />
@@ -115,17 +130,33 @@ class Edit extends React.Component {
                         <img src={UserPng} />
                     </InputItem>
                     <InputItem
+                        id="inputAddress"
+                        {...getFieldProps('inputAddress') }
+                        clear
+                        placeholder="填写地址">
+                        <img src={AddressPng} />
+                    </InputItem>
+                    <InputItem
                         id="inputProfession"
                         {...getFieldProps('inputProfession')}
                         clear
-                        placeholder="职业">
+                        placeholder="填写职业(职业习惯影响梦境)">
                         <img src={ ProfessionPng } />
                     </InputItem>
+                    <InputItem
+                        type="number"
+                        maxLength={2}
+                        id="inputAge"
+                        {...getFieldProps('inputAge') }
+                        clear
+                        placeholder="填写年龄(生命有限，把握做梦)">
+                        <img src={AgePng} />
+                    </InputItem>
 
-                    <Picker
+                    {/* <Picker
                         data={this.ages()}
                         title="年龄"
-                        cascade={false}
+                        cascade={true}
                         extra="年龄"
                         value={this.state.age}
                         onChange={v => this.setState({age: v})}
@@ -134,7 +165,7 @@ class Edit extends React.Component {
                         <List.Item>
                             <img src={ AgePng } />
                         </List.Item>
-                    </Picker>
+                    </Picker> */}
 
                 </List>
 
@@ -144,14 +175,14 @@ class Edit extends React.Component {
                             key={i.value}
                             checked={this.state.sex === i.value}
                             onChange={() => this.onChange(i.value)}>
-                            <img src={ SexPng } style={{marginRight:10}}/>
+                            <img src={ i.icon } style={{marginRight:10}}/>
                             {i.label}
                         </RadioItem>
                     ))}
                 </List>
 
-                <List renderHeader={() => '你怎么看待梦境'}>
-                    <TextareaItem {...getFieldProps('note1')} rows={3} placeholder="说说你看法"/>
+                <List renderHeader={() => '你怎么看待梦境?'}>
+                    <TextareaItem {...getFieldProps('note1')} rows={4} placeholder="说说你看法"/>
                 </List>
 
                 <Button

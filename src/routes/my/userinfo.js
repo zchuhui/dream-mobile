@@ -126,7 +126,7 @@ class Userinfo extends React.Component {
                 <NavBar
                     mode="light"
                     icon={< Icon type = "left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => history.go(-1)}
                     rightContent={< Link to = "/fly" > <div className={styles.fly}></div> </Link>}
                     style={{
                         borderBottom: "1px solid #ECECED"
