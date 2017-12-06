@@ -6,6 +6,7 @@ import ChartList from "./chat/chat-list";
 import FriendList from "./friends/friend-list";
 import My from "./my/my";
 import HomePage from "./home/index";
+import Search from "./search/index";
 import Fly from "./fly/index";
 
 class Home extends React.Component {
@@ -50,8 +51,7 @@ class Home extends React.Component {
             this.setState({ selectedTab: "redTab" });
           }}
           data-seed="logId1">
-          {/* <FriendList /> */}
-          <h2>搜索中....</h2>
+          <Search />
         </TabBar.Item>
         <TabBar.Item
           title="通知"
