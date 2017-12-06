@@ -3,7 +3,7 @@ import { connect } from "dva";
 import { Link } from "dva/router"
 import { ListView, Icon, NavBar } from "antd-mobile";
 import styles from "./index.less";
-
+import FlyPng from './fly.png'
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -23,14 +23,14 @@ class Index extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.dispatch({ type: 'home/fetch' });
+		this.props.dispatch({ type: 'home/fetch'}); 
+		//this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
 	}
 
 	componentWillReceiveProps(nextProps) {
 
 		const hei = document.documentElement.clientHeight;
 		if (this.state.list !== nextProps.list) {
-
 			this.setState({
 				list: [...this.state.list, ...nextProps.list],
 			})
@@ -46,6 +46,29 @@ class Index extends React.Component {
 	}
 
 
+	/* row = (rowData, sectionID, rowID) => {
+		const obj = rowData;
+		return (
+			<div className={styles.item}>
+				<div className={styles.head}>
+					<img src={obj.avatar == "" ? FlyPng : obj.avatar} />
+					<span className={styles.name}>{obj.uname}</span>
+					<span className={styles.time}>{obj.publish_time}</span>
+				</div>
+				<div className={styles.itemContent}>
+					<Link to="/home/detail">
+						<div className={styles.title}>{obj.title}</div>
+						<div className={styles.des}>{obj.testpublish}</div>
+					</Link>
+				</div>
+				<div className={styles.icons}>
+					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.digg_count}</label></span>
+					<span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
+				</div>
+			</div>
+
+		);
+	}; */
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
@@ -76,7 +99,7 @@ class Index extends React.Component {
 			return;
 		}
 		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'home/fetch' });
+		this.props.dispatch({ type: 'home/fetch' }); 
 	}
 
 	onPraise = (t) => {

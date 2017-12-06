@@ -3,6 +3,7 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import { login, register, resetPassword } from '../services/user.js';
+import Storage from '../utils/storage';
 import { Toast } from 'antd-mobile'
 
 export default modelExtend(model, {
@@ -21,6 +22,8 @@ export default modelExtend(model, {
     * login({ payload }, { call, put }) {
       const { code, data, msg } = yield call(login, payload);
       if (code == 200) {
+        
+        //Storage.get('token',)
         hashHistory.push('/');
         //yield put({ type: 'updateState', payload: { data: data } });
       }

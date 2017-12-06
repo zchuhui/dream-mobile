@@ -1,6 +1,6 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
-import { query,detail } from '../services/home.js';
+import { query,detail,getDreamList } from '../services/home.js';
 
 export default modelExtend(model, {
 
@@ -17,9 +17,14 @@ export default modelExtend(model, {
 	},
 
 	effects: {
-		*fetch({ payload }, { call, put }) { 
+		/* *getDreamList({ payload }, { call, put }) {
+			const { data } = yield call(getDreamList, payload);
+			yield put({ type: 'updateState', payload: { list: data.data} });
+		}, */
+
+		*fetch({ payload }, { call, put }) {
 			const { data } = yield call(query, payload); 
-			yield put({ type: 'updateState', payload: { list: data } });
+			yield put({ type: 'updateState', payload: { list: data } }); 
 		},
 
 		*search({ payload }, { call, put }) {

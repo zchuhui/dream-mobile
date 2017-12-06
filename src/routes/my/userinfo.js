@@ -21,11 +21,11 @@ function renderTabBar(props) {
 const tabs = [
     {
         title: '我的梦境'
-    }, {
+    },/*  {
         title: '我的粉丝'
     }, {
         title: '我的关注'
-    }
+    } */
 ];
 
 
@@ -107,7 +107,6 @@ class Userinfo extends React.Component {
 
 
     render() {
-
         const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
@@ -173,7 +172,7 @@ class Userinfo extends React.Component {
                                     ref={el => this.lv = el}
                                     dataSource={this.state.dataSource}
                                     renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                                    {this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
+                                    {this.state.isLoading ? <Icon type="loading" size='md' /> : '...'}
                                     </div>)}
                                     renderRow={this.row}
                                     renderSeparator={separator}
@@ -186,7 +185,7 @@ class Userinfo extends React.Component {
                                     onEndReachedThreshold={10}
                                 />
                             </div>
-                            <div
+                            {/* <div
                                 style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -205,11 +204,10 @@ class Userinfo extends React.Component {
                                 backgroundColor: '#fff'
                             }}>
                                 我的关注
-                            </div>
+                            </div> */}
                         </Tabs>
                     </StickyContainer>
                 </div>
-
             </div>
         )
     }
