@@ -14,7 +14,7 @@ class Home extends React.Component {
     super(props, context);
 
     this.state = {
-      selectedTab: "greenTab"
+      selectedTab: "tab1"
     };
   }
 
@@ -35,10 +35,8 @@ class Home extends React.Component {
           title="探索"
           key="Friend"
           dot
-          selected={this.state.selectedTab === "greenTab"}
-          onPress={() => {
-            this.setState({ selectedTab: "greenTab" });
-          }}>
+          selected={this.state.selectedTab === "tab1"}
+          onPress={this.onPress.bind(this,'tab1')}>
           <HomePage />
         </TabBar.Item>
         <TabBar.Item
@@ -46,23 +44,22 @@ class Home extends React.Component {
           selectedIcon={< div className={styles.iconFriend2} />}
           title="搜索"
           key="Koubei"
-          selected={this.state.selectedTab === "redTab"}
-          onPress={() => {
-            this.setState({ selectedTab: "redTab" });
-          }}
+          selected={this.state.selectedTab === "tab2"}
+          onPress={this.onPress.bind(this,'tab2')}
           data-seed="logId1">
-          <Search />
+          {
+            this.state.selectedTab=="tab2"?<Search />:null
+          }
+          
         </TabBar.Item>
         <TabBar.Item
           title="通知"
           key="Life"
           icon={< div className={styles.iconLife} />}
           selectedIcon={< div className={styles.iconLifeSelected} />}
-          selected={this.state.selectedTab === "blueTab"}
+          selected={this.state.selectedTab === "tab3"}
           badge={1}
-          onPress={() => {
-            this.setState({ selectedTab: "blueTab" });
-          }}
+          onPress={this.onPress.bind(this,'tab3')}
           data-seed="logId">
           {/* <ChartList /> */}
           <h2>这里是通知</h2>
@@ -84,15 +81,19 @@ class Home extends React.Component {
           selectedIcon={<div className={styles.iconMySelected} />}
           title="我的"
           key="my"
-          selected={this.state.selectedTab === "yellowTab"}
-          onPress={() => {
-            this.setState({ selectedTab: "yellowTab" });
-          }} >
-
-          <My />
+          selected={this.state.selectedTab === "tab4"}
+          onPress={this.onPress.bind(this,'tab4')} >
+          {
+            this.state.selectedTab=="tab4"?<My />:null
+          }
+          
         </TabBar.Item>
       </TabBar>
     </div>;
+  }
+
+  onPress(val){
+    this.setState({ selectedTab: val });
   }
 
   renderContent(pageText) {

@@ -4,7 +4,6 @@ import { Link } from "dva/router"
 import { ListView, Icon, NavBar, SearchBar, } from "antd-mobile";
 import styles from "./index.less";
 
-
 class Index extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -24,11 +23,11 @@ class Index extends React.Component {
 
 	componentDidMount() {
 		//this.props.dispatch({ type: 'home/fetch' });
+		this.autoFocusInst.focus();  // 自动获取光标 
 	}
+	
 
 	componentWillReceiveProps(nextProps) {
-
-
 		const hei = document.documentElement.clientHeight;
 		if (this.props.searchLoading && this.state.list !== nextProps.searchList) {
 			this.setState({
@@ -44,7 +43,6 @@ class Index extends React.Component {
 			}, 500)
 		} 
 	}
-
 
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
@@ -70,14 +68,12 @@ class Index extends React.Component {
 		);
 	};
 
-
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
 		}
 		this.setState({ isLoading: true });
 		this.props.dispatch({ type: 'home/search' });
-
 	}
 
 	onPraise = (t) => {
@@ -94,12 +90,10 @@ class Index extends React.Component {
 		this.setState({
 			list:null
 		});
-
 	}
 	
 
 	render() {
-
 		const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
@@ -113,13 +107,15 @@ class Index extends React.Component {
 		);
 
 		return (
-			<div className={styles.chatWrap}>
-				<SearchBar placeholder="搜索" 
+			<div>
+				<SearchBar 
+					style={{padding:0,margin:0,textIndent:3}}
+					placeholder="search" 
 					ref={ref => this.autoFocusInst = ref} 
 					onSubmit={this.onSearch.bind(this)}
 					onCancel={this.onCancel.bind(this)}
-					 />
-
+				/>
+				<div className={styles.chatWrap}>
 				<ListView
 					ref={el => this.lv = el}
 					dataSource={this.state.dataSource}
@@ -139,6 +135,8 @@ class Index extends React.Component {
 					onEndReachedThreshold={10}
 				/>
 			</div>
+			</div>
+			
 		)
 	}
 }
