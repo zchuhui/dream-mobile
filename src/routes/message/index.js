@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar, SearchBar, } from "antd-mobile";
+import { ListView, Icon, NavBar } from "antd-mobile";
 import styles from "./index.less";
+
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -15,34 +16,35 @@ class Index extends React.Component {
 
 		this.state = {
 			dataSource,
-			list: [],
-			isLoading: false,
+			msgList: [],
+			isLoading: true,
 			height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
 
 	componentDidMount() {
-		//this.props.dispatch({ type: 'home/fetch' });
-		this.autoFocusInst.focus();  // 自动获取光标 
+		this.props.dispatch({ type: 'home/getMsg' });
 	}
-	
 
 	componentWillReceiveProps(nextProps) {
+
 		const hei = document.documentElement.clientHeight;
-		if (this.props.searchLoading && this.state.list !== nextProps.searchList) {
+		if (this.state.msgList !== nextProps.msgList) {
+
 			this.setState({
-				list: [...this.state.list, ...nextProps.searchList],
+				msgList: [...this.state.msgList, ...nextProps.msgList],
 			})
 
 			setTimeout(() => {
 				this.setState({
-					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
+					dataSource: this.state.dataSource.cloneWithRows(this.state.msgList),
 					isLoading: false,
 					height: hei,
 				});
 			}, 500)
-		} 
+		}
 	}
+
 
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
@@ -52,48 +54,38 @@ class Index extends React.Component {
 					<img src={obj.img_url} />
 					<span className={styles.name}>{obj.username}</span>
 					<span className={styles.time}>{obj.time}</span>
+					<span className={styles.review}>评论我的梦境</span>
 				</div>
-				<div className={styles.itemContent}>
-					<Link to="/home/detail">
-						<div className={styles.title}>{obj.title}</div>
-						<div className={styles.des}>{obj.content}</div>
-					</Link>
+				<Link to="/home/detail">
+				<div className={styles.reviewContent}>
+					{obj.review_content}
 				</div>
-				<div className={styles.icons}>
-					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
-					<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
-				</div>
+				<div className={styles.reviewTarget}>
+					<div className={styles.rehead}>@{obj.review_target.username} &nbsp; &nbsp; {obj.review_target.time}</div>
+					<div className={styles.title}>{obj.review_target.title}</div>
+					<div className={styles.des}>{obj.review_target.detail}</div>
+				</div> 
+				</Link>
 			</div>
 
 		);
 	};
+
 
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
 		}
 		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'home/search' });
+		this.props.dispatch({ type: 'home/getMsg' });
 	}
 
 	onPraise = (t) => {
 		console.log(t);
 	}
-	
-	onSearch=(value)=>{
-		console.log(value);
-		// 搜索
-		this.props.dispatch({ type: 'home/search' });
-	}
-
-	onCancel=()=>{
-		this.setState({
-			list:null
-		});
-	}
-	
 
 	render() {
+
 		const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
@@ -107,20 +99,21 @@ class Index extends React.Component {
 		);
 
 		return (
-			<div>
-				<SearchBar 
-					style={{padding:0,margin:0,textIndent:3}}
-					placeholder="search" 
-					ref={ref => this.autoFocusInst = ref} 
-					onSubmit={this.onSearch.bind(this)}
-					onCancel={this.onCancel.bind(this)}
-				/>
-				<div className={styles.chatWrap}>
+			<div className={styles.chatWrap}>
+				<NavBar
+					mode="light"
+					icon={<div className={styles.logo}></div>}
+					onLeftClick={() => console.log('onLeftClick')}
+					rightContent={
+						<Link to="/fly"><div className={styles.fly}></div></Link>}
+					style={{ borderBottom: "1px solid #ECECED" }}
+				>iDream</NavBar>
+
 				<ListView
 					ref={el => this.lv = el}
 					dataSource={this.state.dataSource}
 					renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-						{this.state.isLoading ? <Icon type="loading" size='md' /> : ''}
+						{this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
 					</div>)}
 					renderRow={this.row}
 					renderSeparator={separator}
@@ -135,8 +128,6 @@ class Index extends React.Component {
 					onEndReachedThreshold={10}
 				/>
 			</div>
-			</div>
-			
 		)
 	}
 }

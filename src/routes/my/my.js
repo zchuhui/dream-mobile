@@ -53,13 +53,9 @@ class My extends React.Component {
                     <Link to="/my/setup"> 
                         <Item
                             arrow="horizontal"
-                            thumb={< img src = {
-                            SetupPng
-                        }
-                        alt = "" />}
                             multipleLine
                             onClick={() => {}}>
-                            消息设置
+                            设置
                         </Item>
                     </Link>
                 </List>
@@ -80,7 +76,6 @@ class My extends React.Component {
                     <Link to="/my/about">
                         <Item
                             arrow="horizontal"
-                            thumb={< img src = {PromptPng} alt = "" />}
                             multipleLine
                             onClick={() => {}}>
                             关于
@@ -88,7 +83,7 @@ class My extends React.Component {
                     </Link>
                 </List>
 
-                <List className={styles.listItem}>
+                {/* <List className={styles.listItem}>
                     <Item
                         style={{
                         marginTop: 10
@@ -101,7 +96,7 @@ class My extends React.Component {
                             color: "red"
                         }}>退出</div>
                     </Item>
-                </List>
+                </List> */}
             </div>
         )
     }

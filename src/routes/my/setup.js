@@ -56,7 +56,7 @@ class Setup extends React.Component {
                     borderBottom: "1px solid #ECECED"
                 }}>设置</NavBar>
 
-                <List renderHeader={() => '站内通知 (点击即可选择)'}>
+                <List renderHeader={() => '通知（选中后会自动保存）'}>
                     {data.map(i => (
                         <CheckboxItem key={i.value} onChange={() => this.onChange(i.value)}>
                             {i.label}
@@ -64,14 +64,28 @@ class Setup extends React.Component {
                     ))}
                 </List>
 
-                <Button
+                {/* <Button
                     onClick={this
                     .submit
                     .bind(this)}
                     type="primary"
                     style={{
                     margin: 20
-                }}>保存</Button>
+                }}>保存</Button> */}
+                <List className={styles.listItem}>
+                    <Item
+                        style={{
+                        marginTop: 10
+                    }}
+                        multipleLine
+                        onClick={() => {}}>
+                        <div
+                            style={{
+                            textAlign: 'center',
+                            color: "red"
+                        }}>退出账号</div>
+                    </Item>
+                </List>
             </div>
         )
     }
