@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "set PORT=3001&&roadhog server",
+    "start": "set PORT=3005&&roadhog server",
     "build": "roadhog build"
   },
   "engines": {

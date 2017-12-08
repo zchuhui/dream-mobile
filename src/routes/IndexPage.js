@@ -8,13 +8,14 @@ import My from "./my/my";
 import HomePage from "./home/index";
 import Search from "./search/index";
 import Fly from "./fly/index";
+import Message from "./message/index";
 
 class Home extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      selectedTab: "tab1"
+      selectedTab: "tab3",
     };
   }
 
@@ -39,6 +40,7 @@ class Home extends React.Component {
           onPress={this.onPress.bind(this,'tab1')}>
           <HomePage />
         </TabBar.Item>
+
         <TabBar.Item
           icon={< div className={styles.iconFriend} />}
           selectedIcon={< div className={styles.iconFriend2} />}
@@ -52,6 +54,7 @@ class Home extends React.Component {
           }
           
         </TabBar.Item>
+
         <TabBar.Item
           title="通知"
           key="Life"
@@ -61,20 +64,10 @@ class Home extends React.Component {
           badge={1}
           onPress={this.onPress.bind(this,'tab3')}
           data-seed="logId">
-          {/* <ChartList /> */}
-          <h2>这里是通知</h2>
+          {
+            this.state.selectedTab == "tab3" ? <Message /> : null
+          }
         </TabBar.Item>
-        {/* <TabBar.Item
-          icon={< div className={styles.iconFly} />}
-          selectedIcon={< div className={styles.iconFly2} />}
-          title=""
-          key="fly"
-          selected={this.state.selectedTab === "recordTab"}
-          onPress={() => {
-            this.setState({ selectedTab: "recordTab" });
-          }}>
-          <Fly /> 
-        </TabBar.Item> */}
         
         <TabBar.Item
           icon={<div className={styles.iconMy} />}

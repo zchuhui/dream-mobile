@@ -1,6 +1,6 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
-import { query,detail } from '../services/home.js';
+import { query, detail, getMsg } from '../services/home.js';
 
 export default modelExtend(model, {
 
@@ -35,6 +35,11 @@ export default modelExtend(model, {
 			yield put({ type: 'updateState', payload: { detailLoading: true } });
 			const { data } = yield call(detail, payload);
 			yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
+		},
+
+		*getMsg({ payload }, { call, put }) {
+			const { data } = yield call(getMsg, payload);
+			yield put({ type: 'updateState', payload: { msgList: data } });
 		},
 	},
 
