@@ -15,7 +15,7 @@ class Home extends React.Component {
     super(props, context);
 
     this.state = {
-      selectedTab: "tab3",
+      selectedTab: "tab1",
     };
   }
 
