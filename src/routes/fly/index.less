@@ -22,6 +22,39 @@ body {
     clear: both
 }
 
+
+
+@font-face {
+    font-family: 'iconfont';  /* project id 481348 */
+    src: url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.eot');
+    src: url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.woff') format('woff'),
+    url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.svg#iconfont') format('svg');
+  }
+
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:40px;
+    font-style:normal;
+    color:#999;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont_blue{
+    font-family:"iconfont" !important;
+    font-size:40px;
+    font-style:normal;
+    color:#108ee9;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
 .flyWrap {
     text-align: center;
     background:#fff;
@@ -44,12 +77,6 @@ body {
     }
     .flyBtn {
         margin: 20px 10px;
-        /* float: right; 
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 2px solid #108ee9;  
-        background: ~"url(../../assets/images/fly2.png) center center / 42px 42px no-repeat"; */
     }
     .icon {
         width: 22px;
@@ -57,11 +84,9 @@ body {
         background: ~"url(../../assets/images/fly_white.png) center center / 22px 22px no-repeat";
     }
     .faceWrap {
-        img {
-            width: 40px;
-            height: 40px;
-            margin: 5px 15px;
-            margin-top: 20px;
+        margin: 20px 0;
+        .iconfont,.iconfont_blue{
+            margin:20px;
         }
     }
 }

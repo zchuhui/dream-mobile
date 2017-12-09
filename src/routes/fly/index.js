@@ -21,7 +21,7 @@ class Fly extends React.Component {
     };
   }
 
-  onFace=(key)=>{
+  onChangeFace=(key)=>{
 
     this.setState({
       face1:1,
@@ -45,9 +45,12 @@ class Fly extends React.Component {
           style={{ borderBottom: "1px solid #eee" }}
         >iDream</NavBar>
         <div className={styles.faceWrap}>
-          <img src={this.state.face1?Face2:Face_2} alt="" onClick={this.onFace.bind(this,'face1')}/>
+          <i className={this.state.face1?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face1')}>&#xe609;</i>
+          <i className={this.state.face2?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face2')}>&#xe791;</i>
+          <i className={this.state.face3?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face3')}>&#xe608;</i>
+          {/* <img src={this.state.face1?Face2:Face_2} alt="" onClick={this.onFace.bind(this,'face1')}/>
           <img src={this.state.face2?Face1:Face_1} alt="" onClick={this.onFace.bind(this,'face2')}/>
-          <img src={this.state.face3?Face3:Face_3} alt="" onClick={this.onFace.bind(this,'face3')}/>
+          <img src={this.state.face3?Face3:Face_3} alt="" onClick={this.onFace.bind(this,'face3')}/> */}
         </div>
         <TextareaItem
           placeholder="梦境标题"
