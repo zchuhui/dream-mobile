@@ -3,12 +3,6 @@ import { connect } from "dva";
 import { List, TextareaItem, NavBar,Icon,Button} from "antd-mobile";
 import styles from "./index.less";
 import { createForm } from 'rc-form';  
-import Face1 from './face1.png';
-import Face2 from './face2.png';
-import Face3 from './face3.png';
-import Face_1 from './face1_1.png';
-import Face_2 from './face2-1.png';
-import Face_3 from './face3_1.png';
 
 class Fly extends React.Component {
   constructor(props, context) {
@@ -48,9 +42,6 @@ class Fly extends React.Component {
           <i className={this.state.face1?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face1')}>&#xe609;</i>
           <i className={this.state.face2?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face2')}>&#xe791;</i>
           <i className={this.state.face3?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face3')}>&#xe608;</i>
-          {/* <img src={this.state.face1?Face2:Face_2} alt="" onClick={this.onFace.bind(this,'face1')}/>
-          <img src={this.state.face2?Face1:Face_1} alt="" onClick={this.onFace.bind(this,'face2')}/>
-          <img src={this.state.face3?Face3:Face_3} alt="" onClick={this.onFace.bind(this,'face3')}/> */}
         </div>
         <TextareaItem
           placeholder="梦境标题"
