@@ -167,7 +167,6 @@ class Userinfo extends React.Component {
                                 // justifyContent: 'center',
                                 // backgroundColor: '#fff'
                             }}>
-                                
                                 <ListView
                                     ref={el => this.lv = el}
                                     dataSource={this.state.dataSource}

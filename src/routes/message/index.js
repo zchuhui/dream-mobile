@@ -1,9 +1,32 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar } from "antd-mobile";
+import { ListView, Icon, NavBar,Tabs } from "antd-mobile";
+import {StickyContainer, Sticky} from 'react-sticky';
 import styles from "./index.less";
 
+// Tabs
+function renderTabBar(props) {
+    return (
+        <Sticky>
+            {({style}) => <div
+                style={{
+                ...style,
+                zIndex: 1
+            }}><Tabs.DefaultTabBar {...props}/></div>}
+        </Sticky>
+    );
+}
+const tabs = [
+    {
+        title: <div className={styles.iconReview}>评论</div>
+	},  
+	// {
+    //     title: '点赞'
+    // }, {
+    //     title: '@艾特'
+    // } 
+];
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -27,7 +50,6 @@ class Index extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-
 		const hei = document.documentElement.clientHeight;
 		if (this.state.msgList !== nextProps.msgList) {
 
@@ -54,7 +76,7 @@ class Index extends React.Component {
 					<img src={obj.img_url} />
 					<span className={styles.name}>{obj.username}</span>
 					<span className={styles.time}>{obj.time}</span>
-					<span className={styles.review}>评论我的梦境</span>
+					<span className={styles.review}></span>
 				</div>
 				<Link to="/home/detail">
 				<div className={styles.reviewContent}>
@@ -71,7 +93,6 @@ class Index extends React.Component {
 		);
 	};
 
-
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
@@ -85,7 +106,6 @@ class Index extends React.Component {
 	}
 
 	render() {
-
 		const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
@@ -108,25 +128,30 @@ class Index extends React.Component {
 						<Link to="/fly"><div className={styles.fly}></div></Link>}
 					style={{ borderBottom: "1px solid #ECECED" }}
 				>iDream</NavBar>
-
-				<ListView
-					ref={el => this.lv = el}
-					dataSource={this.state.dataSource}
-					renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-						{this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
-					</div>)}
-					renderRow={this.row}
-					renderSeparator={separator}
-					style={{
-						height: this.state.height,
-						overflow: 'auto',
-					}}
-					pageSize={4}
-					onScroll={() => { console.log('scroll'); }}
-					scrollRenderAheadDistance={500}
-					onEndReached={this.onEndReached}
-					onEndReachedThreshold={10}
-				/>
+				 <StickyContainer>
+                    <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
+						<ListView
+							ref={el => this.lv = el}
+							dataSource={this.state.dataSource}
+							renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+								{this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
+							</div>)}
+							renderRow={this.row}
+							renderSeparator={separator}
+							style={{
+								height: this.state.height,
+								overflow: 'auto',
+							}}
+							pageSize={4}
+							onScroll={() => { console.log('scroll'); }}
+							scrollRenderAheadDistance={500}
+							onEndReached={this.onEndReached}
+							onEndReachedThreshold={10}
+						/>
+						<div>点赞</div>
+						<div>艾特</div>
+					</Tabs>
+				</StickyContainer>
 			</div>
 		)
 	}
