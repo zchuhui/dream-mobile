@@ -75,18 +75,28 @@ class Register extends React.Component {
     const password = document.getElementById("password").value;
     const password2 = document.getElementById("password2").value;
 
+    const reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+
     if (username == "") {
       Toast.info("请输入用户名", 1);
     } 
     else if (email == "") {
       Toast.info("请输入邮箱", 1);
-    } 
+    }
+    else if(!reg.test(email)){
+      Toast.info("邮箱格式不正确", 1);
+    }
     else if (password == "") {
       Toast.info("请输入密码", 1);
-    } else if (password2 == "") {
+    } 
+    else if (password2 == "") {
       Toast.info("请确认密码", 1);
-    } else if (password2 !== password) {
-      Toast.info("密码不一致", 1);
+    }  
+    else if (password2.length <6 || password.length <6) {
+      Toast.info("密码必须大于6位数", 1);
+    }
+    else if (password2 !== password) {
+      Toast.info("密码不一致！", 1);
     } else {
       this.props.dispatch({
         'type': 'user/register', 
@@ -97,13 +107,6 @@ class Register extends React.Component {
           'repassword':password2
         }
       });
-
-      /*  setTimeout(()=>{
-         Toast.info("注册成功！", 1);
-          setTimeout(()=>{
-            hashHistory.push('/login');
-          },1000)
-       },2000); */
     }
   }
 }

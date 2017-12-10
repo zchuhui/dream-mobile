@@ -45,7 +45,7 @@ function handelData (res) {
   const data = res.data
   if (data && data.msg && parseInt(data.code) !== 200) {
 
-    Toast.info(data.msg)
+    Toast.fail(data.msg,2)
 
     if(data.code == 401){
       /* Storage.remove('username');
@@ -63,11 +63,11 @@ function handleError (error) {
   const data = error.response.data
 
   if (data.errors) {
-    Toast.info(`${data.message}：${data.errors}`, 5)
+    Toast.fail(`${data.message}：${data.errors}`, 5)
   } else if (data.error) {
-    Toast.info(`${data.error}：${data.error_description}`, 5)
+    Toast.fail(`${data.error}：${data.error_description}`, 5)
   } else {
-    Toast.info('未知错误！', 5)
+    Toast.fail('未知错误！', 5)
   }
   return { success: false }
 }

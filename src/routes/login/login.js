@@ -46,7 +46,7 @@ class Login extends React.Component {
 
         <Link to="/forget" className={styles.forgetPwd}><span>忘记密码 ?</span></Link>
 
-        <Link to="/register"><Button type="ghost"  className={styles.registerBtn}><span>注册账号</span></Button></Link>
+        <Link to="/register"><Button type="ghost" className={styles.registerBtn}><span>注册账号</span></Button></Link>
         
       </div>
     )
@@ -63,8 +63,8 @@ class Login extends React.Component {
     } else if (password == "") {
       Toast.info("请输入密码", 1);
     } else {
+      //开始登陆
       this.props.dispatch({'type':'user/login','payload':{'name':username,'password':password}});
-      //hashHistory.push('/');
     }
   }
 

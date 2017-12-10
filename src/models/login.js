@@ -22,18 +22,22 @@ export default modelExtend(model, {
     * login({ payload }, { call, put }) {
       const { code, data, msg } = yield call(login, payload);
       if (code == 200) {
+        Toast.success('登录成功！',1)
+        setTimeout(()=>{
+          hashHistory.push('/');
+        },1000)
         
-        //Storage.get('token',)
-        hashHistory.push('/');
         //yield put({ type: 'updateState', payload: { data: data } });
       }
     },
     * register({ payload }, { call, put }) {
+      Toast.loading('注册中...')
       const { code, data, msg } = yield call(register, payload);
       if (code == 200) {
-        Toast.info('注册成功！')
-        hashHistory.push('/login');
-        //yield put({ type: 'updateState', payload: { data: data } });
+        Toast.success('注册成功！',1)
+        setTimeout(()=>{
+          hashHistory.push('/login');
+        },1000)
       }
     },
     * resetPassword({ payload }, { call, put }) {
