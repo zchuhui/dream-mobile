@@ -2,7 +2,7 @@ import axios from 'axios';
 import { routerRedux } from "dva/router";
 import { Toast } from 'antd-mobile'
 import { stringify } from 'qs'
-/* import Storage from './storage'; */
+import Storage from './storage';
 /* import Cookie from './cookie' */
 
 
@@ -31,7 +31,6 @@ const fetch = (url, options) => {
 }
 
 function checkStatus (res) {
-  //console.log(res)
   if (res.status >= 200 && res.status < 300) {
     return res
   }
@@ -41,20 +40,20 @@ function checkStatus (res) {
   throw error
 }
 
-function handelData (res) {
+function handleData (res) {
+  
   const data = res.data
   if (data && data.msg && parseInt(data.code) !== 200) {
 
     Toast.fail(data.msg,2)
 
     if(data.code == 401){
-      /* Storage.remove('username');
-      window.location.href = '/login' */
-      
+      window.location.href = '/login';
     }
   }
   else if(data && data.msg && data.code == 200) {
-	  //message.success(data.msg)
+    // 存储token
+	  saveToken(data.msg,data.token,data.userInfo);
   }
   return { ...data }
 }
@@ -72,23 +71,36 @@ function handleError (error) {
   return { success: false }
 }
 
-export default function request (url, options) {
-  /* if (url !== '/oauth/token' && url !== '/admin/check') {
-    url = `${url}?token=${Storage.get('token')}`
+
+function saveToken(msg,token,userInfo){ 
+  const day_30 = 60 * 24 * 30;  // 计算存储天数，单位是分钟，共30天
+  if(msg === "登录成功"){
+    Storage.set('token',token,day_30);
+    Storage.set('uname',userInfo.uname,day_30);
   }
- */
+}
+
+
+
+export default function request (url, options) {
 
   return fetch(url, options)
     .then(checkStatus)
-    .then(handelData)
+    .then(handleData)
     .catch(handleError)
 }
 
 export function get (url, options) {
+  if(Storage.get('token')){
+    options.token = Storage.get('token');
+  }
   return request(url, { ...options, method: 'get' })
 }
 
 export function post (url, options) {
+  if(Storage.get('token')){
+    options.token = Storage.get('token');
+  }
   return request(url, { ...options, method: 'post' })
 }
 

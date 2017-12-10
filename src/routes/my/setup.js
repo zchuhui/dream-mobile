@@ -78,7 +78,7 @@ class Setup extends React.Component {
                         marginTop: 10
                     }}
                         multipleLine
-                        onClick={() => {}}>
+                        onClick={() => {this.props.dispatch({type:'my/logout'})}}>
                         <div
                             style={{
                             textAlign: 'center',
@@ -86,9 +86,10 @@ class Setup extends React.Component {
                         }}>退出账号</div>
                     </Item>
                 </List>
-            </div>
+            </div> 
         )
     }
+    
 
     submit = () => {
         
@@ -116,6 +117,10 @@ class Setup extends React.Component {
         }
 
         console.log(this.state.setup);
+    }
+
+    logout(){
+
     }
 }
 

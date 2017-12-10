@@ -14,10 +14,13 @@ export default modelExtend(model, {
 
   subscriptions: {
     setup({ dispatch, history }) {
-      //dispatch({ type: 'login', payload: { name: 'admin', password: '123456' } });
+       // 已登录，跳到首页
+       if(Storage.get('token')){
+        hashHistory.push('/');
+       }
     },
   },
-
+  
   effects: {
     * login({ payload }, { call, put }) {
       const { code, data, msg } = yield call(login, payload);
@@ -26,7 +29,6 @@ export default modelExtend(model, {
         setTimeout(()=>{
           hashHistory.push('/');
         },1000)
-        
         //yield put({ type: 'updateState', payload: { data: data } });
       }
     },

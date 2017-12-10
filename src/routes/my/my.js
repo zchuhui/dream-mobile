@@ -91,7 +91,7 @@ class My extends React.Component {
                         multipleLine
                         onClick={() => {}}>
                         <div
-                            style={{
+                            style={{ 
                             textAlign: 'center',
                             color: "red"
                         }}>退出</div>
