@@ -60,7 +60,6 @@ function handleData (res) {
 
 function handleError (error) {
   const data = error.response.data
-
   if (data.errors) {
     Toast.fail(`${data.message}：${data.errors}`, 5)
   } else if (data.error) {
@@ -92,14 +91,14 @@ export default function request (url, options) {
 
 export function get (url, options) {
   if(Storage.get('token')){
-    options.token = Storage.get('token');
-  }
+    options.data.token = Storage.get('token');
+  } 
   return request(url, { ...options, method: 'get' })
 }
 
-export function post (url, options) {
+export function post (url, options) { debugger
   if(Storage.get('token')){
-    options.token = Storage.get('token');
+    options.data.token = Storage.get('token');
   }
   return request(url, { ...options, method: 'post' })
 }

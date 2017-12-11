@@ -81,9 +81,8 @@ class Index extends React.Component {
 	}
 	
 	onSearch=(value)=>{
-		console.log(value);
 		// 搜索
-		this.props.dispatch({ type: 'home/search' });
+		this.props.dispatch({ type: 'home/search',payload:{'keyword':value,page:1} });
 	}
 
 	onCancel=()=>{

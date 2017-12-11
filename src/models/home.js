@@ -1,6 +1,8 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
-import { query, detail, getMsg } from '../services/home.js';
+import { hashHistory } from 'react-router';
+import {Toast} from "antd-mobile";
+import { query, detail, getMsg, publish, getDreamList,search } from '../services/home.js';
 
 export default modelExtend(model, {
 
@@ -17,22 +19,28 @@ export default modelExtend(model, {
 	},
 
 	effects: {
-		/* *getDreamList({ payload }, { call, put }) {
+		// 梦境列表
+		*getDreamList({ payload }, { call, put }) {
 			const { data } = yield call(getDreamList, payload);
 			yield put({ type: 'updateState', payload: { list: data.data} });
-		}, */
-
+		},
+		
+		// 测试数据
 		*fetch({ payload }, { call, put }) {
 			const { data } = yield call(query, payload); 
 			yield put({ type: 'updateState', payload: { list: data } }); 
 		},
 
+		// 搜索
 		*search({ payload }, { call, put }) {
-			yield put({ type: 'updateState', payload: { 'searchLoading': true,'searchList':null} });
+			yield put({ type: 'updateState', payload: { 'searchLoading': false,'searchList':null} });
 
-			const { data } = yield call(query, payload);
-			yield put({ type: 'updateState', payload: { 'searchList': data } });
-			yield put({ type: 'updateState', payload: { 'searchLoading': false } });
+			const { data,code,msg } = yield call(search, payload); 
+			if(code==200){ debugger 
+				yield put({ type: 'updateState', payload: { 'searchList': data } });
+				yield put({ type: 'updateState', payload: { 'searchLoading': true } });
+			}
+			
 			
 		},
 
@@ -46,6 +54,19 @@ export default modelExtend(model, {
 			const { data } = yield call(getMsg, payload);
 			yield put({ type: 'updateState', payload: { msgList: data } });
 		},
+		
+		*publishDream({ payload }, { call, put }) { 
+			Toast.loading("发送中...");
+			const { data,code,msg } = yield call(publish, payload);
+			if(code == 200){ 
+				Toast.success("发送成功!");
+				setTimeout(()=>{
+					hashHistory.push('/');
+				},1000);
+			}
+		},
+
+		
 	},
 
 	reducers: {

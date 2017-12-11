@@ -14,6 +14,7 @@ module.exports = {
         list: `${devApi}/feed/view`,
         search:`${devApi}/feed/search`,
         publish:`${devApi}/feed/publish`,
+        
         //detail: `${devApi}/feed/view`,
     },
     message:{

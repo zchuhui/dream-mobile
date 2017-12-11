@@ -21,10 +21,10 @@ class Index extends React.Component {
 			height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
-
+	
 	componentDidMount() {
-		this.props.dispatch({ type: 'home/fetch'}); 
-		//this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
+		//this.props.dispatch({ type: 'home/fetch'}); 
+		this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
 	}
 
 	componentWillReceiveProps(nextProps) {
