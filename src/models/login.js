@@ -13,12 +13,12 @@ export default modelExtend(model, {
   state: {},
 
   subscriptions: {
-    setup({ dispatch, history }) {
+    setup({ dispatch, history }) { 
        // 已登录，跳到首页
-       if(Storage.get('token')){
-        hashHistory.push('/');
-       }
-    },
+      //  if(Storage.get('token')){
+      //   hashHistory.push('/');
+      //  }
+    }, 
   },
   
   effects: {

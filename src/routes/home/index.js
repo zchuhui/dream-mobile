@@ -45,31 +45,34 @@ class Index extends React.Component {
 		}
 	}
 
-
-	/* row = (rowData, sectionID, rowID) => {
+	
+	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
-					<img src={obj.avatar == "" ? FlyPng : obj.avatar} />
+					<img src={obj.avatar? obj.avatar:'http://www.iconpng.com/png/32-soft-media-icons/picture.png'}  />
 					<span className={styles.name}>{obj.uname}</span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>
 				<div className={styles.itemContent}>
-					<Link to="/home/detail">
+					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
 						<div className={styles.title}>{obj.title}</div>
-						<div className={styles.des}>{obj.testpublish}</div>
+						<div className={styles.des}>{obj.content}</div>
 					</Link>
 				</div>
 				<div className={styles.icons}>
-					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.digg_count}</label></span>
-					<span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
+					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
+						<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.digg_count}</label></span>
+						<span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
+					</Link>
 				</div>
 			</div>
 
 		);
-	}; */
-	row = (rowData, sectionID, rowID) => {
+	}; 
+	
+	/* row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
@@ -85,13 +88,15 @@ class Index extends React.Component {
 					</Link>
 				</div>
 				<div className={styles.icons}>
-					<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
-					<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
+					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
+						<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
+						<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
+					</Link>
 				</div>
 			</div>
 
 		);
-	};
+	};*/
 
 
 	onEndReached = (event) => {

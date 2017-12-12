@@ -2,7 +2,7 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import {Toast} from "antd-mobile";
-import { query, detail, getMsg, publish, getDreamList,search,getDreamDetail } from '../services/home.js';
+import { query, detail, getMsg, publish, getDreamList,search,getDreamDetail,updatedigg,review} from '../services/home.js';
 
 export default modelExtend(model, {
 
@@ -44,14 +44,38 @@ export default modelExtend(model, {
 			}
 		},
 
+		// 梦境详情
 		*getDetail({ payload }, { call, put }) {
-			yield put({ type: 'updateState', payload: { detailLoading: true } });
+			yield put({ type: 'updateState', payload: { detailLoading: false } });
 			//const { data } = yield call(detail, payload);
 			const { data,code } = yield call(getDreamDetail, payload);
+			console.log('detail:',data);
 			if(code == 200){
 				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
 			}
+		},
+
+		// 点赞
+		*updatedigg({ payload }, { call, put }) {
+			const { data,code } = yield call(updatedigg, payload);
+			if(code == 200){
+				const { data,code } = yield call(getDreamDetail, payload);
+				if(code == 200){
+					yield put({ type: 'updateState', payload: { detail: data } });
+				}
+			}
+		},
+		// 评论
+		*review({ payload }, { call, put }) {
+			const { data,code } = yield call(review, payload);
 			
+			if(code == 200){
+				Toast.info("评论成功");
+				const { data,code } = yield call(getDreamDetail, payload);
+				if(code == 200){
+					yield put({ type: 'updateState', payload: { detail: data } });
+				}
+			}
 		},
 
 		*getMsg({ payload }, { call, put }) {

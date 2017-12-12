@@ -43,3 +43,17 @@ export async function search(params) {
 export async function publish(params) {
   return post(dream.publish, {data: params});
 }
+
+/**
+ * 点赞
+ */
+export async function updatedigg(params) {
+  return post(dream.digg, {data: params});
+}
+
+/**
+ * 评论
+ */
+export async function review(params) {
+  return post(dream.review, {data: params});
+}

@@ -48,7 +48,7 @@ function handleData (res) {
     Toast.fail(data.msg,2)
 
     if(data.code == 401){
-      window.location.href = '/login';
+      //window.location.href = '/login';
     }
   }
   else if(data && data.msg && data.code == 200) {
