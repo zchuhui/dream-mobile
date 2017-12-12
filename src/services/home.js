@@ -16,13 +16,22 @@ export async function getMsg() {
 
 
 /**
- * 首页梦境列表
+ * 梦境列表
  */
 export async function getDreamList(params) {
   return post(dream.list, {data: params});
 }
 
+/**
+ * 梦境详情
+ */
+export async function getDreamDetail(params) {
+  return post(dream.detail, { data: params });
+}
 
+/**
+ * 搜索
+ */
 export async function search(params) {
   return post(dream.search, {data: params});
 }

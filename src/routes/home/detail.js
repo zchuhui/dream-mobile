@@ -17,7 +17,10 @@ class Detail extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch({ type: 'home/getDetail' });
+        const feed_id = this.props.location.state;
+        if (feed_id){
+            this.props.dispatch({ type: 'home/getDetail',payload:{feed_id:feed_id,page:1} });
+        }
     }
 
     componentDidMount() {
@@ -72,34 +75,33 @@ class Detail extends React.Component {
                 >梦境</NavBar>
                 {
                     this.props.detail && !this.props.detailLoading ?
-
                         <div>
                             <div className={styles.item}>
                                 <div className={styles.head}>
-                                    <img src={this.props.detail.img_url} />
-                                    <span className={styles.name}>{this.props.detail.username}</span>
-                                    <span className={styles.time}>{this.props.detail.time}</span>
+                                    <img src={this.props.detail.info.avatar } />
+                                    <span className={styles.name}>{this.props.detail.info.uname}</span>
+                                    <span className={styles.time}>{this.props.detail.info.publish_time}</span>
                                 </div>
                                 <div className={styles.itemContent}>
-                                    <div className={styles.title}>{this.props.detail.title}</div>
-                                    <div className={styles.des}>{this.props.detail.content}</div>
+                                    <div className={styles.title}>{this.props.detail.info.title}</div>
+                                    <div className={styles.des}>{this.props.detail.info.content}</div>
                                 </div>
                                 <div className={styles.icons}>
-                                    <span className={styles.praise} onClick={() => { }}><i></i><label>{this.props.detail.praiseCount}</label></span>
-                                    <span className={styles.review}><i></i><label>{this.props.detail.reviewCount}</label></span>
+                                    <span className={styles.praise} onClick={() => { }}><i></i><label>{this.props.detail.info.digg_count}</label></span>
+                                    <span className={styles.review}><i></i><label>{this.props.detail.info.comment_count}</label></span>
                                 </div>
                             </div>
                             <div className={styles.reviewList}>
                                 {
-                                    this.props.detail.reviewList.map((item, index) => (
+                                    this.props.detail.review.map((item, index) => (
                                         <div className={styles.reviewItem} key={index}>
                                             <div className={styles.head}>
-                                                <img src={item.img_url} />
-                                                <span className={styles.name}>{item.username}</span>
+                                                <img src={item.avatar} />
+                                                <span className={styles.name}>{item.uname}</span>
                                             </div>
-                                            <div className={styles.itemContent} onClick={this.showModal("modal1", item.username)}>
-                                                <div className={styles.des}>{item.reviewContent}</div>
-                                                <span className={styles.time}>{item.time}</span>
+                                            <div className={styles.itemContent} onClick={this.showModal("modal1", item.uname)}>
+                                                <div className={styles.des}>{item.content}</div>
+                                                <span className={styles.time}>{item.ctime}</span>
                                             </div>
                                         </div>
                                     ))

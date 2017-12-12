@@ -79,7 +79,7 @@ class Index extends React.Component {
 					<span className={styles.time}>{obj.time}</span>
 				</div>
 				<div className={styles.itemContent}>
-					<Link to="/home/detail">
+					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
 						<div className={styles.title}>{obj.title}</div>
 						<div className={styles.des}>{obj.content}</div>
 					</Link>

@@ -96,7 +96,7 @@ export function get (url, options) {
   return request(url, { ...options, method: 'get' })
 }
 
-export function post (url, options) { debugger
+export function post (url, options) {  
   if(Storage.get('token')){
     options.data.token = Storage.get('token');
   }

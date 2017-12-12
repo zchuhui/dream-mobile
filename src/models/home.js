@@ -2,7 +2,7 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import {Toast} from "antd-mobile";
-import { query, detail, getMsg, publish, getDreamList,search } from '../services/home.js';
+import { query, detail, getMsg, publish, getDreamList,search,getDreamDetail } from '../services/home.js';
 
 export default modelExtend(model, {
 
@@ -21,8 +21,10 @@ export default modelExtend(model, {
 	effects: {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
-			const { data } = yield call(getDreamList, payload);
-			yield put({ type: 'updateState', payload: { list: data.data} });
+			const { data,code } = yield call(getDreamList, payload); 
+			if(code==200){
+				yield put({ type: 'updateState', payload: { list: data.data} });
+			}
 		},
 		
 		// 测试数据
@@ -36,18 +38,20 @@ export default modelExtend(model, {
 			yield put({ type: 'updateState', payload: { 'searchLoading': false,'searchList':null} });
 
 			const { data,code,msg } = yield call(search, payload); 
-			if(code==200){ debugger 
+			if(code==200){  
 				yield put({ type: 'updateState', payload: { 'searchList': data } });
 				yield put({ type: 'updateState', payload: { 'searchLoading': true } });
 			}
-			
-			
 		},
 
 		*getDetail({ payload }, { call, put }) {
 			yield put({ type: 'updateState', payload: { detailLoading: true } });
-			const { data } = yield call(detail, payload);
-			yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
+			//const { data } = yield call(detail, payload);
+			const { data,code } = yield call(getDreamDetail, payload);
+			if(code == 200){
+				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
+			}
+			
 		},
 
 		*getMsg({ payload }, { call, put }) {
