@@ -98,7 +98,7 @@ class My extends React.Component {
                     </Item>
                 </List> */}
             </div>
-        )
+        ) 
     }
 
 }

@@ -58,39 +58,38 @@ ol {
                 padding: 0 20px;
                 font-size: 14px;
                 text-indent: 10px;
-
-                i{
+                i {
                     display: inline-block;
-                    height:30px;
-                    width:30px;
+                    height: 30px;
+                    width: 30px;
                     vertical-align: top;
-                    background-color:#eee;
-                    margin-right:10px;  
+                    background-color: #eee;
+                    margin-right: 10px;
                     background: ~"url(./address.png) center center / 20px 20px no-repeat";
                 }
-                i.iconSex{
+                i.iconSex {
                     background: ~"url(./sex.png) center center / 20px 20px no-repeat";
                 }
-                i.iconAddress{
+                i.iconAddress {
                     background: ~"url(./address.png) center center / 20px 20px no-repeat";
                 }
-                i.iconProfession{
+                i.iconProfession {
                     background: ~"url(./profession.png) center center / 20px 20px no-repeat";
                 }
-                i.iconCount{ 
+                i.iconCount {
                     background: ~"url(./shalou.png) center center / 20px 20px no-repeat";
                 }
             }
         }
         .opinion {
-            span{
+            span {
                 display: block;
-                width:80px;
-                color:#333;
+                width: 80px;
+                color: #333;
                 text-align: center;
-                padding:3px;
-                background:rgb(239, 245, 253);
-                border-radius:5px;
+                padding: 3px;
+                background: rgb(239, 245, 253);
+                border-radius: 5px;
                 margin-bottom: 5px;
             }
             padding: 0 40px;
@@ -100,8 +99,7 @@ ol {
     }
     .dreamWrap {
         border-top: 10px solid #F5F5F9;
-
-        .item {
+        /* .item {
             display: block; 
             text-align: left;
             padding: 15px 10px;
@@ -186,18 +184,103 @@ ol {
                     }
                 }
             }
+        } */
+        .item {
+            text-align: left;
+            padding: 15px 10px;
+            line-height: 30px;
+            margin-top: -1px;
+            .head {
+                img {
+                    float: left;
+                    width: 40px;
+                    height: 40px;
+                    border: 1px solid #ddd;
+                    border-radius: 50%;
+                }
+                .name {
+                    display: block;
+                    line-height: 20px;
+                    margin-left: 10px;
+                    text-indent: 10px;
+                }
+                .time {
+                    display: block;
+                    text-indent: 10px;
+                    color: #999;
+                }
+            }
+            .itemContent {
+                display: block;
+                margin-left: 50px;
+                .title {
+                    font-size: 16px;
+                    color: #333;
+                    font-weight: bold;
+                    margin: 3px 0;
+                }
+                .des {
+                    line-height: 20px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                    color: #999;
+                }
+            }
+            .icons {
+                height: 40px;
+                border-top: 1px solid #eee;
+                margin: 10px -10px -15px -10px;
+                margin-bottom: -15px;
+                line-height: 40px;
+                color: #bfbfbf;
+                text-align: center;
+                span {
+                    position: relative;
+                    float: right;
+                    display: block;
+                    width: 33%;
+                    height: 40px;
+                    i {
+                        display: inline-block;
+                        width: 30px;
+                        height: 40px;
+                        vertical-align: top;
+                    }
+                    label {
+                        display: inline-block;
+                        height: 40px;
+                        min-width: 40px;
+                        vertical-align: top;
+                        text-align: left;
+                        color: #bfbfbf;
+                    }
+                }
+                .review {
+                    i {
+                        background: ~"url(../../assets/images/message.png) center center / 22px 22px no-repeat";
+                        background-position-y: 8px;
+                    }
+                }
+                .praise {
+                    i {
+                        background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat";
+                        background-position-y: 8px;
+                    }
+                }
+            }
         }
     }
-
-    .setup{
+    .setup {
         position: absolute;
-        right:20px;
-        top:60px;
+        right: 20px;
+        top: 60px;
         display: block;
         width: 25px;
         height: 25px;
         background: ~"url(./setup.png) center center / 25px 25px no-repeat";
-    } 
+    }
     .logo {
         width: 30px;
         height: 30px;

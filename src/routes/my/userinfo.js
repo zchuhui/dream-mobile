@@ -1,20 +1,24 @@
 import React from "react";
-import {connect} from "dva";
-import {Link} from 'dva/router';
-import {hashHistory} from 'react-router';
-import {List, NavBar, Tabs, Icon,ListView} from "antd-mobile";
-import {StickyContainer, Sticky} from 'react-sticky';
+import { connect } from "dva";
+import { Link } from 'dva/router';
+import { hashHistory } from 'react-router';
+import { List, NavBar, Tabs, Icon, ListView } from "antd-mobile";
+import { StickyContainer, Sticky } from 'react-sticky';
+import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
+import Util from "../../utils/util";
+
+const UID = Storage.get('uid');
 
 // Tabs
 function renderTabBar(props) {
     return (
         <Sticky>
-            {({style}) => <div
+            {({ style }) => <div
                 style={{
-                ...style,
-                zIndex: 1
-            }}><Tabs.DefaultTabBar {...props}/></div>}
+                    ...style,
+                    zIndex: 1
+                }}><Tabs.DefaultTabBar {...props} /></div>}
         </Sticky>
     );
 }
@@ -36,24 +40,24 @@ class Userinfo extends React.Component {
         super(props, context);
 
         const dataSource = new ListView.DataSource({
-			rowHasChanged: (row1, row2) => row1 !== row2,
-			sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-		});
+            rowHasChanged: (row1, row2) => row1 !== row2,
+            sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+        });
 
-		this.state = {
-			dataSource,
-			list: [],
-			isLoading: true,
-			height: document.documentElement.clientHeight * 3 / 4,
+        this.state = {
+            dataSource,
+            list: [],
+            isLoading: true,
+            height: document.documentElement.clientHeight * 3 / 4,
         };
-        
+
     }
 
     componentDidMount() {
-		this.props.dispatch({ type: 'home/fetch' });
-	}
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID,page:1} });
+    }
 
-	componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
 
 		const hei = document.documentElement.clientHeight;
 		if (this.state.list !== nextProps.list) {
@@ -71,90 +75,117 @@ class Userinfo extends React.Component {
 			}, 500)
 		}
     }
-    
+
+    /* row = (rowData, sectionID, rowID) => {
+        const obj = rowData;
+        return (
+            <div className={styles.item}>
+                <div className={styles.head}>
+                    <img src={obj.img_url} />
+                    <span className={styles.name}>{obj.username}</span>
+                    <span className={styles.time}>{obj.time}</span>
+                </div>
+                <div className={styles.itemContent}>
+                    <Link to="/home/detail">
+                        <div className={styles.title}>{obj.title}</div>
+                        <div className={styles.des}>{obj.content}</div>
+                    </Link>
+                </div>
+                <div className={styles.icons}>
+                    <span className={styles.praise}><i></i><label>{obj.praiseCount}</label></span>
+                    <span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
+                </div>
+            </div>
+
+        );
+    }; */
+
     row = (rowData, sectionID, rowID) => {
-		const obj = rowData;
-		return (
-			<div className={styles.item}>
-				<div className={styles.head}>
-					<img src={obj.img_url} />
-					<span className={styles.name}>{obj.username}</span>
-					<span className={styles.time}>{obj.time}</span>
-				</div>
-				<div className={styles.itemContent}>
-					<Link to="/home/detail">
-						<div className={styles.title}>{obj.title}</div>
-						<div className={styles.des}>{obj.content}</div>
-					</Link>
-				</div>
-				<div className={styles.icons}>
-					<span className={styles.praise}><i></i><label>{obj.praiseCount}</label></span>
-					<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
-				</div>
-			</div>
+        const obj = rowData;
+        return (
+            <div className={styles.item}>
+                <div className={styles.head}>
+                    <img src={obj.avatar ? obj.avatar : Util.defaultImg} />
+                    <span className={styles.name}>{obj.uname}</span>
+                    <span className={styles.time}>{obj.publish_time}</span>
+                </div>
+                <div className={styles.itemContent}>
+                    <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                        <div className={styles.title}>{obj.title}</div>
+                        <div className={styles.des}>{obj.content}</div>
+                    </Link>
+                </div>
+                <div className={styles.icons}>
+                    <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                        <span className={styles.praise} ><i></i><label>{obj.digg_count}</label></span>
+                        <span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
+                    </Link>
+                </div>
+            </div>
 
-		);
-	};
+        );
+    }; 
 
-
-	onEndReached = (event) => {
-		if (this.state.isLoading && !this.state.hasMore) {
-			return;
-		}
-		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'home/fetch' });
-	}
-
+    onEndReached = (event) => {
+        if (this.state.isLoading && !this.state.hasMore) {
+            return;
+        }
+        this.setState({ isLoading: true });
+        //this.props.dispatch({ type: 'home/fetch' });
+    }
 
     render() {
         const separator = (sectionID, rowID) => (
-			<div
-				key={`${sectionID}-${rowID}`}
-				style={{
-					backgroundColor: '#F5F5F9',
-					height: 7,
-					borderTop: '1px solid #ECECED',
-					borderBottom: '1px solid #ECECED',
-				}}
-			/>
+            <div
+                key={`${sectionID}-${rowID}`}
+                style={{
+                    backgroundColor: '#F5F5F9',
+                    height: 7,
+                    borderTop: '1px solid #ECECED',
+                    borderBottom: '1px solid #ECECED',
+                }}
+            />
         );
-        
+
 
         return (
             <div className={styles.userinfoWrap}>
                 <NavBar
                     mode="light"
-                    icon={< Icon type = "left" />}
+                    icon={< Icon type="left" />}
                     onLeftClick={() => history.go(-1)}
-                    rightContent={< Link to = "/fly" > <div className={styles.fly}></div> </Link>}
+                    rightContent={< Link to="/fly" > <div className={styles.fly}></div> </Link>}
                     style={{
                         borderBottom: "1px solid #ECECED"
-                }}>iDream</NavBar>
+                    }}>iDream</NavBar>
 
                 {/* 个人基本信息 */}
-                <div className={styles.userinfo}>
-                    <Link to="my/edit"><i className={styles.setup}></i></Link> 
-                    <div className={styles.title}>
-                        <img src="http://p5.so.qhimgs1.com/bdr/_240_/t01b0d4a5e5d7b40c8b.jpg" alt=""/>
-                        <div>
-                            <b>路飞</b>
+                {
+                    this.props.user?
+                        <div className={styles.userinfo}>
+                            <Link to="my/edit"><i className={styles.setup}></i></Link>
+                            <div className={styles.title}>
+                                <img src={this.props.user.avatar ? this.props.user.avatar: Util.defaultImg} alt="" /> 
+                                <div>
+                                    <b>{this.props.user.uname}</b>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <i className={styles.iconSex}></i><span>{this.props.user.sex}</span></li>
+                                <li>
+                                    <i className={styles.iconAddress}></i><span>{this.props.user.location}</span></li>
+                                <li>
+                                    <i className={styles.iconProfession}></i><span>{this.props.user.job}</span></li>
+                                <li>
+                                    <i className={styles.iconCount}></i><span>{this.props.user.age}</span></li>
+                            </ul>
+                            <div className={styles.opinion}>
+                                {this.props.user.intro}
+                            </div>
                         </div>
-                    </div>
-                    <ul>
-                        <li>
-                            <i className={styles.iconSex}></i><span>男</span></li>
-                        <li>
-                            <i className={styles.iconAddress}></i><span>广州市海珠区</span></li>
-                        <li>
-                            <i className={styles.iconProfession}></i><span>职业经理人</span></li>
-                        <li>
-                            <i className={styles.iconCount}></i><span>99</span></li>
-                    </ul>
-                    <div className={styles.opinion}>
-                        {/* <span>对梦的看法:</span> */}
-                        你对梦的看法是......你对梦的看法是....你对梦的看法是....你对梦的看法是....你对梦的看法是....你对梦的看法是....
-                    </div>
-                </div>
+                        :null
+                }
 
                 {/* 梦境列表 */}
                 <div className={styles.dreamWrap}>
@@ -162,16 +193,16 @@ class Userinfo extends React.Component {
                         <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
                             <div
                                 style={{
-                                // display: 'flex',
-                                // alignItems: 'center',
-                                // justifyContent: 'center',
-                                // backgroundColor: '#fff'
-                            }}>
+                                    // display: 'flex',
+                                    // alignItems: 'center',
+                                    // justifyContent: 'center',
+                                    // backgroundColor: '#fff'
+                                }}>
                                 <ListView
                                     ref={el => this.lv = el}
                                     dataSource={this.state.dataSource}
                                     renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                                    {this.state.isLoading ? <Icon type="loading" size='md' /> : '...'}
+                                        {this.state.isLoading ? <Icon type="loading" size='md' /> : '...'}
                                     </div>)}
                                     renderRow={this.row}
                                     renderSeparator={separator}
@@ -215,7 +246,7 @@ class Userinfo extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        ...state.home
+        ...state.my
     };
 }
 export default connect(mapStateToProps)(Userinfo);

@@ -8,7 +8,6 @@ module.exports = {
     home: {
         'list': 'https://www.easy-mock.com/mock/5a0a48fab31e3216824d454d/dream/chat_list',
         'list_item': 'https://www.easy-mock.com/mock/5a0a48fab31e3216824d454d/dream/home_list_item',
-        
     },
     dream:{
         list: `${devApi}/feed/view`,
@@ -26,5 +25,9 @@ module.exports = {
         register: `${devApi}/login/register`,
         resetPassword: `${devApi}/login/resetpassword`,
     },
+    my:{
+        getUserHome: `${devApi}/users/get-user-home`,
+        editUser: `${devApi}/users/edit-user`,
+    }
     
 }

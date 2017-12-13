@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from "dva";
+import { connect } from "dva";
 import {
     ImagePicker,
     List,
@@ -13,7 +13,7 @@ import {
     TextareaItem
 } from "antd-mobile";
 
-import {createForm} from 'rc-form';
+import { createForm } from 'rc-form';
 
 import styles from "./edit.less";
 import UserPng from './user.png';
@@ -48,11 +48,11 @@ class Edit extends React.Component {
             cols: 1,
             asyncValue: [],
 
-            file:[],
-            multiple:false
+            file: [],
+            multiple: false
         }
     }
-    
+
     // 年纪列表
     /* ages = () => {
         let arr = [],
@@ -73,13 +73,13 @@ class Edit extends React.Component {
     } */
 
     render() {
-        const {getFieldProps} = this.props.form;
+        const { getFieldProps } = this.props.form;
         // 性别列表
         const sexs = [
             {
                 value: 0,
                 label: '男',
-                icon:SexM,
+                icon: SexM,
             }, {
                 value: 1,
                 label: '女',
@@ -110,12 +110,12 @@ class Edit extends React.Component {
             <div className={styles.editWrap}>
                 <NavBar
                     mode="light"
-                    icon={< Icon type = "left" />}
+                    icon={< Icon type="left" />}
                     onLeftClick={() => history.go(-1)}
                     style={{
-                    borderBottom: "1px solid #ECECED"
-                }}>编辑个人信息</NavBar>
-                
+                        borderBottom: "1px solid #ECECED"
+                    }}>编辑个人信息</NavBar>
+
                 <div className={styles.head}>
                     <img src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png" onClick={this.onUpdateImg} />
                     <input type="file" id="fileId" onChange={this.fileChange} accept="image/gif, image/jpeg" />
@@ -124,7 +124,7 @@ class Edit extends React.Component {
                 <List>
                     <InputItem
                         id="inputUsername"
-                        {...getFieldProps('inputUsername')}
+                        {...getFieldProps('inputUsername') }
                         clear
                         placeholder="用户名">
                         <img src={UserPng} />
@@ -138,10 +138,10 @@ class Edit extends React.Component {
                     </InputItem>
                     <InputItem
                         id="inputProfession"
-                        {...getFieldProps('inputProfession')}
+                        {...getFieldProps('inputProfession') }
                         clear
                         placeholder="填写职业(职业习惯影响梦境)">
-                        <img src={ ProfessionPng } />
+                        <img src={ProfessionPng} />
                     </InputItem>
                     <InputItem
                         type="number"
@@ -175,55 +175,60 @@ class Edit extends React.Component {
                             key={i.value}
                             checked={this.state.sex === i.value}
                             onChange={() => this.onChange(i.value)}>
-                            <img src={ i.icon } style={{marginRight:10}}/>
+                            <img src={i.icon} style={{ marginRight: 10 }} />
                             {i.label}
                         </RadioItem>
                     ))}
                 </List>
 
                 <List renderHeader={() => '你怎么看待梦境?'}>
-                    <TextareaItem {...getFieldProps('note1')} rows={4} placeholder="说说你看法"/>
+                    <TextareaItem {...getFieldProps('note1') } id="inputIntroId" rows={4} placeholder="说说你看法" />
                 </List>
 
                 <Button
-                    onClick={this
-                    .submit
-                    .bind(this)}
+                    onClick={this.submit.bind(this)}
                     type="primary"
                     style={{
-                    margin: 20
-                }}>保存</Button>
+                        margin: 20
+                    }}>保存</Button>
             </div>
         )
     }
 
     submit = () => {
-        const name = document
-            .getElementById('inputUsername')
-            .value;
-        const profession = document
-            .getElementById('inputProfession')
-            .value;
+        const name = document.getElementById('inputUsername').value;
+        const profession = document.getElementById('inputProfession').value;
+        const address = document.getElementById('inputAddress').value;
+        const age = document.getElementById('inputAge').value;
+        const intro = document.getElementById('inputIntroId').value;
+        const sex = this.state.sex;
 
-        console.log(name, profession);
+        this.props.dispatch({ type:'my/editUser',payload:{
+            avatar:'',
+            uname:name,
+            sex:sex,
+            location:address,
+            job:profession,
+            age:age,
+            intro:intro, 
+        }})
     }
 
-    onUpdateImg=()=>{
+    onUpdateImg = () => {
         document.getElementById('fileId').click();
     }
-    fileChange=()=>{
+    fileChange = () => {
         this.setState({
-            file:document.getElementById('fileId').value
+            file: document.getElementById('fileId').value
         });
     }
 
-    onPickerChange = () => {}
-    onOk = () => {}
-    onClick = () => {}
+    onPickerChange = () => { }
+    onOk = () => { }
+    onClick = () => { }
     onChange = (val) => {
-        this.setState({sex: val});
+        this.setState({ sex: val });
     }
-
 }
 
 function mapStateToProps(state) {

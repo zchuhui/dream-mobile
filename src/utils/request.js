@@ -75,14 +75,15 @@ function saveToken(msg,token,userInfo){
   const day_30 = 60 * 24 * 30;  // 计算存储天数，单位是分钟，共30天
   if(msg === "登录成功"){
     Storage.set('token',token,day_30);
-    Storage.set('uname',userInfo.uname,day_30);
+    Storage.set('uname', userInfo.uname, day_30);
+    Storage.set('uid',userInfo.uid,day_30);
   }
 }
 
 
 
 export default function request (url, options) {
-
+ 
   return fetch(url, options)
     .then(checkStatus)
     .then(handleData)

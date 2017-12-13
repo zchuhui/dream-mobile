@@ -38,7 +38,7 @@ export default modelExtend(model, {
 			yield put({ type: 'updateState', payload: { 'searchLoading': false,'searchList':null} });
 
 			const { data,code,msg } = yield call(search, payload); 
-			if(code==200){  
+			if(code==200){
 				yield put({ type: 'updateState', payload: { 'searchList': data } });
 				yield put({ type: 'updateState', payload: { 'searchLoading': true } });
 			}
