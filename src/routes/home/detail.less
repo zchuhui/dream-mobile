@@ -1,27 +1,25 @@
 @font-face {
-    font-family: 'iconfont';  /* project id 481348 */
-    src: url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.eot');
-    src: url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.woff') format('woff'),
-    url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_481348_vpolqztq589f6r.svg#iconfont') format('svg');
-  }
+    font-family: 'iconfont';
+    /* project id 481348 */
+    src: url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.eot');
+    src: url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.woff') format('woff'), url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.svg#iconfont') format('svg');
+}
 
-.iconfont{
-    font-family:"iconfont" !important;
-    font-size:40px;
-    font-style:normal;
-    color:#999;
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 20px;
+    font-style: normal;
+    color: #bbb;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }
 
-.iconfont_blue{
-    font-family:"iconfont" !important;
-    font-size:40px;
-    font-style:normal;
-    color:#108ee9;
+.iconfont_blue {
+    font-family: "iconfont" !important;
+    font-size: 20px;
+    font-style: normal;
+    color: #108ee9;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
@@ -29,7 +27,7 @@
 
 .detailWrap {
     font-size: 14px;
-    background:#fff;
+    background: #fff;
     .item {
         text-align: left;
         padding: 15px 10px;
@@ -40,7 +38,7 @@
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
-                border:1px solid #ddd;
+                border: 1px solid #ddd;
             }
             .name {
                 display: block;
@@ -102,8 +100,8 @@
             .review {
                 color: #1296db;
                 i {
-                    background: ~"url(../../assets/images/message_fill.png) center center / 22px 22px no-repeat";
-                    background-position-y: 8px;
+                    // background: ~"url(../../assets/images/message_fill.png) center center / 22px 22px no-repeat";
+                    // background-position-y: 8px;
                 }
             }
             .review::after {
@@ -116,26 +114,28 @@
             }
             .praise {
                 i {
-                    background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat";
-                    background-position-y: 8px;
+                    // background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat";
+                    // background-position-y: 8px;
                 }
             }
         }
     }
     .reviewList {
-        border-top: 1px solid #eee;
+        border-top: 1px solid #ddd;
         padding: 10px;
         .reviewItem {
+            position: relative;
             text-align: left;
             padding: 15px 10px;
             line-height: 30px;
             .head {
                 img {
                     float: left;
-                    width: 40px;
-                    height: 40px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 50%;
-                    border:1px solid #ddd;
+                    border: 1px solid #ddd;
+                    background-color: #fff;
                 }
                 .name {
                     display: block;
@@ -146,22 +146,52 @@
             }
             .itemContent {
                 display: block;
-                margin-left: 50px;
-                border-bottom: 1px solid #eee;
+                margin-left: 40px;
+                font-size: 12px;
                 .des {
-                    font-size: 14px;
                     line-height: 20px;
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 3;
                     overflow: hidden;
-                    color: #999;
                 }
                 .time {
                     display: block;
                     font-size: 10px;
                     color: #999;
                 }
+            }
+        }
+        .reviewItem::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            content: ' ';
+            display: block;
+            width: 90%;
+            height: 1px;
+            background: #ddd;
+        }
+        .reviewItemList {
+            margin: 0px 0 10px 40px;
+            padding: 10px 0;
+            background-color: rgb(243, 243, 243);
+            .reviewItem2 {
+                position: relative;
+                padding: 5px;
+            }
+            .reviewItem2::after {
+                position: absolute;
+                right: 0;
+                bottom: 5px;
+                content: ' ';
+                display: block;
+                width: 85%;
+                height: 1px;
+                background: #ddd;
+            }
+            .reviewItem2:last-child::after {
+                display: none;
             }
         }
     }
@@ -188,6 +218,6 @@
         float: left;
         width: 30px;
         height: 30px;
-        margin-left:10px;
+        margin-left: 10px;
     }
 }

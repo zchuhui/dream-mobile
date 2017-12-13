@@ -3,7 +3,7 @@ import { connect } from "dva";
 import { Link } from "dva/router"
 import { ListView, Icon, NavBar } from "antd-mobile";
 import styles from "./index.less";
-import FlyPng from './fly.png'
+import Util from "../../utils/util";
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -51,7 +51,7 @@ class Index extends React.Component {
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
-					<img src={obj.avatar? obj.avatar:'http://www.iconpng.com/png/32-soft-media-icons/picture.png'}  />
+					<img src={obj.avatar? obj.avatar:Util.defaultImg}  />
 					<span className={styles.name}>{obj.uname}</span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>
