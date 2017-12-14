@@ -1,51 +1,35 @@
-body {
-    background: #F5F5F9;
-}
-
-.fl {
-    float: left
-}
-
-.fr {
-    float: right
-}
-
-.clear {
-    zoom: 1
-}
-
-.clear:after {
-    content: "";
-    display: block;
-    height: 0;
-    visibility: visible;
-    clear: both
-}
-
+@import '../../assets/styles/base.less';
 .editWrap {
-    .head{
+    font-size: 14px;
+    .head {
         text-align: center;
-        padding:20px 0;
+        padding: 20px 0;
         background: #fff;
-
-        img{
-            width:60px;
-            height:60px;
-            border: 1px solid #ddd;
+        .img {
+            display: block;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd; 
             border-radius: 50%;
+            margin: 0 auto;
+            overflow: hidden;
+            img {
+                display: inline-block;
+                width: auto;
+                height: 100px;
+                line-height: 100px;
+                color: #999;
+            }
         }
-
-        input{
-            width:0;
-            height:0;
+        input {
+            width: 0;
+            height: 0;
         }
     }
-
-    .iconUser{
-            height: '22px';
-            width: '22px';
-            background: ~"url(./prompt.png) center center / 30px 30px no-repeat";
-            background-color:#eee; 
-            background-size: cover;
+    .iconUser {
+        height: '22px';
+        width: '22px';
+        background-color: #eee;
+        background-size: cover;
     }
 }

@@ -105,7 +105,7 @@ class Userinfo extends React.Component {
         return (
             <div className={styles.item}>
                 <div className={styles.head}>
-                    <img src={obj.avatar ? obj.avatar : Util.defaultImg} />
+                    <div className={styles.img}><img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={ obj.uname } /></div>
                     <span className={styles.name}>{obj.uname}</span>
                     <span className={styles.time}>{obj.publish_time}</span>
                 </div>
@@ -117,8 +117,8 @@ class Userinfo extends React.Component {
                 </div>
                 <div className={styles.icons}>
                     <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                        <span className={styles.praise} ><i></i><label>{obj.digg_count}</label></span>
-                        <span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
+                        <span><i className={styles.iconfont}>&#xe71a;</i><label>{obj.digg_count}</label></span>
+                        <span><i className={styles.iconfont}>&#xe704;</i><label>{obj.comment_count}</label></span>
                     </Link>
                 </div>
             </div>
@@ -163,22 +163,24 @@ class Userinfo extends React.Component {
                 {
                     this.props.user?
                         <div className={styles.userinfo}>
-                            <Link to="my/edit"><i className={styles.setup}></i></Link>
+                            <Link to="my/edit"><i className={`${styles.iconfont} ${styles.setup}`}>&#xe728;</i></Link>
                             <div className={styles.title}>
-                                <img src={this.props.user.avatar ? this.props.user.avatar: Util.defaultImg} alt="" /> 
+                                <div className={styles.img}>
+                                    <img src={this.props.user.avatar ? this.props.user.avatar : Util.defaultImg} alt={this.props.user.uname} />
+                                </div>
                                 <div>
                                     <b>{this.props.user.uname}</b>
                                 </div>
                             </div>
                             <ul>
                                 <li>
-                                    <i className={styles.iconSex}></i><span>{this.props.user.sex}</span></li>
+                                    <i className={styles.iconfont}>&#xe67b;</i><span>{this.props.user.sex}</span></li>
                                 <li>
-                                    <i className={styles.iconAddress}></i><span>{this.props.user.location}</span></li>
+                                    <i className={styles.iconfont}>&#xe613;</i><span>{this.props.user.location}</span></li>
                                 <li>
-                                    <i className={styles.iconProfession}></i><span>{this.props.user.job}</span></li>
+                                    <i className={styles.iconfont}>&#xe84b;</i><span>{this.props.user.job}</span></li>
                                 <li>
-                                    <i className={styles.iconCount}></i><span>{this.props.user.age}</span></li>
+                                    <i className={styles.iconfont}>&#xe6e5;</i><span>{this.props.user.age}</span></li>
                             </ul>
                             <div className={styles.opinion}>
                                 {this.props.user.intro}

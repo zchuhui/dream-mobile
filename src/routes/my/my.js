@@ -11,8 +11,6 @@ import {
     NavBar
 } from "antd-mobile";
 import styles from "./my.less";
-import SetupPng from './setup.png';
-import PromptPng from './prompt.png';
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -54,7 +52,7 @@ class My extends React.Component {
                         <Item
                             arrow="horizontal"
                             multipleLine
-                            onClick={() => {}}>
+                            onClick={() => {}}> 
                             设置
                         </Item>
                     </Link>

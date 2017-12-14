@@ -31,9 +31,10 @@ export default modelExtend(model, {
 		*editUser({ payload }, { call, put }) {
 			// 梦境列表
 			const { data, code, msg } = yield call(editUser, payload);
-			debugger
+			
 			if (code == 200) {
-				Toast.info(msg);
+				Toast.success(msg);
+				setTimeout(() => { hashHistory.push("/my/userinfo");},1000)
 				//yield put({ type: 'updateState', payload: { user: data.user, list: data.feed } });
 			}
 		},

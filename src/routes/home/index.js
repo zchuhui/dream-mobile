@@ -51,7 +51,9 @@ class Index extends React.Component {
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
-					<img src={obj.avatar? obj.avatar:Util.defaultImg}  />
+					<div className={styles.img}>
+						<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+					</div>
 					<span className={styles.name}>{obj.uname}</span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>

@@ -19,38 +19,46 @@
 }
 
 @font-face {
-    font-family: 'iconfont';  /* project id 481348 */
+    font-family: 'iconfont';
+    /* project id 481348 */
     src: url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.eot');
-    src: url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.woff') format('woff'),
-    url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.svg#iconfont') format('svg');
-  }
-
-.iconfont{
-    font-family:"iconfont" !important;
-    font-size:40px;
-    font-style:normal;
-    color:#999;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px; 
-    -moz-osx-font-smoothing: grayscale;
+    src: url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.woff') format('woff'), url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_oufo18vlsrybvs4i.svg#iconfont') format('svg');
 }
 
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 40px;
+    font-style: normal;
+    color: #999;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 .chatWrap {
     .item {
         text-align: left;
         padding: 15px 10px;
         line-height: 30px;
-        margin-top:-1px;
+        margin-top: -1px;
         .head {
-            img {
+            .img {
                 float: left;
+                display: block;
                 width: 40px;
                 height: 40px;
-                border:1px solid #ddd; 
+                border: 1px solid #ddd;
                 border-radius: 50%;
+                margin: 0 auto;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #999;
+                }
             }
             .name {
                 display: block;
@@ -108,7 +116,7 @@
                     min-width: 40px;
                     vertical-align: top;
                     text-align: left;
-                    color:#bfbfbf;
+                    color: #bfbfbf;
                 }
             }
             .review {
@@ -130,7 +138,6 @@
 .headImg {
     width: 40px !important;
     height: 40px !important;
-    
 }
 
 .logo {

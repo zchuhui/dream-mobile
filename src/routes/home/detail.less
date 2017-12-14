@@ -33,12 +33,23 @@
         padding: 15px 10px;
         line-height: 30px;
         .head {
-            img {
+            .img {
                 float: left;
+                display: block;
                 width: 40px;
                 height: 40px;
-                border-radius: 50%;
                 border: 1px solid #ddd;
+                border-radius: 50%;
+                margin: 0 auto;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #999;
+                }
             }
             .name {
                 display: block;
@@ -99,10 +110,6 @@
             }
             .review {
                 color: #1296db;
-                i {
-                    // background: ~"url(../../assets/images/message_fill.png) center center / 22px 22px no-repeat";
-                    // background-position-y: 8px;
-                }
             }
             .review::after {
                 content: ' ';
@@ -111,12 +118,6 @@
                 width: 80px;
                 background: #1296db;
                 margin: 0 auto;
-            }
-            .praise {
-                i {
-                    // background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat";
-                    // background-position-y: 8px;
-                }
             }
         }
     }
@@ -129,13 +130,24 @@
             padding: 15px 10px;
             line-height: 30px;
             .head {
-                img {
+                .img {
                     float: left;
+                    display: block;
                     width: 30px;
                     height: 30px;
-                    border-radius: 50%;
                     border: 1px solid #ddd;
-                    background-color: #fff;
+                    border-radius: 50%;
+                    margin: 0 auto;
+                    background:#fff;
+                    overflow: hidden;
+                    img {
+                        display: block;
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: center;
+                        color: #999;
+                    }
                 }
                 .name {
                     display: block;

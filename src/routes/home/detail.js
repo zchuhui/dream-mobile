@@ -113,13 +113,14 @@ class Detail extends React.Component {
             borderBottom: "1px solid #eee"
           }}>梦境</NavBar>
         {this.props.detail && !this.props.detailLoading
-          ? <div>
+          ? <div> 
             <div className={styles.item}>
               <div className={styles.head}>
-                <img
-                  src={this.props.detail.info.avatar
+                <div className={styles.img}>
+                <img src={this.props.detail.info.avatar
                     ? this.props.detail.info.avatar
-                    : Util.defaultImg} />
+                    : Util.defaultImg} alt={this.props.detail.info.uname} />
+                </div>
                 <span className={styles.name}>{this.props.detail.info.uname}</span>
                 <span className={styles.time}>{this.props.detail.info.publish_time}</span>
               </div>
@@ -129,11 +130,11 @@ class Detail extends React.Component {
               </div>
               <div className={styles.icons}>
                 <span className={styles.praise} onClick={this.handleUpdatedigg}>
-                  <i className={this.props.detail.info.hasDigg==0 ? styles.iconfont : styles.iconfont_blue}>&#xe71a;</i>  
-                  <label>{this.props.detail.info.digg_count}</label> 
+                  <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfont_blue}>&#xe71a;</i>
+                  <label>{this.props.detail.info.digg_count}</label>
                 </span>
                 <span className={styles.review}>
-                  <i className={styles.iconfont_blue}>&#xe704;</i> 
+                  <i className={styles.iconfont_blue}>&#xe704;</i>
                   <label>{this.props.detail.info.comment_count}</label>
                 </span>
               </div>
@@ -143,7 +144,9 @@ class Detail extends React.Component {
                 this.props.detail.review.map((item, index) => (
                   <div className={styles.reviewItem} key={index}>
                     <div className={styles.head}>
-                      <img src={item.avatar ? item.avatar: Util.defaultImg} />
+                      <div className={styles.img}>
+                        <img src={item.avatar ? item.avatar : Util.defaultImg} alt={item.uname} />
+                      </div>
                       <span className={styles.name}>{item.uname}</span>
                     </div>
                     <div
@@ -153,13 +156,15 @@ class Detail extends React.Component {
                       <span className={styles.time}>{item.ctime}</span>
                     </div>
                     {
-                      item.reply.length>0?
+                      item.reply.length > 0 ?
                         <div className={styles.reviewItemList}>
                           {
                             item.reply.map((item2, index2) => (
                               <div className={styles.reviewItem2}>
                                 <div className={styles.head}>
-                                  <img src={item2.avatar ? item2.avatar : Util.defaultImg} />
+                                  <div className={styles.img}>
+                                    <img src={item2.avatar ? item2.avatar : Util.defaultImg} alt={item2.uname} />
+                                  </div>
                                   <span className={styles.name}>{item2.uname}</span>
                                 </div>
                                 <div className={styles.itemContent}>
@@ -170,9 +175,9 @@ class Detail extends React.Component {
                             ))
                           }
                         </div>
-                      :null
+                        : null
                     }
-                    
+
                   </div>
                 ))
               }

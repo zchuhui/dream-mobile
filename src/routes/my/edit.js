@@ -10,16 +10,13 @@ import {
     Icon,
     Button,
     Radio,
-    TextareaItem
+    TextareaItem,
+    Toast
 } from "antd-mobile";
-
 import { createForm } from 'rc-form';
-
+import Storage from '../../utils/storage';
 import styles from "./edit.less";
-import UserPng from './user.png';
-import ProfessionPng from './profession-blue.png';
-import AgePng from './age.png';
-import AddressPng from './address_blue.png';
+import Util from "../../utils/util";
 
 import SexM from './image/sex_m.png';
 import SexW from './image/sex_w.png';
@@ -33,24 +30,26 @@ const Item = List.Item;
 const Brief = Item.Brief;
 const RadioItem = Radio.RadioItem;
 
+const UID = Storage.get('uid');
+
 class Edit extends React.Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            name: null,
             sex: null,
-            profession: null,
-            dream: null,
-            age: null,
-
-            data: [],
-            cols: 1,
-            asyncValue: [],
-
-            file: [],
-            multiple: false
+            img_url: null,
+            files: [],
+            multiple: false,
         }
+    }
+
+    componentWillMount(){
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: 1 } });
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.state.sex = nextProps.user ? nextProps.user.sex:null
     }
 
     // 年纪列表
@@ -72,8 +71,15 @@ class Edit extends React.Component {
         return arr;
     } */
 
+    onImageChange = (files, type, index) => {
+        console.log(files, type, index);
+        this.setState({
+            files,
+        });
+    }
+
     render() {
-        const { getFieldProps } = this.props.form;
+        //const { getFieldProps } = this.props.form;
         // 性别列表
         const sexs = [
             {
@@ -106,6 +112,9 @@ class Edit extends React.Component {
                 icon: SexNo
             }
         ];
+
+        const { files } = this.state;
+
         return (
             <div className={styles.editWrap}>
                 <NavBar
@@ -117,40 +126,49 @@ class Edit extends React.Component {
                     }}>编辑个人信息</NavBar>
 
                 <div className={styles.head}>
-                    <img src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png" onClick={this.onUpdateImg} />
-                    <input type="file" id="fileId" onChange={this.fileChange} accept="image/gif, image/jpeg" />
+                    <div className={styles.img}>
+                        <img src={this.state.img_url ? this.state.img_url:Util.defaultImg} onClick={this.onUpdateImg} />
+                    </div>
+                    <input type="file" id="fileId" onChange={this.fileChange.bind(this)}  />
+                    {/* <ImagePicker
+                        files={files}
+                        onChange={this.onImageChange}
+                        onImageClick={(index, fs) => console.log(index, fs)}
+                        selectable={files.length < 5}
+                        multiple={this.state.multiple}
+                    /> */}
                 </div>
 
                 <List>
                     <InputItem
                         id="inputUsername"
-                        {...getFieldProps('inputUsername') }
                         clear
+                        defaultValue={this.props.user ? this.props.user.uname:null}
                         placeholder="用户名">
-                        <img src={UserPng} />
+                        <i className={styles.iconfont}>&#xe602;</i>
                     </InputItem>
                     <InputItem
                         id="inputAddress"
-                        {...getFieldProps('inputAddress') }
                         clear
+                        defaultValue={this.props.user ?this.props.user.location:null}
                         placeholder="填写地址">
-                        <img src={AddressPng} />
-                    </InputItem>
+                        <i className={styles.iconfont}>&#xe613;</i>
+                    </InputItem> 
                     <InputItem
                         id="inputProfession"
-                        {...getFieldProps('inputProfession') }
                         clear
+                        defaultValue={this.props.user ?this.props.user.job:null}
                         placeholder="填写职业(职业习惯影响梦境)">
-                        <img src={ProfessionPng} />
+                        <i className={styles.iconfont}>&#xe84b;</i>
                     </InputItem>
                     <InputItem
                         type="number"
                         maxLength={2}
                         id="inputAge"
-                        {...getFieldProps('inputAge') }
                         clear
+                        defaultValue={parseInt(this.props.user ? this.props.user.age : 0)}
                         placeholder="填写年龄(生命有限，把握做梦)">
-                        <img src={AgePng} />
+                        <i className={styles.iconfont}>&#xe6e5;</i>
                     </InputItem>
 
                     {/* <Picker
@@ -174,15 +192,21 @@ class Edit extends React.Component {
                         <RadioItem
                             key={i.value}
                             checked={this.state.sex === i.value}
-                            onChange={() => this.onChange(i.value)}>
-                            <img src={i.icon} style={{ marginRight: 10 }} />
+                            onChange={() => this.onSelectAge(i.value)}>
+                                <img src={i.icon} style={{ marginRight: 10 }} />
                             {i.label}
                         </RadioItem>
                     ))}
                 </List>
 
                 <List renderHeader={() => '你怎么看待梦境?'}>
-                    <TextareaItem {...getFieldProps('note1') } id="inputIntroId" rows={4} placeholder="说说你看法" />
+                    <TextareaItem 
+                        defaultValue={this.props.user ?this.props.user.intro:null} 
+                        id="inputIntroId" 
+                        rows={4} 
+                        placeholder="说说你看法" 
+                        style={{fontSize:14,}}
+                        />
                 </List>
 
                 <Button
@@ -204,7 +228,7 @@ class Edit extends React.Component {
         const sex = this.state.sex;
 
         this.props.dispatch({ type:'my/editUser',payload:{
-            avatar:'',
+            avatar:this.state.img_url, 
             uname:name,
             sex:sex,
             location:address,
@@ -217,16 +241,37 @@ class Edit extends React.Component {
     onUpdateImg = () => {
         document.getElementById('fileId').click();
     }
-    fileChange = () => {
-        this.setState({
-            file: document.getElementById('fileId').value
-        });
+    fileChange = (v) => {
+        const that = this;
+        let file = document.getElementById('fileId').files[0];
+        console.log('file', file.size);
+
+        //用size属性判断文件大小不能超过5M ，前端直接判断的好处，免去服务器的压力。
+        if (file.size > 5 * 1024 * 1024) {
+            Toast.info('图片太多了，请换一张小一点的');
+            return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function () {
+            // 通过 reader.result 来访问生成的 base64 DataURL
+            var base64 = reader.result;
+
+            that.setState({
+                img_url: base64  
+            })
+            
+            //上传图片
+            //base64_uploading(base64);
+        }
+        reader.readAsDataURL(file); 
     }
 
     onPickerChange = () => { }
     onOk = () => { }
     onClick = () => { }
-    onChange = (val) => {
+    onSelectAge = (val) => { 
+        
         this.setState({ sex: val });
     }
 }
