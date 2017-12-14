@@ -1,37 +1,28 @@
-.fl {
-    float: left
-}
-
-.fr {
-    float: right
-}
-
-.clear {
-    zoom: 1
-}
-
-.clear:after {
-    content: "";
-    display: block;
-    height: 0;
-    visibility: visible;
-    clear: both
-}
-
+@import '../../assets/styles/base.less';
 .chatWrap {
-
     .item {
         text-align: left;
         padding: 15px 10px;
         line-height: 30px;
-        margin-top:-1px;
+        margin-top: -1px;
         .head {
-            img {
+            .img {
                 float: left;
-                display: inline-block;
+                display: block;
                 width: 40px;
                 height: 40px;
+                border: 1px solid #ddd;
                 border-radius: 50%;
+                margin: 0 auto;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #999;
+                }
             }
             .name {
                 display: block;
@@ -53,6 +44,10 @@
                 color: #333;
                 font-weight: bold;
                 margin: 3px 0;
+                i.iconfont {
+                    font-size: 18px;
+                    margin: 0 5px;
+                }
             }
             .des {
                 line-height: 20px;
@@ -89,6 +84,7 @@
                     min-width: 40px;
                     vertical-align: top;
                     text-align: left;
+                    color: #bfbfbf;
                 }
             }
             .review {
