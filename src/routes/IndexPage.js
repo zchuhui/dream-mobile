@@ -61,7 +61,7 @@ class Home extends React.Component {
           icon={< div className={styles.iconLife} />}
           selectedIcon={< div className={styles.iconLifeSelected} />}
           selected={this.state.selectedTab === "tab3"}
-          badge={1}
+          /* badge={1} */
           onPress={this.onPress.bind(this,'tab3')}
           data-seed="logId">
           {

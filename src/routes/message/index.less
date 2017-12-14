@@ -1,27 +1,8 @@
-.fl {
-    float: left
-}
-
-.fr {
-    float: right
-}
-
-.clear {
-    zoom: 1
-}
-
-.clear:after {
-    content: "";
-    display: block;
-    height: 0;
-    visibility: visible;
-    clear: both
-}
-
+@import '../../assets/styles/base.less';
 .chatWrap {
     .item {
         text-align: left;
-        padding: 15px 10px;
+        padding: 0 10px;
         line-height: 30px;
         margin-top: -1px;
         .head {
@@ -33,17 +14,16 @@
             }
             span {
                 display: inline-block;
-                margin-left: 10px;
                 margin-top: 5px;
                 vertical-align: top;
             }
-            .name {}
-            .time {
-                color: #999;
-                font-size: 12px;
-            }
             .review {
                 float: right;
+            }
+            .msgType .iconfont{
+                font-size:20px;
+                color:#999;
+                margin-left:10px;
             }
         }
         .reviewContent {
@@ -59,7 +39,6 @@
             padding: 10px 15px;
             background-color: #eee;
             border-radius: 5px;
-            margin-top: 10px;
             font-size: 12px;
             line-height: 20px;
             .rehead {}
@@ -117,13 +96,17 @@
                 }
             }
         }
+        .time {
+            color: #999;
+            font-size: 12px;
+        }
     }
 }
 
 .iconReview {
     width: 30%;
     background: ~"url(../../assets/images/message_fill.png) left / 22px 22px no-repeat";
-    background-position-x:15px;
+    background-position-x: 15px;
 }
 
 .fly {

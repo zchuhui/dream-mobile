@@ -97,9 +97,9 @@ export function get (url, options) {
   return request(url, { ...options, method: 'get' })
 }
 
-export function post (url, options) {  
+export function post (url, options) {
   if(Storage.get('token')){
-    options.data.token = Storage.get('token');
+      options.data.token = Storage.get('token');
   }
   return request(url, { ...options, method: 'post' })
 }

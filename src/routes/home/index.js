@@ -24,12 +24,10 @@ class Index extends React.Component {
 	}
 	
 	componentDidMount() {
-		//this.props.dispatch({ type: 'home/fetch'}); 
 		this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
 	}
 
 	componentWillReceiveProps(nextProps) {
-
 		const hei = document.documentElement.clientHeight;
 		if (this.state.list !== nextProps.list) {
 			this.setState({
@@ -90,7 +88,6 @@ class Index extends React.Component {
 		this.setState({ isLoading: true});
 		this.state.currentPage = this.state.currentPage+1;
 		this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } }); 
-
 	}
 
 	onPraise = (t) => {

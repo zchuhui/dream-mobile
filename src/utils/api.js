@@ -28,6 +28,9 @@ module.exports = {
     my:{
         getUserHome: `${devApi}/users/get-user-home`,
         editUser: `${devApi}/users/edit-user`,
+    },
+    message:{
+        getMessageList: `${devApi}/message/get-user-msg`,
     }
     
 }

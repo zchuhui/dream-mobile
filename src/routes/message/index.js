@@ -1,31 +1,32 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar,Tabs } from "antd-mobile";
-import {StickyContainer, Sticky} from 'react-sticky';
+import { ListView, Icon, NavBar, Tabs } from "antd-mobile";
+import { StickyContainer, Sticky } from 'react-sticky';
 import styles from "./index.less";
 
 // Tabs
 function renderTabBar(props) {
-    return (
-        <Sticky>
-            {({style}) => <div
-                style={{
-                ...style,
-                zIndex: 1
-            }}><Tabs.DefaultTabBar {...props}/></div>}
-        </Sticky>
-    );
+	return (
+		<Sticky>
+			{({ style }) => <div
+				style={{
+					...style,
+					zIndex: 1
+				}}><Tabs.DefaultTabBar {...props} /></div>}
+		</Sticky>
+	);
 }
+
 const tabs = [
-    {
-        title: <div className={styles.iconReview}>评论</div>
-	},  
+	{
+		title: <div className={styles.iconReview}>评论</div>
+	},
 	// {
-    //     title: '点赞'
-    // }, {
-    //     title: '@艾特'
-    // } 
+	//     title: '点赞'
+	// }, {
+	//     title: '@艾特'
+	// } 
 ];
 
 class Index extends React.Component {
@@ -46,12 +47,13 @@ class Index extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.dispatch({ type: 'home/getMsg' });
+		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
 	}
 
 	componentWillReceiveProps(nextProps) {
 		const hei = document.documentElement.clientHeight;
-		if (this.state.msgList !== nextProps.msgList) {
+
+		if (this.state.msgList !== nextProps.msgList && nextProps.msgList !== undefined) {
 
 			this.setState({
 				msgList: [...this.state.msgList, ...nextProps.msgList],
@@ -64,6 +66,10 @@ class Index extends React.Component {
 					height: hei,
 				});
 			}, 500)
+		} else {
+			this.setState({
+				isLoading: false
+			})
 		}
 	}
 
@@ -73,21 +79,25 @@ class Index extends React.Component {
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
-					<img src={obj.img_url} />
-					<span className={styles.name}>{obj.username}</span>
-					<span className={styles.time}>{obj.time}</span>
+					<span className={styles.name}><b>{obj.fromUser.uname}</b></span>
+					<span className={styles.msgType}>
+						{
+							obj.type == "评论" ? <i className={styles.iconfont}>&#xe704;</i> : <i className={styles.iconfont}>&#xe71a;</i>
+						}
+					</span>
 					<span className={styles.review}></span>
 				</div>
-				<Link to="/home/detail">
-				<div className={styles.reviewContent}>
-					{obj.review_content}
-				</div>
-				<div className={styles.reviewTarget}>
-					<div className={styles.rehead}>@{obj.review_target.username} &nbsp; &nbsp; {obj.review_target.time}</div>
-					<div className={styles.title}>{obj.review_target.title}</div>
-					<div className={styles.des}>{obj.review_target.detail}</div>
-				</div> 
+				<Link to={{ pathname: "/home/detail", 'state': + obj.feed.feed_id }}>
+					<div className={styles.reviewContent}>
+						{obj.fromUser.reviewContent}
+					</div>
+					<div className={styles.reviewTarget}>
+						<div className={styles.rehead}><b>{obj.feed.uname}</b> &nbsp; &nbsp; {obj.feed.publish_time}</div>
+						<div className={styles.title}>{obj.feed.title}</div>
+						<div className={styles.des}>{obj.feed.content}</div>
+					</div>
 				</Link>
+				<div><span className={styles.time}>{obj.fromUser.add_time}</span></div>
 			</div>
 
 		);
@@ -97,8 +107,9 @@ class Index extends React.Component {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
 		}
+
 		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'home/getMsg' });
+		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
 	}
 
 	onPraise = (t) => {
@@ -128,28 +139,36 @@ class Index extends React.Component {
 						<Link to="/fly"><div className={styles.fly}></div></Link>}
 					style={{ borderBottom: "1px solid #ECECED" }}
 				>iDream</NavBar>
-				 <StickyContainer>
-                    <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
-						<ListView
-							ref={el => this.lv = el}
-							dataSource={this.state.dataSource}
-							renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-								{this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
-							</div>)}
-							renderRow={this.row}
-							renderSeparator={separator}
-							style={{
-								height: this.state.height,
-								overflow: 'auto',
-							}}
-							pageSize={4}
-							onScroll={() => { console.log('scroll'); }}
-							scrollRenderAheadDistance={500}
-							onEndReached={this.onEndReached}
-							onEndReachedThreshold={10}
-						/>
+				
+				<StickyContainer>
+					<Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
+						{
+							this.state.msgList.length > 0 ?
+								<ListView
+									ref={el => this.lv = el}
+									dataSource={this.state.dataSource}
+									renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+										{this.state.isLoading ? <Icon type="loading" size='md' /> : ''}
+									</div>)}
+									renderRow={this.row}
+									renderSeparator={separator}
+									style={{
+										height: this.state.height,
+										overflow: 'auto',
+									}}
+									pageSize={4}
+									onScroll={() => { console.log('scroll'); }}
+									scrollRenderAheadDistance={500}
+									onEndReached={this.onEndReached}
+									onEndReachedThreshold={10}
+								/>
+								: <div style={{ color: '#999', margin: 30, }}>还木有消息</div>
+						}
+
+
+						{/* 
 						<div>点赞</div>
-						<div>艾特</div>
+						<div>艾特</div> */}
 					</Tabs>
 				</StickyContainer>
 			</div>
@@ -160,7 +179,7 @@ class Index extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		...state.home
+		...state.message
 	};
 }
 export default connect(mapStateToProps)(Index);
