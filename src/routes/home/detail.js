@@ -26,7 +26,6 @@ class Detail extends React.Component {
 
   componentWillMount() {
     const feed_id = this.props.location.state;
-    console.log(feed_id);
     if (feed_id) {
       this.props.dispatch({
         type: 'home/getDetail',

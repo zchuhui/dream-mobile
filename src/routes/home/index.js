@@ -52,7 +52,9 @@ class Index extends React.Component {
 			<div className={styles.item}>
 				<div className={styles.head}>
 					<div className={styles.img}>
-						<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+						<Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
+							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+						</Link>
 					</div>
 					<span className={styles.name}>{obj.uname}</span>
 					<span className={styles.time}>{obj.publish_time}</span>

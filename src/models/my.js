@@ -12,11 +12,19 @@ export default modelExtend(model, {
 	subscriptions: {setup({ dispatch, history }) { }},
 
 	effects: { 
-		// 梦境列表
+		// 用户信息
 		*getUserHome({payload},{call, put}){
 			const { data, code ,msg} = yield call(getUserHome, payload);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { user: data.user,list:data.feed } });
+			}
+		},
+
+		// 他人信息
+		*getOtherInfo({ payload }, { call, put }) {
+			const { data, code, msg } = yield call(getUserHome, payload);
+			if (code == 200) {
+				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
 			}
 		},
 
