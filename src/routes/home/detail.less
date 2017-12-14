@@ -1,30 +1,4 @@
-@font-face {
-    font-family: 'iconfont';
-    /* project id 481348 */
-    src: url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.eot');
-    src: url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.woff') format('woff'), url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_azjl8ha4xsn3766r.svg#iconfont') format('svg');
-}
-
-.iconfont {
-    font-family: "iconfont" !important;
-    font-size: 20px;
-    font-style: normal;
-    color: #bbb;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.iconfont_blue {
-    font-family: "iconfont" !important;
-    font-size: 20px;
-    font-style: normal;
-    color: #108ee9;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-}
-
+@import "../../assets/styles/base.less";
 .detailWrap {
     font-size: 14px;
     background: #fff;
@@ -65,6 +39,7 @@
         }
         .itemContent {
             display: block;
+            margin-left: 50px;
             .title {
                 font-size: 16px;
                 color: #333;
@@ -78,14 +53,13 @@
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 3;
                 overflow: hidden;
-                color: #999;
             }
         }
         .icons {
-            height: 40px;
-            margin: 10px -10px -15px -10px;
+            height: 30px;
+            margin: 30px -10px -15px -10px;
             margin-bottom: -15px;
-            line-height: 40px;
+            line-height: 30px;
             color: #bfbfbf;
             text-align: center;
             span {
@@ -93,17 +67,17 @@
                 float: right;
                 display: block;
                 width: 33%;
-                height: 40px;
+                height: 30px;
                 i {
                     display: inline-block;
                     width: 30px;
-                    height: 40px;
+                    height: 30px;
                     vertical-align: top;
                 }
                 label {
                     display: inline-block;
-                    height: 40px;
-                    min-width: 40px;
+                    height: 30px;
+                    min-width: 30px;
                     vertical-align: top;
                     text-align: left;
                 }
@@ -124,11 +98,14 @@
     .reviewList {
         border-top: 1px solid #ddd;
         padding: 10px;
+        margin-bottom:50px;
+         
         .reviewItem {
             position: relative;
             text-align: left;
-            padding: 15px 10px;
+            padding: 5px 0px 5px 10px;
             line-height: 30px;
+            margin-bottom: 10px;
             .head {
                 .img {
                     float: left;
@@ -138,7 +115,7 @@
                     border: 1px solid #ddd;
                     border-radius: 50%;
                     margin: 0 auto;
-                    background:#fff;
+                    background: #fff;
                     overflow: hidden;
                     img {
                         display: block;
@@ -159,7 +136,8 @@
             .itemContent {
                 display: block;
                 margin-left: 40px;
-                font-size: 12px;
+                font-size: 14px;
+                line-height: 20px;
                 .des {
                     line-height: 20px;
                     display: -webkit-box;
@@ -180,17 +158,29 @@
             bottom: 0;
             content: ' ';
             display: block;
-            width: 90%;
+            width: 87%;
             height: 1px;
-            background: #ddd;
+            background: #eee;
+        }
+        .reviewItem:last-child::after {
+            display: none;
         }
         .reviewItemList {
-            margin: 0px 0 10px 40px;
-            padding: 10px 0;
-            background-color: rgb(243, 243, 243);
+            margin: 0px 0 -5px 40px;
+            padding-top: 5px;
+            background-color: rgb(248, 248, 248);
             .reviewItem2 {
                 position: relative;
                 padding: 5px;
+                
+                .name {
+                    float: left;
+                    margin: 0;
+                    color: #1296db;
+                }
+                .itemContent {
+                    margin-left:45px;
+                }
             }
             .reviewItem2::after {
                 position: absolute;
@@ -198,9 +188,9 @@
                 bottom: 5px;
                 content: ' ';
                 display: block;
-                width: 85%;
+                width: 87%;
                 height: 1px;
-                background: #ddd;
+                background: #eee;
             }
             .reviewItem2:last-child::after {
                 display: none;
@@ -226,10 +216,8 @@
         border-radius: 5px;
         border: none;
     }
-    img {
-        float: left;
-        width: 30px;
-        height: 30px;
-        margin-left: 10px;
+    i.iconfontBlue {
+        font-size: 30px;
+        margin: 10px;
     }
 }

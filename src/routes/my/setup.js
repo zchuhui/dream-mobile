@@ -72,6 +72,7 @@ class Setup extends React.Component {
                     style={{
                     margin: 20
                 }}>保存</Button> */}
+
                 <List className={styles.listItem}>
                     <Item
                         style={{
@@ -90,15 +91,10 @@ class Setup extends React.Component {
         )
     }
     
-
-    submit = () => {
-        
+    /* submit = () => {
         Toast.info('保存成功',1);
-        
-        setTimeout(()=>{
-
-        },1000)
-    }
+        setTimeout(()=>{},1000)
+    } */
 
     onChange = (v) => {
         switch (v) {
@@ -116,11 +112,7 @@ class Setup extends React.Component {
                 this.state.setup.newfollow = !this.state.setup.newfollow;
         }
 
-        console.log(this.state.setup);
-    }
-
-    logout(){
-
+       Toast.success("已保存");
     }
 }
 

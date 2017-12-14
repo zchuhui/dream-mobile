@@ -5,6 +5,8 @@ import { ListView, Icon, NavBar } from "antd-mobile";
 import styles from "./index.less";
 import Util from "../../utils/util";
 
+import NavBarPage from "../../components/NavBar"
+
 class Index extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -110,20 +112,21 @@ class Index extends React.Component {
 
 		return (
 			<div className={styles.chatWrap}>
-				<NavBar
+				{/* <NavBar
 					mode="light"
 					icon={<div className={styles.logo}></div>}
 					onLeftClick={() => console.log('onLeftClick')}
 					rightContent={
 						<Link to="/fly"><div className={styles.fly}></div></Link>}
 					style={{ borderBottom: "1px solid #ECECED" }}
-				>iDream</NavBar>
+				>iDream</NavBar> */}
+				<NavBarPage />
 
 				<ListView
 					ref={el => this.lv = el}
 					dataSource={this.state.dataSource}
 					renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-						{this.state.isLoading ? <Icon type="loading" size='md' /> : '---'}
+						{this.state.isLoading ? <Icon type="loading" size='md' /> : null}
 					</div>)}
 					renderRow={this.row}
 					renderSeparator={separator}

@@ -11,6 +11,7 @@ import {
     NavBar
 } from "antd-mobile";
 import styles from "./my.less";
+import NavBarPage from "../../components/NavBar"
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -18,23 +19,13 @@ const Brief = Item.Brief;
 class My extends React.Component {
     constructor(props, context) {
         super(props, context);
-
     }
 
     render() {
-
         return (
             <div className={styles.myWrap}>
-                <NavBar
-                    mode="light"
-                    icon={< div className = {
-                    styles.logo
-                } > </div>}
-                    onLeftClick={() => console.log('onLeftClick')}
-                    rightContent={< Link to = "/fly" > <div className={styles.fly}></div> </Link>}
-                    style={{
-                    borderBottom: "1px solid #ECECED"
-                }}>iDream</NavBar>
+                <NavBarPage />
+
                 <List className={styles.listItem}>
                     <Link to="/my/userinfo">
                         <Item

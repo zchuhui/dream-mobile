@@ -11,7 +11,6 @@ import {
 } from "antd-mobile";
 import { createForm } from 'rc-form';
 import styles from "./detail.less";
-import Fly from './fly.png';
 import Util from "../../utils/util";
 
 class Detail extends React.Component {
@@ -112,12 +111,13 @@ class Detail extends React.Component {
           style={{
             borderBottom: "1px solid #eee"
           }}>梦境</NavBar>
+
         {this.props.detail && !this.props.detailLoading
-          ? <div> 
+          ? <div>
             <div className={styles.item}>
               <div className={styles.head}>
                 <div className={styles.img}>
-                <img src={this.props.detail.info.avatar
+                  <img src={this.props.detail.info.avatar
                     ? this.props.detail.info.avatar
                     : Util.defaultImg} alt={this.props.detail.info.uname} />
                 </div>
@@ -130,11 +130,11 @@ class Detail extends React.Component {
               </div>
               <div className={styles.icons}>
                 <span className={styles.praise} onClick={this.handleUpdatedigg}>
-                  <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfont_blue}>&#xe71a;</i>
+                  <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i>
                   <label>{this.props.detail.info.digg_count}</label>
                 </span>
                 <span className={styles.review}>
-                  <i className={styles.iconfont_blue}>&#xe704;</i>
+                  <i className={styles.iconfontBlue}>&#xe704;</i>
                   <label>{this.props.detail.info.comment_count}</label>
                 </span>
               </div>
@@ -162,10 +162,12 @@ class Detail extends React.Component {
                             item.reply.map((item2, index2) => (
                               <div className={styles.reviewItem2}>
                                 <div className={styles.head}>
-                                  <div className={styles.img}>
+                                
+                                  {/* <div className={styles.img}>
                                     <img src={item2.avatar ? item2.avatar : Util.defaultImg} alt={item2.uname} />
-                                  </div>
-                                  <span className={styles.name}>{item2.uname}</span>
+                                  </div> */}
+
+                                  <span className={styles.name}>{item2.uname}:</span>
                                 </div>
                                 <div className={styles.itemContent}>
                                   <div className={styles.des}>{item2.content}</div>
@@ -186,7 +188,7 @@ class Detail extends React.Component {
             {!this.state.modal1
               ? <div className={styles.reviewText} onClick={this.showModal("modal1")}>
                 <input type="text" placeholder="开始评论" disabled />
-                <img src={Fly} alt="" />
+                <i className={styles.iconfontBlue}>&#xe68e;</i>
               </div>
               : null
             }
@@ -258,5 +260,3 @@ function mapStateToProps(state) {
 
 const form = createForm()(Detail)
 export default connect(mapStateToProps)(form);
-
-//export default connect(mapStateToProps)(Detail);

@@ -10,7 +10,6 @@ import Util from "../../utils/util";
 
 const UID = Storage.get('uid');
 
-// Tabs
 function renderTabBar(props) {
     return (
         <Sticky>
@@ -22,6 +21,7 @@ function renderTabBar(props) {
         </Sticky>
     );
 }
+
 const tabs = [
     {
         title: '我的梦境'
@@ -31,9 +31,6 @@ const tabs = [
         title: '我的关注'
     } */
 ];
-
-
-
 
 class Userinfo extends React.Component {
     constructor(props, context) {
@@ -49,6 +46,7 @@ class Userinfo extends React.Component {
             list: [],
             isLoading: true,
             height: document.documentElement.clientHeight * 3 / 4,
+            currentPage:1,
         };
 
     }
@@ -58,7 +56,6 @@ class Userinfo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
 		const hei = document.documentElement.clientHeight;
 		if (this.state.list !== nextProps.list) {
 
@@ -75,30 +72,6 @@ class Userinfo extends React.Component {
 			}, 500)
 		}
     }
-
-    /* row = (rowData, sectionID, rowID) => {
-        const obj = rowData;
-        return (
-            <div className={styles.item}>
-                <div className={styles.head}>
-                    <img src={obj.img_url} />
-                    <span className={styles.name}>{obj.username}</span>
-                    <span className={styles.time}>{obj.time}</span>
-                </div>
-                <div className={styles.itemContent}>
-                    <Link to="/home/detail">
-                        <div className={styles.title}>{obj.title}</div>
-                        <div className={styles.des}>{obj.content}</div>
-                    </Link>
-                </div>
-                <div className={styles.icons}>
-                    <span className={styles.praise}><i></i><label>{obj.praiseCount}</label></span>
-                    <span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
-                </div>
-            </div>
-
-        );
-    }; */
 
     row = (rowData, sectionID, rowID) => {
         const obj = rowData;
@@ -130,8 +103,10 @@ class Userinfo extends React.Component {
         if (this.state.isLoading && !this.state.hasMore) {
             return;
         }
+
         this.setState({ isLoading: true });
-        //this.props.dispatch({ type: 'home/fetch' });
+        this.state.currentPage = this.state.currentPage +1 ; 
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: this.state.currentPage} });
     }
 
     render() {
@@ -204,7 +179,7 @@ class Userinfo extends React.Component {
                                     ref={el => this.lv = el}
                                     dataSource={this.state.dataSource}
                                     renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                                        {this.state.isLoading ? <Icon type="loading" size='md' /> : '...'}
+                                        {this.state.isLoading ? <Icon type="loading" size='md' /> : null}
                                     </div>)}
                                     renderRow={this.row}
                                     renderSeparator={separator}
