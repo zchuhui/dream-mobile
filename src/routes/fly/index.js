@@ -12,7 +12,7 @@ class Fly extends React.Component {
       face1:1,
       face2:1,
       face3:1,
-      feeling:0,
+      feeling:null,
     };
   }
 
@@ -38,7 +38,7 @@ class Fly extends React.Component {
       Toast.info('请先填写标题',1);
     }else if(content == ""){
       Toast.info('请多少输入一点吧~~',1);      
-    }else if(feeling == 0){
+    }else if(feeling == null){
       Toast.info('请选一下此刻的心情~~',1);
     }else{ 
       this.props.dispatch({type:'home/publishDream',payload:{
@@ -60,9 +60,9 @@ class Fly extends React.Component {
           style={{ borderBottom: "1px solid #eee" }}
         >iDream</NavBar>
         <div className={styles.faceWrap}>
-          <i className={this.state.face1?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face1',1)}>&#xe609;</i>
-          <i className={this.state.face2?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face2',2)}>&#xe791;</i>
-          <i className={this.state.face3?styles.iconfont:styles.iconfont_blue} onClick={this.onChangeFace.bind(this,'face3',3)}>&#xe608;</i>
+          <i className={this.state.face1?styles.iconfont:styles.iconfontBlue} onClick={this.onChangeFace.bind(this,'face1',2)}>&#xe609;</i>
+          <i className={this.state.face2?styles.iconfont:styles.iconfontBlue} onClick={this.onChangeFace.bind(this,'face2',1)}>&#xe791;</i>
+          <i className={this.state.face3?styles.iconfont:styles.iconfontBlue} onClick={this.onChangeFace.bind(this,'face3',0)}>&#xe608;</i>
         </div>
         <TextareaItem
           placeholder="梦境标题"

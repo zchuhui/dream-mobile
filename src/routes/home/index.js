@@ -15,6 +15,7 @@ class Index extends React.Component {
 		});
 
 		this.state = {
+			currentPage:1,
 			dataSource,
 			list: [],
 			isLoading: true,
@@ -44,7 +45,6 @@ class Index extends React.Component {
 			}, 500)
 		}
 	}
-
 	
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
@@ -59,7 +59,15 @@ class Index extends React.Component {
 				</div>
 				<div className={styles.itemContent}>
 					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
-						<div className={styles.title}>{obj.title}</div>
+						<div className={styles.title}>
+							{
+								obj.feeling == 0 ? <i className={styles.iconfont} style={{ color:'#ff5050'}}>&#xe608;</i>:
+									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i>:
+										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i>:null
+							}
+							
+							{obj.title}
+						</div>
 						<div className={styles.des}>{obj.content}</div>
 					</Link>
 				</div>
@@ -73,40 +81,16 @@ class Index extends React.Component {
 
 		);
 	}; 
-	
-	/* row = (rowData, sectionID, rowID) => {
-		const obj = rowData;
-		return (
-			<div className={styles.item}>
-				<div className={styles.head}>
-					<img src={obj.img_url} />
-					<span className={styles.name}>{obj.username}</span>
-					<span className={styles.time}>{obj.time}</span>
-				</div>
-				<div className={styles.itemContent}>
-					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
-						<div className={styles.title}>{obj.title}</div>
-						<div className={styles.des}>{obj.content}</div>
-					</Link>
-				</div>
-				<div className={styles.icons}>
-					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
-						<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.praiseCount}</label></span>
-						<span className={styles.review}><i></i><label>{obj.reviewCount}</label></span>
-					</Link>
-				</div>
-			</div>
 
-		);
-	};*/
-
-
+	// 拉倒底部，获取下一页数据 
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
 		}
-		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'home/fetch' }); 
+		this.setState({ isLoading: true});
+		this.state.currentPage = this.state.currentPage+1;
+		this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } }); 
+
 	}
 
 	onPraise = (t) => {
