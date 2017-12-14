@@ -12,7 +12,7 @@ export default modelExtend(model, {
 	state: {
 
 	},
-
+	
 	subscriptions: {
 		setup({ dispatch, history }) { 
 
@@ -34,7 +34,7 @@ export default modelExtend(model, {
 			
 			if (code == 200) {
 				Toast.success(msg);
-				setTimeout(() => { hashHistory.push("/my/userinfo");},1000)
+				setTimeout(() => { history.back() },1000)
 				//yield put({ type: 'updateState', payload: { user: data.user, list: data.feed } });
 			}
 		},
