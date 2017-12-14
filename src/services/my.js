@@ -18,3 +18,11 @@ export async function getUserHome(params) {
 export async function editUser(params) {
   return post(my.editUser, { data: params });
 }
+
+
+/**
+ * 意见
+ */
+export async function addOpinion(params) {
+  return post(my.opinion, { data: params });
+}

@@ -44,26 +44,24 @@ class About extends React.Component {
                     <TextareaItem
                         placeholder="关于"
                         data-seed="logId"
+                        id="titleId"
                         autoHeight
                         className={styles.title}
                         ref={el => this.customFocusInst = el}/>
                     <TextareaItem
                         placeholder="你的联系方式"
                         data-seed="logId"
+                        id="contactId"
                         autoHeight
                         className={styles.title}
                         ref={el => this.customFocusInst = el}/>
-                    <TextareaItem rows={4} className={styles.textarea} placeholder="详细内容"/>
+                    <TextareaItem rows={4} className={styles.textarea} id="contentId" placeholder="详细内容"/>
                 </div>
 
                 <Button
-                    onClick={this
-                    .submit
-                    .bind(this)}
+                    onClick={this.submit.bind(this)}
                     type="primary"
-                    style={{
-                    margin: 20
-                }}>提交</Button>
+                    style={{ margin: 20}}>提交</Button>
 
                 <div className={styles.iNeedYou}>
                     <h3>『 我们需要你 』</h3>
@@ -79,13 +77,21 @@ class About extends React.Component {
     }
 
     submit = () => {
+        const title = document.getElementById("titleId").value;
+        const contact = document.getElementById("contactId").value;
+        const content = document.getElementById("contentId").value;
 
-        Toast.info('保存成功', 1);
-
-        setTimeout(() => {}, 1000)
+        if(title =="" || contact == "" || content == ""){
+            Toast.info('请把消息填写完整', 1);
+        }else{
+            
+            this.props.dispatch({ type:'my/addOpinion',payload:{
+                title:title,
+                content:content,
+                contact_info:contact
+            }});
+        }
     }
-
-    onChange = (v) => {}
 }
 
 function mapStateToProps(state) {

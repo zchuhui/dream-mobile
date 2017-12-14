@@ -52,7 +52,6 @@ class Home extends React.Component {
           {
             this.state.selectedTab=="tab2"?<Search />:null
           }
-          
         </TabBar.Item>
 
         <TabBar.Item
