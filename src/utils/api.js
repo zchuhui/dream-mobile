@@ -1,5 +1,10 @@
-const devApi = 'api',
+let devApi = 'api',
     buildApi = 'http://h5.xiaoyiwo.net';
+
+if (document.domain === 'h5.xiaoyiwo.net') {
+    devApi == buildApi
+}
+
 
 module.exports = {
     chat:{
