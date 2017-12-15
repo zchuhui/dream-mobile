@@ -17,9 +17,6 @@ module.exports = {
         digg: `${devApi}/feed/updatedigg`,
         review: `${devApi}/feed/review`,
     },
-    message:{
-        'msg': 'https://www.easy-mock.com/mock/5a0a48fab31e3216824d454d/dream/msg',
-    },
     user:{
         login: `${devApi}/login/validate`,
         register: `${devApi}/login/register`,
@@ -32,6 +29,8 @@ module.exports = {
     },
     message:{
         getMessageList: `${devApi}/message/get-user-msg`,
+        getNotice: `${devApi}/message/get-user-notice`,
+        setNotice: `${devApi}/message/set-user-notice`,
     }
     
 }

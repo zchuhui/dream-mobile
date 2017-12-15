@@ -80,12 +80,13 @@ export default modelExtend(model, {
 				}
 			}
 		},
-
+		
 		*getMsg({ payload }, { call, put }) {
 			const { data } = yield call(getMsg, payload);
 			yield put({ type: 'updateState', payload: { msgList: data } });
 		},
-
+		
+		//发梦
 		*publishDream({ payload }, { call, put }) {
 			Toast.loading("发送中...");
 			const { data, code, msg } = yield call(publish, payload);

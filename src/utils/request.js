@@ -96,6 +96,7 @@ export function get (url, options) {
 }
 
 export function post (url, options) { 
+  console.log('post:',url,options);
   if(Storage.get('token')){
       options.data.token = Storage.get('token');
   }
