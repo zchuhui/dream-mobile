@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-cropper --save
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\admin\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\nodejs;C:\Users\admin\AppData\Local\Programs\Python\Python36;C:\Ruby23-x64\bin;C:\Users\admin\AppData\Roaming\npm;C:\Users\admin\AppData\Local\atom\bin;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin
@@ -17,7 +17,7 @@ npm manifest:
   {
     "private": true,
     "scripts": {
-      "start": "set PORT=3001&&roadhog server",
+      "start": "set PORT=3005&&roadhog server",
       "build": "roadhog build"
     },
     "engines": {
@@ -5871,5 +5871,6 @@ Lockfile:
       babel-runtime "6.x"
 
 Trace: 
-  Error: ENOENT: no such file or directory, open 'F:\dream\dream-mobile\node_modules\copy-webpack-plugin\node_modules\is-extglob\index.js'
-      at Error (native)
+  Error: getaddrinfo ENOTFOUND registry.npm.taobo.org registry.npm.taobo.org:443
+      at errnoException (dns.js:28:10)
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:76:26)

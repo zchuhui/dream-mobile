@@ -17,6 +17,8 @@ import { createForm } from 'rc-form';
 import Storage from '../../utils/storage';
 import styles from "./edit.less";
 import Util from "../../utils/util";
+import Cropper from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
 
 import SexM from './image/sex_m.png';
 import SexW from './image/sex_w.png';
@@ -39,8 +41,10 @@ class Edit extends React.Component {
         this.state = {
             sex: null,
             img_url: null,
+            cropper_img:null,
             files: [],
             multiple: false,
+            cropperVisible:false,
         }
     }
 
@@ -52,15 +56,15 @@ class Edit extends React.Component {
         this.state.sex = nextProps.user ? nextProps.user.sex:null
     }
 
-    onImageChange = (files, type, index) => {
-        console.log(files, type, index);
+    // 裁剪函数
+    _crop(){
+        //console.log(this.refs.cropper.getCroppedCanvas().toDataURL());
         this.setState({
-            files,
-        });
-    }
+            cropper_img:this.refs.cropper.getCroppedCanvas().toDataURL()
+        })
+      }
 
     render() {
-        //const { getFieldProps } = this.props.form;
         // 性别列表
         const sexs = [
             {
@@ -108,18 +112,12 @@ class Edit extends React.Component {
 
                 <div className={styles.head}>
                     <div className={styles.img}>
-                        <img src={this.state.img_url ==null ? this.props.user.avatar:this.state.img_url} onClick={this.onUpdateImg} />
+                        <img src={this.state.img_url ==null ? this.props.user.avatar :this.state.img_url} onClick={this.onUpdateImg} />
                     </div>
                     <input type="file" id="fileId" onChange={this.fileChange.bind(this)}  />
-                    {/* <ImagePicker
-                        files={files}
-                        onChange={this.onImageChange}
-                        onImageClick={(index, fs) => console.log(index, fs)}
-                        selectable={files.length < 5}
-                        multiple={this.state.multiple}
-                    /> */}
-                </div>
+                    
 
+                </div>
                 <List>
                     <InputItem
                         id="inputUsername"
@@ -173,7 +171,7 @@ class Edit extends React.Component {
                         <RadioItem
                             key={i.value}
                             checked={this.state.sex === i.value}
-                            onChange={() => this.onSelectAge(i.value)}>
+                            onChange={() => this.onSelectSex(i.value)}>
                                 <img src={i.icon} style={{ marginRight: 10 }} />
                             {i.label}
                         </RadioItem>
@@ -190,6 +188,25 @@ class Edit extends React.Component {
                         />
                 </List>
 
+                {
+                    this.state.cropperVisible?
+                    <div className={styles.cropperImg}>
+                        <div>
+                        <Cropper
+                                ref='cropper'
+                                src={ this.state.img_url }
+                                className={styles.cropper}
+                                aspectRatio={10 / 10}
+                                guides={false}
+                                crop={this._crop.bind(this)} 
+                            />
+                            <Button type="primary" onClick={this.handleCropperImg}>裁剪</Button>
+                        </div>
+                        
+                    </div>:null
+                }
+                
+
                 <Button
                     onClick={this.submit.bind(this)}
                     type="primary"
@@ -200,6 +217,7 @@ class Edit extends React.Component {
         )
     }
 
+    // 提交
     submit = () => {
         
         const name = document.getElementById('inputUsername').value;
@@ -212,7 +230,7 @@ class Edit extends React.Component {
         Toast.loading('保存中...',5);
 
         this.props.dispatch({ type:'my/editUser',payload:{
-            avatar:this.state.img_url, 
+            avatar:this.state.img_url,
             uname:name,
             sex:sex,
             location:address,
@@ -222,14 +240,16 @@ class Edit extends React.Component {
         }})
     }
 
+    // 选择图片
     onUpdateImg = () => {
         document.getElementById('fileId').click();
     }
 
+    // 上传图片
     fileChange = (v) => {
+        
         const that = this;
         let file = document.getElementById('fileId').files[0];
-        console.log('file', file.size);
 
         //用size属性判断文件大小不能超过5M ，前端直接判断的好处，免去服务器的压力。
         if (file.size > 5 * 1024 * 1024) {
@@ -241,22 +261,29 @@ class Edit extends React.Component {
         reader.onload = function () {
             // 通过 reader.result 来访问生成的 base64 DataURL
             var base64 = reader.result;
-
             that.setState({
-                img_url: base64  
+                img_url: base64,
+                cropperVisible:true  
             })
             
             //上传图片
             //base64_uploading(base64);
         }
+
         reader.readAsDataURL(file); 
     }
 
-    onPickerChange = () => { }
-    onOk = () => { }
-    onClick = () => { }
-    onSelectAge = (val) => { 
-        
+    // 裁剪图片
+    handleCropperImg=()=>{
+        this.setState({
+            cropperVisible:false,
+            img_url:this.state.cropper_img
+        });
+
+    }
+
+    // 选择性别
+    onSelectSex = (val) => { 
         this.setState({ sex: val });
     }
 }
