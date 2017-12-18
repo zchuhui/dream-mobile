@@ -46,13 +46,12 @@ class Index extends React.Component {
 		};
 	}
 
-	componentDidMount() {
-		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
+	componentDidMount() { 
+		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } }); 
 	}
 
 	componentWillReceiveProps(nextProps) {
 		const hei = document.documentElement.clientHeight;
-
 		if (this.state.msgList !== nextProps.msgList && nextProps.msgList !== undefined) {
 
 			this.setState({
@@ -112,10 +111,6 @@ class Index extends React.Component {
 		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
 	}
 
-	onPraise = (t) => {
-		console.log(t);
-	}
-
 	render() {
 		const separator = (sectionID, rowID) => (
 			<div
@@ -143,7 +138,7 @@ class Index extends React.Component {
 				<StickyContainer>
 					<Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
 						{
-							this.state.msgList.length > 0 ?
+							this.state.msgList && this.state.msgList.length > 0 ?
 								<ListView
 									ref={el => this.lv = el}
 									dataSource={this.state.dataSource}
@@ -162,7 +157,7 @@ class Index extends React.Component {
 									onEndReached={this.onEndReached}
 									onEndReachedThreshold={10}
 								/>
-								: <div style={{ color: '#999', margin: 30, }}>还木有消息</div>
+								: <div style={{ color: '#999', margin: 30, }}></div>
 						}
 
 

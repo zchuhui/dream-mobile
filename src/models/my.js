@@ -2,14 +2,21 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import {  getUserHome,editUser,addOpinion } from '../services/my.js';
-import { Toast } from 'antd-mobile'
+import { Toast } from 'antd-mobile';
+import Util from "../utils/util";
+import Storage from '../utils/storage';
+
+
+const UID = Storage.get('uid');
 
 export default modelExtend(model, {
 	namespace: 'my',
 	state: {
 
 	},
-	subscriptions: {setup({ dispatch, history }) { }},
+	subscriptions: {setup({ dispatch, history }) { 
+		//dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: 1 } });
+	}}, 
 
 	effects: { 
 		// 用户信息
@@ -47,15 +54,6 @@ export default modelExtend(model, {
 					history.back()
 				},1000)
 			}
-		},
-
-		*logout({ payload }, { call, put }) {
-			Toast.info("退出中...",1);
-			Storage.remove('token');
-			Storage.remove('uname');
-			setTimeout(()=>{
-				hashHistory.push('/login');
-			},1000)
 		},
 	},
 

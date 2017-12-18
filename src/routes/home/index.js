@@ -75,7 +75,7 @@ class Index extends React.Component {
 				</div>
 				<div className={styles.icons}>
 					<Link to={{pathname: "/home/detail", 'state': + obj.feed_id}}>
-						<span className={styles.praise} onClick={this.onPraise.bind(this)}><i></i><label>{obj.digg_count}</label></span>
+						<span className={styles.praise}><i></i><label>{obj.digg_count}</label></span>
 						<span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
 					</Link>
 				</div>
@@ -92,10 +92,6 @@ class Index extends React.Component {
 		this.setState({ isLoading: true});
 		this.state.currentPage = this.state.currentPage+1;
 		this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } }); 
-	}
-
-	onPraise = (t) => {
-		console.log(t);
 	}
 
 	render() {

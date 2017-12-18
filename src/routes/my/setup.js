@@ -101,7 +101,7 @@ class Setup extends React.Component {
                         </CheckboxItem>
                     </List>
 
-                    : <div>加载中...</div>
+                    : <div style={{textAlign:'center',margin:'50px auto'}}> <Icon type="loading" /></div>
                 }
 
 
@@ -111,7 +111,7 @@ class Setup extends React.Component {
                             marginTop: 10
                         }}
                         multipleLine
-                        onClick={() => { this.props.dispatch({ type: 'my/logout' }) }}>
+                        onClick={() => { this.props.dispatch({ type: 'message/logout' }) }}> 
                         <div
                             style={{
                                 textAlign: 'center',

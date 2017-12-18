@@ -3,7 +3,8 @@ import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import { getMessageList,setNotice,getNotice } from '../services/message';
 import Storage from '../utils/storage';
-import { Toast } from 'antd-mobile'
+import { Toast } from 'antd-mobile';
+
 
 export default modelExtend(model, {
 
@@ -15,7 +16,7 @@ export default modelExtend(model, {
 	
 	subscriptions: {
 		setup({ dispatch, history }) { 
-
+			//dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
 		},
 	},
 
@@ -44,6 +45,15 @@ export default modelExtend(model, {
 				Toast.info("已设置",1);
 			}
 		},
-	},
+
+		*logout({ payload }, { call, put }) {
+			Toast.info("退出中...", 1);
+			Storage.remove('token');
+			Storage.remove('uname');
+			setTimeout(() => {
+				hashHistory.push('/login');
+			}, 1000)
+		},
+	}, 
 
 });

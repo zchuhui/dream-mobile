@@ -1,10 +1,9 @@
 let devApi = 'api',
-    buildApi = 'http://h5.xiaoyiwo.net';
+    buildApi = 'http://h5.xiaoyiwo.net/index.php?r=';
 
 if (document.domain === 'h5.xiaoyiwo.net') {
-    devApi == buildApi
+    devApi = buildApi
 }
-
 
 module.exports = {
     chat:{

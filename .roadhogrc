@@ -27,7 +27,7 @@
   },
   "proxy": {
       "/api": {
-        "target": "http://h5.xiaoyiwo.net/index.php",
+        "target": "http://h5.xiaoyiwo.net/index.php?r=",
         "changeOrigin": true,
         "pathRewrite": { "^/api" : "" }
       }

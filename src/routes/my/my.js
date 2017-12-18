@@ -12,7 +12,11 @@ import {
 } from "antd-mobile";
 import styles from "./my.less";
 import NavBarPage from "../../components/NavBar"
+import Util from "../../utils/util";
+import Storage from '../../utils/storage';
 
+
+const UID = Storage.get('uid');
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -21,19 +25,23 @@ class My extends React.Component {
         super(props, context);
     }
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: 1 } });
+    }
+
     render() {
         return (
             <div className={styles.myWrap}>
                 <NavBarPage />
 
-                <List className={styles.listItem}>
+                <List className={styles.listItem} style={{marginTop:'-1px'}}>
                     <Link to="/my/userinfo">
                         <Item
                             arrow="horizontal"
-                            thumb={< img style = {{width:40,height:40,borderRadius:'50%'}}src = "http://content.52pk.com/files/141127/1283574_094431_2154.jpg" alt = "" />}
+                            thumb={< img style = {{display:'block', width:40,height:40,borderRadius:'50%',border:'1px solid #ddd'}} src = {this.props.user ? this.props.user.avatar : Util.defaultImg} alt=""/>}
                             multipleLine
                             onClick={() => {}}>
-                            灰鸽
+                            {this.props.user?this.props.user.uname:null}
                             <Brief>我的主页</Brief>
                         </Item>
                     </Link>
@@ -94,7 +102,7 @@ class My extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        ...state.my
+        ...state.my 
     };
 }
 export default connect(mapStateToProps)(My);

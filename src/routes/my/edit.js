@@ -52,25 +52,6 @@ class Edit extends React.Component {
         this.state.sex = nextProps.user ? nextProps.user.sex:null
     }
 
-    // 年纪列表
-    /* ages = () => {
-        let arr = [],
-            aAge = [];
-        let i = 0;
-
-        while (i < 100) {
-            let objItem = {
-                label: i,
-                value: i
-            }
-            aAge.push(objItem)
-            i++;
-        }
-
-        arr.push(aAge);
-        return arr;
-    } */
-
     onImageChange = (files, type, index) => {
         console.log(files, type, index);
         this.setState({
@@ -127,7 +108,7 @@ class Edit extends React.Component {
 
                 <div className={styles.head}>
                     <div className={styles.img}>
-                        <img src={this.state.img_url ? this.state.img_url:Util.defaultImg} onClick={this.onUpdateImg} />
+                        <img src={this.state.img_url ==null ? this.props.user.avatar:this.state.img_url} onClick={this.onUpdateImg} />
                     </div>
                     <input type="file" id="fileId" onChange={this.fileChange.bind(this)}  />
                     {/* <ImagePicker
@@ -187,7 +168,7 @@ class Edit extends React.Component {
 
                 </List>
 
-                <List renderHeader={() => '性别 (点击即可选择)'}>
+                <List renderHeader={() => '性别'}>
                     {sexs.map(i => (
                         <RadioItem
                             key={i.value}
@@ -199,12 +180,12 @@ class Edit extends React.Component {
                     ))}
                 </List>
 
-                <List renderHeader={() => '你怎么看待梦境?'}>
+                <List renderHeader={() => ''}>
                     <TextareaItem 
                         defaultValue={this.props.user ?this.props.user.intro:null} 
                         id="inputIntroId" 
                         rows={4} 
-                        placeholder="说说你看法" 
+                        placeholder="你怎么看待梦境?" 
                         style={{fontSize:14,}}
                         />
                 </List>
@@ -220,12 +201,15 @@ class Edit extends React.Component {
     }
 
     submit = () => {
+        
         const name = document.getElementById('inputUsername').value;
         const profession = document.getElementById('inputProfession').value;
         const address = document.getElementById('inputAddress').value;
         const age = document.getElementById('inputAge').value;
         const intro = document.getElementById('inputIntroId').value;
         const sex = this.state.sex;
+
+        Toast.loading('保存中...',5);
 
         this.props.dispatch({ type:'my/editUser',payload:{
             avatar:this.state.img_url, 
@@ -241,6 +225,7 @@ class Edit extends React.Component {
     onUpdateImg = () => {
         document.getElementById('fileId').click();
     }
+
     fileChange = (v) => {
         const that = this;
         let file = document.getElementById('fileId').files[0];
@@ -248,7 +233,7 @@ class Edit extends React.Component {
 
         //用size属性判断文件大小不能超过5M ，前端直接判断的好处，免去服务器的压力。
         if (file.size > 5 * 1024 * 1024) {
-            Toast.info('图片太多了，请换一张小一点的');
+            Toast.info('图片太大了，请换一张小一点的');
             return;
         }
 

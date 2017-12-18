@@ -41,14 +41,13 @@ function checkStatus (res) {
 }
 
 function handleData (res) {
-  
   const data = res.data
   if (data && data.msg && parseInt(data.code) !== 200) {
 
     Toast.fail(data.msg,2)
 
     if(data.code == 401){
-      //window.location.href = '/login';
+      window.location.href = '#/login';
     }
   }
   else if(data && data.msg && data.code == 200) {
@@ -58,15 +57,21 @@ function handleData (res) {
   return { ...data }
 }
 
-function handleError (error) {
+function handleError(error) {
+  if (error.response == undefined){
+      window.location.href = '#/login';
+  }
+  
   const data = error.response.data
   if (data.errors) {
-    Toast.fail(`${data.message}：${data.errors}`, 5)
+    Toast.fail(`${data.message}：${data.errors}`, 1)
   } else if (data.error) {
-    Toast.fail(`${data.error}：${data.error_description}`, 5)
+    Toast.fail(`${data.error}：${data.error_description}`, 1)
   } else {
-    Toast.fail('未知错误！', 5)
+    
+    Toast.fail('未知错误！', 1);
   }
+
   return { success: false }
 }
 
@@ -96,10 +101,17 @@ export function get (url, options) {
 }
 
 export function post (url, options) { 
-  console.log('post:',url,options);
   if(Storage.get('token')){
       options.data.token = Storage.get('token');
   }
+  else{
+    window.location.href = '#/login';  
+    return;
+  }
+  return request(url, { ...options, method: 'post' })
+}
+
+export function postLogin (url, options) {  
   return request(url, { ...options, method: 'post' })
 }
 

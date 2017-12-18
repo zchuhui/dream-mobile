@@ -21,7 +21,8 @@ export default modelExtend(model, {
 	effects: {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
-			const { data, code } = yield call(getDreamList, payload);
+			//const { data, code } = yield call(getDreamList, payload); 
+			const { data, code } = yield call(getDreamList, payload); 
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { list: data.data } });
 			}

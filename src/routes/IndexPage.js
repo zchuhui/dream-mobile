@@ -14,10 +14,11 @@ class Home extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      selectedTab: "tab1",
+    this.state = { 
+      selectedTab: sessionStorage.getItem("selectedTab")?sessionStorage.getItem("selectedTab"):'tab1'
     };
   }
+  
 
   render() {
     return <div
@@ -35,12 +36,13 @@ class Home extends React.Component {
           selectedIcon={< div className={styles.iconCircle2} />}
           title="探索"
           key="Friend"
-          dot
           selected={this.state.selectedTab === "tab1"}
           onPress={this.onPress.bind(this,'tab1')}>
-          <HomePage />
+          {
+            this.state.selectedTab == "tab1" ? <HomePage /> : null
+          }
         </TabBar.Item>
-
+          
         <TabBar.Item
           icon={< div className={styles.iconFriend} />}
           selectedIcon={< div className={styles.iconFriend2} />}
@@ -84,8 +86,26 @@ class Home extends React.Component {
     </div>;
   }
 
+  /* componentWillMount(){
+    const tab = sessionStorage.getItem("selectedTab")
+    console.log(tab);
+    this.setState({
+      selected: tab
+    });
+    console.log('this.',this.state.selectedTab); 
+  } */
+
+  /* 
+  componentDidMount(){
+    console.log(sessionStorage.getItem("selectedTab"));
+    this.setState({
+      selected: sessionStorage.getItem("selectedTab")
+    });
+  } */
+
   onPress(val){
-    this.setState({ selectedTab: val });
+    sessionStorage.setItem("selectedTab",val);
+    this.setState({ selectedTab: val }); 
   }
 
   renderContent(pageText) {

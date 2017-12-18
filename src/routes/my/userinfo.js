@@ -73,6 +73,7 @@ class Userinfo extends React.Component {
 		}
     }
 
+    // 没条数据格式
     row = (rowData, sectionID, rowID) => {
         const obj = rowData;
         return (
@@ -99,6 +100,7 @@ class Userinfo extends React.Component {
         );
     }; 
 
+    // 拉倒底部，再次获取数据
     onEndReached = (event) => {
         if (this.state.isLoading && !this.state.hasMore) {
             return;
@@ -107,6 +109,26 @@ class Userinfo extends React.Component {
         this.setState({ isLoading: true });
         this.state.currentPage = this.state.currentPage +1 ; 
         this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: this.state.currentPage} });
+    }
+
+    // 性别识别
+    sexsRender=(sex)=>{
+        switch(sex){
+            case 0 :
+                return "男";
+            case 1 :
+                return "女";
+            case 2 :
+                return "男男";
+            case 3 :
+                return "女女";
+            case 4 :
+                return "异性";
+            case 5 :
+                return "双性";
+            case 6 :
+                return "无性";
+        } 
     }
 
     render() {
@@ -129,7 +151,7 @@ class Userinfo extends React.Component {
                     mode="light"
                     icon={< Icon type="left" />}
                     onLeftClick={() => history.go(-1)}
-                    rightContent={< Link to="/fly" > <div className={styles.fly}></div> </Link>}
+                    rightContent={< Link to="/fly" ><i className={styles.iconfontBlue}>&#xe68e;</i> </Link>}
                     style={{
                         borderBottom: "1px solid #ECECED"
                     }}>iDream</NavBar>
@@ -149,7 +171,7 @@ class Userinfo extends React.Component {
                             </div>
                             <ul>
                                 <li>
-                                    <i className={styles.iconfont}>&#xe67b;</i><span>{this.props.user.sex}</span></li>
+                                    <i className={styles.iconfont}>&#xe67b;</i><span>{this.sexsRender(this.props.user.sex)}</span></li>
                                 <li>
                                     <i className={styles.iconfont}>&#xe613;</i><span>{this.props.user.location}</span></li>
                                 <li>
