@@ -64,6 +64,7 @@ class Login extends React.Component {
       Toast.info("请输入密码", 1);
     } else {
       //开始登陆
+      Toast.loading("登录中...",5); 
       this.props.dispatch({'type':'user/login','payload':{'name':username,'password':password}});
     }
   }

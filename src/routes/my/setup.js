@@ -111,7 +111,7 @@ class Setup extends React.Component {
                             marginTop: 10
                         }}
                         multipleLine
-                        onClick={() => { this.props.dispatch({ type: 'message/logout' }) }}> 
+                        onClick={() => { this.props.dispatch({ type: 'my/logout',payload:{token:null} }) }}> 
                         <div
                             style={{
                                 textAlign: 'center',

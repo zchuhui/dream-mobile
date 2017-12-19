@@ -46,14 +46,7 @@ export default modelExtend(model, {
 			}
 		},
 
-		*logout({ payload }, { call, put }) {
-			Toast.info("退出中...", 1);
-			Storage.remove('token');
-			Storage.remove('uname');
-			setTimeout(() => {
-				hashHistory.push('/login');
-			}, 1000)
-		},
+		
 	}, 
 
 });

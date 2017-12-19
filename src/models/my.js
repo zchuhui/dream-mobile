@@ -1,7 +1,7 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
-import {  getUserHome,editUser,addOpinion } from '../services/my.js';
+import {  getUserHome,editUser,addOpinion,loginout } from '../services/my.js';
 import { Toast } from 'antd-mobile';
 import Util from "../utils/util";
 import Storage from '../utils/storage';
@@ -22,6 +22,7 @@ export default modelExtend(model, {
 		// 用户信息
 		*getUserHome({payload},{call, put}){
 			const { data, code ,msg} = yield call(getUserHome, payload);
+			console.log(data.user); 
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { user: data.user,list:data.feed } });
 			}
@@ -55,6 +56,29 @@ export default modelExtend(model, {
 				},1000)
 			}
 		},
+
+		// 退出登录
+		*logout({ payload }, { call, put }) {
+			Toast.info("退出中...", 1);
+			const { data, code, msg } = yield call(loginout, payload);
+
+			if(code == 200){
+				Toast.info("已退出", 2);
+
+				// 清空数据
+				Storage.remove('token');
+				Storage.remove('uname');
+				Storage.remove('uid');
+
+				yield put({ type: 'updateState', payload: { user: null, list: null } });
+				
+				setTimeout(() => {
+					hashHistory.push('/login');
+				}, 1000)
+			}
+			
+		},
+
 	},
 
 	reducers: {	}

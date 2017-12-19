@@ -68,7 +68,6 @@ function handleError(error) {
   } else if (data.error) {
     Toast.fail(`${data.error}：${data.error_description}`, 1)
   } else {
-    
     Toast.fail('未知错误！', 1);
   }
 

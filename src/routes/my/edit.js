@@ -192,15 +192,15 @@ class Edit extends React.Component {
                     this.state.cropperVisible?
                     <div className={styles.cropperImg}>
                         <div>
-                        <Cropper
-                                ref='cropper'
-                                src={ this.state.img_url }
-                                className={styles.cropper}
-                                aspectRatio={10 / 10}
-                                guides={false}
-                                crop={this._crop.bind(this)} 
-                            />
-                            <Button type="primary" onClick={this.handleCropperImg}>裁剪</Button>
+                            <Cropper
+                                    ref='cropper'
+                                    src={ this.state.img_url }
+                                    className={styles.cropper}
+                                    aspectRatio={10 / 10}
+                                    guides={false}
+                                    crop={this._crop.bind(this)} 
+                                />
+                            <Button type="primary" onClick={this.handleCropperImg} style={{margin:'20px'}}>裁剪</Button>
                         </div>
                         
                     </div>:null

@@ -26,3 +26,11 @@ export async function editUser(params) {
 export async function addOpinion(params) {
   return post(my.opinion, { data: params });
 }
+
+
+/**
+ * 退出登录
+ */
+export async function loginout(params) {
+  return post(my.loginout, { data: params });
+}
