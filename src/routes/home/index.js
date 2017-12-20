@@ -25,9 +25,13 @@ class Index extends React.Component {
 		};
 	}
 	
-	componentDidMount() {
+	componentWillMount(){
 		this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
 	}
+	componentDidMount() {
+		//this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
+	}
+	
 
 	componentWillReceiveProps(nextProps) {
 		const hei = document.documentElement.clientHeight;

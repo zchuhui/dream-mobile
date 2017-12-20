@@ -12,21 +12,13 @@ class Setup extends React.Component {
         super(props, context);
 
         this.state = {
-            setup: {
-                review: false,
-                transmit: false,
-                praise: false,
-                keep: false,
-                personalLetter: false,
-                newfollow: false
-            },
             notice: {
                 is_digg: 1,
-                is_follow:2,
-                is_forward:1,
-                is_personal:2,
-                is_review:1,
-                is_store:1,
+                is_follow: 1,
+                is_forward: 1,
+                is_personal: 2,
+                is_review: 1,
+                is_store: 1,
             }
         }
     }
@@ -36,12 +28,11 @@ class Setup extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
         if (this.state.notice !== nextProps.notice) {
             this.setState({
                 notice: nextProps.notice
             })
-        } 
+        }
     }
 
     render() {
@@ -76,34 +67,31 @@ class Setup extends React.Component {
                     style={{
                         borderBottom: "1px solid #ECECED"
                     }}>设置</NavBar>
-                
+
                 {
                     this.props.notice ?
-
-                    <List renderHeader={() => '通知（选中后会自动保存）'}>
-                        <CheckboxItem defaultChecked={this.props.notice.is_review==1?true:false} onChange={() => this.onChange(0)}>
-                            评论
-                        </CheckboxItem>
-                        <CheckboxItem defaultChecked={this.props.notice.is_forward == 1 ? true : false} onChange={() => this.onChange(1)}>
-                            转发
-                        </CheckboxItem>
-                        <CheckboxItem defaultChecked={this.props.notice.is_digg == 1 ? true : false} onChange={() => this.onChange(2)}>
-                            点赞
-                        </CheckboxItem>
-                        <CheckboxItem defaultChecked={this.props.notice.is_store == 1 ? true : false} onChange={() => this.onChange(3)}>
-                            收藏
-                        </CheckboxItem>
-                        <CheckboxItem defaultChecked={this.props.notice.is_personal == 1 ? true : false} onChange={() => this.onChange(4)}>
-                            私信
-                        </CheckboxItem>
-                        <CheckboxItem defaultChecked={this.props.notice.is_follow == 1 ? true : false} onChange={() => this.onChange(5)}>
-                            新跟随
-                        </CheckboxItem>
-                    </List>
-
-                    : <div style={{textAlign:'center',margin:'50px auto'}}> <Icon type="loading" /></div>
+                        <List renderHeader={() => '通知（选中后会自动保存）'}>
+                            <CheckboxItem defaultChecked={this.state.notice.is_review == 1 ? true : false} onChange={() => this.onChange(0)}>
+                                    评论
+                            </CheckboxItem>
+                                <CheckboxItem defaultChecked={this.state.notice.is_forward == 1 ? true : false} onChange={() => this.onChange(1)}>
+                                    转发
+                            </CheckboxItem>
+                                <CheckboxItem defaultChecked={this.state.notice.is_digg == 1 ? true : false} onChange={() => this.onChange(2)}>
+                                    点赞
+                            </CheckboxItem>
+                                <CheckboxItem defaultChecked={this.state.notice.is_store == 1 ? true : false} onChange={() => this.onChange(3)}>
+                                    收藏
+                            </CheckboxItem>
+                                <CheckboxItem defaultChecked={this.state.notice.is_personal == 1 ? true : false} onChange={() => this.onChange(4)}>
+                                    私信
+                            </CheckboxItem>
+                                <CheckboxItem defaultChecked={this.state.notice.is_follow == 1 ? true : false} onChange={() => this.onChange(5)}>
+                                    新跟随
+                            </CheckboxItem>
+                        </List>
+                        : <div style={{ textAlign: 'center', margin: '50px auto' }}> <Icon type="loading" /></div>
                 }
-
 
                 <List className={styles.listItem}>
                     <Item
@@ -111,7 +99,7 @@ class Setup extends React.Component {
                             marginTop: 10
                         }}
                         multipleLine
-                        onClick={() => { this.props.dispatch({ type: 'my/logout',payload:{token:null} }) }}> 
+                        onClick={() => { this.props.dispatch({ type: 'my/logout', payload: { token: null } }) }}>
                         <div
                             style={{
                                 textAlign: 'center',
@@ -119,8 +107,8 @@ class Setup extends React.Component {
                             }}>退出账号</div>
                     </Item>
                 </List>
-        
-    </div>
+
+            </div>
         )
     }
 
@@ -146,15 +134,17 @@ class Setup extends React.Component {
                 break;
         }
 
-        this.props.dispatch({ type: 'message/setNotice' ,
-        payload:{
-            is_review: this.state.notice.is_review,
-            is_digg: this.state.notice.is_digg,
-            is_forward: this.state.notice.is_forward,
-            is_follow: this.state.notice.is_follow,
-            is_store: this.state.notice.is_store,
-            is_personal: this.state.notice.is_personal,
-        }});
+        this.props.dispatch({
+            type: 'message/setNotice',
+            payload: {
+                is_review: this.state.notice.is_review,
+                is_digg: this.state.notice.is_digg,
+                is_forward: this.state.notice.is_forward,
+                is_follow: this.state.notice.is_follow,
+                is_store: this.state.notice.is_store,
+                is_personal: this.state.notice.is_personal,
+            }
+        });
 
     }
 }

@@ -8,7 +8,6 @@ import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
 import Util from "../../utils/util";
 
-const UID = Storage.get('uid');
 
 function renderTabBar(props) {
     return (
@@ -48,11 +47,12 @@ class Userinfo extends React.Component {
             height: document.documentElement.clientHeight * 3 / 4,
             currentPage:1,
         };
-
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID,page:1} });
+        // 获取用户信息
+        const uid = Storage.get('uid');
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: uid,page:1} });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -149,12 +149,11 @@ class Userinfo extends React.Component {
             <div className={styles.userinfoWrap}>
                 <NavBar
                     mode="light"
-                    icon={< Icon type="left" />}
-                    onLeftClick={() => history.go(-1)}
+                    icon={< Icon type="left" onClick={ () => history.go(-1)} />}
                     rightContent={< Link to="/fly" ><i className={styles.iconfontBlue}>&#xe68e;</i> </Link>}
                     style={{
                         borderBottom: "1px solid #ECECED"
-                    }}>iDream</NavBar>
+                    }}><div style={{width:'200',textAlign:'center'}}>iDream</div></NavBar>
 
                 {/* 个人基本信息 */}
                 {

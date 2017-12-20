@@ -15,7 +15,6 @@ import NavBarPage from "../../components/NavBar"
 import Util from "../../utils/util";
 import Storage from '../../utils/storage';
 
-const UID = Storage.get('uid');
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -24,9 +23,9 @@ class My extends React.Component {
         super(props, context);
     }
 
-    componentWillMount() {
-        console.log("UID",UID); 
-        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: 1 } });
+    componentWillMount() { 
+        const uid = Storage.get('uid');
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
     }
 
     render() {

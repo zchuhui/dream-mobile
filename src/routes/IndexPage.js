@@ -10,13 +10,10 @@ import Search from "./search/index";
 import Fly from "./fly/index";
 import Message from "./message/index";
 
-/* import Storage from '../utils/storage';
-const UID = Storage.get('uid'); */
-
 class Home extends React.Component {
   constructor(props, context) {
     super(props, context);
-
+    
     this.state = { 
       selectedTab: sessionStorage.getItem("selectedTab")?sessionStorage.getItem("selectedTab"):'tab1'
     };
@@ -89,11 +86,7 @@ class Home extends React.Component {
     </div>;
   }
 
-/*   componentWillMount(){
-      this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: 1 } });
-  }
- */
-
+  componentWillMount(){}
 
   onPress(val){
     sessionStorage.setItem("selectedTab",val);

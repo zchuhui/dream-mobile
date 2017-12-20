@@ -28,10 +28,11 @@ export default modelExtend(model, {
   effects: {
     // 登录
     * login({ payload }, { call, put }) {
+      Toast.loading('登录中...', 3);
       const { code, data, msg } = yield call(login, payload);
       if (code == 200) {
-        Toast.success("登录成功！",2); 
         setTimeout(() => {
+          Toast.success("登录成功！", 1);
           hashHistory.push('/');
         }, 500)
       }
@@ -39,22 +40,29 @@ export default modelExtend(model, {
 
     // 注册
     * register({ payload }, { call, put }) {
-      Toast.loading('注册中...',3)
+      Toast.loading('注册中...', 3)
       const { code, data, msg } = yield call(register, payload);
 
       if (code == 200) {
-        Toast.success('注册成功,自动登录中..', 3)
-        // 注册完成，自动登录
-        yield put({ type: "login", payload: { name: payload.email, password: payload.password } })
+        Toast.loading('注册成功,自动登录中..', 3)
+
+        // 登录
+        const { code, data, msg } = yield call(login, { name: payload.email, password: payload.password });
+        if (code == 200) {
+          setTimeout(() => {
+            Toast.success("登录成功！", 1);
+            hashHistory.push('/');
+          }, 1500)
+        }
       }
     },
 
     // 修改密码
     * resetPassword({ payload }, { call, put }) {
-      const { code, data, msg } = yield call(resetPassword, payload);
-      if (code == 200) {
-        yield put({ type: 'updateState', payload: { data: data } });
-      }
+        const { code, data, msg } = yield call(resetPassword, payload);
+        if (code == 200) {
+          yield put({ type: 'updateState', payload: { data: data } });
+        }
     },
 
   },

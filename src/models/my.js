@@ -7,15 +7,15 @@ import Util from "../utils/util";
 import Storage from '../utils/storage';
 
 
-const UID = Storage.get('uid');
+//const UID = Storage.get('uid');
 
 export default modelExtend(model, {
 	namespace: 'my',
 	state: {
-
+		 
 	},
-	subscriptions: {setup({ dispatch, history }) { 
-		//dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: 1 } });
+	subscriptions: {setup({ dispatch, history }) {
+		//dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
 	}}, 
 
 	effects: { 
@@ -69,6 +69,7 @@ export default modelExtend(model, {
 				Storage.remove('token');
 				Storage.remove('uname');
 				Storage.remove('uid');
+				sessionStorage.clear();
 
 				yield put({ type: 'updateState', payload: { user: null, list: null } });
 				
