@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar, Tabs } from "antd-mobile";
+import { ListView, Icon, NavBar, Tabs, PullToRefresh } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import styles from "./index.less";
 
@@ -20,7 +20,7 @@ function renderTabBar(props) {
 
 const tabs = [
 	{
-		title: <div className={styles.iconReview}>评论</div>
+		title: <i className={styles.iconfontBlue}>&#xe704;</i>
 	},
 	// {
 	//     title: '点赞'
@@ -46,8 +46,11 @@ class Index extends React.Component {
 		};
 	}
 
-	componentDidMount() { 
-		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } }); 
+	componentWillMount() {
+		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
+	}
+	componentDidMount() {
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -131,33 +134,33 @@ class Index extends React.Component {
 					icon={<div className={styles.logo}></div>}
 					onLeftClick={() => console.log('onLeftClick')}
 					rightContent={
-						<Link to="/fly"><div className={styles.fly}></div></Link>}
+						<Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>}
 					style={{ borderBottom: "1px solid #ECECED" }}
 				>iDream</NavBar>
-				
+
 				<StickyContainer>
 					<Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
 						{
-							this.state.msgList && this.state.msgList.length > 0 ?
-								<ListView
-									ref={el => this.lv = el}
-									dataSource={this.state.dataSource}
-									renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-										{this.state.isLoading ? <Icon type="loading" size='md' /> : ''}
-									</div>)}
-									renderRow={this.row}
-									renderSeparator={separator}
-									style={{
-										height: this.state.height,
-										overflow: 'auto',
-									}}
-									pageSize={4}
-									onScroll={() => { console.log('scroll'); }}
-									scrollRenderAheadDistance={500}
-									onEndReached={this.onEndReached}
-									onEndReachedThreshold={10}
-								/>
-								: <div style={{ color: '#999', margin: 30, }}></div>
+							//this.state.msgList && this.state.msgList.length > 0 ?
+							<ListView
+								ref={el => this.lv = el}
+								dataSource={this.state.dataSource}
+								renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+									{this.state.isLoading ? <Icon type="loading" size='md' /> : ''}
+								</div>)}
+								renderRow={this.row}
+								renderSeparator={separator}
+								style={{
+									height: this.state.height,
+									overflow: 'auto',
+								}}
+								pageSize={4}
+								onScroll={() => { console.log('scroll'); }}
+								scrollRenderAheadDistance={500}
+								onEndReached={this.onEndReached}
+								onEndReachedThreshold={10}
+							/>
+							//: <div style={{ color: '#999', margin: 30, }}><Icon type="loading"></Icon></div>
 						}
 
 
@@ -169,6 +172,7 @@ class Index extends React.Component {
 			</div>
 		)
 	}
+
 }
 
 

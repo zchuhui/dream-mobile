@@ -32,7 +32,6 @@ class Index extends React.Component {
 		//this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
 	}
 	
-
 	componentWillReceiveProps(nextProps) {
 		const hei = document.documentElement.clientHeight;
 		if (this.state.list !== nextProps.list) {

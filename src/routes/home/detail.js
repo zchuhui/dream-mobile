@@ -161,14 +161,16 @@ class Detail extends React.Component {
                             item.reply.map((item2, index2) => (
                               <div className={styles.reviewItem2}>
                                 <div className={styles.head}>
-                                
+
                                   {/* <div className={styles.img}>
                                     <img src={item2.avatar ? item2.avatar : Util.defaultImg} alt={item2.uname} />
                                   </div> */}
 
                                   <span className={styles.name}>{item2.uname}:</span>
                                 </div>
-                                <div className={styles.itemContent}>
+                                <div className={styles.itemContent} 
+                                  /* onClick={this.showModal("modal1", item2.uname, item2.review_id)} */
+                                >
                                   <div className={styles.des}>{item2.content}</div>
                                   <span className={styles.time}>{item2.ctime}</span>
                                 </div>

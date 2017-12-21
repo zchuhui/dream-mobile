@@ -26,6 +26,9 @@ export default modelExtend(model, {
 			const { data, code, msg } = yield call(getMessageList,payload);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { msgList:data.msg } });
+				if(data.count==0){
+					Toast.info("目前您木有评论喔~",1);
+				}
 			}
 		},
 
@@ -35,7 +38,6 @@ export default modelExtend(model, {
 
 			const { data, code, msg } = yield call(getNotice, payload);
 			if (code == 200) {
-				console.log('get notice ', data);
 				yield put({ type: 'updateState', payload: { notice:data} });
 			}
 		},

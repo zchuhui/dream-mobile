@@ -41,10 +41,11 @@ export default modelExtend(model, {
 			const { data, code, msg } = yield call(search, payload);
 			if (code == 200) {
 				if (data.data.length == 0){
-					Toast.info("木有更多了");
+					Toast.info("木有更多了",1);
 				}
 				yield put({ type: 'updateState', payload: { 'searchList': data.data } });
 				yield put({ type: 'updateState', payload: { 'searchLoading': true } });
+				//Toast.info("加载完成", 1);
 			}
 		},
 
@@ -63,6 +64,7 @@ export default modelExtend(model, {
 		*updatedigg({ payload }, { call, put }) {
 			const { data, code } = yield call(updatedigg, payload);
 			if (code == 200) {
+				
 				const { data, code } = yield call(getDreamDetail, payload);
 				if (code == 200) {
 					yield put({ type: 'updateState', payload: { detail: data } });
