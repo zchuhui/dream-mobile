@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import { hashHistory } from 'react-router';
 import { Icon, List, InputItem, Button, Toast } from "antd-mobile";
 import styles from "./login.less";
-import Logo from "../../assets/images/logo.png"
+import NavBarPage from "../../components/NavBar"
 
 class Register extends React.Component {
   constructor(props, context) {
@@ -16,54 +16,58 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div className={styles.loginWrap}>
-        <div className={styles.title}>
-          <b>记录、分析、交流梦境</b>
-          <p>
-            连接我们在一起的力量是因为 <br />
-            我们相信梦的趣味、意义、价值
+      <div>
+        <NavBarPage flyVisible="false" />
+        <div className={styles.loginWrap}>
+          <div className={styles.title}>
+            <b>记录、分析、交流梦境</b>
+            <p>
+              连接我们在一起的力量是因为 <br />
+              我们相信梦的趣味、意义、价值
           </p>
+          </div>
+          <List>
+            <InputItem
+              className={styles.text}
+              id="username"
+              ref={el => this.username = el}
+              placeholder="昵称"
+            >
+            </InputItem>
+            <InputItem
+              className={styles.text}
+              id="email"
+              ref={el => this.username = el}
+              placeholder="注册邮箱"
+            >
+            </InputItem>
+            <InputItem
+              className={styles.text}
+              id="password"
+              type="password"
+              placeholder="设置密码"
+            >
+
+              {/* <div className={styles.iconPwd} /> */}
+            </InputItem>
+            <InputItem
+              className={styles.text}
+              id="password2"
+              type="password"
+              placeholder="确认密码"
+            >
+
+              {/* <div className={styles.iconPwd} /> */}
+            </InputItem>
+          </List>
+          <Button className={styles.loginBtn} type="primary" onClick={this.onSubmit}>创建</Button>
+
+          <Link to="/login" className={styles.forgetPwd}><span>返回登录</span></Link>
+
+          {/* <Link to=""><Button type="ghost"  className={styles.registerBtn}><span>注册账号</span></Button></Link> */}
+
         </div>
-        <List>
-          <InputItem
-            className={styles.text}
-            id="username"
-            ref={el => this.username = el}
-            placeholder="昵称"
-          >
-          </InputItem>
-          <InputItem
-            className={styles.text}
-            id="email"
-            ref={el => this.username = el}
-            placeholder="注册邮箱"
-          >
-          </InputItem>
-          <InputItem
-            className={styles.text}
-            id="password"
-            type="password"
-            placeholder="设置密码"
-          >
-
-            {/* <div className={styles.iconPwd} /> */}
-          </InputItem>
-          <InputItem
-            className={styles.text}
-            id="password2"
-            type="password"
-            placeholder="确认密码"
-          >
-
-            {/* <div className={styles.iconPwd} /> */}
-          </InputItem>
-        </List>
-        <Button className={styles.loginBtn} type="primary" onClick={this.onSubmit}>创建</Button>
-
-        <Link to="/login" className={styles.forgetPwd}><span>返回登录</span></Link>
-
-        {/* <Link to=""><Button type="ghost"  className={styles.registerBtn}><span>注册账号</span></Button></Link> */}
-
+        
       </div>
     )
   }

@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import { hashHistory } from 'react-router';
 import { Icon, List, InputItem, Button, Toast } from "antd-mobile";
 import styles from "./login.less";
-import Logo from "../../assets/images/logo.png"
+import NavBarPage from "../../components/NavBar"
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -16,39 +16,47 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className={styles.loginWrap}>
-        <div className={styles.title}>
-          <b>记录、分析、交流梦境</b>
-          <p>
-            连接我们在一起的力量是因为 <br />
-            我们相信梦的趣味、意义、价值
-          </p>
-        </div>
-        <List>
-          <InputItem
-            className={styles.text}
-            id="username"
-            ref={el => this.username = el}
-            placeholder="用户名/邮箱"
-          >
-            {/* <div className={styles.iconUser} /> */}
-          </InputItem>
-          <InputItem
-            className={styles.text}
-            id="password"
-            type="password"
-            placeholder="密 码"
-          >
-            {/* <div className={styles.iconPwd} /> */}
-          </InputItem>
-        </List>
-        <Button className={styles.loginBtn} type="primary" onClick={this.onSubmit}>登录</Button>
-
-        <Link to="/forget" className={styles.forgetPwd}><span>忘记密码 ?</span></Link>
-
-        <Link to="/register"><Button type="ghost" className={styles.registerBtn}><span>注册账号</span></Button></Link>
+      <div>
+        <NavBarPage flyVisible="false" />
+        <div className={styles.loginWrap}>
         
+          <div className={styles.title}>
+            <b>记录、分析、交流梦境</b>
+            <p>
+              连接我们在一起的力量是因为 <br />
+              我们相信梦的趣味、意义、价值
+            </p>
+          </div>
+          <List>
+            <InputItem
+              className={styles.text}
+              id="username"
+              ref={el => this.username = el}
+              placeholder="用户名/邮箱"
+            >
+              {/* <div className={styles.iconUser} /> */}
+            </InputItem>
+            <InputItem
+              className={styles.text}
+              id="password"
+              type="password"
+              placeholder="密 码"
+            >
+              {/* <div className={styles.iconPwd} /> */}
+            </InputItem>
+          </List>
+          <Button className={styles.loginBtn} type="primary" onClick={this.onSubmit}>登录</Button>
+
+          <Link to="/forget" className={styles.forgetPwd}><span>忘记密码 ?</span></Link>
+
+          <Link to="/register"><Button type="ghost" className={styles.registerBtn}><span>注册账号</span></Button></Link>
+          
+        </div>
+       {/*  <div className={styles.footer}>
+          You can stay alive whithout sex <br />  but you cant't without dreams when you are alive
+        </div> */}
       </div>
+      
     )
   }
 
@@ -68,8 +76,6 @@ class Login extends React.Component {
       this.props.dispatch({'type':'user/login','payload':{'name':username,'password':password}});
     }
   }
-
-
 }
 
 function mapStateToProps(state) {

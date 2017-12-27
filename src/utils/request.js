@@ -65,10 +65,8 @@ function handleError(error) {
   const data = error.response.data
   if (data.errors) {
     Toast.fail(`${data.message}：${data.errors}`, 1)
-  } else if (data.error) {
-    Toast.fail(`${data.error}：${data.error_description}`, 1)
   } else {
-    Toast.fail('未知错误！', 1);
+    Toast.fail('服务器故障', 1);
   }
 
   return { success: false }
