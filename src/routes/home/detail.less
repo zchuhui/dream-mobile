@@ -207,21 +207,42 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 34px;
-    padding: 5px;
+    height: 35px;
     background: #fff;
     border-top: 1px solid #eee;
-    input {
+    padding: 5px;
+    
+    text-align: center;
+
+    .rtLeft{
         float: left;
-        text-indent: 10px;
-        width: 84%;
-        height: 30px;
-        background: #eee;
-        border-radius: 5px;
-        border: none;
+        width:85%;
+        height: 40px;
+        overflow: hidden;
+        padding:0px;
+
+        input {
+            display: block;
+            text-indent: 10px;
+            width: 100%;
+            height: 30px;
+            background: #eee;
+            border-radius: 5px;
+            border: none;
+        }
     }
-    i.iconfontBlue {
-        font-size: 30px;
-        margin: 10px;
+    .rtRight{
+        float: left;
+        width:15%;
+        height: 40px;
+        line-height: 35px;
+        
+        i.iconfontBlue {
+            display: inline-block;
+            font-size: 26px;
+            margin-left: -5px;
+        }
     }
+    
+    
 }

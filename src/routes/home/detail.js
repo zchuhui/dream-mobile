@@ -99,6 +99,16 @@ class Detail extends React.Component {
       }
     });
   }
+  
+  TextareaFocus=()=>{
+    let that = this;
+    setTimeout(()=>{
+      let panel = document.getElementById("txtId");
+      panel.scrollIntoView(true);
+      //panel.scrollIntoView(true);
+      //panel.scrollIntoViewIfNeeded();
+    },500)
+  }
 
   render() {
     return (
@@ -197,8 +207,8 @@ class Detail extends React.Component {
 
               {!this.state.modal1
                 ? <div className={styles.reviewText} onClick={this.showModal("modal1")}>
-                  <input type="text" placeholder="开始评论" disabled />
-                  <i className={styles.iconfontBlue}>&#xe68e;</i>
+                  <div className={styles.rtLeft}><input type="text" placeholder="开始评论" disabled /></div>
+                  <div className={styles.rtRight}><i className={styles.iconfontBlue}>&#xe68e;</i></div>
                 </div>
                 : null
               }
@@ -233,7 +243,11 @@ class Detail extends React.Component {
                     rows={5}
                     placeholder={this.state.placeholder}
                     ref={el => this.customFocusInst = el}
-                    id="txtId" />
+                    id="txtId" 
+                    autoHeight
+                    onFocus={this.TextareaFocus}
+
+                    />
 
                   <Button
                     type="primary"
