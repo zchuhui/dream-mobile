@@ -67,31 +67,53 @@ class Userinfo extends React.Component {
 		}
     }
 
+    // 行
     row = (rowData, sectionID, rowID) => {
         const obj = rowData;
         return (
             <div className={styles.item}>
                 <div className={styles.head}>
-                    <div className={styles.img}><img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={ obj.uname } /></div>
-                    <span className={styles.name}>{obj.uname}</span>
+                    <div className={styles.img}>
+                        <Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
+                            <img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+                        </Link>
+                    </div>
+                    <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
                     <span className={styles.time}>{obj.publish_time}</span>
                 </div>
                 <div className={styles.itemContent}>
                     <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                        <div className={styles.title}>{obj.title}</div>
+                        <div className={styles.title}>
+                            {
+                                obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
+                                    obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
+                                        obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null
+                            }
+
+                            {obj.title}
+                        </div>
                         <div className={styles.des}>{obj.content}</div>
                     </Link>
                 </div>
                 <div className={styles.icons}>
-                    <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                        <span><i className={styles.iconfont}>&#xe71a;</i><label>{obj.digg_count}</label></span>
-                        <span><i className={styles.iconfont}>&#xe704;</i><label>{obj.comment_count}</label></span>
-                    </Link>
+                    <span className={styles.praise}>
+                        {
+                            obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+                        }
+                        <label>{obj.digg_count}</label>
+                    </span>
+                    <span className={styles.review}>
+                        <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                            <i className={styles.iconfont}>&#xe705;</i>
+                            <label>{obj.comment_count}</label>
+                        </Link>
+                    </span>
+
                 </div>
             </div>
 
         );
-    }; 
+    };
 
     onEndReached = (event) => {
         if (this.state.isLoading && !this.state.hasMore) {

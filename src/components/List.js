@@ -1,15 +1,12 @@
 import React from "react";
-import { connect } from "dva";
 import { Link } from "dva/router"
 import { ListView, Icon, NavBar, Tabs } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import styles from "./index.less";
-import Util from "../../utils/util";
+import Util from "../utils/util";
 
-import NavBarPage from "../../components/NavBar"
-//import List from '../../components/List'
 
-class Index extends React.Component {
+class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
@@ -28,27 +25,37 @@ class Index extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
-	}
-	componentDidMount() {
-		//this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
+		//this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
+		/* const hei = document.documentElement.clientHeight;
+		console.log('dataSource::', this.props.dataSource);
+		this.setState({
+			dataSource: this.props.dataSource,
+			height: hei,
+		});  */
 	}
 
-	componentWillReceiveProps(nextProps) {
-		const hei = document.documentElement.clientHeight;
-		if (this.state.list !== nextProps.list) {
+	componentDidUpdate(){
+		//const hei = document.documentElement.clientHeight;
+		console.log('list::', this.props.list);
+
+		//const hei = document.documentElement.clientHeight;
+		if (this.state.list !== this.props.list) {
 			this.setState({
-				list: [...this.state.list, ...nextProps.list],
+				list: [...this.state.list, ...this.props.list],
 			});
 
-			setTimeout(() => {
+			/* setTimeout(() => {
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
 					isLoading: false,
 					height: hei,
 				});
-			}, 500);
+			}, 500) */
 		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		
 	}
 
 	// 行
@@ -106,11 +113,11 @@ class Index extends React.Component {
 		}
 		this.setState({ isLoading: true });
 		this.state.currentPage = this.state.currentPage + 1;
-		this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } });
+		//this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } });
 	}
 
 	render() {
-
+		
 		const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
@@ -131,42 +138,28 @@ class Index extends React.Component {
 
 		return (
 			<div className={styles.chatWrap}>
-				<NavBarPage />
-
-				<StickyContainer>
-					<Tabs tabs={tabs} initalPage={'t2'} >
-						<ListView
-							ref={el => this.lv = el}
-							dataSource={this.state.dataSource}
-							renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-								{this.state.isLoading ? <Icon type="loading" size='md' /> : null}
-							</div>)}
-							renderRow={this.row}
-							renderSeparator={separator}
-							style={{
-								height: this.state.height,
-								overflow: 'auto',
-							}}
-							pageSize={4}
-							onScroll={() => { console.log('scroll'); }}
-							scrollRenderAheadDistance={500}
-							onEndReached={this.onEndReached}
-							onEndReachedThreshold={10}
-						/>
-						{/* <List list={this.state.list} /> */}
-					</Tabs>
-				</StickyContainer>
-
-
+				<ListView
+					ref={el => this.lv = el}
+					dataSource={this.state.dataSource}
+					renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+						{this.state.isLoading ? <Icon type="loading" size='md' /> : null}
+					</div>)}
+					renderRow={this.row}
+					renderSeparator={separator}
+					style={{
+						height: this.state.height,
+						overflow: 'auto',
+					}}
+					pageSize={4}
+					onScroll={() => { console.log('scroll'); }}
+					scrollRenderAheadDistance={500}
+					onEndReached={this.onEndReached}
+					onEndReachedThreshold={10}
+				/>
 			</div>
 		)
 	}
 }
 
 
-function mapStateToProps(state) {
-	return {
-		...state.home
-	};
-}
-export default connect(mapStateToProps)(Index);
+export default List;

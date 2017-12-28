@@ -1,4 +1,4 @@
-@import '../../assets/styles/base.less';
+@import "../assets/styles/base.less";
 .chatWrap {
     .item {
         text-align: left;
@@ -73,6 +73,12 @@
                 display: block;
                 width: 33%;
                 height: 40px;
+                i {
+                   /*  display: inline-block;
+                    width: 30px;
+                    height: 40px;
+                    vertical-align: top; */
+                }
                 label {
                     display: inline-block;
                     height: 40px;
@@ -80,16 +86,18 @@
                     color: #bfbfbf;
                 }
             }
+            .review {
+                /* i {
+                    background: ~"url(../../assets/images/message.png) center center / 22px 22px no-repeat";
+                    background-position-y: 8px;
+                } */
+            }
+            .praise {
+                /* i {
+                    background: ~"url(../../assets/images/praise.png) center center / 22px 22px no-repeat";
+                    background-position-y: 8px;
+                } */
+            }
         }
-    }
-}
-
-.searchBar {
-    input {
-        padding: 0px !important;
-        text-indent: 50px;
-    }
-    a {
-        margin: 7px !important;
     }
 }

@@ -65,16 +65,18 @@ class Index extends React.Component {
 	}
 
 
-	// 数据行
+	// 行
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
 					<div className={styles.img}>
-						<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+						<Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
+							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+						</Link>
 					</div>
-					<span className={styles.name}>{obj.uname}</span>
+					<span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>
 				<div className={styles.itemContent}>
@@ -92,15 +94,24 @@ class Index extends React.Component {
 					</Link>
 				</div>
 				<div className={styles.icons}>
-					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-						<span className={styles.praise}><i></i><label>{obj.digg_count}</label></span>
-						<span className={styles.review}><i></i><label>{obj.comment_count}</label></span>
-					</Link>
+					<span className={styles.praise}>
+						{
+							obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+						}
+						<label>{obj.digg_count}</label>
+					</span>
+					<span className={styles.review}>
+						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+							<i className={styles.iconfont}>&#xe705;</i>
+							<label>{obj.comment_count}</label>
+						</Link>
+					</span>
+
 				</div>
 			</div>
 
 		);
-	}; 
+	};
 
     // 拉到底部刷新
 	onEndReached = (event) => {

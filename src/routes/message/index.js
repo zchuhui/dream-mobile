@@ -18,16 +18,6 @@ function renderTabBar(props) {
 	);
 }
 
-const tabs = [
-	{
-		title: <i className={styles.iconfontBlue}>&#xe704;</i>
-	},
-	// {
-	//     title: '点赞'
-	// }, {
-	//     title: '@艾特'
-	// } 
-];
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -48,9 +38,6 @@ class Index extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
-	}
-	componentDidMount() {
-
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -74,7 +61,6 @@ class Index extends React.Component {
 			})
 		}
 	}
-
 
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
@@ -105,6 +91,7 @@ class Index extends React.Component {
 		);
 	};
 
+	// 拉底刷新
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
@@ -126,6 +113,17 @@ class Index extends React.Component {
 				}}
 			/>
 		);
+
+		const tabs = [
+			{
+				title: <i className={styles.iconfontBlue}>&#xe704;</i>
+			},
+			// {
+			//     title: '点赞'
+			// }, {
+			//     title: '@艾特'
+			// } 
+		];
 
 		return (
 			<div className={styles.chatWrap}>
