@@ -118,9 +118,9 @@ class Userinfo extends React.Component {
                     <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
                         <div className={styles.title}>
                             {
-                                obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
+                               /*  obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
                                     obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-                                        obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null
+                                        obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null */
                             }
 
                             {obj.title}
