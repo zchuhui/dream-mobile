@@ -33,6 +33,7 @@ class Index extends React.Component {
 			msgList: [],
 			isLoading: true,
 			height: document.documentElement.clientHeight * 3 / 4,
+			currentPage: 1,
 		};
 	}
 
@@ -55,7 +56,7 @@ class Index extends React.Component {
 					height: hei,
 				});
 			}, 500)
-		} else {
+		} else { 
 			this.setState({
 				isLoading: false
 			})
@@ -93,12 +94,13 @@ class Index extends React.Component {
 
 	// 拉底刷新
 	onEndReached = (event) => {
-		if (this.state.isLoading && !this.state.hasMore) {
+		/* if (this.state.isLoading && !this.state.hasMore) {
 			return;
 		}
 
 		this.setState({ isLoading: true });
-		this.props.dispatch({ type: 'message/getMessageList', payload: { page: 1 } });
+		this.state.currentPage = this.state.currentPage + 1;
+		this.props.dispatch({ type: 'message/getMessageList', payload: { page: this.state.currentPage } }); */
 	}
 
 	render() {
@@ -143,7 +145,7 @@ class Index extends React.Component {
 							<ListView
 								ref={el => this.lv = el}
 								dataSource={this.state.dataSource}
-								renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+								renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
 									{this.state.isLoading ? <Icon type="loading" size='md' /> : ''}
 								</div>)}
 								renderRow={this.row}

@@ -70,35 +70,12 @@ class Userinfo extends React.Component {
 					height: hei,
 				});
 			}, 500)
-		}
+		}else{
+            this.setState({
+                isLoading: false,
+            });
+        }
     }
-
-    // 没条数据格式
-    /* row = (rowData, sectionID, rowID) => {
-        const obj = rowData;
-        return (
-            <div className={styles.item}>
-                <div className={styles.head}>
-                    <div className={styles.img}><img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={ obj.uname } /></div>
-                    <span className={styles.name}>{obj.uname}</span>
-                    <span className={styles.time}>{obj.publish_time}</span>
-                </div>
-                <div className={styles.itemContent}>
-                    <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                        <div className={styles.title}>{obj.title}</div>
-                        <div className={styles.des}>{obj.content}</div>
-                    </Link>
-                </div>
-                <div className={styles.icons}>
-                    <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                        <span><i className={styles.iconfont}>&#xe71a;</i><label>{obj.digg_count}</label></span>
-                        <span><i className={styles.iconfont}>&#xe704;</i><label>{obj.comment_count}</label></span>
-                    </Link>
-                </div>
-            </div>
-
-        );
-    }; */ 
 
     // 行
     row = (rowData, sectionID, rowID) => {
@@ -156,7 +133,8 @@ class Userinfo extends React.Component {
 
         this.setState({ isLoading: true });
         this.state.currentPage = this.state.currentPage +1 ; 
-        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: UID, page: this.state.currentPage} });
+        const uid = Storage.get('uid');
+        this.props.dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: this.state.currentPage} });
     }
 
     // 性别识别

@@ -1,10 +1,15 @@
 import dva from 'dva';
+import { browserHistory } from 'dva/router';
+import createLoading from 'dva-loading';  //加载
 
 // 1. Initialize
-const app = dva();
+const app = dva()
+/* const app = dva({
+    history: browserHistory
+}); */
 
 // 2. Plugins
-// app.use({});
+app.use(createLoading());
 
 // 3. Model
 app.model(require('./models/login'));

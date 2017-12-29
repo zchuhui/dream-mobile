@@ -9,6 +9,28 @@ import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
 //import List from '../../components/List'
 
+/* function MyBody(props) {
+	const hei = document.documentElement.clientHeight;
+	return (
+		<div className={styles.listBody} style={{height:hei}}>
+			<span style={{ display: 'none' }}>you can custom body wrap element</span>
+			{props.children}
+		</div>
+	);
+} */
+
+/* function renderTabBar(props) {
+	return (
+		<Sticky>
+			{({ style }) => <div
+				style={{
+					...style,
+					zIndex: 1
+				}}><Tabs.DefaultTabBar {...props} /></div>}
+		</Sticky>
+	);
+} */
+
 class Index extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -29,9 +51,6 @@ class Index extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
-	}
-	componentDidMount() {
-		//this.props.dispatch({ type: 'home/getDreamList',payload:{page:1}}); 
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -131,31 +150,35 @@ class Index extends React.Component {
 
 		return (
 			<div className={styles.chatWrap}>
-				<NavBarPage />
+				<NavBarPage /> 
 
 				<StickyContainer>
-					<Tabs tabs={tabs} initalPage={'t2'} >
-						<ListView
-							ref={el => this.lv = el}
-							dataSource={this.state.dataSource}
-							renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-								{this.state.isLoading ? <Icon type="loading" size='md' /> : null}
-							</div>)}
-							renderRow={this.row}
-							renderSeparator={separator}
-							style={{
-								height: this.state.height,
-								overflow: 'auto',
-							}}
-							pageSize={4}
-							onScroll={() => { console.log('scroll'); }}
-							scrollRenderAheadDistance={500}
-							onEndReached={this.onEndReached}
-							onEndReachedThreshold={10}
-						/>
+					<Tabs tabs={tabs} initalPage={'t2'}> 
+	
+						<div>
+							<ListView
+								ref={el => this.lv = el}
+								dataSource={this.state.dataSource}
+								renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+									{this.state.isLoading ? <Icon type="loading" size='md' /> : null}
+								</div>)}
+								renderRow={this.row}
+								renderSeparator={separator}
+								style={{
+									height: this.state.height,
+									overflow: 'auto',
+								}}
+								pageSize={4}
+								onScroll={() => { console.log('scroll'); }}
+								scrollRenderAheadDistance={500}
+								onEndReached={this.onEndReached}
+								onEndReachedThreshold={10}
+							/>
+						</div>
+						{/* 组件 */}
 						{/* <List list={this.state.list} /> */}
 					</Tabs>
-				</StickyContainer>
+				</StickyContainer> 
 
 
 			</div>

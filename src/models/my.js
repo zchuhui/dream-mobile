@@ -18,13 +18,19 @@ export default modelExtend(model, {
 		//dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
 	}}, 
 
-	effects: { 
+	effects: {
 		// 用户信息
 		*getUserHome({payload},{call, put}){
 			const { data, code ,msg} = yield call(getUserHome, payload);
 			console.log(data.user); 
 			if (code == 200) {
-				yield put({ type: 'updateState', payload: { user: data.user,list:data.feed } });
+				if (data.feed.length == 0){
+					Toast.info("木有更多了",1);
+					
+				}
+				yield put({ type: 'updateState', payload: { user: data.user, list: data.feed } });
+				
+				
 			}
 		},
 
