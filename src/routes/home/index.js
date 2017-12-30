@@ -7,29 +7,7 @@ import styles from "./index.less";
 import Util from "../../utils/util";
 
 import NavBarPage from "../../components/NavBar"
-//import List from '../../components/List'
-
-/* function MyBody(props) {
-	const hei = document.documentElement.clientHeight;
-	return (
-		<div className={styles.listBody} style={{height:hei}}>
-			<span style={{ display: 'none' }}>you can custom body wrap element</span>
-			{props.children}
-		</div>
-	);
-} */
-
-/* function renderTabBar(props) {
-	return (
-		<Sticky>
-			{({ style }) => <div
-				style={{
-					...style,
-					zIndex: 1
-				}}><Tabs.DefaultTabBar {...props} /></div>}
-		</Sticky>
-	);
-} */
+import List from '../../components/List'
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -45,7 +23,8 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: true,
-			height: document.documentElement.clientHeight * 3 / 4,
+			height: document.documentElement.clientHeight-(50+43.5), 
+			//height: document.documentElement.clientHeight * 3 / 4, 
 		};
 	}
 
@@ -54,10 +33,11 @@ class Index extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const hei = document.documentElement.clientHeight;
+		const hei = document.documentElement.clientHeight-(50+43.5);
 		if (this.state.list !== nextProps.list) {
 			this.setState({
 				list: [...this.state.list, ...nextProps.list],
+				height: hei,
 			});
 
 			setTimeout(() => {
@@ -70,55 +50,7 @@ class Index extends React.Component {
 		}
 	}
 
-	// 行
-	row = (rowData, sectionID, rowID) => {
-		const obj = rowData;
-		return (
-			<div className={styles.item}>
-				<div className={styles.head}>
-					<div className={styles.img}>
-						<Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
-							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
-						</Link>
-					</div>
-					<span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
-					<span className={styles.time}>{obj.publish_time}</span>
-				</div>
-				<div className={styles.itemContent}>
-					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-						<div className={styles.title}>
-							{
-								/* obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
-									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null */
-							}
-
-							{obj.title}
-						</div>
-						<div className={styles.des}>{obj.content}</div>
-					</Link>
-				</div>
-				<div className={styles.icons}>
-					<span className={styles.praise}>
-						{
-							obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
-						}
-						<label>{obj.digg_count}</label>
-					</span>
-					<span className={styles.review}>
-						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfont}>&#xe705;</i>
-							<label>{obj.comment_count}</label>
-						</Link>
-					</span>
-
-				</div>
-			</div>
-
-		);
-	};
-
-	// 拉倒底部，获取下一页数据 
+	// 列表拉倒底部，获取下一页数据 
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
@@ -129,19 +61,6 @@ class Index extends React.Component {
 	}
 
 	render() {
-
-		const separator = (sectionID, rowID) => (
-			<div
-				key={`${sectionID}-${rowID}`}
-				style={{
-					backgroundColor: '#F5F5F9',
-					height: 7,
-					borderTop: '1px solid #ECECED',
-					borderBottom: '1px solid #ECECED',
-				}}
-			/>
-		);
-
 		const tabs = [
 			{
 				title: "梦境",
@@ -151,36 +70,15 @@ class Index extends React.Component {
 		return (
 			<div className={styles.chatWrap}>
 				<NavBarPage /> 
-
-				<StickyContainer>
+				{/* <StickyContainer> */}
 					<Tabs tabs={tabs} initalPage={'t2'}> 
-	
-						<div>
-							<ListView
-								ref={el => this.lv = el}
-								dataSource={this.state.dataSource}
-								renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-									{this.state.isLoading ? <Icon type="loading" size='md' /> : null}
-								</div>)}
-								renderRow={this.row}
-								renderSeparator={separator}
-								style={{
-									height: this.state.height,
-									overflow: 'auto',
-								}}
-								pageSize={4}
-								onScroll={() => { console.log('scroll'); }}
-								scrollRenderAheadDistance={500}
-								onEndReached={this.onEndReached}
-								onEndReachedThreshold={10}
-							/>
-						</div>
-						{/* 组件 */}
-						{/* <List list={this.state.list} /> */}
+						<List 
+							dataSource = {this.state.dataSource} 
+							isLoading = {this.state.isLoading} 
+							height={this.state.height} 
+							onEndReached={this.onEndReached} /> 
 					</Tabs>
-				</StickyContainer> 
-
-
+				{/* </StickyContainer>  */}
 			</div>
 		)
 	}

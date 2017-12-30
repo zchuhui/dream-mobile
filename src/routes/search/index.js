@@ -18,8 +18,7 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: false,
-			height: document.documentElement.clientHeight * 3 / 4,
-
+			height: document.documentElement.clientHeight - 50,
 			currentPage:1,
 			keyword:'',
 		};
@@ -30,19 +29,27 @@ class Index extends React.Component {
 		this.autoFocusInst.focus();  
 	}
 
+	componentUpdateMount(){
+		this.setState({
+			height:document.documentElement.clientHeight - 100
+		});
+	}
+
 	componentWillReceiveProps(nextProps) {
-		console.log('props:::',nextProps.searchList);
-		console.log('page', this.state.currentPage);
-		const hei = document.documentElement.clientHeight;
+
+		let hei = document.documentElement.clientHeight - 100;
+
 		if ( this.state.list !== nextProps.searchList) {
 			if(this.state.currentPage == 1){
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows([]),
 					list: [...nextProps.searchList],
+					height:hei,
 				})
 			}else{
 				this.setState({
 					list: [...this.state.list, ...nextProps.searchList],
+					height:hei
 				});
 				this.autoFocusInst.focus(); 
 			}
@@ -51,17 +58,10 @@ class Index extends React.Component {
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
 					isLoading: false,
-					height: hei,
-				});
+					height:hei
+				}); 
 			}, 500)
 		}
-
-		/* if (nextProps.searchList.length == 0){
-			this.setState({
-				list:[],
-				dataSource:this.state.dataSource.cloneWithRows([]),
-			});
-		} */
 	}
 
 
@@ -137,6 +137,7 @@ class Index extends React.Component {
 		});
 		
 		this.props.dispatch({ type: 'home/search',payload:{'keyword':value,page:this.state.currentPage} });
+
 	}
 
 	onCancel=()=>{
@@ -173,8 +174,8 @@ class Index extends React.Component {
 					<ListView
 						ref={el => this.lv = el}
 						dataSource={this.state.dataSource}
-						renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-							{this.state.isLoading ? <Icon type="loading" size='md' /> : '搜索，搜你想知道的'}
+						renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+							{this.state.isLoading ? "加载中..." : '搜索，搜你想知道的'}
 						</div>)}
 						renderRow={this.row}
 						renderSeparator={separator}
@@ -183,7 +184,7 @@ class Index extends React.Component {
 							overflow: 'auto',
 						}}
 						pageSize={4}
-						onScroll={() => { console.log('scroll'); }}
+						onScroll={() => { this.setState({height:document.documentElement.clientHeight - 100}); }}
 						scrollRenderAheadDistance={500}
 						onEndReached={this.onEndReached}
 						onEndReachedThreshold={10}

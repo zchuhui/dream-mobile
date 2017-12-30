@@ -32,7 +32,7 @@ class Index extends React.Component {
 			dataSource,
 			msgList: [],
 			isLoading: true,
-			height: document.documentElement.clientHeight * 3 / 4,
+			height: document.documentElement.clientHeight -(50+43.5),
 			currentPage: 1,
 		};
 	}
@@ -42,18 +42,19 @@ class Index extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const hei = document.documentElement.clientHeight;
+		const hei= document.documentElement.clientHeight -(50+43.5);
 		if (this.state.msgList !== nextProps.msgList && nextProps.msgList !== undefined) {
 
 			this.setState({
 				msgList: [...this.state.msgList, ...nextProps.msgList],
+				height:hei
 			})
 
 			setTimeout(() => {
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(this.state.msgList),
 					isLoading: false,
-					height: hei,
+					height:hei
 				});
 			}, 500)
 		} else { 
@@ -137,16 +138,16 @@ class Index extends React.Component {
 						<Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>}
 					style={{ borderBottom: "1px solid #ECECED" }}
 				>iDream</NavBar>
-
+			  
 				<StickyContainer>
-					<Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
+					<Tabs tabs={tabs} initalPage={'t2'}>
 						{
 							//this.state.msgList && this.state.msgList.length > 0 ?
 							<ListView
 								ref={el => this.lv = el}
 								dataSource={this.state.dataSource}
 								renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-									{this.state.isLoading ? <Icon type="loading" size='md' /> : ''}
+									{this.state.isLoading ? "加载中..." : ''}
 								</div>)}
 								renderRow={this.row}
 								renderSeparator={separator}
@@ -160,7 +161,6 @@ class Index extends React.Component {
 								onEndReached={this.onEndReached}
 								onEndReachedThreshold={10}
 							/>
-							//: <div style={{ color: '#999', margin: 30, }}><Icon type="loading"></Icon></div>
 						}
 
 

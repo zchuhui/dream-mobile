@@ -44,7 +44,7 @@ class Userinfo extends React.Component {
             dataSource,
             list: [],
             isLoading: true,
-            height: document.documentElement.clientHeight * 3 / 4,
+            height: document.documentElement.clientHeight -(50+43.5),
             currentPage:1,
         };
     }
@@ -56,7 +56,6 @@ class Userinfo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-		const hei = document.documentElement.clientHeight;
 		if (this.state.list !== nextProps.list) {
 
 			this.setState({
@@ -67,7 +66,6 @@ class Userinfo extends React.Component {
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
 					isLoading: false,
-					height: hei,
 				});
 			}, 500)
 		}else{
@@ -225,8 +223,8 @@ class Userinfo extends React.Component {
                                 <ListView
                                     ref={el => this.lv = el}
                                     dataSource={this.state.dataSource}
-                                    renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                                        {this.state.isLoading ? <Icon type="loading" size='md' /> : null}
+                                    renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+                                        {this.state.isLoading ? "加载中..." : null}
                                     </div>)}
                                     renderRow={this.row}
                                     renderSeparator={separator}
