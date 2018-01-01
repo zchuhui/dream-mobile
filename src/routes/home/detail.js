@@ -100,14 +100,25 @@ class Detail extends React.Component {
     });
   }
   
+
   TextareaFocus=()=>{
     let that = this;
-    setTimeout(()=>{
-      let panel = document.getElementById("txtId");
-      panel.scrollIntoView(true);
-      //panel.scrollIntoView(true);
-      //panel.scrollIntoViewIfNeeded();
-    },500)
+
+    // setTimeout(()=>{
+    //   window.scrollTo(0,1000)
+    //   console.log('scroll');
+    //   let panel = document.getElementById("reviewTextArea");
+    //   panel.scrollIntoView(true);
+    //   //panel.scrollIntoViewIfNeeded();
+    // },500)
+
+    var i = 1;
+    var int = setInterval(function() {
+      window.scrollTo(0, i);
+      i += 10;
+      if (i == 500) clearInterval(int);
+    }, 20);
+    
   }
 
   render() {
@@ -211,7 +222,41 @@ class Detail extends React.Component {
                   <div className={styles.rtRight}><i className={styles.iconfontBlue}>&#xe68e;</i></div>
                 </div>
                 : null
-              }
+              } 
+
+              {/* <div className={styles.reviewTextArea} id="reviewTextArea">
+                <div className={styles.l}>
+                  <TextareaItem
+                      style={{
+                        width: '98%',
+                        height:24,
+                        border: '1px solid #eee',
+                        borderRadius: 5,
+                        marginLeft: -10,
+                        padding: '5px',
+                        fontSize: 14,
+                        lineHeight:'18px',
+                        value: "",
+                        zIndex:9999
+                      }}
+                      rows={1}
+                      placeholder={this.state.placeholder}
+                      ref={el => this.customFocusInst = el}
+                      id="txtId" 
+                      autoHeight
+                      onFocus={this.TextareaFocus}
+                  />  
+                </div>
+
+                <div className={styles.r}>
+                  <Button 
+                    type="primary"
+                    inline
+                    size="small"
+                    onClick={this.onReview}
+                  >发表</Button>
+                </div>
+              </div> */}
 
               <Modal
                 popup
@@ -224,10 +269,6 @@ class Detail extends React.Component {
                 <div style={{
                   height: 150
                 }}>
-                  {/* <div className={styles.reviewText}>
-                                        <input type="text" placeholder={this.state.placeholder} id="txtId" autoFocus />
-                                        <img src={Fly} onClick={this.onReview}/>
-                                    </div> */}
                   <TextareaItem
                     style={{
                       float: left,
@@ -261,6 +302,8 @@ class Detail extends React.Component {
 
                 </div>
               </Modal>
+
+
             </div>
             : <div
               style={{
