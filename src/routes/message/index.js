@@ -3,6 +3,7 @@ import { connect } from "dva";
 import { Link } from "dva/router"
 import { ListView, Icon, NavBar, Tabs, PullToRefresh } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
+import NavBarPage from "../../components/NavBar"
 import styles from "./index.less";
 
 // Tabs
@@ -130,14 +131,15 @@ class Index extends React.Component {
 
 		return (
 			<div className={styles.chatWrap}>
-				<NavBar
+				{/* <NavBar
 					mode="light"
 					icon={<div className={styles.logo}></div>}
 					onLeftClick={() => console.log('onLeftClick')}
 					rightContent={
 						<Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>}
 					style={{ borderBottom: "1px solid #ECECED" }}
-				>iDream</NavBar>
+				>iDream</NavBar> */}
+				<NavBarPage isFly="true" />
 			  
 				<StickyContainer>
 					<Tabs tabs={tabs} initalPage={'t2'}>

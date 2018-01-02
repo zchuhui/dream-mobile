@@ -66,10 +66,10 @@ class Index extends React.Component {
 				title: "梦境",
 			}
 		];
-
+		
 		return (
 			<div className={styles.chatWrap}>
-				<NavBarPage /> 
+				<NavBarPage isFly="true"/> 
 				{/* <StickyContainer> */}
 					<Tabs tabs={tabs} initalPage={'t2'}> 
 						<List 

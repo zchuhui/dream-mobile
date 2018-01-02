@@ -31,7 +31,7 @@ class My extends React.Component {
     render() {
         return (
             <div className={styles.myWrap}>
-                <NavBarPage />
+                <NavBarPage isFly="true" />
 
                 <List className={styles.listItem} style={{marginTop:'-1px'}}>
                     <Link to="/my/userinfo">
