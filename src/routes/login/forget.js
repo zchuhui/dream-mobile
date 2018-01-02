@@ -17,7 +17,7 @@ class Forget extends React.Component {
   render() {
     return (
       <div>
-        <NavBarPage flyVisible="false" />
+        <NavBarPage isFly="false" />
         <div className={styles.loginWrap}>
             {/* <div className={styles.title}>
             <b>记录、分析、交流梦境</b>

@@ -17,7 +17,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <NavBarPage flyVisible="false" />
+        <NavBarPage isFly="false" />
         <div className={styles.loginWrap}>
         
           <div className={styles.title}>

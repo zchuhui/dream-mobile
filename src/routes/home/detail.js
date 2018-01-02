@@ -12,6 +12,7 @@ import {
 import { createForm } from 'rc-form';
 import styles from "./detail.less";
 import Util from "../../utils/util";
+import NavBarPage from "../../components/NavBar" 
 
 class Detail extends React.Component {
   constructor(props, context) {
@@ -128,9 +129,9 @@ class Detail extends React.Component {
           mode="light"
           icon={< Icon type="left" />}
           onLeftClick={() => history.back()}
-          style={{
-            borderBottom: "1px solid #eee"
-          }}>梦境</NavBar>
+          className={styles.navBar}
+          >梦境</NavBar>
+        <NavBarPage iconType="back" isFly='true' isFixed="true" /> 
 
         {
           this.props.detail && !this.props.detailLoading

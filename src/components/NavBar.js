@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'dva/router'
-import { NavBar } from 'antd-mobile'
+import { NavBar, Icon } from 'antd-mobile'
 import styles from '../assets/styles/base.less'
 
 
@@ -13,13 +13,11 @@ class NavBarPage extends React.Component{
     return (
       <NavBar
         mode="light"
-        icon={<i className={styles.iconfontBlue}>&#xe601;</i>}
-        onLeftClick={() => console.log('logo')}
+        icon={this.props.iconType == "back" ? < Icon type="left" onClick={() => history.go(-1)} /> : <i className={styles.iconfontBlue}>&#xe601;</i>}
         rightContent={
-          this.props.flyVisible ? null: <Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>
-          
+          this.props.isFly ? null: <Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>
         }
-        style={{ borderBottom: "1px solid #ECECED" }}
+        className={this.props.isFixed ? styles.navBar : styles.navBar2}  
       >iDream</NavBar>
     );
   }
