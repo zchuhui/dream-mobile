@@ -108,7 +108,7 @@ class Edit extends React.Component {
 
 				<div className={styles.head}>
 					<div className={styles.img}>
-						<img src={this.state.img_url == null ? this.props.user.avatar : this.state.img_url} onClick={this.onUpdateImg} />
+						<img src={this.state.img_url == null ? (this.props.user.avatar ? this.props.user.avatar : Util.defaultImg) : this.state.img_url} onClick={this.onUpdateImg} />
 					</div>
 					<input type="file" id="fileId" onChange={this.fileChange.bind(this)} />
 

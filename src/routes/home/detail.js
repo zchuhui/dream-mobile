@@ -139,7 +139,7 @@ class Detail extends React.Component {
               {/* 详情 */}
               <div className={styles.item}>
                 <div className={styles.head}>
-                  <div className={styles.img}>
+                  <div className={styles.img}> 
                     <Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>
                       <img src={this.props.detail.info.avatar
                         ? this.props.detail.info.avatar
@@ -155,7 +155,10 @@ class Detail extends React.Component {
                 </div>
                 <div className={styles.icons}>
                   <span className={styles.praise} onClick={this.handleUpdatedigg}>
-                    <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i>
+                    {/* <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i> */}
+                    {
+                      this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+                    }
                     <label>{this.props.detail.info.digg_count}</label>
                   </span>
                   <span className={styles.review}>

@@ -36,8 +36,17 @@ class My extends React.Component {
                 <List className={styles.listItem} style={{marginTop:'-1px'}}>
                     <Link to="/my/userinfo">
                         <Item
-                            arrow="horizontal"
-                            thumb={< img style = {{display:'block', width:40,height:40,borderRadius:'50%',border:'1px solid #ddd'}} src = {this.props.user ? this.props.user.avatar : Util.defaultImg} alt=""/>}
+                            arrow="horizontal" 
+                            thumb={ 
+                                <div style = {{display:'block', width:40,height:40,borderRadius:'50%',border:'1px solid #eee',overflow:'hidden'}}>
+																	{
+																		this.props.user && this.props.user.avatar !==""?
+																		<img style={{width:'100%',height:'auto'}} src={this.props.user.avatar } alt="" />
+																		:
+																		<img style={{width:'100%',height:'auto'}} src={Util.defaultImg} alt=""/>
+																	}
+                                </div> 
+                                }
                             multipleLine
                             onClick={() => {}}>
                             {this.props.user?this.props.user.uname:null}

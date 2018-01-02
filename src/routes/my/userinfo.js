@@ -171,7 +171,7 @@ class Userinfo extends React.Component {
 
 		return (
 			<div className={styles.userinfoWrap}>
-
+				
 				<NavBarPage iconType="back" isFly='true' isFixed="true" /> 
 
 				{/* 个人基本信息 */}
@@ -208,29 +208,27 @@ class Userinfo extends React.Component {
 				<div className={styles.dreamWrap}>
 					<StickyContainer>
 						<Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
-							<div
-								style={{
-									// display: 'flex',
-									// alignItems: 'center',
-									// justifyContent: 'center',
-									// backgroundColor: '#fff'
-								}}>
-								<ListView
-									ref={el => this.lv = el}
-									dataSource={this.state.dataSource}
-									renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-										{this.state.isLoading ? "加载中..." : null}
-									</div>)}
-									renderRow={this.row}
-									renderSeparator={separator}
-									className="am-list"
-									pageSize={4}
-									useBodyScroll
-									onScroll={() => { console.log('scroll'); }}
-									scrollRenderAheadDistance={500}
-									onEndReached={this.onEndReached}
-									onEndReachedThreshold={10}
-								/>
+							<div>
+								{
+									this.state.list.length > 0?
+									<ListView
+										ref={el => this.lv = el}
+										dataSource={this.state.dataSource}
+										renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+											{this.state.isLoading ? "加载中..." : null}
+										</div>)}
+										renderRow={this.row}
+										renderSeparator={separator}
+										className="am-list"
+										pageSize={4}
+										useBodyScroll
+										onScroll={() => { console.log('scroll'); }}
+										scrollRenderAheadDistance={500}
+										onEndReached={this.onEndReached}
+										onEndReachedThreshold={10}
+									/>
+									:<div style={{textAlign:'center',color:'#999',fontSize:'12px',marginTop:30}}>开展你的梦</div> 
+								}
 							</div>
 							{/* <div
                                 style={{
