@@ -21,17 +21,14 @@ export default modelExtend(model, {
 	effects: {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
-			//const { data, code } = yield call(getDreamList, payload); 
-			const { data, code } = yield call(getDreamList, payload); 
-			if (code == 200) {
-				yield put({ type: 'updateState', payload: { list: data.data } });
+			try {
+				const { data, code } = yield call(getDreamList, payload);  
+				if (code == 200) {
+					yield put({ type: 'updateState', payload: { list: data.data } });
+				}
+			} catch (error) {
+				console.log(error);
 			}
-		},
-
-		// 测试数据
-		*fetch({ payload }, { call, put }) {
-			const { data } = yield call(query, payload);
-			yield put({ type: 'updateState', payload: { list: data } });
 		},
 
 		// 搜索
