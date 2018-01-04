@@ -103,22 +103,16 @@ class Detail extends React.Component {
   
 
   TextareaFocus=()=>{
-    let that = this;
 
-    // setTimeout(()=>{
-    //   window.scrollTo(0,1000)
-    //   console.log('scroll');
-    //   let panel = document.getElementById("reviewTextArea");
-    //   panel.scrollIntoView(true);
-    //   //panel.scrollIntoViewIfNeeded();
-    // },500)
+    //let id = document.getElementById("reviewTextArea");
+    //id.style.position = 'absolute';
 
-    var i = 1;
-    var int = setInterval(function() {
-      window.scrollTo(0, i);
-      i += 10;
-      if (i == 500) clearInterval(int);
-    }, 20);
+    // var i = 1;
+    // var int = setInterval(function() {
+    //   window.scrollTo(0, i); 
+    //   i += 10;   
+    //   if (i == 200) clearInterval(int);
+    // }, 20);  
     
   }
 
@@ -166,60 +160,59 @@ class Detail extends React.Component {
                     <label>{this.props.detail.info.comment_count}</label>
                   </span>
                 </div>
-              </div>
 
-              {/* 评论内容 */}
-              <div className={styles.reviewList}>
-                {
-                  this.props.detail.review.map((item, index) => (
-                    <div className={styles.reviewItem} key={index}>
-                      <div className={styles.head}>
-                        <div className={styles.img}>
-                          <Link to={{ pathname: "/my/other", 'state': + item.uid }}>
-                            <img src={item.avatar ? item.avatar : Util.defaultImg} alt={item.uname} />
-                          </Link>
-                        </div>
-                        <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
-                      </div>
-                      <div
-                        className={styles.itemContent}
-                        onClick={this.showModal("modal1", item.uname, item.review_id)}>
-                        <div className={styles.des}>{item.content}</div>
-                        <span className={styles.time}>{item.ctime}</span>
-                      </div>
-                      {
-                        // 二级评论
-                        item.reply.length > 0 ?
-                          <div className={styles.reviewItemList}>
-                            {
-                              item.reply.map((item2, index2) => (
-                                <div className={styles.reviewItem2} key={index + "_" + index2}>
-                                  <div className={styles.head}>
-
-                                    {/* <div className={styles.img}>
-                                    <img src={item2.avatar ? item2.avatar : Util.defaultImg} alt={item2.uname} />
-                                  </div> */}
-
-                                    <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>:</span>
-                                  </div>
-                                  <div className={styles.itemContent}
-                                  /* onClick={this.showModal("modal1", item2.uname, item2.review_id)}  */
-                                  >
-                                    <div className={styles.des}>{item2.content}</div>
-                                    <span className={styles.time}>{item2.ctime}</span>
-                                  </div>
-                                </div>
-                              ))
-                            }
+                {/* 评论内容 */}
+                <div className={styles.reviewList}>
+                  {
+                    this.props.detail.review.map((item, index) => (
+                      <div className={styles.reviewItem} key={index}>
+                        <div className={styles.head}>
+                          <div className={styles.img}>
+                            <Link to={{ pathname: "/my/other", 'state': + item.uid }}>
+                              <img src={item.avatar ? item.avatar : Util.defaultImg} alt={item.uname} />
+                            </Link>
                           </div>
-                          : null
-                      }
+                          <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
+                        </div>
+                        <div
+                          className={styles.itemContent}
+                          onClick={this.showModal("modal1", item.uname, item.review_id)}>
+                          <div className={styles.des}>{item.content}</div>
+                          <span className={styles.time}>{item.ctime}</span>
+                        </div>
+                        {
+                          // 二级评论
+                          item.reply.length > 0 ?
+                            <div className={styles.reviewItemList}>
+                              {
+                                item.reply.map((item2, index2) => (
+                                  <div className={styles.reviewItem2} key={index + "_" + index2}>
+                                    <div className={styles.head}>
 
-                    </div>
-                  ))
-                }
+                                      {/* <div className={styles.img}>
+                                      <img src={item2.avatar ? item2.avatar : Util.defaultImg} alt={item2.uname} />
+                                    </div> */}
+
+                                      <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>:</span>
+                                    </div>
+                                    <div className={styles.itemContent}
+                                    /* onClick={this.showModal("modal1", item2.uname, item2.review_id)}  */
+                                    >
+                                      <div className={styles.des}>{item2.content}</div>
+                                      <span className={styles.time}>{item2.ctime}</span>
+                                    </div>
+                                  </div>
+                                ))
+                              }
+                            </div>
+                            : null
+                        }
+
+                      </div>
+                    ))
+                  }
+                </div>
               </div>
-
               {!this.state.modal1
                 ? <div className={styles.reviewText} onClick={this.showModal("modal1")}>
                   <div className={styles.rtLeft}><input type="text" placeholder="开始评论" disabled /></div>
@@ -285,7 +278,7 @@ class Detail extends React.Component {
                       lineHeight: '16px',
                       value: ""
                     }}
-                    rows={5}
+                    rows={4}
                     placeholder={this.state.placeholder}
                     ref={el => this.customFocusInst = el}
                     id="txtId" 

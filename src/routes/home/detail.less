@@ -210,6 +210,17 @@
     }
 }
 
+.mainWrap{
+    /* main绝对定位，进行内部滚动 */
+    // position: absolute;
+    // top: 50px;
+    // bottom: 40px;
+    // width:100%;
+    // /* 使之可以滚动 */
+    // overflow-y: scroll;
+    // -webkit-overflow-scrolling: touch;
+}
+
 .reviewText {
     position: fixed;
     bottom: 0;
@@ -251,7 +262,8 @@
 .reviewTextArea {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    left:0;
+    right:0;
     min-height: 60px;
     border-top: 1px solid #eee;
     padding-bottom: 5px;
