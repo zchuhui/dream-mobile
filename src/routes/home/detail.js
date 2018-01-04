@@ -89,7 +89,7 @@ class Detail extends React.Component {
 
     }
   }
-
+  
   // 点赞
   handleUpdatedigg = () => {
     const feed_id = this.props.location.state;
@@ -151,7 +151,7 @@ class Detail extends React.Component {
                   <span className={styles.praise} onClick={this.handleUpdatedigg}>
                     {/* <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i> */}
                     {
-                      this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+                      this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#108ee9' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
                     }
                     <label>{this.props.detail.info.digg_count}</label>
                   </span>
@@ -196,7 +196,7 @@ class Detail extends React.Component {
                                       <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>:</span>
                                     </div>
                                     <div className={styles.itemContent}
-                                    /* onClick={this.showModal("modal1", item2.uname, item2.review_id)}  */
+                                     onClick={this.showModal("modal1", item2.uname, item2.review_id)} 
                                     >
                                       <div className={styles.des}>{item2.content}</div>
                                       <span className={styles.time}>{item2.ctime}</span>
