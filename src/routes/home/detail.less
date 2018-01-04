@@ -2,8 +2,7 @@
 .detailWrap {
     font-size: 14px;
     background: #fff;
-    margin-top:45px;
-    
+    margin-top: 45px;
     .item {
         text-align: left;
         padding: 15px 10px;
@@ -40,22 +39,20 @@
             }
         }
         .itemContent {
-            display: block;
-            //margin-left: 50px;
+            display: block; //margin-left: 50px;
             .title {
                 font-size: 16px;
-                line-height:20px;
+                line-height: 20px;
                 color: #333;
                 font-weight: bold;
                 margin: 3px 0;
-                padding:5px;
-                //text-align:center;
+                padding: 5px; //text-align:center;
             }
-            .des { 
+            .des {
                 font-size: 14px;
                 line-height: 20px;
                 word-wrap: break-word;
-                padding:0 5px;
+                padding: 0 5px;
                 /* display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 3;
@@ -63,7 +60,7 @@
                 pre {
                     white-space: pre-wrap;
                     word-wrap: break-word;
-                    margin:0;
+                    margin: 0;
                 }
             }
         }
@@ -72,8 +69,7 @@
             line-height: 35px;
             color: #bfbfbf;
             text-align: center;
-            margin:10px 0 0 0;
-
+            margin: 10px 0 0 0;
             span {
                 position: relative;
                 float: left;
@@ -185,12 +181,19 @@
                 position: relative;
                 padding: 5px;
                 .name {
-                    float: left;
-                    margin: 0;
+                    //float: left;
+                    //margin: 0;
+                    color: #1296db;
+                }
+                .uname {
+                    display: inline-block; 
                     color: #1296db;
                 }
                 .itemContent {
-                    margin-left: 45px;
+                    margin-left:0;
+                    .des{
+                        padding:0
+                    }
                 }
             }
             .reviewItem2::after {
@@ -210,7 +213,7 @@
     }
 }
 
-.mainWrap{
+.mainWrap {
     /* main绝对定位，进行内部滚动 */
     // position: absolute;
     // top: 50px;
@@ -262,8 +265,8 @@
 .reviewTextArea {
     position: fixed;
     bottom: 0;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     min-height: 60px;
     border-top: 1px solid #eee;
     padding-bottom: 5px;

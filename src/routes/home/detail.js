@@ -187,18 +187,30 @@ class Detail extends React.Component {
                               {
                                 item.reply.map((item2, index2) => (
                                   <div className={styles.reviewItem2} key={index + "_" + index2}>
-                                    <div className={styles.head}>
-
-                                      {/* <div className={styles.img}>
-                                      <img src={item2.avatar ? item2.avatar : Util.defaultImg} alt={item2.uname} />
+                                    {/* <div className={styles.head}>
+                                      <span >
+                                        <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>: 
+                                        回复 
+                                        <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.to_uid }}>@{item2.to_uname}</Link>
+                                        :
+                                      </span>
                                     </div> */}
-
-                                      <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>:</span>
-                                    </div>
                                     <div className={styles.itemContent}
                                      onClick={this.showModal("modal1", item2.uname, item2.review_id)} 
                                     >
-                                      <div className={styles.des}>{item2.content}</div>
+                                      <div className={styles.des}>
+                                        <span >
+                                          <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>：
+                                          {
+                                            item2.to_uname == item.uname ? null:<span>
+                                              回复
+                                            <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.to_uid }}>@{item2.to_uname}</Link>
+                                              ：
+                                            </span>
+                                          }
+                                        </span>
+                                        {item2.content}
+                                      </div>
                                       <span className={styles.time}>{item2.ctime}</span>
                                     </div>
                                   </div>
