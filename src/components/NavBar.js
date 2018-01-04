@@ -15,10 +15,10 @@ class NavBarPage extends React.Component{
         mode="light"
         icon={this.props.iconType == "back" ? < Icon type="left" onClick={() => history.go(-1)} /> : <i className={styles.iconfontBlue}>&#xe601;</i>}
         rightContent={
-          this.props.isFly ? <Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>: null
+          this.props.isFly =="true" ? <Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>: null
         }
         className={this.props.isFixed ? styles.navBar : styles.navBar2}  
-      >iDream</NavBar>
+      >{this.props.title ? this.props.title: 'iDream'}</NavBar>
     );
   }
 };

@@ -61,6 +61,7 @@ export default modelExtend(model, {
     * resetPassword({ payload }, { call, put }) {
         const { code, data, msg } = yield call(resetPassword, payload);
         if (code == 200) {
+          Toast.success("密码已重置，请查看邮箱", 1);
           yield put({ type: 'updateState', payload: { data: data } });
         }
     },

@@ -7,6 +7,7 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
 import Util from "../../utils/util";
+import NavBarPage from "../../components/NavBar"
 
 const UID = Storage.get('uid');
 
@@ -150,14 +151,7 @@ class Userinfo extends React.Component {
 
         return (
             <div className={styles.userinfoWrap}>
-                <NavBar
-                    mode="light"
-                    icon={< Icon type="left" />}
-                    onLeftClick={() => history.go(-1)}
-                    style={{
-                        borderBottom: "1px solid #ECECED"
-                    }}>{uname}的主页 </NavBar>
-
+                <NavBarPage iconType="back" isFly='true' isFixed="true" title={uname} /> 
                 {/* 个人基本信息 */}
                 {
                     this.props.otherInfo?
@@ -186,7 +180,7 @@ class Userinfo extends React.Component {
                         </div>
                         :null
                 }
-
+                
                 {/* 梦境列表 */}
                 <div className={styles.dreamWrap}>
                     <StickyContainer>
@@ -201,8 +195,8 @@ class Userinfo extends React.Component {
                                 <ListView
                                     ref={el => this.lv = el}
                                     dataSource={this.state.dataSource}
-                                    renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                                        {this.state.isLoading ? <Icon type="loading" size='md' /> : null}
+                                    renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+                                        {this.state.isLoading ? "加载中..." : null}
                                     </div>)}
                                     renderRow={this.row}
                                     renderSeparator={separator}

@@ -125,7 +125,7 @@ class Detail extends React.Component {
           onLeftClick={() => history.back()}
           className={styles.navBar}
           >梦境</NavBar>
-        <NavBarPage iconType="back" isFly='true' isFixed="true" /> 
+        <NavBarPage iconType="back" isFixed="true" title="梦境" /> 
 
         {
           this.props.detail && !this.props.detailLoading
@@ -202,7 +202,8 @@ class Detail extends React.Component {
                                         <span >
                                           <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>：
                                           {
-                                            item2.to_uname == item.uname ? null:<span>
+                                            //item2.to_uname == item.uname ? null:
+                                            <span>
                                               回复
                                             <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.to_uid }}>@{item2.to_uname}</Link>
                                               ：
