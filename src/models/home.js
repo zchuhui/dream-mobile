@@ -48,12 +48,13 @@ export default modelExtend(model, {
 
 		// 梦境详情
 		*getDetail({ payload }, { call, put }) {
-			yield put({ type: 'updateState', payload: { detailLoading: false } });
+			yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
 			//const { data } = yield call(detail, payload);
 			const { data, code } = yield call(getDreamDetail, payload);
-			console.log('detail:', data);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
+			}else{
+				yield put({ type: 'updateState', payload: { detail: null, detailLoading: false } });
 			}
 		},
 

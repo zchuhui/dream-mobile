@@ -21,20 +21,23 @@ export default modelExtend(model, {
 	effects: {
 		// 用户信息
 		*getUserHome({payload},{call, put}){
+			// 清空数据
+			//yield put({ type: 'updateState', payload: { user: null, list: null, } });
+
 			const { data, code ,msg} = yield call(getUserHome, payload);
-			console.log(data.user); 
 			if (code == 200) {
 				/* if (data.feed.length == 0){
 					Toast.info("木有更多了",1);
 				} */
 				yield put({ type: 'updateState', payload: { user: data.user, list: data.feed } });
-				
-				
 			}
 		},
 
 		// 他人信息
 		*getOtherInfo({ payload }, { call, put }) {
+			// 清空数据
+			yield put({ type: 'updateState', payload: { otherInfo: null, otherDream: null, } });
+
 			const { data, code, msg } = yield call(getUserHome, payload);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });

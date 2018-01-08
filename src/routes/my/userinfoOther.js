@@ -52,8 +52,7 @@ class Userinfo extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 		const hei = document.documentElement.clientHeight;
-        if (this.state.list !== nextProps.otherDream) {
-
+        if (this.state.list !== nextProps.otherDream && nextProps.otherDream !==null) {
 			this.setState({
                 list: [...this.state.list, ...nextProps.otherDream],
 			})

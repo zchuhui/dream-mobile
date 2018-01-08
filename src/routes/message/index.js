@@ -70,7 +70,9 @@ class Index extends React.Component {
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
-					<span className={styles.name}><b>{obj.fromUser.uname}</b></span>
+					<Link to={{ pathname: "/my/other", 'state': + obj.fromUser.uid }}>
+						<span className={styles.name}>{obj.fromUser.uname}</span>
+					</Link>
 					<span className={styles.msgType}>
 						{
 							obj.type == "评论" ? <i className={styles.iconfont}>&#xe704;</i> : <i className={styles.iconfont}>&#xe71a;</i>
@@ -78,16 +80,16 @@ class Index extends React.Component {
 					</span>
 					<span className={styles.review}></span>
 				</div>
-				<Link to={{ pathname: "/home/detail", 'state': + obj.feed.feed_id }}>
-					<div className={styles.reviewContent}>
-						{obj.fromUser.reviewContent}
-					</div>
-					<div className={styles.reviewTarget}>
-						<div className={styles.rehead}><b>{obj.feed.uname}</b> &nbsp; &nbsp; {obj.feed.publish_time}</div>
-						<div className={styles.title}>{obj.feed.title}</div>
-						<div className={styles.des}>{obj.feed.content}</div>
-					</div>
-				</Link>
+					<Link to={{ pathname: "/home/detail", 'state': + obj.feed.feed_id }}>
+						<div className={styles.reviewContent}>
+							{obj.fromUser.reviewContent}
+						</div>
+						<div className={styles.reviewTarget}>
+							<div className={styles.rehead}><b>{obj.feed.uname}</b> &nbsp; &nbsp; {obj.feed.publish_time}</div>
+							<div className={styles.title}>{obj.feed.title}</div>
+							<div className={styles.des}>{obj.feed.content}</div>
+						</div>
+					</Link>
 				<div><span className={styles.time}>{obj.fromUser.add_time}</span></div>
 			</div>
 

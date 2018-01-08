@@ -1,5 +1,4 @@
 import dva from 'dva';
-import { browserHistory } from 'dva/router';
 import createLoading from 'dva-loading';  //加载
 
 // 1. Initialize

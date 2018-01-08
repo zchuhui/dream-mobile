@@ -129,7 +129,8 @@ class Detail extends React.Component {
 
         {
           this.props.detail && !this.props.detailLoading
-            ? <div>
+            ? 
+            <div>
               {/* 详情 */}
               <div className={styles.item}>
                 <div className={styles.head}>
@@ -315,12 +316,26 @@ class Detail extends React.Component {
 
 
             </div>
-            : <div
-              style={{
-                textAlign: 'center',
-                marginTop: 50
-              }}>
-              <Icon type="loading" size='md' /></div>
+            : 
+            this.props.detail == null?
+              <div
+                style={{
+                  textAlign: 'center',
+                  marginTop: 50,
+                  lineHeight:'100px',
+                  fontSize:'12px',
+                  color:'#999'
+                }}>
+                找不到此梦境 (꒦_꒦) 
+            </div>
+              :
+            <div
+                style={{
+                  textAlign: 'center',
+                  marginTop: 50
+                }}>
+                <Icon type="loading" size='md' />
+              </div>
         }
 
       </div>
