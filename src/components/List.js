@@ -49,7 +49,7 @@ class List extends React.Component {
 					</span>
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfontSmall}>&#xe60e;</i>
+							<i className={styles.iconfontSmall}>&#xe60f;</i>
 							<label>{obj.comment_count}</label>
 						</Link>
 					</span>

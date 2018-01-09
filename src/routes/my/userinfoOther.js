@@ -98,13 +98,13 @@ class Userinfo extends React.Component {
                 <div className={styles.icons}>
                     <span className={styles.praise}>
                         {
-                            obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+                            obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
                         }
                         <label>{obj.digg_count}</label>
                     </span>
                     <span className={styles.review}>
                         <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                            <i className={styles.iconfont}>&#xe705;</i>
+                            <i className={styles.iconfontSmall}>&#xe60f;</i>
                             <label>{obj.comment_count}</label>
                         </Link>
                     </span>
@@ -148,7 +148,7 @@ class Userinfo extends React.Component {
             } */
         ];
 
-        return (
+        return ( 
             <div className={styles.userinfoWrap}>
                 <NavBarPage iconType="back" isFly='true' isFixed="true" title={uname} /> 
                 {/* 个人基本信息 */}

@@ -157,7 +157,7 @@ class Detail extends React.Component {
                     <label>{this.props.detail.info.digg_count}</label>
                   </span>
                   <span className={styles.review}>
-                    <i className={styles.iconfontBlueSmall}>&#xe60e;</i>
+                    <i className={styles.iconfontBlueSmall}>&#xe60f;</i>
                     <label>{this.props.detail.info.comment_count}</label>
                   </span>
                 </div>
