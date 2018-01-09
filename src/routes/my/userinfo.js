@@ -82,11 +82,11 @@ class Userinfo extends React.Component {
 			<div className={styles.item}>
 				<div className={styles.head}>
 					<div className={styles.img}>
-						<Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
+						{/* <Link to={{ pathname: "/my/other", 'state': + obj.uid }}> */}
 							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
-						</Link>
+						{/* </Link> */}
 					</div>
-					<span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
+					<span className={styles.name}>{obj.uname}</span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>
 				<div className={styles.itemContent}>
@@ -106,13 +106,13 @@ class Userinfo extends React.Component {
 				<div className={styles.icons}>
 					<span className={styles.praise}>
 						{
-							obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
 						<label>{obj.digg_count}</label>
-					</span>
+					</span> 
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfont}>&#xe705;</i>
+							<i className={styles.iconfontSmall}>&#xe60e;</i>
 							<label>{obj.comment_count}</label>
 						</Link>
 					</span>
@@ -178,8 +178,8 @@ class Userinfo extends React.Component {
 				{
 					this.props.user ?
 						<div className={styles.userinfo}>
-							<Link to="my/edit"><i className={`${styles.iconfont} ${styles.setup}`}>&#xe728;</i></Link>
-							<div className={styles.title}>
+							<Link to="my/edit"><i className={`${styles.iconfont} ${styles.setup}`}>&#xe60c;</i></Link>
+							<div className={styles.title}> 
 								<div className={styles.img}>
 									<img src={this.props.user.avatar ? this.props.user.avatar : Util.defaultImg} alt={this.props.user.uname} />
 								</div>
@@ -191,11 +191,11 @@ class Userinfo extends React.Component {
 								<li>
 									<i className={styles.iconfont}>&#xe67b;</i><span>{this.sexsRender(this.props.user.sex)}</span></li>
 								<li>
-									<i className={styles.iconfont}>&#xe613;</i><span>{this.props.user.location}</span></li>
+									<i className={styles.iconfont}>&#xe62b;</i><span>{this.props.user.location}</span></li>
 								<li>
-									<i className={styles.iconfont}>&#xe84b;</i><span>{this.props.user.job}</span></li>
+									<i className={styles.iconfont}>&#xe684;</i><span>{this.props.user.job}</span></li>
 								<li>
-									<i className={styles.iconfont}>&#xe6e5;</i><span>{this.props.user.age}</span></li>
+									<i className={styles.iconfont}>&#xe60b;</i><span>{this.props.user.age}</span></li>
 							</ul>
 							<div className={styles.opinion}>
 								{this.props.user.intro}

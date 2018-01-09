@@ -32,8 +32,8 @@ class Home extends React.Component {
 
       <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
         <TabBar.Item
-          icon={< div className={styles.iconCircle} />}
-          selectedIcon={< div className={styles.iconCircle2} />}
+          icon={<i className={styles.iconfont}>&#xe6e1;</i> }
+          selectedIcon={<i className={styles.iconfontBlue}>&#xe69e;</i>}
           title="探索"
           key="Friend"
           selected={this.state.selectedTab === "tab1"}
@@ -44,8 +44,8 @@ class Home extends React.Component {
         </TabBar.Item>
           
         <TabBar.Item
-          icon={< div className={styles.iconFriend} />}
-          selectedIcon={< div className={styles.iconFriend2} />}
+          icon={<i className={styles.iconfont}>&#xe614;</i>}
+          selectedIcon={<i className={styles.iconfontBlue}>&#xe616;</i>}
           title="搜索"
           key="Koubei"
           selected={this.state.selectedTab === "tab2"}
@@ -59,8 +59,8 @@ class Home extends React.Component {
         <TabBar.Item
           title="通知"
           key="Life"
-          icon={< div className={styles.iconLife} />}
-          selectedIcon={< div className={styles.iconLifeSelected} />}
+          icon={<i className={styles.iconfont}>&#xe603;</i>}
+          selectedIcon={<i className={styles.iconfontBlue}>&#xe649;</i>}
           selected={this.state.selectedTab === "tab3"}
           /* badge={1} */
           onPress={this.onPress.bind(this,'tab3')}
@@ -71,8 +71,8 @@ class Home extends React.Component {
         </TabBar.Item>
         
         <TabBar.Item
-          icon={<div className={styles.iconMy} />}
-          selectedIcon={<div className={styles.iconMySelected} />}
+          icon={<i className={styles.iconfont}>&#xe617;</i>}
+          selectedIcon={<i className={styles.iconfontBlue}>&#xe633;</i>}
           title="我的"
           key="my"
           selected={this.state.selectedTab === "tab4"}

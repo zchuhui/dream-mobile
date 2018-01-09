@@ -120,21 +120,21 @@ class Edit extends React.Component {
 						clear
 						defaultValue={this.props.user ? this.props.user.uname : null}
 						placeholder="用户名">
-						<i className={styles.iconfont}>&#xe602;</i>
+						<i className={styles.iconfont}>&#xe610;</i>
 					</InputItem>
 					<InputItem
 						id="inputAddress"
 						clear
 						defaultValue={this.props.user ? this.props.user.location : null}
 						placeholder="填写地址">
-						<i className={styles.iconfont}>&#xe613;</i>
+						<i className={styles.iconfont}>&#xe62b;</i>
 					</InputItem>
 					<InputItem
 						id="inputProfession"
 						clear
 						defaultValue={this.props.user ? this.props.user.job : null}
 						placeholder="填写职业(职业习惯影响梦境)">
-						<i className={styles.iconfont}>&#xe84b;</i>
+						<i className={styles.iconfont}>&#xe684;</i>
 					</InputItem>
 					<InputItem
 						type="number"
@@ -143,7 +143,7 @@ class Edit extends React.Component {
 						clear
 						defaultValue={parseInt(this.props.user ? this.props.user.age : 0)}
 						placeholder="填写年龄(生命有限，把握做梦)">
-						<i className={styles.iconfont}>&#xe6e5;</i>
+						<i className={styles.iconfont}>&#xe60b;</i>
 					</InputItem>
 
 					{/* <Picker

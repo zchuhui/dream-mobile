@@ -29,11 +29,11 @@ class List extends React.Component {
 				<div className={styles.itemContent}>
 					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
 						<div className={styles.title}>
-							{
+							{/* {
 								obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
 									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
 										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null
-							}
+							} */}
 
 							{obj.title}
 						</div>
@@ -43,13 +43,13 @@ class List extends React.Component {
 				<div className={styles.icons}>
 					<span className={styles.praise}>
 						{
-							obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
 						<label>{obj.digg_count}</label>
 					</span>
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfont}>&#xe705;</i>
+							<i className={styles.iconfontSmall}>&#xe60e;</i>
 							<label>{obj.comment_count}</label>
 						</Link>
 					</span>

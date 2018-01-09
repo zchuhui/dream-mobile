@@ -75,7 +75,7 @@ class Index extends React.Component {
 					</Link>
 					<span className={styles.msgType}>
 						{
-							obj.type == "评论" ? <i className={styles.iconfont}>&#xe704;</i> : <i className={styles.iconfont}>&#xe71a;</i>
+							obj.type == "评论" ? <i className={styles.iconfontSmall}>&#xe60f;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
 					</span>
 					<span className={styles.review}></span>
@@ -122,7 +122,7 @@ class Index extends React.Component {
 
 		const tabs = [
 			{
-				title: <i className={styles.iconfontBlue}>&#xe704;</i>
+				title: <i className={styles.iconfontBlue}>&#xe60e;</i>
 			},
 			// {
 			//     title: '点赞'
@@ -133,16 +133,7 @@ class Index extends React.Component {
 
 		return (
 			<div className={styles.chatWrap}>
-				{/* <NavBar
-					mode="light"
-					icon={<div className={styles.logo}></div>}
-					onLeftClick={() => console.log('onLeftClick')}
-					rightContent={
-						<Link to="/fly"><i className={styles.iconfontBlue}>&#xe68e;</i></Link>}
-					style={{ borderBottom: "1px solid #ECECED" }}
-				>iDream</NavBar> */}
 				<NavBarPage isFly="true" />
-			  
 				<StickyContainer>
 					<Tabs tabs={tabs} initalPage={'t2'}>
 						{

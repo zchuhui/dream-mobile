@@ -152,12 +152,12 @@ class Detail extends React.Component {
                   <span className={styles.praise} onClick={this.handleUpdatedigg}>
                     {/* <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i> */}
                     {
-                      this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#108ee9' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+                      this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfontSmall} style={{ color: '#108ee9' }}>&#xe64d;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
                     }
                     <label>{this.props.detail.info.digg_count}</label>
                   </span>
                   <span className={styles.review}>
-                    <i className={styles.iconfontBlue}>&#xe704;</i>
+                    <i className={styles.iconfontBlueSmall}>&#xe60e;</i>
                     <label>{this.props.detail.info.comment_count}</label>
                   </span>
                 </div>
@@ -231,7 +231,7 @@ class Detail extends React.Component {
               {!this.state.modal1
                 ? <div className={styles.reviewText} onClick={this.showModal("modal1")}>
                   <div className={styles.rtLeft}><input type="text" placeholder="开始评论" disabled /></div>
-                  <div className={styles.rtRight}><i className={styles.iconfontBlue}>&#xe68e;</i></div>
+                  <div className={styles.rtRight}><i className={styles.iconfontBlue}>&#xe60d;</i></div>
                 </div>
                 : null
               } 
