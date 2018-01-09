@@ -173,12 +173,13 @@ class Detail extends React.Component {
                               <img src={item.avatar ? item.avatar : Util.defaultImg} alt={item.uname} />
                             </Link>
                           </div>
-                          <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
                         </div>
-                        <div
-                          className={styles.itemContent}
+                        <div className={styles.itemContent}
                           onClick={this.showModal("modal1", item.uname, item.review_id)}>
-                          <div className={styles.des}>{item.content}</div>
+                          <div className={styles.cnWrap}>
+                            <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
+                            <div className={styles.des}>{item.content}</div>
+                          </div>
                           <span className={styles.time}>{item.ctime}</span>
                         </div>
                         {
@@ -200,7 +201,7 @@ class Detail extends React.Component {
                                      onClick={this.showModal("modal1", item2.uname, item2.review_id)} 
                                     >
                                       <div className={styles.des}>
-                                        <span >
+                                        <div >
                                           <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>：
                                           {
                                             //item2.to_uname == item.uname ? null:
@@ -210,7 +211,7 @@ class Detail extends React.Component {
                                               ：
                                             </span>
                                           }
-                                        </span>
+                                        </div>
                                         {item2.content}
                                       </div>
                                       <span className={styles.time}>{item2.ctime}</span>

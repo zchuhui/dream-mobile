@@ -145,9 +145,14 @@
                 margin-left: 40px;
                 font-size: 14px;
                 line-height: 20px;
+                .cnWrap {
+                    padding: 5px;
+                    background-color: rgb(240, 240, 240);
+                    border-radius: 3px;
+                }
                 .des {
                     line-height: 20px;
-                    padding:0;
+                    padding: 0;
                 }
                 .time {
                     display: block;
@@ -172,7 +177,6 @@
         .reviewItemList {
             margin: 0px 0 -5px 40px;
             padding-top: 5px;
-            background-color: rgb(248, 248, 248);
             .reviewItem2 {
                 position: relative;
                 padding: 5px;
@@ -182,13 +186,15 @@
                     color: #1296db;
                 }
                 .uname {
-                    display: inline-block; 
+                    display: inline-block;
                     color: #1296db;
                 }
                 .itemContent {
-                    margin-left:0;
-                    .des{
-                        padding:0
+                    margin-left: 0;
+                    .des {
+                        padding: 5px;
+                        background-color: rgb(240, 240, 240);
+                        border-radius: 3px;
                     }
                 }
             }
@@ -197,13 +203,13 @@
                 right: 0;
                 bottom: 5px;
                 content: ' ';
-                display: block;
+                display: none;
                 width: 100%;
                 height: 1px;
                 background: #eee;
             }
             .reviewItem2:last-child::after {
-                display: none; 
+                //display: none;
             }
         }
     }
