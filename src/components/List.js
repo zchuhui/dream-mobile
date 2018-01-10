@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "dva/router"
 import { ListView, Icon, NavBar, Tabs } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
-import styles from "./index.less";
+import styles from "./List.less";
 import Util from "../utils/util";
 
 

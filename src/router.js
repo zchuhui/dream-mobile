@@ -11,6 +11,7 @@ import OtherPage from './routes/my/userinfoOther';
 import EditPage from './routes/my/edit';
 import SetupPage from './routes/my/setup';
 import AboutPage from './routes/my/about';
+import SearchPage from './routes/search/index';
 
 function RouterConfig({ history }) {
   return (
@@ -26,6 +27,7 @@ function RouterConfig({ history }) {
       <Route path="/my/edit" component={EditPage} />
       <Route path="/my/setup" component={SetupPage} />
       <Route path="/my/about" component={AboutPage} />
+      <Route path="/search" component={SearchPage} />
     </Router>
   );
 }

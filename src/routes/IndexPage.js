@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { NavBar, Icon, TabBar } from "antd-mobile";
+import { hashHistory  } from 'react-router';
 import styles from "./IndexPage.less";
 import ChartList from "./chat/chat-list";
 import FriendList from "./friends/friend-list";
@@ -89,8 +90,12 @@ class Home extends React.Component {
   componentWillMount(){}
 
   onPress(val){
+    // if(val == 'tab2'){
+    //   hashHistory.push('/search');
+    // }
     sessionStorage.setItem("selectedTab",val);
     this.setState({ selectedTab: val }); 
+    
   }
 
   renderContent(pageText) {

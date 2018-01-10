@@ -319,7 +319,7 @@ class Detail extends React.Component {
 
             </div>
             : 
-            this.props.detail == null?
+            this.props.detail == false?
               <div
                 style={{
                   textAlign: 'center',
@@ -334,7 +334,7 @@ class Detail extends React.Component {
             <div
                 style={{
                   textAlign: 'center',
-                  marginTop: 50
+                  marginTop: 150
                 }}>
                 <Icon type="loading" size='md' />
               </div>

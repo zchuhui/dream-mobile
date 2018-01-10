@@ -64,7 +64,6 @@ class Index extends React.Component {
 		}
 	}
 
-
 	// 行
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
@@ -89,20 +88,20 @@ class Index extends React.Component {
 							}
 
 							{obj.title}
-						</div>
+						</div> 
 						<div className={styles.des}>{obj.content}</div>
 					</Link>
 				</div>
 				<div className={styles.icons}>
 					<span className={styles.praise}>
 						{
-							obj.hasDigg == 1 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe707;</i> : <i className={styles.iconfont}>&#xe708;</i>
+							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
 						<label>{obj.digg_count}</label>
 					</span>
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfont}>&#xe705;</i>
+							<i className={styles.iconfontSmall}>&#xe60f;</i>
 							<label>{obj.comment_count}</label>
 						</Link>
 					</span>
@@ -164,7 +163,7 @@ class Index extends React.Component {
 		return (
 			<div>
 				<SearchBar 
-				    className={styles.searchBar}
+				    className={styles.searchBar} 
 					style={{padding:0,margin:0,textIndent:1}}
 					placeholder="search" 
 					ref={ref => this.autoFocusInst = ref} 

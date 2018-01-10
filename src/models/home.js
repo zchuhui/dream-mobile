@@ -54,7 +54,7 @@ export default modelExtend(model, {
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
 			}else{
-				yield put({ type: 'updateState', payload: { detail: null, detailLoading: false } });
+				yield put({ type: 'updateState', payload: { detail: false, detailLoading: false } });
 			}
 		},
 
