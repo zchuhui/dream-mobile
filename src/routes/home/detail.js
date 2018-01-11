@@ -104,8 +104,15 @@ class Detail extends React.Component {
 
   TextareaFocus=()=>{
 
-    //let id = document.getElementById("reviewTextArea");
-    //id.style.position = 'absolute';
+    var top = window.scrollTop();
+    var bottom = window.scrollBottom();
+    var height = window.height();//整个窗口高
+    height = height / 4;
+
+    let id = document.getElementById("reviewTextArea");
+    id.style.position = 'absolute';
+    id.style.bottom = bottom;
+
 
     // var i = 1;
     // var int = setInterval(function() {
@@ -115,6 +122,14 @@ class Detail extends React.Component {
     // }, 20);  
     
   }
+
+  TextareaBlur=()=>{
+    let id = document.getElementById("reviewTextArea");
+    id.style.position = 'fixed';
+    id.style.bottom = 0;
+  }
+
+
 
   render() {
     return (
@@ -229,15 +244,16 @@ class Detail extends React.Component {
                   }
                 </div>
               </div>
-              {!this.state.modal1
+
+              {/* {!this.state.modal1
                 ? <div className={styles.reviewText} onClick={this.showModal("modal1")}>
                   <div className={styles.rtLeft}><input type="text" placeholder="开始评论" disabled /></div>
                   <div className={styles.rtRight}><i className={styles.iconfontBlue}>&#xe60d;</i></div>
                 </div>
                 : null
-              } 
+              }  */}
 
-              {/* <div className={styles.reviewTextArea} id="reviewTextArea">
+              <div className={styles.reviewTextArea} id="reviewTextArea">
                 <div className={styles.l}>
                   <TextareaItem
                       style={{
@@ -258,6 +274,7 @@ class Detail extends React.Component {
                       id="txtId" 
                       autoHeight
                       onFocus={this.TextareaFocus}
+                      onBlur={this.TextareaBlur}
                   />  
                 </div>
 
@@ -269,7 +286,8 @@ class Detail extends React.Component {
                     onClick={this.onReview}
                   >发表</Button>
                 </div>
-              </div> */}
+              </div> 
+
 
               <Modal
                 popup
