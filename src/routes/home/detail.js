@@ -12,7 +12,7 @@ import {
 import { createForm } from 'rc-form';
 import styles from "./detail.less";
 import Util from "../../utils/util";
-import NavBarPage from "../../components/NavBar" 
+import NavBarPage from "../../components/NavBar"
 
 class Detail extends React.Component {
   constructor(props, context) {
@@ -38,7 +38,11 @@ class Detail extends React.Component {
     }
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    setTimeout(()=>{
+      document.getElementById('txtId').focus();
+    },500)
+  }
 
   onWrapTouchStart = (e) => {
     // fix touch to scroll background page on iOS
@@ -54,7 +58,7 @@ class Detail extends React.Component {
   // 回复输入框
   showModal = (key, name, review_id) => (e) => {
     e.preventDefault(); // 修复 Android 上点击穿透
-    console.log(name, review_id);
+
     this.setState({
       [key]: true,
       review_id: review_id ? review_id : 0,
@@ -62,6 +66,8 @@ class Detail extends React.Component {
         ? '回复 @' + name
         : '开始评论'
     });
+
+    document.getElementById('txtId').focus();
 
   }
 
@@ -71,7 +77,8 @@ class Detail extends React.Component {
 
   // 回复
   onReview = () => {
-    const val = document.getElementById('txtId').value;
+    const textId =  document.getElementById('txtId')
+    const val = textId.value;
     if (val == "") {
       Toast.info("总得输入点什么吧？");
     } else {
@@ -85,11 +92,16 @@ class Detail extends React.Component {
         }
       });
 
-      this.setState({ "modal1": false });
+      this.setState({ "placeholder": '开始评论',"review_id":0});
 
+      textId.value = null;
+      textId.focus();
+      setTimeout(()=>{
+        textId.blur();
+      },500);
     }
   }
-  
+
   // 点赞
   handleUpdatedigg = () => {
     const feed_id = this.props.location.state;
@@ -100,7 +112,7 @@ class Detail extends React.Component {
       }
     });
   }
-  
+
 
   TextareaFocus=()=>{
 
@@ -116,17 +128,17 @@ class Detail extends React.Component {
 
     // var i = 1;
     // var int = setInterval(function() {
-    //   window.scrollTo(0, i); 
-    //   i += 10;   
+    //   window.scrollTo(0, i);
+    //   i += 10;
     //   if (i == 200) clearInterval(int);
-    // }, 20);  
-    
+    // }, 20);
+
   }
 
   TextareaBlur=()=>{
     let id = document.getElementById("reviewTextArea");
     id.style.position = 'fixed';
-    id.style.bottom = 0;
+    //id.style.bottom = 0;
   }
 
 
@@ -140,16 +152,16 @@ class Detail extends React.Component {
           onLeftClick={() => history.back()}
           className={styles.navBar}
           >梦境</NavBar>
-        <NavBarPage iconType="back" isFixed="true" title="梦境" /> 
+        <NavBarPage iconType="back" isFixed="true" title="梦境" />
 
         {
           this.props.detail && !this.props.detailLoading
-            ? 
+            ?
             <div>
               {/* 详情 */}
               <div className={styles.item}>
                 <div className={styles.head}>
-                  <div className={styles.img}> 
+                  <div className={styles.img}>
                     <Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>
                       <img src={this.props.detail.info.avatar
                         ? this.props.detail.info.avatar
@@ -206,14 +218,14 @@ class Detail extends React.Component {
                                   <div className={styles.reviewItem2} key={index + "_" + index2}>
                                     {/* <div className={styles.head}>
                                       <span >
-                                        <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>: 
-                                        回复 
+                                        <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>:
+                                        回复
                                         <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.to_uid }}>@{item2.to_uname}</Link>
                                         :
                                       </span>
                                     </div> */}
                                     <div className={styles.itemContent}
-                                     onClick={this.showModal("modal1", item2.uname, item2.review_id)} 
+                                     onClick={this.showModal("modal1", item2.uname, item2.review_id)}
                                     >
                                       <div className={styles.des}>
                                         <div >
@@ -258,38 +270,39 @@ class Detail extends React.Component {
                   <TextareaItem
                       style={{
                         width: '98%',
-                        height:24,
+                        height:28,
                         border: '1px solid #eee',
                         borderRadius: 5,
                         marginLeft: -10,
                         padding: '5px',
                         fontSize: 14,
                         lineHeight:'18px',
-                        value: "",
+                        value: null,
                         zIndex:9999
                       }}
                       rows={1}
                       placeholder={this.state.placeholder}
                       ref={el => this.customFocusInst = el}
-                      id="txtId" 
+                      id="txtId"
                       autoHeight
                       onFocus={this.TextareaFocus}
                       onBlur={this.TextareaBlur}
-                  />  
+                  />
                 </div>
 
                 <div className={styles.r}>
-                  <Button 
+                  {/* <Button
                     type="primary"
                     inline
                     size="small"
                     onClick={this.onReview}
-                  >发表</Button>
+                  >发表</Button> */}
+                  <div className={styles.rtRight} onClick={this.onReview}><i className={styles.iconfontBlue}>&#xe60d;</i></div>
                 </div>
-              </div> 
+              </div>
 
 
-              <Modal
+              {/* <Modal
                 popup
                 visible={this.state.modal1}
                 maskClosable={true}
@@ -315,7 +328,7 @@ class Detail extends React.Component {
                     rows={4}
                     placeholder={this.state.placeholder}
                     ref={el => this.customFocusInst = el}
-                    id="txtId" 
+                    id="txtId"
                     autoHeight
                     onFocus={this.TextareaFocus}
 
@@ -333,10 +346,10 @@ class Detail extends React.Component {
 
                 </div>
               </Modal>
-
+ */}
 
             </div>
-            : 
+            :
             this.props.detail == false?
               <div
                 style={{
@@ -346,7 +359,7 @@ class Detail extends React.Component {
                   fontSize:'12px',
                   color:'#999'
                 }}>
-                找不到此梦境 (꒦_꒦) 
+                找不到此梦境 (꒦_꒦)
             </div>
               :
             <div
