@@ -27,7 +27,7 @@
   },
   "proxy": {
       "/api": {
-        "target": "http://h5.xiaoyiwo.net/index.php?r=",
+        "target": "http://api.idream.name/index.php?r=",
         "changeOrigin": true,
         "pathRewrite": { "^/api" : "" }
       }
