@@ -104,7 +104,7 @@ class Edit extends React.Component {
 
 		return (
 			<div className={styles.editWrap}>
-				<NavBarPage iconType="back" isFly='false' isFixed="true"/> 
+				<NavBarPage iconType="back" isFly='false' title="编辑个人信息" isFixed="true"/>
 
 				<div className={styles.head}>
 					<div className={styles.img}>
@@ -154,7 +154,7 @@ class Edit extends React.Component {
                         value={this.state.age}
                         onChange={v => this.setState({age: v})}
                         onOk={v => this.setState({age: v})}>
-                    
+
                         <List.Item>
                             <img src={ AgePng } />
                         </List.Item>
