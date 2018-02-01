@@ -231,7 +231,7 @@ class Detail extends React.Component {
                                         <div >
                                           <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>
                                           {
-                                            item2.to_uname == item2.uname ? null:
+                                            item2.to_uname == item2.uname || item2.to_uname == item.uname ? null:
                                             <span>
                                               ：
                                                 回复
