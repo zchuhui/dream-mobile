@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { NavBar, Icon, TabBar } from "antd-mobile";
-import { hashHistory  } from 'react-router';
+import { hashHistory } from 'react-router';
 import styles from "./IndexPage.less";
 import ChartList from "./chat/chat-list";
 import FriendList from "./friends/friend-list";
@@ -14,12 +14,12 @@ import Message from "./message/index";
 class Home extends React.Component {
   constructor(props, context) {
     super(props, context);
-    
-    this.state = { 
-      selectedTab: sessionStorage.getItem("selectedTab")?sessionStorage.getItem("selectedTab"):'tab1'
+
+    this.state = {
+      selectedTab: sessionStorage.getItem("selectedTab") ? sessionStorage.getItem("selectedTab") : 'tab1'
     };
   }
-  
+
 
   render() {
     return <div
@@ -33,27 +33,27 @@ class Home extends React.Component {
 
       <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
         <TabBar.Item
-          icon={<i className={styles.iconfont}>&#xe6e1;</i> }
+          icon={<i className={styles.iconfont}>&#xe6e1;</i>}
           selectedIcon={<i className={styles.iconfontBlue}>&#xe69e;</i>}
           title="探索"
           key="Friend"
           selected={this.state.selectedTab === "tab1"}
-          onPress={this.onPress.bind(this,'tab1')}>
+          onPress={this.onPress.bind(this, 'tab1')}>
           {
             this.state.selectedTab == "tab1" ? <HomePage /> : null
           }
         </TabBar.Item>
-          
+
         <TabBar.Item
           icon={<i className={styles.iconfont}>&#xe614;</i>}
           selectedIcon={<i className={styles.iconfontBlue}>&#xe616;</i>}
           title="搜索"
           key="Koubei"
           selected={this.state.selectedTab === "tab2"}
-          onPress={this.onPress.bind(this,'tab2')}
+          onPress={this.onPress.bind(this, 'tab2')}
           data-seed="logId1">
           {
-            this.state.selectedTab=="tab2"?<Search />:null
+            this.state.selectedTab == "tab2" ? <Search /> : null
           }
         </TabBar.Item>
 
@@ -64,38 +64,38 @@ class Home extends React.Component {
           selectedIcon={<i className={styles.iconfontBlue}>&#xe649;</i>}
           selected={this.state.selectedTab === "tab3"}
           /* badge={1} */
-          onPress={this.onPress.bind(this,'tab3')}
+          onPress={this.onPress.bind(this, 'tab3')}
           data-seed="logId">
           {
             this.state.selectedTab == "tab3" ? <Message /> : null
           }
         </TabBar.Item>
-        
+
         <TabBar.Item
           icon={<i className={styles.iconfont}>&#xe617;</i>}
           selectedIcon={<i className={styles.iconfontBlue}>&#xe633;</i>}
           title="我的"
           key="my"
           selected={this.state.selectedTab === "tab4"}
-          onPress={this.onPress.bind(this,'tab4')} >
+          onPress={this.onPress.bind(this, 'tab4')} >
           {
-            this.state.selectedTab=="tab4"?<My />:null
+            this.state.selectedTab == "tab4" ? <My /> : null
           }
-          
+
         </TabBar.Item>
       </TabBar>
     </div>;
   }
 
-  componentWillMount(){}
+  componentWillMount() { }
 
-  onPress(val){
+  onPress(val) {
     // if(val == 'tab2'){
     //   hashHistory.push('/search');
     // }
-    sessionStorage.setItem("selectedTab",val);
-    this.setState({ selectedTab: val }); 
-    
+    sessionStorage.setItem("selectedTab", val);
+    this.setState({ selectedTab: val });
+
   }
 
   renderContent(pageText) {
