@@ -1,3 +1,7 @@
+/**
+ * 梦境列表页
+ * author:zch
+ */
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
@@ -23,8 +27,8 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: true,
-			height: document.documentElement.clientHeight-(50+43.5), 
-			//height: document.documentElement.clientHeight * 3 / 4, 
+			height: document.documentElement.clientHeight-(50+43.5),
+			//height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
 
@@ -33,7 +37,7 @@ class Index extends React.Component {
 	}
 
 	componnetDidMount(){
-		this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
+		//this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -54,7 +58,7 @@ class Index extends React.Component {
 		}
 	}
 
-	// 列表拉倒底部，获取下一页数据 
+	// 列表拉倒底部，获取下一页数据
 	onEndReached = (event) => {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
@@ -70,17 +74,17 @@ class Index extends React.Component {
 				title: "梦境",
 			}
 		];
-		
+
 		return (
 			<div className={styles.chatWrap}>
-				<NavBarPage isFly="true"/> 
+				<NavBarPage isFly="true"/>
 				{/* <StickyContainer> */}
-					<Tabs tabs={tabs} initalPage={'t2'}> 
-						<List 
-							dataSource = {this.state.dataSource} 
-							isLoading = {this.state.isLoading} 
-							height={this.state.height} 
-							onEndReached={this.onEndReached} /> 
+					<Tabs tabs={tabs} initalPage={'t2'}>
+						<List
+							dataSource = {this.state.dataSource}
+							isLoading = {this.state.isLoading}
+							height={this.state.height}
+							onEndReached={this.onEndReached} />
 					</Tabs>
 				{/* </StickyContainer>  */}
 			</div>

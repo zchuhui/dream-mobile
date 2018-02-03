@@ -9,7 +9,7 @@ import FlyPage from './routes/fly/index';
 import UserinfoPage from './routes/my/userinfo';
 import OtherPage from './routes/my/userinfoOther';
 import EditPage from './routes/my/edit';
-import SetupPage from './routes/my/setup';
+import SetupPage from './routes/my/setup/setup';
 import AboutPage from './routes/my/about';
 import SearchPage from './routes/search/index';
 

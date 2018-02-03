@@ -1,3 +1,7 @@
+/**
+ * 用户主页
+ * author: zch
+ */
 import React from "react";
 import { connect } from "dva";
 import { Link } from 'dva/router';
@@ -9,7 +13,7 @@ import styles from "./userinfo.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
 
-function renderTabBar(props) {
+/* function renderTabBar(props) {
 	return (
 		<Sticky>
 			{({ style }) => <div
@@ -19,17 +23,8 @@ function renderTabBar(props) {
 				}}><Tabs.DefaultTabBar {...props} /></div>}
 		</Sticky>
 	);
-}
+} */
 
-const tabs = [
-	{
-		title: '我的梦境'
-	},/*  {
-        title: '我的粉丝'
-    }, {
-        title: '我的关注'
-    } */
-];
 
 class Userinfo extends React.Component {
 	constructor(props, context) {
@@ -109,7 +104,7 @@ class Userinfo extends React.Component {
 							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
 						<label>{obj.digg_count}</label>
-					</span> 
+					</span>
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
 							<i className={styles.iconfontSmall}>&#xe60e;</i>
@@ -155,7 +150,9 @@ class Userinfo extends React.Component {
 		}
 	}
 
+
 	render() {
+
 		const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
@@ -166,20 +163,30 @@ class Userinfo extends React.Component {
 					borderBottom: '1px solid #ECECED',
 				}}
 			/>
-		);
+    );
+
+
+    const tabs = [
+      {
+        title: '我的梦境'
+      },{
+          title: '收藏夹'
+        }
+    ];
+
 
 
 		return (
 			<div className={styles.userinfoWrap}>
-				
-				<NavBarPage iconType="back" isFly='true' isFixed="true" /> 
+
+				<NavBarPage iconType="back" isFly='true' isFixed="true" />
 
 				{/* 个人基本信息 */}
 				{
 					this.props.user ?
 						<div className={styles.userinfo}>
 							<Link to="my/edit"><i className={`${styles.iconfont} ${styles.setup}`}>&#xe60c;</i></Link>
-							<div className={styles.title}> 
+							<div className={styles.title}>
 								<div className={styles.img}>
 									<img src={this.props.user.avatar ? this.props.user.avatar : Util.defaultImg} alt={this.props.user.uname} />
 								</div>
@@ -207,7 +214,9 @@ class Userinfo extends React.Component {
 				{/* 梦境列表 */}
 				<div className={styles.dreamWrap}>
 					<StickyContainer>
-						<Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
+            {/* renderTabBar={renderTabBar} */}
+						<Tabs tabs={tabs} initalPage={'t2'} >
+              {/* 我的梦境 */}
 							<div>
 								{
 									this.state.list.length > 0?
@@ -227,29 +236,15 @@ class Userinfo extends React.Component {
 										onEndReached={this.onEndReached}
 										onEndReachedThreshold={10}
 									/>
-									:<div style={{textAlign:'center',color:'#999',fontSize:'12px',marginTop:30}}>开展你的梦</div> 
+									:<div style={{textAlign:'center',color:'#999',fontSize:'12px',marginTop:30}}>开展你的梦</div>
 								}
 							</div>
-							{/* <div
-                                style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                height: '500px',
-                                backgroundColor: '#fff'
-                            }}>
-                                我的粉丝
-                            </div>
-                            <div
-                                style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                height: '500px',
-                                backgroundColor: '#fff'
-                            }}>
-                                我的关注
-                            </div> */}
+
+              {/* 我的收藏 */}
+							<div>
+                  我的收藏
+              </div>
+
 						</Tabs>
 					</StickyContainer>
 				</div>

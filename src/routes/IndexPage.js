@@ -4,7 +4,6 @@ import { NavBar, Icon, TabBar } from "antd-mobile";
 import { hashHistory } from 'react-router';
 import styles from "./IndexPage.less";
 import ChartList from "./chat/chat-list";
-import FriendList from "./friends/friend-list";
 import My from "./my/my";
 import HomePage from "./home/index";
 import Search from "./search/index";

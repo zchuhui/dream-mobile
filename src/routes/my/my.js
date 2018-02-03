@@ -23,7 +23,7 @@ class My extends React.Component {
         super(props, context);
     }
 
-    componentWillMount() { 
+    componentWillMount() {
         const uid = Storage.get('uid');
         this.props.dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
     }
@@ -36,8 +36,8 @@ class My extends React.Component {
                 <List className={styles.listItem} style={{marginTop:'-1px'}}>
                     <Link to="/my/userinfo">
                         <Item
-                            arrow="horizontal" 
-                            thumb={ 
+                            arrow="horizontal"
+                            thumb={
                                 <div style = {{display:'block', width:40,height:40,borderRadius:'50%',border:'1px solid #eee',overflow:'hidden'}}>
 																	{
 																		this.props.user && this.props.user.avatar !==""?
@@ -45,7 +45,7 @@ class My extends React.Component {
 																		:
 																		<img style={{width:'100%',height:'auto'}} src={Util.defaultImg} alt=""/>
 																	}
-                                </div> 
+                                </div>
                                 }
                             multipleLine
                             onClick={() => {}}>
@@ -55,11 +55,11 @@ class My extends React.Component {
                     </Link>
                 </List>
                 <List className={styles.listItem}>
-                    <Link to="/my/setup"> 
+                    <Link to="/my/setup">
                         <Item
                             arrow="horizontal"
                             multipleLine
-                            onClick={() => {}}> 
+                            onClick={() => {}}>
                             设置
                         </Item>
                     </Link>
@@ -96,21 +96,21 @@ class My extends React.Component {
                         multipleLine
                         onClick={() => {}}>
                         <div
-                            style={{ 
+                            style={{
                             textAlign: 'center',
                             color: "red"
                         }}>退出</div>
                     </Item>
                 </List> */}
             </div>
-        ) 
+        )
     }
 
 }
 
 function mapStateToProps(state) {
     return {
-        ...state.my 
+        ...state.my
     };
 }
 export default connect(mapStateToProps)(My);
