@@ -16,18 +16,20 @@ import SearchPage from './routes/search/index';
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/register" component={RegisterPage} />
-      <Route path="/forget" component={ForgetPage} />
-      <Route path="/" component={IndexPage} />
-      <Route path="/fly" component={FlyPage} />
-      <Route path="/home/detail" component={DetailPage} />
-      <Route path="/my/userinfo" component={UserinfoPage} />
-      <Route path="/my/other" component={OtherPage} />
-      <Route path="/my/edit" component={EditPage} />
-      <Route path="/my/setup" component={SetupPage} />
-      <Route path="/my/about" component={AboutPage} />
-      <Route path="/search" component={SearchPage} />
+      <div>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/forget" component={ForgetPage} />
+        <Route path="/" component={IndexPage} />
+        <Route path="/fly" component={FlyPage} />
+        <Route path="/home/detail" component={DetailPage} />
+        <Route path="/my/userinfo" component={UserinfoPage} />
+        <Route path="/my/other" component={OtherPage} />
+        <Route path="/my/edit" component={EditPage} />
+        <Route path="/my/setup" component={SetupPage} />
+        <Route path="/my/about" component={AboutPage} />
+        <Route path="/search" component={SearchPage} />
+      </div>
     </Router>
   );
 }
