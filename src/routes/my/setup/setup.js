@@ -5,8 +5,11 @@
 import React from "react";
 import { connect } from "dva";
 import { List, NavBar, Button, Checkbox, Icon, Toast, Tabs } from "antd-mobile";
-import NavBarPage from "../../../components/NavBar"
 import styles from "./setup.less";
+
+import NavBarPage from "../../../components/NavBar"
+import Account from "./account"
+
 
 const Item = List.Item,
   CheckboxItem = Checkbox.CheckboxItem,
@@ -117,7 +120,7 @@ class Setup extends React.Component {
 
           {/* 账户 */}
           <div>
-            账户
+            <Account />
           </div>
 
           {/* 账户 */}
