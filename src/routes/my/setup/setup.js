@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { connect } from "dva";
-import { List, NavBar, Button, Checkbox, Icon, Toast, Tabs } from "antd-mobile";
+import { List, NavBar, Button, Checkbox, Icon, Toast, Tabs,WhiteSpace} from "antd-mobile";
 import styles from "./setup.less";
 
 import NavBarPage from "../../../components/NavBar"
@@ -75,6 +75,7 @@ class Setup extends React.Component {
         <Tabs tabs={[{ title: "通知" }, { title: "账户" }, { title: "黑名单" }]} >
           {/* 通知 */}
           <div>
+            <WhiteSpace />
             {
               this.props.notice ?
                 <List>
@@ -128,10 +129,6 @@ class Setup extends React.Component {
             黑名单
           </div>
         </Tabs>
-
-
-
-
       </div>
     )
   }
