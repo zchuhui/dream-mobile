@@ -9,6 +9,7 @@ import styles from "./setup.less";
 
 import NavBarPage from "../../../components/NavBar"
 import Account from "./account"
+import Blacklist from "./blacklist"
 
 
 const Item = List.Item,
@@ -126,7 +127,7 @@ class Setup extends React.Component {
 
           {/* 账户 */}
           <div>
-            黑名单
+            <Blacklist />
           </div>
         </Tabs>
       </div>

@@ -37,23 +37,24 @@ class Account extends React.Component{
             placeholder="确认新密码"
             ref={el => this.customFocusInst = el}
           >确认密码</InputItem>
-          <List.Item>
-            <Button type="ghost">保存</Button>
-          </List.Item>
         </List>
+
+        <List.Item>
+          <Button type="ghost">保存</Button>
+        </List.Item>
+        <WhiteSpace></WhiteSpace>
 
         <List renderHeader={() => '更改登录邮箱'}>
           <InputItem
-            clear
-            placeholder="输入原邮箱"
-            type="email"
-            ref={el => this.autoFocusInst = el}
-          >原邮箱</InputItem>
-          <List.Item>
-            <Button type="ghost">向原邮箱发送确认码</Button>
-          </List.Item>
+              clear
+              placeholder="输入原邮箱并发送确认码"
+              type="email"
+              ref={el => this.autoFocusInst = el}
+            >原邮箱</InputItem>
+            <Button  type="primary" inline size="small" style={{float:'right',marginRight:'5px',marginTop:'-37px'}}>发送</Button>
+        </List>
 
-          <WhiteSpace />
+        <List renderHeader={() => ''} style={{marginTop:-28}}>
           <InputItem
             clear
             placeholder="输入确认码"
