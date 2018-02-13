@@ -31,8 +31,24 @@ class BlackList extends React.Component{
 
     return (
       <div className={styles.blacklistWrap}>
+
+        <List renderHeader={() => '你已存在的黑名单'}>
+          <Grid data={data1}
+            activeStyle={false}
+            renderItem={dataItem => (
+              <div style={{ padding: '2px' }}>
+                <img src={dataItem.icon} style={{ width: '30px', height: '30px' }} alt="" />
+                <div style={{ color: '#888', fontSize: '12px', marginTop: '2px',marginBottom:5}}>
+                  <span>{dataItem.name}</span>
+                </div>
+                <i className={`${styles.iconfont}`}>&#xe611;</i>
+              </div>
+            )}
+          />
+        </List>
+
+        <List renderHeader={() => '添加新名单'}>
         <SearchBar placeholder="搜索用户" maxLength={8} />
-        <List renderHeader={() => '搜索结果（点击添加到黑名单）'}>
         {
           data1.map((i,index)=>(
               <Item
@@ -44,20 +60,7 @@ class BlackList extends React.Component{
         }
         </List>
 
-        <List renderHeader={() => '你已存在的黑名单'}>
-        <Grid data={data1}
-          activeStyle={false}
-          renderItem={dataItem => (
-            <div style={{ padding: '2px' }}>
-              <img src={dataItem.icon} style={{ width: '30px', height: '30px' }} alt="" />
-              <div style={{ color: '#888', fontSize: '12px', marginTop: '2px' }}>
-                <span>{dataItem.name}</span>
-              </div>
-              <i className={`${styles.iconfont} ${styles.fr}`}>&#xe611;</i>
-            </div>
-          )}
-        />
-        </List>
+
       </div>
     )
   }

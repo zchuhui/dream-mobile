@@ -40,7 +40,7 @@ class Account extends React.Component{
         </List>
 
         <List.Item>
-          <Button type="ghost">保存</Button>
+          <Button type="primary">保存</Button>
         </List.Item>
         <WhiteSpace></WhiteSpace>
 
@@ -54,7 +54,7 @@ class Account extends React.Component{
             <Button  type="primary" inline size="small" style={{float:'right',marginRight:'5px',marginTop:'-37px'}}>发送</Button>
         </List>
 
-        <List renderHeader={() => ''} style={{marginTop:-28}}>
+        <List renderHeader={() => ''} style={{marginTop:-25}}>
           <InputItem
             clear
             placeholder="输入确认码"
@@ -72,7 +72,7 @@ class Account extends React.Component{
             ref={el => this.autoFocusInst = el}
           >确认邮箱</InputItem>
           <List.Item>
-            <Button type="ghost">保存</Button>
+            <Button type="primary">保存</Button>
           </List.Item>
         </List>
         <WhiteSpace />

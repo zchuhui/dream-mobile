@@ -7,12 +7,21 @@ import {
   Icon,
   Button,
   Toast,
-  Modal
+  Modal,
+  ActionSheet
 } from "antd-mobile";
 import { createForm } from 'rc-form';
 import styles from "./detail.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
+
+const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+let wrapProps;
+if (isIPhone) {
+  wrapProps = {
+    onTouchStart: e => e.preventDefault(),
+  };
+}
 
 class Detail extends React.Component {
   constructor(props, context) {
@@ -116,14 +125,14 @@ class Detail extends React.Component {
 
   TextareaFocus=()=>{
 
-    var top = window.scrollTop();
-    var bottom = window.scrollBottom();
-    var height = window.height();//整个窗口高
-    height = height / 4;
+    // var top = window.scrollTop();
+    // var bottom = window.scrollBottom();
+    // var height = window.height();//整个窗口高
+    // height = height / 4;
 
-    let id = document.getElementById("reviewTextArea");
-    id.style.position = 'absolute';
-    id.style.bottom = bottom;
+    // let id = document.getElementById("reviewTextArea");
+    // id.style.position = 'absolute';
+    // id.style.bottom = bottom;
 
 
     // var i = 1;
@@ -141,7 +150,23 @@ class Detail extends React.Component {
     //id.style.bottom = 0;
   }
 
-
+  // 更多操作
+  showActionSheet = () => {
+    const BUTTONS = ['删除', '取消'];
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS,
+      cancelButtonIndex: BUTTONS.length - 1,
+      destructiveButtonIndex: BUTTONS.length - 2,
+      // title: 'title',
+      message: null,
+      maskClosable: true,
+      'data-seed': 'logId',
+      wrapProps,
+    },
+      (buttonIndex) => {
+        this.setState({ clicked: BUTTONS[buttonIndex] });
+      });
+  }
 
   render() {
     return (
@@ -202,12 +227,15 @@ class Detail extends React.Component {
                           </div>
                         </div>
                         <div className={styles.itemContent}
-                          onClick={this.showModal("modal1", item.uname, item.review_id)}>
-                          <div className={styles.cnWrap}>
+                         >
+                          <div className={styles.cnWrap} onClick={this.showModal("modal1", item.uname, item.review_id)}>
                             <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
                             <div className={styles.des}>{item.content}</div>
                           </div>
-                          <span className={styles.time}>{item.ctime}</span>
+                          <div className={styles.time}>{item.ctime}
+                            <span className={`${styles.iconfont} ${styles.more}`} onClick={this.showActionSheet}>&#xe679;</span>
+                          </div>
+
                         </div>
                         {
                           // 二级评论
@@ -257,14 +285,6 @@ class Detail extends React.Component {
                 </div>
               </div>
 
-              {/* {!this.state.modal1
-                ? <div className={styles.reviewText} onClick={this.showModal("modal1")}>
-                  <div className={styles.rtLeft}><input type="text" placeholder="开始评论" disabled /></div>
-                  <div className={styles.rtRight}><i className={styles.iconfontBlue}>&#xe60d;</i></div>
-                </div>
-                : null
-              }  */}
-
               <div className={styles.reviewTextArea} id="reviewTextArea">
                 <div className={styles.l}>
                   <TextareaItem
@@ -300,53 +320,6 @@ class Detail extends React.Component {
                   <div className={styles.rtRight} onClick={this.onReview}><i className={styles.iconfontBlue}>&#xe60d;</i></div>
                 </div>
               </div>
-
-
-              {/* <Modal
-                popup
-                visible={this.state.modal1}
-                maskClosable={true}
-                animationType="slide-up"
-                onClose={() => {
-                  this.setState({ modal1: false })
-                }}>
-                <div style={{
-                  height: 150
-                }}>
-                  <TextareaItem
-                    style={{
-                      float: left,
-                      width: '98%',
-                      border: '1px solid #eee',
-                      borderRadius: 5,
-                      marginLeft: -10,
-                      padding: 5,
-                      fontSize: 14,
-                      lineHeight: '16px',
-                      value: ""
-                    }}
-                    rows={4}
-                    placeholder={this.state.placeholder}
-                    ref={el => this.customFocusInst = el}
-                    id="txtId"
-                    autoHeight
-                    onFocus={this.TextareaFocus}
-
-                    />
-
-                  <Button
-                    type="primary"
-                    inline
-                    size="small"
-                    style={{
-                      float: 'right',
-                      marginRight: 5
-                    }}
-                    onClick={this.onReview}>发表</Button>
-
-                </div>
-              </Modal>
- */}
 
             </div>
             :
