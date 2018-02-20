@@ -31,6 +31,9 @@ class Detail extends React.Component {
       modal1: false,
       placeholder: '开始评论',
       review_id: 0,
+
+      delReviewState: 'none',
+      editDreamState:'none'
     };
   }
 
@@ -150,8 +153,8 @@ class Detail extends React.Component {
     //id.style.bottom = 0;
   }
 
-  // 更多操作
-  showActionSheet = () => {
+  // 二级评论操作
+  delReview = () => {
     const BUTTONS = ['删除', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
@@ -160,11 +163,28 @@ class Detail extends React.Component {
       // title: 'title',
       message: null,
       maskClosable: true,
-      'data-seed': 'logId',
       wrapProps,
     },
       (buttonIndex) => {
-        this.setState({ clicked: BUTTONS[buttonIndex] });
+        this.setState({ delReviewState: BUTTONS[buttonIndex] });
+      });
+  }
+
+  // 编辑梦境
+  editDream = () => {
+    const BUTTONS2 = ['编辑', '删除','取消'];
+
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS2,
+      cancelButtonIndex: BUTTONS2.length - 1,
+      destructiveButtonIndex: BUTTONS2.length - 2,
+      //title: 'title',
+      message: null,
+      maskClosable: true,
+      wrapProps,
+    },
+      (buttonIndex) => {
+        this.setState({ editDreamState: BUTTONS2[buttonIndex] });
       });
   }
 
@@ -193,7 +213,10 @@ class Detail extends React.Component {
                         : Util.defaultImg} alt={this.props.detail.info.uname} />
                     </Link>
                   </div>
-                  <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link></span>
+                  <span className={styles.name}>
+                    <Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link>
+                    <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream()} />
+                  </span>
                   <span className={styles.time}>{this.props.detail.info.publish_time}</span>
                 </div>
                 <div className={styles.itemContent}>
@@ -232,8 +255,10 @@ class Detail extends React.Component {
                             <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
                             <div className={styles.des}>{item.content}</div>
                           </div>
-                          <div className={styles.time}>{item.ctime}
-                            <span className={`${styles.iconfont} ${styles.more}`} onClick={this.showActionSheet}>&#xe679;</span>
+                          <div className={`${styles.time} ${styles.clear}`}>
+                            <span className={styles.fl}>{item.ctime}</span>
+                            {/* <span className={`${styles.iconfont} ${styles.more}`} onClick={this.showActionSheet}>&#xe679;</span> */}
+                            {/* <Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview}/> */}
                           </div>
 
                         </div>

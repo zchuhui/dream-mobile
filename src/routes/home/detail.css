@@ -289,7 +289,7 @@ a {
 }
 .detailWrap .more {
   margin-left: 15px;
-  font-size: 14px;
+  padding: 2px 0;
 }
 .mainWrap {
   /* main绝对定位，进行内部滚动 */
