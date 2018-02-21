@@ -25,6 +25,7 @@ module.exports = {
     detail: `${devApi}/feed/info`,
     digg: `${devApi}/feed/updatedigg`,
     review: `${devApi}/feed/review`,
+    del: `${devApi}/feed/del`,
   },
   user: {
     login: `${devApi}/login/validate`,

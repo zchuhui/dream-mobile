@@ -45,6 +45,13 @@ export async function publish(params) {
 }
 
 /**
+ * 删除梦境
+ */
+export async function delDream(params) {
+  return post(dream.del, { data: params });
+}
+
+/**
  * 点赞
  */
 export async function updatedigg(params) {

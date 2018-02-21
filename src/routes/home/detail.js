@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router";
+import { hashHistory } from 'react-router';
 import {
   NavBar,
   TextareaItem,
@@ -14,6 +15,7 @@ import { createForm } from 'rc-form';
 import styles from "./detail.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
+import Storage from '../../utils/storage';
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let wrapProps;
@@ -22,6 +24,9 @@ if (isIPhone) {
     onTouchStart: e => e.preventDefault(),
   };
 }
+
+const uid = Storage.get('uid');
+console.log('uid',uid);
 
 class Detail extends React.Component {
   constructor(props, context) {
@@ -125,7 +130,6 @@ class Detail extends React.Component {
     });
   }
 
-
   TextareaFocus=()=>{
 
     // var top = window.scrollTop();
@@ -173,7 +177,6 @@ class Detail extends React.Component {
   // 编辑梦境
   editDream = () => {
     const BUTTONS2 = ['编辑', '删除','取消'];
-
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
       cancelButtonIndex: BUTTONS2.length - 1,
@@ -185,6 +188,22 @@ class Detail extends React.Component {
     },
       (buttonIndex) => {
         this.setState({ editDreamState: BUTTONS2[buttonIndex] });
+
+        // 编辑
+        if (buttonIndex === 0) {
+          // 跳转到编辑
+          const feed_id = this.props.location.state;
+          hashHistory.push('/fly/edit/' + feed_id);
+        }
+        else if(buttonIndex === 1){
+          const feed_id = this.props.location.state;
+          this.props.dispatch({
+            type: 'home/delDream',
+            payload: {
+              feed_id: feed_id,
+            }
+          });
+        }
       });
   }
 
@@ -215,7 +234,12 @@ class Detail extends React.Component {
                   </div>
                   <span className={styles.name}>
                     <Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link>
-                    <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream()} />
+                    {
+                      // 是登陆账号的梦境时才能删除跟编辑
+                      this.props.detail.info.uid == uid ?
+                        <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream} />
+                        :null
+                    }
                   </span>
                   <span className={styles.time}>{this.props.detail.info.publish_time}</span>
                 </div>
@@ -258,7 +282,7 @@ class Detail extends React.Component {
                           <div className={`${styles.time} ${styles.clear}`}>
                             <span className={styles.fl}>{item.ctime}</span>
                             {/* <span className={`${styles.iconfont} ${styles.more}`} onClick={this.showActionSheet}>&#xe679;</span> */}
-                            {/* <Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview}/> */}
+                            <Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview}/>
                           </div>
 
                         </div>

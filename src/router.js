@@ -6,6 +6,7 @@ import LoginPage from './routes/login/login';
 import RegisterPage from './routes/login/register';
 import ForgetPage from './routes/login/forget';
 import FlyPage from './routes/fly/index';
+import FlyEditPage from './routes/fly/edit';
 import UserinfoPage from './routes/my/userinfo';
 import OtherPage from './routes/my/userinfoOther';
 import EditPage from './routes/my/edit';
@@ -22,6 +23,7 @@ function RouterConfig({ history }) {
         <Route path="/forget" component={ForgetPage} />
         <Route path="/" component={IndexPage} />
         <Route path="/fly" component={FlyPage} />
+        <Route path="/fly/edit/:id" component={FlyEditPage} />
         <Route path="/home/detail" component={DetailPage} />
         <Route path="/my/userinfo" component={UserinfoPage} />
         <Route path="/my/other" component={OtherPage} />

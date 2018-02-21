@@ -47,7 +47,8 @@ class BlackList extends React.Component{
           />
         </List>
 
-        <List renderHeader={() => '添加新名单'}>
+        {/* <List renderHeader={() => '添加新名单'}>
+
         <SearchBar placeholder="搜索用户" maxLength={8} />
         {
           data1.map((i,index)=>(
@@ -58,7 +59,7 @@ class BlackList extends React.Component{
                 >{i.name}</Item>
           ))
         }
-        </List>
+        </List> */}
 
 
       </div>

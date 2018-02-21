@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "dva";
 import { List, TextareaItem, NavBar,Icon,Button,Toast} from "antd-mobile";
 import styles from "./index.less";
-import { createForm } from 'rc-form';  
+import { createForm } from 'rc-form';
 
 class Fly extends React.Component {
   constructor(props, context) {
@@ -22,7 +22,7 @@ class Fly extends React.Component {
       face2:1,
       face3:1,
     });
-    
+
     this.setState({
       [key]:0,
       feeling:val
@@ -37,12 +37,12 @@ class Fly extends React.Component {
     if(title == ""){
       Toast.info('请先填写标题',1);
     }else if(content == ""){
-      Toast.info('请多少输入一点吧~~',1);      
+      Toast.info('请多少输入一点吧~~',1);
     }
     /* else if(feeling == null){
       Toast.info('请选一下此刻的心情~~',1);
     } */
-    else{ 
+    else{
       this.props.dispatch({type:'home/publishDream',payload:{
         'title':title,
         'content':content,
@@ -87,16 +87,13 @@ class Fly extends React.Component {
       </div>
     )
   }
-
-
-
 }
 
 function mapStateToProps(state) {
   return {
     ...state.home
   };
-} 
+}
 
-const form =  createForm()(Fly) 
+const form =  createForm()(Fly)
 export default connect(mapStateToProps)(form);
