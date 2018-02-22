@@ -51,11 +51,10 @@ export default modelExtend(model, {
 			yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
 			//const { data } = yield call(detail, payload);
       const { data, code } = yield call(getDreamDetail, payload);
-      console.log(data);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
 			}else{
-				yield put({ type: 'updateState', payload: { detail: false, detailLoading: false } });
+        yield put({ type: 'updateState', payload: { detail: false, detailLoading: false } });
 			}
 		},
 
@@ -136,13 +135,13 @@ export default modelExtend(model, {
     // 删除梦境
     *delDream({ payload }, { call, put }) {
       Toast.loading("删除中...");
-      console.log(payload);
       const { data, code, msg } = yield call(delDream, payload);
-      console.log(code,msg);
       if (code == 200) {
+        Toast.success("删除成功！",1);
         setTimeout(() => {
-          hashHistory.push('/');
-        }, 1000);
+          history.go(-1);
+          //hashHistory.push('/');
+        }, 500);
       }
     },
 

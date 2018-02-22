@@ -238,7 +238,7 @@ class Detail extends React.Component {
                       // 是登陆账号的梦境时才能删除跟编辑
                       this.props.detail.info.uid == uid ?
                         <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream} />
-                        :null
+                        :<span></span>
                     }
                   </span>
                   <span className={styles.time}>{this.props.detail.info.publish_time}</span>
