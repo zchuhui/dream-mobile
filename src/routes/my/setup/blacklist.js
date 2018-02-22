@@ -7,6 +7,7 @@ import React from 'react'
 import { connect } from 'dva'
 import styles from './blacklist.less'
 import {Button,Grid,SearchBar,List} from 'antd-mobile'
+import Util from "../../../utils/util";
 
 const Item = List.Item;
 
@@ -16,49 +17,63 @@ class BlackList extends React.Component{
 
   }
 
+  componentWillMount(){
+    this.props.dispatch({ type: 'my/getBlackList',payload:{}});
+  }
+
+  // 删除拉黑用户
+  delBlack=(uid)=>{
+    this.props.dispatch({
+      type:'my/delBlack',
+      payload:{
+        black_uid:uid
+      }
+    })
+  }
+
   render(){
-    let data1 = [
-      {name:'name1',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name2',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name21',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name13',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name1e',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'namew1',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name22',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name1',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-      {name:'name21',icon:'http://www.telestream.net/images/home/logo-product-wirecast.png'},
-    ]
 
     return (
       <div className={styles.blacklistWrap}>
 
         <List renderHeader={() => '你已存在的黑名单'}>
-          <Grid data={data1}
-            activeStyle={false}
-            renderItem={dataItem => (
-              <div style={{ padding: '2px' }}>
-                <img src={dataItem.icon} style={{ width: '30px', height: '30px' }} alt="" />
-                <div style={{ color: '#888', fontSize: '12px', marginTop: '2px',marginBottom:5}}>
-                  <span>{dataItem.name}</span>
+          {/* 黑名单列表 */}
+          {
+            this.props.blackList && this.props.blackList.length > 0 ?
+            <Grid data={this.props.blackList}
+              activeStyle={false}
+              renderItem={dataItem => (
+                <div className={styles.userItem}>
+                  <div style={{height:'50%'}}>
+                    <span className={styles.imgbox}><img src={dataItem.avatar !== "" ? dataItem.avatar : Util.defaultImg} alt="" /></span>
+                    <div className={styles.uname}>
+                      <span>{dataItem.uname}</span>
+                    </div>
+                  </div>
+                  <div style={{ height: '50%' }}>
+                    <i className={`${styles.iconfont}`} onClick={this.delBlack.bind(this,dataItem.uid)}>&#xe611;</i>
+                  </div>
                 </div>
-                <i className={`${styles.iconfont}`}>&#xe611;</i>
-              </div>
-            )}
-          />
+              )}/>
+              :
+              <Item>
+                <div className={styles.null}>您还木有拉黑任何人</div>
+              </Item>
+
+          }
         </List>
 
         {/* <List renderHeader={() => '添加新名单'}>
-
-        <SearchBar placeholder="搜索用户" maxLength={8} />
-        {
-          data1.map((i,index)=>(
-              <Item
-                style={{borderBottom:'1px solid #eee'}}
-                thumb={<img style={{width:30,height:30}} src={i.icon} />}
-                onClick={() => {}}
-                >{i.name}</Item>
-          ))
-        }
+          <SearchBar placeholder="搜索用户" maxLength={8} />
+          {
+            data1.map((i,index)=>(
+                <Item
+                  style={{borderBottom:'1px solid #eee'}}
+                  thumb={<img style={{width:30,height:30}} src={i.icon} />}
+                  onClick={() => {}}
+                  >{i.name}</Item>
+            ))
+          }
         </List> */}
 
 
@@ -70,7 +85,8 @@ class BlackList extends React.Component{
 
 const mapStateToProps=(state)=>{
   return{
-    ...state.message
+    ...state.message,
+    ...state.my
   }
 }
 

@@ -9,6 +9,7 @@ import styles from "./userinfo.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
 
+// 登陆id
 const UID = Storage.get('uid');
 
 function renderTabBar(props) {
@@ -48,14 +49,13 @@ class Userinfo extends React.Component {
       height: document.documentElement.clientHeight * 3 / 4,
       currentPage: 1,
 
-      clicked:'none'
     };
 
   }
 
   componentDidMount() {
     const uid = this.props.location.state;
-    console.log('other uid :',uid);
+
     if (uid) {
       this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: uid, page: 1 } });
     }
@@ -137,7 +137,7 @@ class Userinfo extends React.Component {
     this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: this.props.location.state, page: this.state.currentPage } });
   }
 
-  // 二级评论操作
+  // 拉黑
   addBlackList = () => {
     const BUTTONS = ['拉黑', '取消'];
     ActionSheet.showActionSheetWithOptions({
@@ -149,7 +149,14 @@ class Userinfo extends React.Component {
       wrapProps,
     },
       (buttonIndex) => {
-        this.setState({ clicked: BUTTONS[buttonIndex] });
+        if (buttonIndex === 0) {
+          this.props.dispatch({
+            type: 'my/setBlack', payload: { 'black_uid': this.props.location.state}
+          });
+        }
+        else if(buttonIndex ===1 )
+        {
+        }
       });
   }
 
@@ -169,9 +176,7 @@ class Userinfo extends React.Component {
     const tabs = [
       {
         title: uname + '的梦境'
-      },/*  {
-                title: '我的粉丝'
-            } */
+      }
     ];
 
     return (
@@ -230,7 +235,7 @@ class Userinfo extends React.Component {
                   className="am-list"
                   pageSize={4}
                   useBodyScroll
-                  onScroll={() => { console.log('scroll'); }}
+                  onScroll={() => {  }}
                   scrollRenderAheadDistance={500}
                   onEndReached={this.onEndReached}
                   onEndReachedThreshold={10}

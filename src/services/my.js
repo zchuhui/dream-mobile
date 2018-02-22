@@ -34,3 +34,25 @@ export async function addOpinion(params) {
 export async function loginout(params) {
   return post(my.loginout, { data: params });
 }
+
+
+/**
+ * 拉黑用户
+ */
+export async function setBlack(params) {
+  return post(my.setBlack, { data: params });
+}
+
+/**
+ * 取消拉黑用户
+ */
+export async function delBlack(params) {
+  return post(my.delBlack, { data: params });
+}
+
+/**
+ * 获取拉黑用户列表
+ */
+export async function getBlackList(params) {
+  return post(my.getBlackList, { data: params });
+}

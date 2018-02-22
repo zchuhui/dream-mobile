@@ -1,7 +1,7 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
-import {  getUserHome,editUser,addOpinion,loginout } from '../services/my.js';
+import { getUserHome, editUser, addOpinion, loginout, setBlack,delBlack,getBlackList } from '../services/my.js';
 import { Toast } from 'antd-mobile';
 import Util from "../utils/util";
 import Storage from '../utils/storage';
@@ -39,8 +39,6 @@ export default modelExtend(model, {
 			yield put({ type: 'updateState', payload: { otherInfo: null, otherDream: null, } });
 
       const { data, code, msg } = yield call(getUserHome, payload);
-      console.log(payload);
-      console.log('getOtherInfo',data);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
 			}
@@ -88,7 +86,34 @@ export default modelExtend(model, {
 				}, 1000)
 			}
 
-		},
+    },
+
+    // 拉黑用户
+    *setBlack({ payload }, { call, put }) {
+      const { data, code, msg } = yield call(setBlack, payload);
+      if (code == 200) {
+        Toast.success(msg);
+      }
+    },
+
+    // 拉黑用户
+    *delBlack({ payload }, { call, put }) {
+      const { data, code, msg } = yield call(delBlack, payload);
+      if (code == 200) {
+        Toast.success(msg);
+
+        // 重新黑名单列表
+        yield put({ type: 'getBlackList', payload: { } });
+      }
+    },
+
+    // 获取黑名单列表
+    *getBlackList({ payload }, { call, put }) {
+      const { data, code, msg } = yield call(getBlackList, payload);
+      if (code == 200) {
+        yield put({ type: 'updateState', payload: { blackList: data} });
+      }
+    },
 
 	},
 

@@ -37,7 +37,9 @@ module.exports = {
     editUser: `${devApi}/users/edit-user`,
     opinion: `${devApi}/opinion/add`,
     loginout: `${devApi}/login/loginout`,
-
+    setBlack: `${devApi}/users-black/set-black`,
+    delBlack: `${devApi}/users-black/del-black`,
+    getBlackList: `${devApi}/users-black/get-blacklist`,
   },
   message: {
     getMessageList: `${devApi}/message/get-user-msg`,
