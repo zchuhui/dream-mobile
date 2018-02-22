@@ -55,6 +55,7 @@ class Userinfo extends React.Component {
 
   componentDidMount() {
     const uid = this.props.location.state;
+    console.log('other uid :',uid);
     if (uid) {
       this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: uid, page: 1 } });
     }

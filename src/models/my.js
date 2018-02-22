@@ -12,11 +12,11 @@ import Storage from '../utils/storage';
 export default modelExtend(model, {
 	namespace: 'my',
 	state: {
-		 
+
 	},
 	subscriptions: {setup({ dispatch, history }) {
 		//dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
-	}}, 
+	}},
 
 	effects: {
 		// 用户信息
@@ -38,7 +38,9 @@ export default modelExtend(model, {
 			// 清空数据
 			yield put({ type: 'updateState', payload: { otherInfo: null, otherDream: null, } });
 
-			const { data, code, msg } = yield call(getUserHome, payload);
+      const { data, code, msg } = yield call(getUserHome, payload);
+      console.log(payload);
+      console.log('getOtherInfo',data);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
 			}
@@ -80,12 +82,12 @@ export default modelExtend(model, {
 				sessionStorage.clear();
 
 				yield put({ type: 'updateState', payload: { user: null, list: null } });
-				
+
 				setTimeout(() => {
 					hashHistory.push('/login');
 				}, 1000)
 			}
-			
+
 		},
 
 	},

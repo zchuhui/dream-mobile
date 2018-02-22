@@ -15,7 +15,6 @@ class FlyEdit extends React.Component {
 
   componentWillMount(){
     const id = this.props.params.id;
-    console.log(id);
     this.props.dispatch({
       type: 'home/editDetail',
       payload: {

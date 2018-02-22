@@ -101,7 +101,6 @@ export default modelExtend(model, {
 			}
     },
 
-
     // 编辑梦境
     *editDetail({ payload }, { call, put }) {
       yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
