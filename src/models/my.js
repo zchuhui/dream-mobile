@@ -1,7 +1,11 @@
 import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
-import { getUserHome, editUser, addOpinion, loginout, setBlack,delBlack,getBlackList } from '../services/my.js';
+import {
+  getUserHome, editUser, addOpinion, loginout,
+  setBlack,delBlack,getBlackList,
+  setPassword,setEmail,sendEmailCode
+} from '../services/my.js';
 import { Toast } from 'antd-mobile';
 import Util from "../utils/util";
 import Storage from '../utils/storage';
@@ -112,6 +116,37 @@ export default modelExtend(model, {
       const { data, code, msg } = yield call(getBlackList, payload);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { blackList: data} });
+      }
+    },
+
+    // 更新密码
+    *setPassword({payload},{call, put }){
+      const {data, code, msg} = yield call(setPassword,payload);
+      if(code == 200){
+        Toast.success("密码修改成功！",1);
+
+        // 修改密码成功，退出登录
+        yield put({ type: 'logout', payload: {} });
+      }
+    },
+
+    // 发送邮箱验证码
+    *sendEmailCode({ payload }, { call, put }) {
+      Toast.loading("发送中...");
+      const { data, code, msg } = yield call(sendEmailCode, payload);
+      if (code == 200) {
+        Toast.success(msg);
+      }
+    },
+
+    // 更新邮箱
+    *setEmail({ payload }, { call, put }) {
+      const { data, code, msg } = yield call(setEmail, payload);
+      if (code == 200) {
+        Toast.success("邮箱修改成功！", 1);
+
+        // 修改密码成功，退出登录
+        yield put({ type: 'logout', payload: {} });
       }
     },
 

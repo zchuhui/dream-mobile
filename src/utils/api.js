@@ -37,9 +37,16 @@ module.exports = {
     editUser: `${devApi}/users/edit-user`,
     opinion: `${devApi}/opinion/add`,
     loginout: `${devApi}/login/loginout`,
-    setBlack: `${devApi}/users-black/set-black`,
-    delBlack: `${devApi}/users-black/del-black`,
-    getBlackList: `${devApi}/users-black/get-blacklist`,
+
+    setBlack: `${devApi}/users-black/set-black`,            // 添加黑名单
+    delBlack: `${devApi}/users-black/del-black`,            // 删除黑名单
+    getBlackList: `${devApi}/users-black/get-blacklist`,    // 黑名单列表
+
+    setPassword: `${devApi}/users/change-pwd`,              // 修改密码
+    sendEmailCode: `${devApi}/users/send-email-code`,       // 发送邮箱验证码
+    setEmail: `${devApi}/users/change-email`,               // 修改登录邮箱
+
+
   },
   message: {
     getMessageList: `${devApi}/message/get-user-msg`,

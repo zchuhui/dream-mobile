@@ -56,3 +56,24 @@ export async function delBlack(params) {
 export async function getBlackList(params) {
   return post(my.getBlackList, { data: params });
 }
+
+/**
+ * 修改密码
+ */
+export async function setPassword(params) {
+  return post(my.setPassword, { data: params });
+}
+
+/**
+ * 发送邮箱验证码
+ */
+export async function sendEmailCode(params) {
+  return post(my.sendEmailCode, { data: params });
+}
+
+/**
+ * 修改邮箱
+ */
+export async function setEmail(params) {
+  return post(my.setEmail, { data: params });
+}

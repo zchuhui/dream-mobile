@@ -6,75 +6,116 @@
 import React from 'react'
 import { connect } from 'dva'
 import styles from './account.less'
-import {List,InputItem,Button,WhiteSpace} from 'antd-mobile'
+import { List, InputItem, Button, WhiteSpace, Toast } from 'antd-mobile'
+import { createForm } from 'rc-form'
+import AccountUpdateEmail from './accountUpdateEmail'
 
-class Account extends React.Component{
+class Account extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.state = {
+      password: null,
+    }
   }
 
-  render(){
+  // 更新密码
+  setNewPassword = () => {
+    this.props.form.validateFields({ force: true }, (error) => {
+      if (!error) {
+        //console.log(this.props.form.getFieldsValue());
+        this.props.dispatch({
+          type: 'my/setPassword',
+          payload: this.props.form.getFieldsValue()
+        })
+      } else {
+        Toast.info("请输入密码", 1);
+      }
+    });
+  }
+
+  // 验证密码
+  validatePassoword = (rule, value, callback) => {
+    if (value && value.length >= 6) {
+      callback();
+    } else {
+      callback(new Error('原始密码'));
+    }
+  }
+
+  // 验证新密码
+  validatePassoword1 = (rule, value, callback) => {
+    this.setState({ password: value });
+    if (value && value.length >= 6) {
+      callback();
+    } else {
+      callback(new Error('新密码'));
+    }
+  }
+
+  // 验证重复密码
+  validatePassoword2 = (rule, value, callback) => {
+    if (value && value.length >= 6 && value == this.state.password) {
+      callback();
+    } else {
+      callback(new Error('确认新密码'));
+    }
+  }
+
+  render() {
+    const { getFieldProps, getFieldError } = this.props.form;
     return (
       <div className={`${styles.accountWrap}`}>
-
-        <List renderHeader={() => '更改登录密码'}>
-          <InputItem
-            clear
-            placeholder="输入原密码"
-            type="password"
-            ref={el => this.autoFocusInst = el}
-          >原密码</InputItem>
-          <InputItem
-            clear
-            type="password"
-            placeholder="输入新密码"
-            ref={el => this.customFocusInst = el}
-          >新密码</InputItem>
-          <InputItem
-            clear
-            type="password"
-            placeholder="确认新密码"
-            ref={el => this.customFocusInst = el}
-          >确认密码</InputItem>
-        </List>
-
-        <List.Item>
-          <Button type="primary">保存</Button>
-        </List.Item>
-        <WhiteSpace></WhiteSpace>
-
-        <List renderHeader={() => '更改登录邮箱'}>
-          <InputItem
+        <form>
+          <List renderHeader={() => '更改登录密码'}>
+            <InputItem
+              {...getFieldProps('oldpassword', {
+                // initialValue: 'little ant',
+                rules: [
+                  { required: true, message: '请输入密码' },
+                  { validator: this.validatePassoword },
+                ],
+              })}
               clear
-              placeholder="输入原邮箱并发送确认码"
-              type="email"
+              error={!!getFieldError('oldpassword')}
+              placeholder="输入原密码"
+              type="password"
               ref={el => this.autoFocusInst = el}
-            >原邮箱</InputItem>
-            <Button  type="primary" inline size="small" style={{float:'right',marginRight:'5px',marginTop:'-37px'}}>发送</Button>
-        </List>
-
-        <List renderHeader={() => ''} style={{marginTop:-25}}>
-          <InputItem
-            clear
-            placeholder="输入确认码"
-            ref={el => this.autoFocusInst = el}
-          >确认码</InputItem>
-          <InputItem
-            clear
-            placeholder="输入新邮箱"
-            type="email"
-            ref={el => this.autoFocusInst = el}
-          >新邮箱</InputItem>
-          <InputItem
-            clear
-            placeholder="确认新邮箱"
-            ref={el => this.autoFocusInst = el}
-          >确认邮箱</InputItem>
+            >原密码</InputItem>
+            <InputItem
+              {...getFieldProps('password', {
+                rules: [
+                  { required: true, message: '请输入新密码' },
+                  { validator: this.validatePassoword1 },
+                ],
+              })}
+              error={!!getFieldError('password')}
+              clear
+              type="password"
+              placeholder="输入新密码"
+              ref={el => this.customFocusInst = el}
+            >新密码</InputItem>
+            <InputItem
+              {...getFieldProps('repassword', {
+                rules: [
+                  { required: true, message: '确认新密码' },
+                  { validator: this.validatePassoword2 },
+                ],
+              })}
+              error={!!getFieldError('repassword')}
+              clear
+              type="password"
+              placeholder="确认新密码"
+              ref={el => this.customFocusInst = el}
+            >确认密码</InputItem>
+          </List>
           <List.Item>
-            <Button type="primary">保存</Button>
+            <Button type="primary" onClick={this.setNewPassword}>保存</Button>
           </List.Item>
-        </List>
+        </form>
+
+        <WhiteSpace />
+        <AccountUpdateEmail />
         <WhiteSpace />
 
       </div>
@@ -83,13 +124,14 @@ class Account extends React.Component{
 }
 
 
-const mapStateToProps=(state)=>{
-  return{
-    ...state.message
+const mapStateToProps = (state) => {
+  return {
+    ...state.my
   }
 }
 
-export default connect(mapStateToProps)(Account)
+const form = createForm()(Account)
+export default connect(mapStateToProps)(form)
 
 
 
