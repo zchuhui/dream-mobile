@@ -64,3 +64,18 @@ export async function updatedigg(params) {
 export async function review(params) {
   return post(dream.review, {data: params});
 }
+
+
+/**
+ * 收藏梦境
+ */
+export async function colletDream(params) {
+  return post(dream.collect, { data: params });
+}
+
+/**
+ * 收藏梦境列表
+ */
+export async function colletDreamList(params) {
+  return post(dream.collectList, { data: params });
+}

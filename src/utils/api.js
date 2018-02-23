@@ -26,6 +26,10 @@ module.exports = {
     digg: `${devApi}/feed/updatedigg`,
     review: `${devApi}/feed/review`,
     del: `${devApi}/feed/del`,
+
+    collect: `${devApi}/wish/handle`,     // 梦境收藏
+    collectList: `${devApi}/wish/list`,   // 梦境收藏列表
+
   },
   user: {
     login: `${devApi}/login/validate`,

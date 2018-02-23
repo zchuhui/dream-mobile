@@ -2,7 +2,11 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import { Toast } from "antd-mobile";
-import { query, detail, getMsg, publish, getDreamList, search, getDreamDetail, updatedigg, review, delDream } from '../services/home.js';
+import { query, detail, getMsg, publish,
+  getDreamList, search, getDreamDetail,
+  updatedigg, review, delDream,
+  colletDream,colletDreamList
+} from '../services/home.js';
 
 export default modelExtend(model, {
 
@@ -13,9 +17,6 @@ export default modelExtend(model, {
 	},
 
 	subscriptions: {
-		/* setup({ dispatch, history }) {  // eslint-disable-line
-		  dispatch({type:'fetch',payload:{}});
-		}, */
 	},
 
 	effects: {
@@ -143,6 +144,26 @@ export default modelExtend(model, {
         }, 500);
       }
     },
+
+    // 收藏梦境
+    *colletDream({ payload }, { call, put }) {
+      Toast.loading("收藏中...");
+      const { data, code, msg } = yield call(colletDream, payload);
+      if (code == 200) {
+        Toast.success(msg);
+      }
+    },
+
+    // 收藏梦境列表
+    *colletDreamList({ payload }, { call, put }) {
+      const { data, code, msg } = yield call(colletDreamList, payload);
+      console.log('star',data);
+      if (code == 200) {
+        yield put({ type: 'updateState', payload: { collectDreamList: data.data } });
+      }
+    },
+
+
 
 	},
 

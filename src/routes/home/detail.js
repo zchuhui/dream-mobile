@@ -207,6 +207,32 @@ class Detail extends React.Component {
       });
   }
 
+  // 梦境收藏、分享
+  collectShow=()=>{
+    const BUTTONS = ['添加到收藏夹', '取消'];
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS,
+      cancelButtonIndex: BUTTONS.length - 1,
+      destructiveButtonIndex: BUTTONS.length - 2,
+      message: null,
+      maskClosable: true,
+      wrapProps,
+    },
+      (buttonIndex) => {
+
+        // 收藏梦境
+        if (buttonIndex === 0) {
+          const feed_id = this.props.location.state;
+          this.props.dispatch({
+            type:'home/colletDream',
+            payload:{
+              feed_id:feed_id
+            }
+          })
+        }
+      });
+  }
+
   render() {
     return (
       <div className={styles.detailWrap}>
@@ -259,6 +285,10 @@ class Detail extends React.Component {
                     <i className={styles.iconfontBlueSmall}>&#xe60f;</i>
                     <label>{this.props.detail.info.comment_count}</label>
                   </span>
+                  <span>
+                    <i className={styles.iconfontSmall} onClick={this.collectShow}>&#xe606;</i>
+                  </span>
+
                 </div>
 
                 {/* 评论内容 */}

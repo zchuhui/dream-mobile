@@ -12,18 +12,7 @@ import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
-
-/* function renderTabBar(props) {
-	return (
-		<Sticky>
-			{({ style }) => <div
-				style={{
-					...style,
-					zIndex: 1
-				}}><Tabs.DefaultTabBar {...props} /></div>}
-		</Sticky>
-	);
-} */
+import CollectList from "./collect/collectList"
 
 
 class Userinfo extends React.Component {
@@ -242,7 +231,7 @@ class Userinfo extends React.Component {
 
               {/* 我的收藏 */}
 							<div>
-                  我的收藏
+                <CollectList />
               </div>
 
 						</Tabs>
