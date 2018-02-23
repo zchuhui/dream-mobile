@@ -25,8 +25,7 @@ if (isIPhone) {
   };
 }
 
-const uid = Storage.get('uid');
-console.log('uid',uid);
+const UID = Storage.get('uid');
 
 class Detail extends React.Component {
   constructor(props, context) {
@@ -252,17 +251,17 @@ class Detail extends React.Component {
               <div className={styles.item}>
                 <div className={styles.head}>
                   <div className={styles.img}>
-                    <Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>
+                    <Link to={{ pathname: this.props.detail.info.uid == UID ? "/my/userinfo" :"/my/other", 'state': + this.props.detail.info.uid }}>
                       <img src={this.props.detail.info.avatar
                         ? this.props.detail.info.avatar
                         : Util.defaultImg} alt={this.props.detail.info.uname} />
                     </Link>
                   </div>
                   <span className={styles.name}>
-                    <Link to={{ pathname: "/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link>
+                    <Link to={{ pathname: this.props.detail.info.uid == UID ? "/my/userinfo" :"/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link>
                     {
                       // 是登陆账号的梦境时才能删除跟编辑
-                      this.props.detail.info.uid == uid ?
+                      this.props.detail.info.uid == UID ?
                         <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream} />
                         :<span></span>
                     }
@@ -298,7 +297,7 @@ class Detail extends React.Component {
                       <div className={styles.reviewItem} key={index}>
                         <div className={styles.head}>
                           <div className={styles.img}>
-                            <Link to={{ pathname: "/my/other", 'state': + item.uid }}>
+                            <Link to={{ pathname: item.uid == UID ? "/my/userinfo":"/my/other", 'state': + item.uid }}>
                               <img src={item.avatar ? item.avatar : Util.defaultImg} alt={item.uname} />
                             </Link>
                           </div>
@@ -306,7 +305,7 @@ class Detail extends React.Component {
                         <div className={styles.itemContent}
                          >
                           <div className={styles.cnWrap} onClick={this.showModal("modal1", item.uname, item.review_id)}>
-                            <span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
+                            <span className={styles.name}><Link to={{ pathname: item.uid == UID ? "/my/userinfo":"/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
                             <div className={styles.des}>{item.content}</div>
                           </div>
                           <div className={`${styles.time} ${styles.clear}`}>
@@ -336,13 +335,13 @@ class Detail extends React.Component {
                                     >
                                       <div className={styles.des}>
                                         <div >
-                                          <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.uid }}>{item2.uname}</Link>
+                                          <Link className={styles.uname} to={{ pathname: item2.uid == UID ? "/my/userinfo":"/my/other", 'state': + item2.uid }}>{item2.uname}</Link>
                                           {
                                             item2.to_uname == item2.uname || item2.to_uname == item.uname ? null:
                                             <span>
                                               ：
-                                                回复
-                                            <Link className={styles.uname} to={{ pathname: "/my/other", 'state': + item2.to_uid }}>@{item2.to_uname}</Link>
+                                                  回复
+                                            <Link className={styles.uname} to={{ pathname: item2.uid == UID ? "/my/userinfo" :"/my/other", 'state': + item2.to_uid }}>@{item2.to_uname}</Link>
                                               ：
                                             </span>
                                           }

@@ -4,13 +4,15 @@ import { ListView, Icon, NavBar, Tabs } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import styles from "./List.less";
 import Util from "../utils/util";
+import Storage from '../utils/storage';
 
+// 登陆id
+const UID = Storage.get('uid');
 
 class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 	}
-	
 
 	// 行
 	row = (rowData, sectionID, rowID) => {
@@ -19,11 +21,11 @@ class List extends React.Component {
 			<div className={styles.item}>
 				<div className={styles.head}>
 					<div className={styles.img}>
-						<Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
+            <Link to={{ pathname: obj.uid == UID ? "/my/userinfo":"/my/other", 'state': + obj.uid }}>
 							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
 						</Link>
 					</div>
-					<span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
+          <span className={styles.name}><Link to={{ pathname: obj.uid == UID ? "/my/userinfo" :"/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>
 				<div className={styles.itemContent}>
@@ -61,7 +63,7 @@ class List extends React.Component {
 	};
 
 	render() {
-		
+
 		const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}

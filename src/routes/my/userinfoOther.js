@@ -55,9 +55,14 @@ class Userinfo extends React.Component {
 
   componentDidMount() {
     const uid = this.props.location.state;
-
     if (uid) {
-      this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: uid, page: 1 } });
+      // 如果是自己
+      if(uid == UID){
+        //hashHistory.push('my/userinfo');
+      }else{
+        this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: uid, page: 1 } });
+      }
+
     }
   }
 
