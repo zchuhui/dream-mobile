@@ -138,8 +138,8 @@ export default modelExtend(model, {
       if (code == 200) {
         Toast.success("删除成功！",1);
         setTimeout(() => {
-          history.go(-1);
-          //hashHistory.push('/');
+          //history.go(-1);
+          hashHistory.push('/');
         }, 500);
       }
     },
