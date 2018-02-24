@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router';
 import { Toast } from "antd-mobile";
 import { query, detail, getMsg, publish,
   getDreamList, search, getDreamDetail,
-  updatedigg, review, delDream,
+  updatedigg, review, delDream,delDreamReview,
   colletDream,colletDreamList
 } from '../services/home.js';
 
@@ -28,7 +28,6 @@ export default modelExtend(model, {
 					yield put({ type: 'updateState', payload: { list: data.data } });
 				}
 			} catch (error) {
-				console.log(error);
 			}
 		},
 
@@ -50,12 +49,20 @@ export default modelExtend(model, {
 		// 梦境详情
 		*getDetail({ payload }, { call, put }) {
 			yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
-			//const { data } = yield call(detail, payload);
+      //const { data } = yield call(detail, payload);
       const { data, code } = yield call(getDreamDetail, payload);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
 			}else{
         yield put({ type: 'updateState', payload: { detail: false, detailLoading: false } });
+			}
+    },
+
+    // 梦境详情2,只更新数据
+		*getDetail2({ payload }, { call, put }) {
+      const { data, code } = yield call(getDreamDetail, payload);
+			if (code == 200) {
+				yield put({ type: 'updateState', payload: { detail: data } });
 			}
 		},
 
@@ -106,10 +113,8 @@ export default modelExtend(model, {
     *editDetail({ payload }, { call, put }) {
       yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
       const { data, code } = yield call(getDreamDetail, payload);
-      console.log('get',data);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { editDetail: data.info, editDetailLoading: false } });
-        //hashHistory.push('/fly/edit');
       } else {
         yield put({ type: 'updateState', payload: { editDetail: false, editDetailLoading: false } });
       }
@@ -145,6 +150,17 @@ export default modelExtend(model, {
       }
     },
 
+    // 删除梦境评论
+    *delDreamReview({ payload }, { call, put }) {
+      Toast.loading("删除中...");
+      const { data, code, msg } = yield call(delDreamReview, payload);
+      if (code == 200) {
+        Toast.success("删除成功！",1);
+
+        yield put({type:'getDetail2',payload:{feed_id:payload.feed_id}});
+      }
+    },
+
     // 收藏梦境
     *colletDream({ payload }, { call, put }) {
       Toast.loading("收藏中...");
@@ -157,7 +173,6 @@ export default modelExtend(model, {
     // 收藏梦境列表
     *colletDreamList({ payload }, { call, put }) {
       const { data, code, msg } = yield call(colletDreamList, payload);
-      console.log('star',data);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { collectDreamList: data.data } });
       }

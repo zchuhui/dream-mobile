@@ -157,19 +157,27 @@ class Detail extends React.Component {
   }
 
   // 二级评论操作
-  delReview = () => {
+  delReview = (feedId,reviewId) => {
     const BUTTONS = ['删除', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: BUTTONS.length - 1,
       destructiveButtonIndex: BUTTONS.length - 2,
-      // title: 'title',
       message: null,
       maskClosable: true,
       wrapProps,
     },
       (buttonIndex) => {
-        this.setState({ delReviewState: BUTTONS[buttonIndex] });
+        // 删除
+        if(buttonIndex === 0){
+          this.props.dispatch({
+            type:'home/delDreamReview',
+            payload:{
+              feed_id:feedId,
+              review_id:reviewId
+            }
+          })
+        }
       });
   }
 
@@ -242,13 +250,12 @@ class Detail extends React.Component {
           className={styles.navBar}
           >梦境</NavBar>
         <NavBarPage iconType="back" isFixed="true" title="梦境" />
-
         {
           this.props.detail && !this.props.detailLoading
             ?
             <div>
-              {/* 详情 */}
               <div className={styles.item}>
+                {/* 梦境详情 */}
                 <div className={styles.head}>
                   <div className={styles.img}>
                     <Link to={{ pathname: this.props.detail.info.uid == UID ? "/my/userinfo" :"/my/other", 'state': + this.props.detail.info.uid }}>
@@ -290,7 +297,7 @@ class Detail extends React.Component {
 
                 </div>
 
-                {/* 评论内容 */}
+                {/* 评论列表 */}
                 <div className={styles.reviewList}>
                   {
                     this.props.detail.review.map((item, index) => (
@@ -302,16 +309,22 @@ class Detail extends React.Component {
                             </Link>
                           </div>
                         </div>
-                        <div className={styles.itemContent}
-                         >
+                        <div className={styles.itemContent}>
                           <div className={styles.cnWrap} onClick={this.showModal("modal1", item.uname, item.review_id)}>
                             <span className={styles.name}><Link to={{ pathname: item.uid == UID ? "/my/userinfo":"/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
                             <div className={styles.des}>{item.content}</div>
                           </div>
                           <div className={`${styles.time} ${styles.clear}`}>
+                            {/* 发布时间 */}
                             <span className={styles.fl}>{item.ctime}</span>
                             {/* <span className={`${styles.iconfont} ${styles.more}`} onClick={this.showActionSheet}>&#xe679;</span> */}
-                            <Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview}/>
+
+                            {
+                              // 添加删除评论，只有自己才能删除
+                              item.uid == UID?<Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview.bind(this,this.props.detail.info.feed_id,item.review_id)}/>
+                              :null
+                            }
+
                           </div>
 
                         </div>
@@ -333,8 +346,8 @@ class Detail extends React.Component {
                                     <div className={styles.itemContent}
                                      onClick={this.showModal("modal1", item2.uname, item2.review_id)}
                                     >
-                                      <div className={styles.des}>
-                                        <div >
+                                      <div className={`${styles.des}`}>
+                                        <div>
                                           <Link className={styles.uname} to={{ pathname: item2.uid == UID ? "/my/userinfo":"/my/other", 'state': + item2.uid }}>{item2.uname}</Link>
                                           {
                                             item2.to_uname == item2.uname || item2.to_uname == item.uname ? null:
@@ -348,7 +361,14 @@ class Detail extends React.Component {
                                         </div>
                                         {item2.content}
                                       </div>
-                                      <span className={styles.time}>{item2.ctime}</span>
+                                      <div className={styles.clear}>
+                                        <span className={`${styles.time} ${styles.fl}`}>{item2.ctime}</span>
+                                        {
+                                          // 添加删除评论，只有自己才能删除
+                                          item2.uid == UID?<Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview.bind(this,this.props.detail.info.feed_id,item2.review_id)}/>
+                                          :null
+                                        }
+                                      </div>
                                     </div>
                                   </div>
                                 ))
@@ -363,6 +383,7 @@ class Detail extends React.Component {
                 </div>
               </div>
 
+              {/* 评论框 */}
               <div className={styles.reviewTextArea} id="reviewTextArea">
                 <div className={styles.l}>
                   <TextareaItem

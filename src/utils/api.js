@@ -24,8 +24,10 @@ module.exports = {
     publish: `${devApi}/feed/publish`,
     detail: `${devApi}/feed/info`,
     digg: `${devApi}/feed/updatedigg`,
+
     review: `${devApi}/feed/review`,
-    del: `${devApi}/feed/del`,
+    del: `${devApi}/feed/del`,                // 删除梦境
+    delReview: `${devApi}/feed/del-review`,   // 删除梦境评论
 
     collect: `${devApi}/wish/handle`,     // 梦境收藏
     collectList: `${devApi}/wish/list`,   // 梦境收藏列表
