@@ -8,7 +8,6 @@ import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
-import UserInfoNotLogin from "./userinfoOther-not-login"
 
 // 登陆id
 const UID = Storage.get('uid');
@@ -55,7 +54,7 @@ class Userinfo extends React.Component {
   }
 
   componentDidMount() {
-    const uid = this.props.location.state;
+    const uid = this.props.uid;
     if (uid) {
       // 如果是自己
       if(uid == UID){
@@ -186,99 +185,64 @@ class Userinfo extends React.Component {
     ];
 
     return (
-      <div>
+      <div className={styles.userinfoWrap}>
+        <NavBarPage iconType="back" isLogin='true' isFixed="true" title={uname} />
+        {/* 个人基本信息 */}
         {
-          UID?
-          <div className={styles.userinfoWrap}>
-            <NavBarPage iconType="back" isFly='true' isFixed="true" title={uname} />
-            {/* 个人基本信息 */}
-            {
-              this.props.otherInfo ?
-                <div className={styles.userinfo}>
-                  <Icon style={{ position:'absolute',right:10}} type="ellipsis" size="xxs" onClick={this.addBlackList}/>
-                  <div className={styles.title}>
-                    <div className={styles.img}>
-                      <img src={this.props.otherInfo.avatar ? this.props.otherInfo.avatar : Util.defaultImg} alt={this.props.otherInfo.uname} />
-                    </div>
-                    <div>
-                      <b>{this.props.otherInfo.uname}</b>
-                    </div>
-                  </div>
-
-                  <ul>
-                    <li>
-                      <i className={styles.iconfont}>&#xe67b;</i><span>{this.props.otherInfo.sex}</span></li>
-                    <li>
-                      <i className={styles.iconfont}>&#xe613;</i><span>{this.props.otherInfo.location}</span></li>
-                    <li>
-                      <i className={styles.iconfont}>&#xe84b;</i><span>{this.props.otherInfo.job}</span></li>
-                    <li>
-                      <i className={styles.iconfont}>&#xe6e5;</i><span>{this.props.otherInfo.age}</span></li>
-                  </ul>
-                  <div className={styles.opinion}>
-                    {this.props.otherInfo.intro}
-                  </div>
+          this.props.otherInfo ?
+            <div className={styles.userinfo}>
+              <div className={styles.title}>
+                <div className={styles.img}>
+                  <img src={this.props.otherInfo.avatar ? this.props.otherInfo.avatar : Util.defaultImg} alt={this.props.otherInfo.uname} />
                 </div>
-                : null
-            }
+                <div>
+                  <b>{this.props.otherInfo.uname}</b>
+                </div>
+              </div>
 
-            {/* 梦境列表 */}
-            <div className={styles.dreamWrap}>
-              <StickyContainer>
-                <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
-                  <div
-                    style={{
-                      // display: 'flex',
-                      // alignItems: 'center',
-                      // justifyContent: 'center',
-                      // backgroundColor: '#fff'
-                    }}>
-                    <ListView
-                      ref={el => this.lv = el}
-                      dataSource={this.state.dataSource}
-                      renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-                        {this.state.isLoading ? "加载中..." : null}
-                      </div>)}
-                      renderRow={this.row}
-                      renderSeparator={separator}
-                      className="am-list"
-                      pageSize={4}
-                      useBodyScroll
-                      onScroll={() => {  }}
-                      scrollRenderAheadDistance={500}
-                      onEndReached={this.onEndReached}
-                      onEndReachedThreshold={10}
-                    />
-                  </div>
-                  {/* <div
-                                    style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '500px',
-                                    backgroundColor: '#fff'
-                                }}>
-                                    我的粉丝
-                                </div>
-                                <div
-                                    style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '500px',
-                                    backgroundColor: '#fff'
-                                }}>
-                                    我的关注
-                                </div> */}
-                </Tabs>
-              </StickyContainer>
+              <ul>
+                <li>
+                  <i className={styles.iconfont}>&#xe67b;</i><span>{this.props.otherInfo.sex}</span></li>
+                <li>
+                  <i className={styles.iconfont}>&#xe613;</i><span>{this.props.otherInfo.location}</span></li>
+                <li>
+                  <i className={styles.iconfont}>&#xe84b;</i><span>{this.props.otherInfo.job}</span></li>
+                <li>
+                  <i className={styles.iconfont}>&#xe6e5;</i><span>{this.props.otherInfo.age}</span></li>
+              </ul>
+              <div className={styles.opinion}>
+                {this.props.otherInfo.intro}
+              </div>
             </div>
-          </div>
-          :
-          <UserInfoNotLogin uid={this.props.location.state}/>
+            : null
         }
-      </div>
 
+        {/* 梦境列表 */}
+        <div className={styles.dreamWrap}>
+          <StickyContainer>
+            <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
+              <div>
+                <ListView
+                  ref={el => this.lv = el}
+                  dataSource={this.state.dataSource}
+                  renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+                    {this.state.isLoading ? "加载中..." : null}
+                  </div>)}
+                  renderRow={this.row}
+                  renderSeparator={separator}
+                  className="am-list"
+                  pageSize={4}
+                  useBodyScroll
+                  onScroll={() => {  }}
+                  scrollRenderAheadDistance={500}
+                  onEndReached={this.onEndReached}
+                  onEndReachedThreshold={10}
+                />
+              </div>
+            </Tabs>
+          </StickyContainer>
+        </div>
+      </div>
     )
   }
 

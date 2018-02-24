@@ -6,9 +6,13 @@ import styles from "./IndexPage.less";
 import ChartList from "./chat/chat-list";
 import My from "./my/my";
 import HomePage from "./home/index";
+import IndexNotLogin from './home/index-not-login'
 import Search from "./search/index";
 import Fly from "./fly/index";
 import Message from "./message/index";
+
+import Storage from '../utils/storage';
+const UID = Storage.get('uid');
 
 class Home extends React.Component {
   constructor(props, context) {
@@ -21,77 +25,77 @@ class Home extends React.Component {
 
 
   render() {
-    return <div
-      className={styles.normal}
-      style={{
-        position: "fixed",
-        height: "100%",
-        width: "100%",
-        top: 0
-      }}>
+    return (
+      <div>
+        {
+          UID?
+          // 已登录
+          <div className={styles.normal} style={{position: "fixed",height: "100%",width: "100%",top: 0}}>
+            <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
+              <TabBar.Item
+                icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe6e1;</i>}
+                selectedIcon={<i className={styles.iconfontBlue} style={{fontSize:28}}>&#xe69e;</i>}
+                //title="探索"
+                key="Friend"
+                selected={this.state.selectedTab === "tab1"}
+                onPress={this.onPress.bind(this, 'tab1')}>
+                {
+                  this.state.selectedTab == "tab1" ? <HomePage /> : null
+                }
+              </TabBar.Item>
 
-      <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
-        <TabBar.Item
-          icon={<i className={styles.iconfont}>&#xe6e1;</i>}
-          selectedIcon={<i className={styles.iconfontBlue}>&#xe69e;</i>}
-          title="探索"
-          key="Friend"
-          selected={this.state.selectedTab === "tab1"}
-          onPress={this.onPress.bind(this, 'tab1')}>
-          {
-            this.state.selectedTab == "tab1" ? <HomePage /> : null
-          }
-        </TabBar.Item>
+              <TabBar.Item
+                icon={<i className={styles.iconfont}>&#xe614;</i>}
+                selectedIcon={<i className={styles.iconfontBlue} >&#xe616;</i>}
+                //title="搜索"
+                key="Koubei"
+                selected={this.state.selectedTab === "tab2"}
+                onPress={this.onPress.bind(this, 'tab2')}
+                data-seed="logId1">
+                {
+                  this.state.selectedTab == "tab2" ? <Search /> : null
+                }
+              </TabBar.Item>
 
-        <TabBar.Item
-          icon={<i className={styles.iconfont}>&#xe614;</i>}
-          selectedIcon={<i className={styles.iconfontBlue}>&#xe616;</i>}
-          title="搜索"
-          key="Koubei"
-          selected={this.state.selectedTab === "tab2"}
-          onPress={this.onPress.bind(this, 'tab2')}
-          data-seed="logId1">
-          {
-            this.state.selectedTab == "tab2" ? <Search /> : null
-          }
-        </TabBar.Item>
+              <TabBar.Item
+                //title="通知"
+                key="Life"
+                icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe603;</i>}
+                selectedIcon={<i className={styles.iconfontBlue} style={{fontSize:28}}>&#xe649;</i>}
+                selected={this.state.selectedTab === "tab3"}
+                /* badge={1} */
+                onPress={this.onPress.bind(this, 'tab3')}
+                data-seed="logId">
+                {
+                  this.state.selectedTab == "tab3" ? <Message /> : null
+                }
+              </TabBar.Item>
 
-        <TabBar.Item
-          title="通知"
-          key="Life"
-          icon={<i className={styles.iconfont}>&#xe603;</i>}
-          selectedIcon={<i className={styles.iconfontBlue}>&#xe649;</i>}
-          selected={this.state.selectedTab === "tab3"}
-          /* badge={1} */
-          onPress={this.onPress.bind(this, 'tab3')}
-          data-seed="logId">
-          {
-            this.state.selectedTab == "tab3" ? <Message /> : null
-          }
-        </TabBar.Item>
+              <TabBar.Item
+                icon={<i className={styles.iconfont}>&#xe617;</i>}
+                selectedIcon={<i className={styles.iconfontBlue}>&#xe633;</i>}
+                //title="我的"
+                key="my"
+                selected={this.state.selectedTab === "tab4"}
+                onPress={this.onPress.bind(this, 'tab4')} >
+                {
+                  this.state.selectedTab == "tab4" ? <My /> : null
+                }
 
-        <TabBar.Item
-          icon={<i className={styles.iconfont}>&#xe617;</i>}
-          selectedIcon={<i className={styles.iconfontBlue}>&#xe633;</i>}
-          title="我的"
-          key="my"
-          selected={this.state.selectedTab === "tab4"}
-          onPress={this.onPress.bind(this, 'tab4')} >
-          {
-            this.state.selectedTab == "tab4" ? <My /> : null
-          }
-
-        </TabBar.Item>
-      </TabBar>
-    </div>;
+              </TabBar.Item>
+            </TabBar>
+          </div>
+          :
+          // 未登录
+          <IndexNotLogin />
+        }
+        </div>
+    )
   }
 
   componentWillMount() { }
 
   onPress(val) {
-    // if(val == 'tab2'){
-    //   hashHistory.push('/search');
-    // }
     sessionStorage.setItem("selectedTab", val);
     this.setState({ selectedTab: val });
 

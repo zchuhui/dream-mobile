@@ -22,13 +22,10 @@ export default modelExtend(model, {
 	effects: {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
-			try {
-				const { data, code } = yield call(getDreamList, payload);
-				if (code == 200) {
-					yield put({ type: 'updateState', payload: { list: data.data } });
-				}
-			} catch (error) {
-			}
+      const { data, code } = yield call(getDreamList, payload);
+      if (code == 200) {
+        yield put({ type: 'updateState', payload: { list: data.data } });
+      }
 		},
 
 		// 搜索

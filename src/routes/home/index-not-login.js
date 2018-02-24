@@ -13,7 +13,6 @@ import Storage from '../../utils/storage';
 
 import NavBarPage from "../../components/NavBar"
 import List from '../../components/List'
-import IndexNotLogin from './index-not-login'
 
 const UID = Storage.get('uid');
 
@@ -31,7 +30,7 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: true,
-			height: document.documentElement.clientHeight-(50+43.5),
+			height: document.documentElement.clientHeight-45,
 			//height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
@@ -41,7 +40,7 @@ class Index extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const hei = document.documentElement.clientHeight-(50+43.5);
+		const hei = document.documentElement.clientHeight-45;
 		if (this.state.list !== nextProps.list) {
 			this.setState({
 				list: [...this.state.list, ...nextProps.list],
@@ -76,16 +75,15 @@ class Index extends React.Component {
 		];
 
 		return (
-          <div className={styles.chatWrap}>
-            <NavBarPage isFly="true"/>
-            <Tabs tabs={tabs} initalPage={'t2'}>
-              <List
-                dataSource = {this.state.dataSource}
-                isLoading = {this.state.isLoading}
-                height={this.state.height}
-                onEndReached={this.onEndReached} />
-            </Tabs>
-        </div>
+			<div>
+				  <NavBarPage isLogin="true"/>
+          <List
+            dataSource = {this.state.dataSource}
+            isLoading = {this.state.isLoading}
+            height={this.state.height}
+            onEndReached={this.onEndReached}
+          />
+			</div>
 		)
 	}
 }

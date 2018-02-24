@@ -10,9 +10,6 @@ import { Toast } from 'antd-mobile';
 import Util from "../utils/util";
 import Storage from '../utils/storage';
 
-
-//const UID = Storage.get('uid');
-
 export default modelExtend(model, {
 	namespace: 'my',
 	state: {
@@ -30,9 +27,6 @@ export default modelExtend(model, {
 
 			const { data, code ,msg} = yield call(getUserHome, payload);
 			if (code == 200) {
-				/* if (data.feed.length == 0){
-					Toast.info("木有更多了",1);
-				} */
 				yield put({ type: 'updateState', payload: { user: data.user, list: data.feed } });
 			}
 		},

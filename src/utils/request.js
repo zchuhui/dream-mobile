@@ -15,7 +15,7 @@ const fetch = (url, options) => {
   switch (method.toLowerCase()) {
     case 'get':
       return axios.get(url, { params: data })
-    case 'delete': 
+    case 'delete':
       return axios.delete(url, { data })
     case 'head':
       return axios.head(url, data)
@@ -61,7 +61,7 @@ function handleError(error) {
   if (error.response == undefined){
       window.location.href = '#/login';
   }
-  
+
   const data = error.response.data
   if (data.errors) {
     Toast.fail(`${data.message}：${data.errors}`, 1)
@@ -73,7 +73,7 @@ function handleError(error) {
 }
 
 
-function saveToken(msg,token,userInfo){ 
+function saveToken(msg,token,userInfo){
   const day_30 = 60 * 24 * 30;  // 计算存储天数，单位是分钟，共30天
   if(msg === "登录成功"){
     Storage.set('token',token,day_30);
@@ -83,7 +83,7 @@ function saveToken(msg,token,userInfo){
 }
 
 export default function request (url, options) {
- 
+
   return fetch(url, options)
     .then(checkStatus)
     .then(handleData)
@@ -93,22 +93,25 @@ export default function request (url, options) {
 export function get (url, options) {
   if(Storage.get('token')){
     options.data.token = Storage.get('token');
-  } 
+  }
   return request(url, { ...options, method: 'get' })
 }
 
-export function post (url, options) { 
+export function post (url, options) {
   if(Storage.get('token')){
+      // 已登录
       options.data.token = Storage.get('token');
   }
   else{
-    window.location.href = '#/login';  
-    return;
+    // 未登录
+    //console.log('login');
+    //window.location.href = '#/login';
+    //return;
   }
   return request(url, { ...options, method: 'post' })
 }
 
-export function postLogin (url, options) {  
+export function postLogin (url, options) {
   return request(url, { ...options, method: 'post' })
 }
 
