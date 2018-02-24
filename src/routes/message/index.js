@@ -58,7 +58,7 @@ class Index extends React.Component {
 					height:hei
 				});
 			}, 500)
-		} else { 
+		} else {
 			this.setState({
 				isLoading: false
 			})
@@ -75,7 +75,9 @@ class Index extends React.Component {
 					</Link>
 					<span className={styles.msgType}>
 						{
-							obj.type == "评论" ? <i className={styles.iconfontSmall}>&#xe60f;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
+              obj.type == "评论" ? <i className={styles.iconfontSmall}>&#xe60f;</i>
+              : obj.type == "收藏" ? <i style={{fontStyle:'normal',fontSize:12}}>| 收藏了你的梦境</i>
+                :<i className={styles.iconfontSmall}>&#xe604;</i>
 						}
 					</span>
 					<span className={styles.review}></span>
@@ -128,7 +130,7 @@ class Index extends React.Component {
 			//     title: '点赞'
 			// }, {
 			//     title: '@艾特'
-			// } 
+			// }
 		];
 
 		return (
@@ -159,7 +161,7 @@ class Index extends React.Component {
 						}
 
 
-						{/* 
+						{/*
 						<div>点赞</div>
 						<div>艾特</div> */}
 					</Tabs>
