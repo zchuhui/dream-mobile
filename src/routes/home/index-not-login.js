@@ -36,7 +36,7 @@ class Index extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
+    this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
 	}
 
 	componentWillReceiveProps(nextProps) {

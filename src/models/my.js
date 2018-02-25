@@ -81,7 +81,11 @@ export default modelExtend(model, {
 
 				setTimeout(() => {
 					hashHistory.push('/login');
-				}, 1000)
+        }, 500);
+
+        setTimeout(() => {
+          window.location.reload();
+				}, 600);
 			}
 
     },

@@ -34,7 +34,11 @@ export default modelExtend(model, {
         setTimeout(() => {
           Toast.success("登录成功！", 1);
           hashHistory.push('/');
-        }, 500)
+        }, 500);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
       }
     },
 

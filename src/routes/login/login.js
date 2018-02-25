@@ -19,7 +19,6 @@ class Login extends React.Component {
       <div>
         <NavBarPage isFly="false" />
         <div className={styles.loginWrap}>
-        
           <div className={styles.title}>
             <b>记录、分析、交流梦境</b>
             <p>
@@ -50,13 +49,12 @@ class Login extends React.Component {
           <Link to="/forget" className={styles.forgetPwd}><span>忘记密码 ?</span></Link>
 
           <Link to="/register"><Button type="ghost" className={styles.registerBtn}><span>注册账号</span></Button></Link>
-          
+
+          <Link to="/" className={styles.forgetPwd}><span>不登录，先看看</span></Link>
+
         </div>
-       {/*  <div className={styles.footer}>
-          You can stay alive whithout sex <br />  but you cant't without dreams when you are alive
-        </div> */}
       </div>
-      
+
     )
   }
 
@@ -65,14 +63,14 @@ class Login extends React.Component {
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    
+
     if (username == "") {
       Toast.info("请输入用户名", 1);
     } else if (password == "") {
       Toast.info("请输入密码", 1);
     } else {
       //开始登陆
-      Toast.loading("登录中...",5); 
+      Toast.loading("登录中...",5);
       this.props.dispatch({'type':'user/login','payload':{'name':username,'password':password}});
     }
   }
