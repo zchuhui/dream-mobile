@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar, Tabs } from "antd-mobile";
+import { ListView, Icon, NavBar, Tabs, ActionSheet} from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
+import { hashHistory } from 'react-router';
 import styles from "./List.less";
 import Util from "../utils/util";
 import Storage from '../utils/storage';
@@ -12,7 +14,35 @@ const UID = Storage.get('uid');
 class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
-	}
+  }
+
+  // 编辑梦境
+  editDream = (feedId) => {
+    const BUTTONS2 = ['编辑', '删除','取消'];
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS2,
+      cancelButtonIndex: BUTTONS2.length - 1,
+      destructiveButtonIndex: BUTTONS2.length - 2,
+      message: null,
+      maskClosable: true,
+    },
+      (buttonIndex) => {
+        // 编辑
+        if (buttonIndex === 0) {
+          // 跳转到编辑
+          hashHistory.push('/fly/edit/' + feedId);
+        }
+        else if(buttonIndex === 1){
+          // 删除
+          this.props.dispatch({
+            type: 'home/delDream2',
+            payload: {
+              feed_id: feedId,
+            }
+          });
+        }
+      });
+  }
 
 	// 行
 	row = (rowData, sectionID, rowID) => {
@@ -25,6 +55,12 @@ class List extends React.Component {
 							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
 						</Link>
 					</div>
+          {
+            // 用户自己的梦境操作
+            obj.uid === UID?
+            <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream.bind(this,obj.feed_id)}/>
+            :null
+          }
           <span className={styles.name}><Link to={{ pathname: obj.uid == UID ? "/my/userinfo" :"/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
 					<span className={styles.time}>{obj.publish_time}</span>
 				</div>
@@ -91,7 +127,6 @@ class List extends React.Component {
 						overflow: 'auto',
 					}}
 					pageSize={4}
-					onScroll={() => { console.log('scroll'); }}
 					scrollRenderAheadDistance={500}
 					onEndReached={this.props.onEndReached}
 					onEndReachedThreshold={10}
@@ -101,5 +136,10 @@ class List extends React.Component {
 	}
 }
 
-
-export default List;
+function mapStateToProps(state) {
+	return {
+		...state.home
+	};
+}
+export default connect(mapStateToProps)(List);
+//export default List;

@@ -23,6 +23,7 @@ export default modelExtend(model, {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
       const { data, code } = yield call(getDreamList, payload);
+      console.log(payload);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { list: data.data } });
       }
@@ -123,14 +124,14 @@ export default modelExtend(model, {
       const { data, code, msg } = yield call(publish, payload);
       if (code == 200) {
         Toast.success("更新成功!");
-        setTimeout(() => {
-          var path = {
-            pathname: '/home/detail',
-            state: payload.feed_id,
-          }
-          hashHistory.push(path);
-
-        }, 1000);
+        history.go(-1);
+        // setTimeout(() => {
+        //   var path = {
+        //     pathname: '/home/detail',
+        //     state: payload.feed_id,
+        //   }
+        //   hashHistory.push(path);
+        // }, 1000);
       }
     },
 
@@ -144,6 +145,17 @@ export default modelExtend(model, {
           //history.go(-1);
           hashHistory.push('/');
         }, 500);
+      }
+    },
+
+    // 删除梦境，列表删除
+    *delDream2({ payload }, { call, put }) {
+      Toast.loading("删除中...");
+      const { data, code, msg } = yield call(delDream, payload);
+      if (code == 200) {
+        Toast.success("删除成功！",1);
+
+        history.go(0);
       }
     },
 

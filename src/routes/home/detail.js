@@ -249,12 +249,6 @@ class Detail extends React.Component {
           UID?
           // 已登录
           <div className={styles.detailWrap}>
-            <NavBar
-              mode="light"
-              icon={< Icon type="left" />}
-              onLeftClick={() => history.back()}
-              className={styles.navBar}
-              >梦境</NavBar>
             <NavBarPage iconType="back" isFixed="true" title="梦境" />
             {
               this.props.detail && !this.props.detailLoading
@@ -440,11 +434,7 @@ class Detail extends React.Component {
                     找不到此梦境 (꒦_꒦)
                 </div>
                   :
-                <div
-                    style={{
-                      textAlign: 'center',
-                      marginTop: 150
-                    }}>
+                <div className={styles.null}>
                     <Icon type="loading" size='md' />
                   </div>
             }
