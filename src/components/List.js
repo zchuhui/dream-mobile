@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar, Tabs, ActionSheet} from "antd-mobile";
+import { ListView, Icon, NavBar, Tabs, ActionSheet,Toast} from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import { hashHistory } from 'react-router';
 import styles from "./List.less";
@@ -46,6 +46,11 @@ class List extends React.Component {
 
   // 梦境收藏、分享
   collectShow=(feedId)=>{
+    if(!UID){
+      Toast.info("请先登录！");
+      return;
+    }
+
     const BUTTONS = ['添加到收藏夹', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
@@ -56,16 +61,19 @@ class List extends React.Component {
       //wrapProps,
     },
       (buttonIndex) => {
+        console.log(UID);
 
-        // 收藏梦境
-        if (buttonIndex === 0) {
-          this.props.dispatch({
-            type:'home/colletDream',
-            payload:{
-              feed_id:feedId
-            }
-          })
-        }
+          // 收藏梦境
+          if (buttonIndex === 0) {
+
+            this.props.dispatch({
+              type:'home/colletDream',
+              payload:{
+                feed_id:feedId
+              }
+            })
+          }
+
       });
   }
 
