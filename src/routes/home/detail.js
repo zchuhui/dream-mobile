@@ -284,11 +284,11 @@ class Detail extends React.Component {
                         {
                           this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfontSmall} style={{ color: '#108ee9' }}>&#xe64d;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
                         }
-                        <label>{this.props.detail.info.digg_count}</label>
+                        <label>{this.props.detail.info.digg_count>0?this.props.detail.info.digg_count:null}</label>
                       </span>
                       <span className={styles.review}>
                         <i className={styles.iconfontBlueSmall}>&#xe60f;</i>
-                        <label>{this.props.detail.info.comment_count}</label>
+                        <label>{this.props.detail.info.comment_count>0?this.props.detail.info.comment_count:null}</label>
                       </span>
                       <span>
                         <i className={styles.iconfontSmall} onClick={this.collectShow}>&#xe606;</i>

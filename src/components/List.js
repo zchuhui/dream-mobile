@@ -71,7 +71,8 @@ class List extends React.Component {
 
 	// 行
 	row = (rowData, sectionID, rowID) => {
-		const obj = rowData;
+    const obj = rowData;
+
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
@@ -97,7 +98,6 @@ class List extends React.Component {
 									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
 										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null
 							} */}
-
 							{obj.title}
 						</div>
 						<div className={styles.des}>{obj.content}</div>
@@ -108,12 +108,12 @@ class List extends React.Component {
 						{
 							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
-						<label>{obj.digg_count}</label>
+						<label>{obj.digg_count>0?obj.digg_count:null}</label>
 					</span>
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
 							<i className={styles.iconfontSmall}>&#xe60f;</i>
-							<label>{obj.comment_count}</label>
+							<label>{obj.comment_count > 0 ?obj.comment_count:null}</label>
 						</Link>
 					</span>
           <span>

@@ -17,13 +17,6 @@ import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
 import Storage from '../../utils/storage';
 
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
-let wrapProps;
-if (isIPhone) {
-  wrapProps = {
-    onTouchStart: e => e.preventDefault(),
-  };
-}
 
 const UID = Storage.get('uid');
 
@@ -92,11 +85,11 @@ class Detail extends React.Component {
                     {
                       this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfontSmall} style={{ color: '#108ee9' }}>&#xe64d;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
                     }
-                    <label>{this.props.detail.info.digg_count}</label>
+                    <label>{this.props.detail.info.digg_count>0?this.props.detail.info.digg_count:null}</label>
                   </span>
                   <span className={styles.review}>
                     <i className={styles.iconfontBlueSmall}>&#xe60f;</i>
-                    <label>{this.props.detail.info.comment_count}</label>
+                    <label>{this.props.detail.info.comment_count>0?this.props.detail.info.comment_count:null}</label>
                   </span>
 
                 </div>
