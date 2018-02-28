@@ -137,7 +137,7 @@ class Index extends React.Component {
 			<div className={styles.chatWrap}>
 				<NavBarPage isFly="true" />
 				<StickyContainer>
-					<Tabs tabs={tabs} initalPage={'t2'}>
+          <Tabs tabs={tabs} initalPage={'t2'} swipeable={false}>
 						{
 							//this.state.msgList && this.state.msgList.length > 0 ?
 							<ListView

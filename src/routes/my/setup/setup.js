@@ -73,7 +73,7 @@ class Setup extends React.Component {
 
         <NavBarPage iconType="back" isFly='false'  title="设置" />
 
-        <Tabs tabs={[{ title: "通知" }, { title: "账户" }, { title: "黑名单" }]} >
+        <Tabs tabs={[{ title: "通知" }, { title: "账户" }, { title: "黑名单" }]} swipeable={false}>
           {/* 通知 */}
           <div>
             <WhiteSpace />

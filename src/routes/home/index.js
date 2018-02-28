@@ -78,7 +78,7 @@ class Index extends React.Component {
 		return (
           <div className={styles.chatWrap}>
             <NavBarPage isFly="true"/>
-            <Tabs tabs={tabs} initalPage={'t2'}>
+        <Tabs tabs={tabs} initalPage={'t2'} swipeable={false} swipeable={false}>
               <List
                 dataSource = {this.state.dataSource}
                 isLoading = {this.state.isLoading}

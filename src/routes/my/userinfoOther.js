@@ -225,7 +225,7 @@ class Userinfo extends React.Component {
             {/* 梦境列表 */}
             <div className={styles.dreamWrap}>
               <StickyContainer>
-                <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
+                  <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar} swipeable={false}>
                   <div
                     style={{
                       // display: 'flex',
