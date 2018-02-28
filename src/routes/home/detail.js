@@ -167,7 +167,7 @@ class Detail extends React.Component {
       destructiveButtonIndex: BUTTONS.length - 2,
       message: null,
       maskClosable: true,
-      wrapProps,
+      //wrapProps,
     },
       (buttonIndex) => {
         // 删除
@@ -190,10 +190,9 @@ class Detail extends React.Component {
       options: BUTTONS2,
       cancelButtonIndex: BUTTONS2.length - 1,
       destructiveButtonIndex: BUTTONS2.length - 2,
-      //title: 'title',
       message: null,
       maskClosable: true,
-      wrapProps,
+      //wrapProps,
     },
       (buttonIndex) => {
         this.setState({ editDreamState: BUTTONS2[buttonIndex] });
@@ -225,7 +224,7 @@ class Detail extends React.Component {
       destructiveButtonIndex: BUTTONS.length - 2,
       message: null,
       maskClosable: true,
-      wrapProps,
+      //wrapProps,
     },
       (buttonIndex) => {
 

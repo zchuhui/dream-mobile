@@ -25,14 +25,6 @@ function renderTabBar(props) {
   );
 }
 
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
-let wrapProps;
-if (isIPhone) {
-  wrapProps = {
-    onTouchStart: e => e.preventDefault(),
-  };
-}
-
 
 class Userinfo extends React.Component {
   constructor(props, context) {
@@ -152,7 +144,6 @@ class Userinfo extends React.Component {
       destructiveButtonIndex: BUTTONS.length - 2,
       message: null,
       maskClosable: true,
-      wrapProps,
     },
       (buttonIndex) => {
         if (buttonIndex === 0) {

@@ -44,6 +44,31 @@ class List extends React.Component {
       });
   }
 
+  // 梦境收藏、分享
+  collectShow=(feedId)=>{
+    const BUTTONS = ['添加到收藏夹', '取消'];
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS,
+      cancelButtonIndex: BUTTONS.length - 1,
+      destructiveButtonIndex: BUTTONS.length - 2,
+      message: null,
+      maskClosable: true,
+      //wrapProps,
+    },
+      (buttonIndex) => {
+
+        // 收藏梦境
+        if (buttonIndex === 0) {
+          this.props.dispatch({
+            type:'home/colletDream',
+            payload:{
+              feed_id:feedId
+            }
+          })
+        }
+      });
+  }
+
 	// 行
 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
@@ -91,7 +116,9 @@ class List extends React.Component {
 							<label>{obj.comment_count}</label>
 						</Link>
 					</span>
-
+          <span>
+            <i className={styles.iconfontSmall} onClick={this.collectShow.bind(this,obj.feed_id)}>&#xe606;</i>
+          </span>
 				</div>
 			</div>
 
