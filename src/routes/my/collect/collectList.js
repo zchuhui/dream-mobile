@@ -90,12 +90,12 @@ class collectList extends React.Component {
             {
               obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
             }
-            <label>{obj.digg_count}</label>
+            <label>{obj.digg_count > 0 ?obj.digg_count:null}</label>
           </span>
           <span className={styles.review}>
             <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
               <i className={styles.iconfontSmall}>&#xe60e;</i>
-              <label>{obj.comment_count}</label>
+              <label>{obj.comment_all_count > 0 ?obj.comment_all_count :null}</label>
             </Link>
           </span>
 

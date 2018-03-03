@@ -109,12 +109,12 @@ class Userinfo extends React.Component {
             {
               obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
             }
-            <label>{obj.digg_count}</label>
+            <label>{obj.digg_count>0?obj.digg_count:null}</label>
           </span>
           <span className={styles.review}>
             <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
               <i className={styles.iconfontSmall}>&#xe60f;</i>
-              <label>{obj.comment_count}</label>
+              <label>{obj.comment_all_count>0?obj.comment_all_count:null}</label>
             </Link>
           </span>
 
@@ -173,6 +173,27 @@ class Userinfo extends React.Component {
       });
   }
 
+  	// 性别识别
+	sexsRender = (sex) => {
+
+		switch (parseInt(sex)) {
+			case 0:
+				return "男";
+			case 1:
+				return "女";
+			case 2:
+				return "男男";
+			case 3:
+				return "女女";
+			case 4:
+				return "异性";
+			case 5:
+				return "双性";
+			case 6:
+				return "无性";
+		}
+	}
+
   render() {
     const separator = (sectionID, rowID) => (
       <div
@@ -197,7 +218,7 @@ class Userinfo extends React.Component {
         {
           UID?
           <div className={styles.userinfoWrap}>
-            <NavBarPage iconType="back" isFly='true' isFixed="true" title={uname} />
+            <NavBarPage iconType="back" isFly='false' isFixed="true" title={uname} />
             {/* 个人基本信息 */}
             {
               this.props.otherInfo ?
@@ -215,7 +236,7 @@ class Userinfo extends React.Component {
 
                   <ul>
                     <li>
-                      <i className={styles.iconfont}>&#xe67b;</i><span>{this.props.otherInfo.sex}</span></li>
+                      <i className={styles.iconfont}>&#xe67b;</i><span>{this.sexsRender(this.props.otherInfo.sex)}</span></li>
                     <li>
                       <i className={styles.iconfont}>&#xe613;</i><span>{this.props.otherInfo.location}</span></li>
                     <li>

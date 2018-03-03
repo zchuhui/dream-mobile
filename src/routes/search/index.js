@@ -25,8 +25,8 @@ class Index extends React.Component {
 	}
 
 	componentDidMount() {
-		// 自动获取光标 
-		this.autoFocusInst.focus();  
+		// 自动获取光标
+		this.autoFocusInst.focus();
 	}
 
 	componentUpdateMount(){
@@ -51,15 +51,15 @@ class Index extends React.Component {
 					list: [...this.state.list, ...nextProps.searchList],
 					height:hei
 				});
-				this.autoFocusInst.focus(); 
+				this.autoFocusInst.focus();
 			}
-			
+
 			setTimeout(() => {
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
 					isLoading: false,
 					height:hei
-				}); 
+				});
 			}, 500)
 		}
 	}
@@ -88,7 +88,7 @@ class Index extends React.Component {
 							}
 
 							{obj.title}
-						</div> 
+						</div>
 						<div className={styles.des}>{obj.content}</div>
 					</Link>
 				</div>
@@ -97,12 +97,12 @@ class Index extends React.Component {
 						{
 							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
 						}
-						<label>{obj.digg_count}</label>
+						<label>{obj.digg_count>0?obj.digg_count:null}</label>
 					</span>
 					<span className={styles.review}>
 						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
 							<i className={styles.iconfontSmall}>&#xe60f;</i>
-							<label>{obj.comment_count}</label>
+							<label>{obj.comment_all_count>0?obj.comment_all_count:null}</label>
 						</Link>
 					</span>
 
@@ -117,16 +117,16 @@ class Index extends React.Component {
 		if (this.state.isLoading && !this.state.hasMore) {
 			return;
 		}
-		
+
 		const that = this;
-		this.setState({ 
+		this.setState({
 			isLoading: true,
 			currentPage: that.state.currentPage + 1
 		});
 
 		this.props.dispatch({ type: 'home/search', payload: { 'keyword': that.state.keyword, page: that.state.currentPage} });
 	}
-	
+
 	// 搜索
 	onSearch=(value)=>{
 		this.setState({
@@ -134,7 +134,7 @@ class Index extends React.Component {
 			isLoading:true,
 			currentPage:1,
 		});
-		
+
 		this.props.dispatch({ type: 'home/search',payload:{'keyword':value,page:this.state.currentPage} });
 
 	}
@@ -145,7 +145,7 @@ class Index extends React.Component {
 		}); */
 		this.autoFocusInst.blur();
 	}
-	
+
 
 	render() {
 		const separator = (sectionID, rowID) => (
@@ -162,14 +162,14 @@ class Index extends React.Component {
 
 		return (
 			<div>
-				<SearchBar 
-				    className={styles.searchBar} 
+				<SearchBar
+				    className={styles.searchBar}
 					style={{padding:0,margin:0,textIndent:1}}
-					placeholder="search" 
-					ref={ref => this.autoFocusInst = ref} 
+					placeholder="search"
+					ref={ref => this.autoFocusInst = ref}
 					onSubmit={this.onSearch.bind(this)}
 				/>
-				<div className={styles.chatWrap}> 
+				<div className={styles.chatWrap}>
 					<ListView
 						ref={el => this.lv = el}
 						dataSource={this.state.dataSource}
@@ -190,7 +190,7 @@ class Index extends React.Component {
 					/>
 				</div>
 			</div>
-			
+
 		)
 	}
 }

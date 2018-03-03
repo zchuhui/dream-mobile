@@ -288,7 +288,7 @@ class Detail extends React.Component {
                       </span>
                       <span className={styles.review}>
                         <i className={styles.iconfontBlueSmall}>&#xe60f;</i>
-                        <label>{this.props.detail.info.comment_count>0?this.props.detail.info.comment_count:null}</label>
+                        <label>{this.props.detail.info.comment_all_count>0?this.props.detail.info.comment_all_count:null}</label>
                       </span>
                       <span>
                         <i className={styles.iconfontSmall} onClick={this.collectShow}>&#xe606;</i>

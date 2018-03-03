@@ -38,6 +38,7 @@ export default modelExtend(model, {
 
       const { data, code, msg } = yield call(getUserHome, payload);
 			if (code == 200) {
+        console.log(data.user);
 				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
 			}
     },
