@@ -34,8 +34,16 @@ export default modelExtend(model, {
 		// 他人信息
 		*getOtherInfo({ payload }, { call, put }) {
 			// 清空数据
-			yield put({ type: 'updateState', payload: { otherInfo: null, otherDream: null, } });
+      yield put({ type: 'updateState', payload: { otherInfo: null, otherDream: null, } })
 
+      const { data, code, msg } = yield call(getUserHome, payload);
+			if (code == 200) {
+				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
+			}
+    },
+
+    // 他人信息
+		*getOtherInfo2({ payload }, { call, put }) {
       const { data, code, msg } = yield call(getUserHome, payload);
 			if (code == 200) {
 				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
@@ -92,20 +100,38 @@ export default modelExtend(model, {
 
     // 拉黑用户
     *setBlack({ payload }, { call, put }) {
+      Toast.loading('拉黑中...');
       const { data, code, msg } = yield call(setBlack, payload);
+      console.log(payload);
       if (code == 200) {
         Toast.success(msg);
+
+        // 更新用户数据
+        yield put({type:'getOtherInfo2',payload:{uid:payload.black_uid}});
       }
     },
 
-    // 拉黑用户
+    // 解除拉黑,列表解除
     *delBlack({ payload }, { call, put }) {
+      Toast.loading('解除中...');
       const { data, code, msg } = yield call(delBlack, payload);
       if (code == 200) {
         Toast.success(msg);
 
         // 重新黑名单列表
         yield put({ type: 'getBlackList', payload: { } });
+      }
+    },
+
+    // 解除拉黑，用户界面解除
+    *delBlack2({ payload }, { call, put }) {
+      Toast.loading('解除中...');
+      const { data, code, msg } = yield call(delBlack, payload);
+      if (code == 200) {
+        Toast.success(msg);
+
+        // 更新用户数据
+        yield put({type:'getOtherInfo2',payload:{uid:payload.black_uid}});
       }
     },
 

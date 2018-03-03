@@ -136,8 +136,13 @@ class Userinfo extends React.Component {
   }
 
   // 拉黑
-  addBlackList = () => {
-    const BUTTONS = ['拉黑', '取消'];
+  addBlackList = (isBlack) => {
+    let BUTTONS = ['拉黑', '取消'];
+
+    if(isBlack == true){
+      BUTTONS = ['解除', '取消'];
+    }
+
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: BUTTONS.length - 1,
@@ -146,13 +151,24 @@ class Userinfo extends React.Component {
       maskClosable: true,
     },
       (buttonIndex) => {
+        // 拉黑
         if (buttonIndex === 0) {
-          this.props.dispatch({
-            type: 'my/setBlack', payload: { 'black_uid': this.props.location.state}
-          });
+          // 解除
+          if(isBlack == true){
+            this.props.dispatch({
+              type: 'my/delBlack2', payload: { 'black_uid': this.props.location.state}
+            });
+          }else{
+            this.props.dispatch({
+              type: 'my/setBlack', payload: { 'black_uid': this.props.location.state}
+            });
+          }
+
+
         }
         else if(buttonIndex ===1 )
         {
+          // 取消
         }
       });
   }
@@ -186,7 +202,8 @@ class Userinfo extends React.Component {
             {
               this.props.otherInfo ?
                 <div className={styles.userinfo}>
-                  <Icon style={{ position:'absolute',right:10}} type="ellipsis" size="xxs" onClick={this.addBlackList}/>
+                  <Icon style={{ position:'absolute',right:10}} type="ellipsis" size="xxs"
+                    onClick={this.addBlackList.bind(this,this.props.otherInfo.is_black?this.props.otherInfo.is_black:null)}/>
                   <div className={styles.title}>
                     <div className={styles.img}>
                       <img src={this.props.otherInfo.avatar ? this.props.otherInfo.avatar : Util.defaultImg} alt={this.props.otherInfo.uname} />
