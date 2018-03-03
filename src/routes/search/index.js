@@ -4,6 +4,7 @@ import { Link } from "dva/router"
 import { ListView, Icon, NavBar, SearchBar, Toast} from "antd-mobile";
 import styles from "./index.less";
 import Util from "../../utils/util";
+import List from '../../components/List'
 
 class Index extends React.Component {
 	constructor(props, context) {
@@ -170,24 +171,32 @@ class Index extends React.Component {
 					onSubmit={this.onSearch.bind(this)}
 				/>
 				<div className={styles.chatWrap}>
-					<ListView
-						ref={el => this.lv = el}
-						dataSource={this.state.dataSource}
-						renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-							{this.state.isLoading ? "加载中..." : '搜索，搜你想知道的'}
-						</div>)}
-						renderRow={this.row}
-						renderSeparator={separator}
-						style={{
-							height: this.state.height,
-							overflow: 'auto',
-						}}
-						pageSize={4}
-						onScroll={() => { this.setState({height:document.documentElement.clientHeight - 100}); }}
-						scrollRenderAheadDistance={500}
-						onEndReached={this.onEndReached}
-						onEndReachedThreshold={10}
-					/>
+
+          <List
+            dataSource = {this.state.dataSource}
+            isLoading = {this.state.isLoading}
+            height={this.state.height}
+            onEndReached={this.onEndReached} />
+
+            {/* <ListView
+              ref={el => this.lv = el}
+              dataSource={this.state.dataSource}
+              renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+                {this.state.isLoading ? "加载中..." : '搜索，搜你想知道的'}
+              </div>)}
+              renderRow={this.row}
+              renderSeparator={separator}
+              style={{
+                height: this.state.height,
+                overflow: 'auto',
+              }}
+              pageSize={4}
+              onScroll={() => { this.setState({height:document.documentElement.clientHeight - 100}); }}
+              scrollRenderAheadDistance={500}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={10}
+            /> */}
+
 				</div>
 			</div>
 

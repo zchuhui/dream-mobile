@@ -132,7 +132,7 @@ class Userinfo extends React.Component {
 
     this.setState({ isLoading: true });
     this.state.currentPage = this.state.currentPage + 1;
-    this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: this.props.location.state, page: this.state.currentPage } });
+    this.props.dispatch({ type: 'my/getOtherInfo2', payload: { uid: this.props.location.state, page: this.state.currentPage } });
   }
 
   // 拉黑
@@ -198,12 +198,7 @@ class Userinfo extends React.Component {
     const separator = (sectionID, rowID) => (
       <div
         key={`${sectionID}-${rowID}`}
-        style={{
-          backgroundColor: '#F5F5F9',
-          height: 7,
-          borderTop: '1px solid #ECECED',
-          borderBottom: '1px solid #ECECED',
-        }}
+        className={styles.separator}
       />
     );
     const uname = this.props.otherInfo ? this.props.otherInfo.uname : null;
@@ -220,9 +215,10 @@ class Userinfo extends React.Component {
           <div className={styles.userinfoWrap}>
             <NavBarPage iconType="back" isFly='false' isFixed="true" title={uname} />
             {/* 个人基本信息 */}
+            <div className={styles.userinfo}>
             {
               this.props.otherInfo ?
-                <div className={styles.userinfo}>
+                <div>
                   <Icon style={{ position:'absolute',right:10}} type="ellipsis" size="xxs"
                     onClick={this.addBlackList.bind(this,this.props.otherInfo.is_black?this.props.otherInfo.is_black:null)}/>
                   <div className={styles.title}>
@@ -250,23 +246,18 @@ class Userinfo extends React.Component {
                 </div>
                 : null
             }
+            </div>
+
 
             {/* 梦境列表 */}
             <div className={styles.dreamWrap}>
-              <StickyContainer>
-                  <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar} swipeable={false}>
-                  <div
-                    style={{
-                      // display: 'flex',
-                      // alignItems: 'center',
-                      // justifyContent: 'center',
-                      // backgroundColor: '#fff'
-                    }}>
+                <Tabs tabs={tabs} initalPage={'t2'}  swipeable={false}>
+                  <div>
                     <ListView
                       ref={el => this.lv = el}
                       dataSource={this.state.dataSource}
                       renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-                        {this.state.isLoading ? "加载中..." : null}
+                        {this.state.isLoading ? "加载中..." : <span className={styles.f12}>我是有底线的</span>}
                       </div>)}
                       renderRow={this.row}
                       renderSeparator={separator}
@@ -279,28 +270,7 @@ class Userinfo extends React.Component {
                       onEndReachedThreshold={10}
                     />
                   </div>
-                  {/* <div
-                                    style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '500px',
-                                    backgroundColor: '#fff'
-                                }}>
-                                    我的粉丝
-                                </div>
-                                <div
-                                    style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '500px',
-                                    backgroundColor: '#fff'
-                                }}>
-                                    我的关注
-                                </div> */}
                 </Tabs>
-              </StickyContainer>
             </div>
           </div>
           :

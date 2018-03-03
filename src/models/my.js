@@ -38,12 +38,11 @@ export default modelExtend(model, {
 
       const { data, code, msg } = yield call(getUserHome, payload);
 			if (code == 200) {
-        console.log(data.user);
 				yield put({ type: 'updateState', payload: { otherInfo: data.user, otherDream: data.feed } });
 			}
     },
 
-    // 他人信息
+    // 他人信息，用于更新，不清楚
 		*getOtherInfo2({ payload }, { call, put }) {
       const { data, code, msg } = yield call(getUserHome, payload);
 			if (code == 200) {
