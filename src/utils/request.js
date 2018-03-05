@@ -9,6 +9,7 @@ import Storage from './storage';
 //axios.defaults.baseURL = newband.app.admin.API_HOST
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
 // axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization')
+Storage.set('unread_count',0,1000);
 
 const fetch = (url, options) => {
   const { method = 'get', data } = options;
@@ -41,6 +42,7 @@ function checkStatus (res) {
 }
 
 function handleData (res) {
+
   const data = res.data
   if (data && data.msg && parseInt(data.code) !== 200) {
 
