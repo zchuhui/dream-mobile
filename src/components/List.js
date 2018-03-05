@@ -89,6 +89,7 @@ class List extends React.Component {
 		return (
       <div>
         {
+          // 判断是否已拉黑对方
           !obj.is_black?
             <div className={styles.item}>
               <div className={styles.head}>
@@ -208,7 +209,9 @@ class List extends React.Component {
 					pageSize={4}
 					scrollRenderAheadDistance={500}
 					onEndReached={this.props.onEndReached}
-					onEndReachedThreshold={10}
+          onEndReachedThreshold={10}
+          useBodyScroll={this.props.isUseBodyScroll?true:false}
+
 				/>
 			</div>
 		)

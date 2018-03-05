@@ -124,6 +124,9 @@ class Userinfo extends React.Component {
               <label>{obj.comment_all_count>0?obj.comment_all_count:null}</label>
             </Link>
           </span>
+          <span>
+            <i className={styles.iconfontSmall}>&#xe606;</i>
+          </span>
 
         </div>
       </div>

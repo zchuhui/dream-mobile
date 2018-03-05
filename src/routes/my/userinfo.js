@@ -13,7 +13,7 @@ import styles from "./userinfo.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
 import CollectList from "./collect/collectList"
-
+import ListPage from '../../components/List'
 
 class Userinfo extends React.Component {
 	constructor(props, context) {
@@ -60,15 +60,13 @@ class Userinfo extends React.Component {
 	}
 
 	// 行
-	row = (rowData, sectionID, rowID) => {
+	/* row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
 				<div className={styles.head}>
 					<div className={styles.img}>
-						{/* <Link to={{ pathname: "/my/other", 'state': + obj.uid }}> */}
 							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
-						{/* </Link> */}
 					</div>
 					<span className={styles.name}>{obj.uname}</span>
 					<span className={styles.time}>{obj.publish_time}</span>
@@ -76,11 +74,6 @@ class Userinfo extends React.Component {
 				<div className={styles.itemContent}>
 					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
 						<div className={styles.title}>
-							{
-								/*  obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
-										 obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-												 obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null */
-							}
 
 							{obj.title}
 						</div>
@@ -105,7 +98,7 @@ class Userinfo extends React.Component {
 			</div>
 
 		);
-	};
+	}; */
 
 	// 拉倒底部，再次获取数据
 	onEndReached = (event) => {
@@ -143,12 +136,12 @@ class Userinfo extends React.Component {
 
 	render() {
 
-		const separator = (sectionID, rowID) => (
+		/* const separator = (sectionID, rowID) => (
 			<div
 				key={`${sectionID}-${rowID}`}
 				className={styles.separator}
 			/>
-    );
+    ); */
 
 
     const tabs = [
@@ -203,8 +196,15 @@ class Userinfo extends React.Component {
               {/* 我的梦境 */}
 							<div>
 								{
-									this.state.list.length > 0?
-									<ListView
+                  this.state.list.length > 0?
+                    <ListPage
+                      dataSource={this.state.dataSource}
+                      isLoading={this.state.isLoading}
+                      onEndReached={this.onEndReached}
+                      isUseBodyScroll={true}
+                    />
+
+									/* <ListView
 										ref={el => this.lv = el}
 										dataSource={this.state.dataSource}
 										renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
@@ -219,7 +219,8 @@ class Userinfo extends React.Component {
 										scrollRenderAheadDistance={500}
 										onEndReached={this.onEndReached}
 										onEndReachedThreshold={10}
-									/>
+                  />*/
+
 									:<div style={{textAlign:'center',color:'#999',fontSize:'12px',marginTop:30}}>开展你的梦</div>
 								}
 							</div>

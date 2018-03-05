@@ -66,7 +66,7 @@ class Index extends React.Component {
 	}
 
 	// 行
-	row = (rowData, sectionID, rowID) => {
+/* 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
@@ -82,11 +82,6 @@ class Index extends React.Component {
 				<div className={styles.itemContent}>
 					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
 						<div className={styles.title}>
-							{
-								/* obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
-									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null */
-							}
 
 							{obj.title}
 						</div>
@@ -111,7 +106,7 @@ class Index extends React.Component {
 			</div>
 
 		);
-	};
+	}; */
 
     // 拉到底部刷新
 	onEndReached = (event) => {

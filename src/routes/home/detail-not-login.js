@@ -44,12 +44,12 @@ class Detail extends React.Component {
 
   // 回复输入框
   showModal = (key, name, review_id) => (e) => {
-    Toast.info("登录后才能评论");
+    Toast.info("请先登录");
   }
 
   // 点赞
   handleUpdatedigg = () => {
-    Toast.info("登录后才能点赞");
+    Toast.info("请先登录");
   }
 
   render() {
@@ -83,13 +83,18 @@ class Detail extends React.Component {
                   <span className={styles.praise} onClick={this.handleUpdatedigg}>
                     {/* <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i> */}
                     {
-                      this.props.detail.info.hasDigg == 1 ? <i className={styles.iconfontSmall} style={{ color: '#108ee9' }}>&#xe64d;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
+                      this.props.detail.info.hasDigg == 1 ?
+                      <i className={styles.iconfontSmall} style={{ color: '#108ee9' }}>&#xe64d;</i>
+                      : <i className={styles.iconfontSmall}>&#xe604;</i>
                     }
                     <label>{this.props.detail.info.digg_count>0?this.props.detail.info.digg_count:null}</label>
                   </span>
                   <span className={styles.review}>
                     <i className={styles.iconfontBlueSmall}>&#xe60f;</i>
                     <label>{this.props.detail.info.comment_all_count>0?this.props.detail.info.comment_all_count:null}</label>
+                  </span>
+                  <span onClick={this.handleUpdatedigg}>
+                    <i className={styles.iconfontSmall}>&#xe606;</i>
                   </span>
 
                 </div>

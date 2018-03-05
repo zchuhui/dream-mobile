@@ -9,6 +9,7 @@ import styles from "./userinfo.less";
 import Util from "../../utils/util";
 import NavBarPage from "../../components/NavBar"
 import UserInfoNotLogin from "./userinfoOther-not-login"
+import ListPage from '../../components/List'
 
 // 登陆id
 const UID = Storage.get('uid');
@@ -77,7 +78,7 @@ class Userinfo extends React.Component {
   }
 
   // 行
-  row = (rowData, sectionID, rowID) => {
+  /* row = (rowData, sectionID, rowID) => {
     const obj = rowData;
     return (
       <div className={styles.item}>
@@ -93,11 +94,6 @@ class Userinfo extends React.Component {
         <div className={styles.itemContent}>
           <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
             <div className={styles.title}>
-              {
-                /* obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
-                    obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-                        obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null */
-              }
 
               {obj.title}
             </div>
@@ -122,7 +118,7 @@ class Userinfo extends React.Component {
       </div>
 
     );
-  };
+  }; */
 
   // 拉到底部刷新
   onEndReached = (event) => {
@@ -195,12 +191,13 @@ class Userinfo extends React.Component {
 	}
 
   render() {
-    const separator = (sectionID, rowID) => (
+    /* const separator = (sectionID, rowID) => (
       <div
         key={`${sectionID}-${rowID}`}
         className={styles.separator}
       />
-    );
+    ); */
+
     const uname = this.props.otherInfo ? this.props.otherInfo.uname : null;
     const tabs = [
       {
@@ -248,12 +245,17 @@ class Userinfo extends React.Component {
             }
             </div>
 
-
             {/* 梦境列表 */}
             <div className={styles.dreamWrap}>
                 <Tabs tabs={tabs} initalPage={'t2'}  swipeable={false}>
                   <div>
-                    <ListView
+                    <ListPage
+                      dataSource={this.state.dataSource}
+                      isLoading={this.state.isLoading}
+                      onEndReached={this.onEndReached}
+                      isUseBodyScroll={true}
+                    />
+                    {/* <ListView
                       ref={el => this.lv = el}
                       dataSource={this.state.dataSource}
                       renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
@@ -268,7 +270,8 @@ class Userinfo extends React.Component {
                       scrollRenderAheadDistance={500}
                       onEndReached={this.onEndReached}
                       onEndReachedThreshold={10}
-                    />
+                    /> */}
+
                   </div>
                 </Tabs>
             </div>
