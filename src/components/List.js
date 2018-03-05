@@ -77,58 +77,102 @@ class List extends React.Component {
       });
   }
 
+  // 拉入黑名单后的提醒
+  blackClick=()=>{
+    Toast.info('sorry,他设置了不开放',1);
+  }
+
 	// 行
 	row = (rowData, sectionID, rowID) => {
     const obj = rowData;
 
 		return (
-			<div className={styles.item}>
-				<div className={styles.head}>
-					<div className={styles.img}>
-            <Link to={{ pathname: obj.uid == UID ? "/my/userinfo":"/my/other", 'state': + obj.uid }}>
-							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
-						</Link>
-					</div>
-          {
-            // 用户自己的梦境操作
-            obj.uid === UID?
-            <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream.bind(this,obj.feed_id)}/>
-            :null
-          }
-          <span className={styles.name}><Link to={{ pathname: obj.uid == UID ? "/my/userinfo" :"/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
-					<span className={styles.time}>{obj.publish_time}</span>
-				</div>
-				<div className={styles.itemContent}>
-					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-						<div className={styles.title}>
-							{/* {
+      <div>
+        {
+          !obj.is_black?
+            <div className={styles.item}>
+              <div className={styles.head}>
+                <div className={styles.img}>
+                  <Link to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>
+                    <img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+                  </Link>
+                </div>
+                {
+                  // 用户自己的梦境操作
+                  obj.uid === UID ?
+                    <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream.bind(this, obj.feed_id)} />
+                    : null
+                }
+                <span className={styles.name}><Link to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
+                <span className={styles.time}>{obj.publish_time}</span>
+              </div>
+              <div className={styles.itemContent}>
+                <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                  <div className={styles.title}>
+                    {/* {
 								obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
 									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
 										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null
 							} */}
-							{obj.title}
-						</div>
-						<div className={styles.des}>{obj.content}</div>
-					</Link>
-				</div>
-				<div className={styles.icons}>
-					<span className={styles.praise}>
-						{
-							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
-						}
-						<label>{obj.digg_count>0?obj.digg_count:null}</label>
-					</span>
-					<span className={styles.review}>
-						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfontSmall}>&#xe60f;</i>
-							<label>{obj.comment_count > 0 ?obj.comment_count:null}</label>
-						</Link>
-					</span>
-          <span>
-            <i className={styles.iconfontSmall} onClick={this.collectShow.bind(this,obj.feed_id)}>&#xe606;</i>
-          </span>
-				</div>
-			</div>
+                    {obj.title}
+                  </div>
+                  <div className={styles.des}>{obj.content}</div>
+                </Link>
+              </div>
+              <div className={styles.icons}>
+                <span className={styles.praise}>
+                  {
+                    obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
+                  }
+                  <label>{obj.digg_count > 0 ? obj.digg_count : null}</label>
+                </span>
+                <span className={styles.review}>
+                  <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                    <i className={styles.iconfontSmall}>&#xe60f;</i>
+                    <label>{obj.comment_count > 0 ? obj.comment_count : null}</label>
+                  </Link>
+                </span>
+                <span>
+                  <i className={styles.iconfontSmall} onClick={this.collectShow.bind(this, obj.feed_id)}>&#xe606;</i>
+                </span>
+              </div>
+            </div>
+            :
+            // 已拉入黑名单，不开放功能
+            <div className={styles.item} onClick={this.blackClick}>
+              <div className={styles.head}>
+                <div className={styles.img}>
+                  <img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
+                </div>
+                <span className={styles.name}>{obj.uname}
+                </span>
+                <span className={styles.time}>{obj.publish_time}</span>
+              </div>
+              <div className={styles.itemContent}>
+                  <div className={styles.title}>
+                    {obj.title}
+                  </div>
+                  <div className={styles.des}>{obj.content}</div>
+              </div>
+              <div className={styles.icons}>
+                <span className={styles.praise}>
+                  {
+                    obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
+                  }
+                  <label>{obj.digg_count > 0 ? obj.digg_count : null}</label>
+                </span>
+                <span className={styles.review}>
+                    <i className={styles.iconfontSmall}>&#xe60f;</i>
+                    <label>{obj.comment_count > 0 ? obj.comment_count : null}</label>
+                </span>
+                <span>
+                  <i className={styles.iconfontSmall}>&#xe606;</i>
+                </span>
+              </div>
+            </div>
+        }
+      </div>
+
 
 		);
 	};

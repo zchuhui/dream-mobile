@@ -69,6 +69,10 @@ class Index extends React.Component {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
+        {
+          obj.is_open == '0'?
+            <i className={styles.msgOrange}></i>:null
+        }
 				<div className={styles.head}>
 					<Link to={{ pathname: "/my/other", 'state': + obj.fromUser.uid }}>
 						<span className={styles.name}>{obj.fromUser.uname}</span>

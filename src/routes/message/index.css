@@ -1,0 +1,198 @@
+html,
+body {
+  height: 100%;
+  font-family: '微软雅黑';
+  font-size: 14px;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clear {
+  zoom: 1;
+}
+a {
+  color: #108ee9;
+}
+.clear:after {
+  content: "";
+  display: block;
+  height: 0;
+  visibility: visible;
+  clear: both;
+}
+@font-face {
+  font-family: 'iconfont';
+  /* project id 481348 */
+  src: url('//at.alicdn.com/t/font_481348_dxmlgr0juelv7vi.eot');
+  src: url('//at.alicdn.com/t/font_481348_dxmlgr0juelv7vi.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_dxmlgr0juelv7vi.woff') format('woff'), url('//at.alicdn.com/t/font_481348_dxmlgr0juelv7vi.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_dxmlgr0juelv7vi.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  color: #afaeae;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontBlue {
+  font-family: "iconfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  color: #108ee9;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontSmall {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+  color: #afaeae;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontBlueSmall {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+  color: #108ee9;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.navBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  border-bottom: 1px solid #ececed;
+}
+.navBar2 {
+  border-bottom: 1px solid #ececed;
+}
+.null {
+  padding: 20px 0;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+}
+.msgOrange {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: coral;
+  border-radius: 50%;
+}
+.chatWrap .item {
+  position: relative;
+  text-align: left;
+  padding: 0 10px;
+  line-height: 30px;
+  margin-left: 10px;
+  margin-top: -1px;
+}
+.chatWrap .item .msgOrange {
+  position: absolute;
+  top: 16px;
+  left: -2px;
+}
+.chatWrap .item .head img {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.chatWrap .item .head span {
+  display: inline-block;
+  margin-top: 5px;
+  vertical-align: top;
+}
+.chatWrap .item .head .review {
+  float: right;
+}
+.chatWrap .item .head .msgType i {
+  font-size: 16px;
+  margin-left: 10px;
+}
+.chatWrap .item .reviewContent {
+  line-height: 24px;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-all;
+}
+.chatWrap .item .reviewTarget {
+  color: #333;
+  padding: 10px 15px;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.chatWrap .item .reviewTarget .title {
+  color: #333;
+  font-weight: bold;
+}
+.chatWrap .item .reviewTarget .des {
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: #999;
+  word-break: break-all;
+}
+.chatWrap .item .icons {
+  height: 40px;
+  border-top: 1px solid #eee;
+  margin: 10px -10px -15px -10px;
+  margin-bottom: -15px;
+  line-height: 40px;
+  color: #bfbfbf;
+  text-align: center;
+}
+.chatWrap .item .icons span {
+  position: relative;
+  float: right;
+  display: block;
+  width: 33%;
+  height: 40px;
+}
+.chatWrap .item .icons span i {
+  display: inline-block;
+  width: 30px;
+  height: 40px;
+  vertical-align: top;
+}
+.chatWrap .item .icons span label {
+  display: inline-block;
+  height: 40px;
+  min-width: 40px;
+  vertical-align: top;
+  text-align: left;
+}
+.chatWrap .item .icons .review i {
+  background: url(../../assets/images/message.png) center center / 22px 22px no-repeat;
+  background-position-y: 8px;
+}
+.chatWrap .item .icons .praise i {
+  background: url(../../assets/images/praise.png) center center / 22px 22px no-repeat;
+  background-position-y: 8px;
+}
+.chatWrap .item .time {
+  color: #999;
+  font-size: 12px;
+}
