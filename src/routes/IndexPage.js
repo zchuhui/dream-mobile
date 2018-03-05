@@ -13,13 +13,15 @@ import Message from "./message/index";
 
 import Storage from '../utils/storage';
 const UID = Storage.get('uid');
+//let unread_count = Storage.get('unread_count');
 
 class Home extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      selectedTab: sessionStorage.getItem("selectedTab") ? sessionStorage.getItem("selectedTab") : 'tab1'
+      selectedTab: sessionStorage.getItem("selectedTab") ? sessionStorage.getItem("selectedTab") : 'tab1',
+      unread_count: Storage.get('unread_count')
     };
   }
 
@@ -62,7 +64,7 @@ class Home extends React.Component {
                 icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe603;</i>}
                 selectedIcon={<i className={styles.iconfontBlue} style={{fontSize:28}}>&#xe649;</i>}
                 selected={this.state.selectedTab === "tab3"}
-                /* badge={1} */
+                dot={this.state.unread_count>0?true:false}
                 onPress={this.onPress.bind(this, 'tab3')}
                 data-seed="logId">
                 {
@@ -92,11 +94,30 @@ class Home extends React.Component {
     )
   }
 
-  componentWillMount() { }
+  componentWillReceiveProps(){
+    this.setState({
+      unread_count:Storage.get('unread_count')
+    })
+  }
+
 
   onPress(val) {
+    // 更新消息通知状态
+    this.setState({
+      unread_count:Storage.get('unread_count')
+    });
+
+    // 取消搜索框keyword
+    Storage.set('keyword',null);
+
+    // 切换页面
     sessionStorage.setItem("selectedTab", val);
     this.setState({ selectedTab: val });
+
+    // 取消提醒状态
+    if(val == "tab3"){
+      Storage.set('unread_count',0);
+    }
 
   }
 
