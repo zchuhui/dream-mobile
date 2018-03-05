@@ -54,21 +54,22 @@ function handleData (res) {
     // 存储token
 	  saveToken(data.msg,data.token,data.userInfo);
   }
+
   return { ...data }
 }
 
 function handleError(error) {
+  console.log('handleError::',error);
   if (error.response == undefined){
-      window.location.href = '#/login';
+      //window.location.href = '#/login';
   }
 
-  const data = error.response.data
+  const data = error.response.data?error.response.data:null
   if (data.errors) {
     Toast.fail(`${data.message}：${data.errors}`, 1)
   } else {
     Toast.fail('服务器故障', 1);
   }
-
   return { success: false }
 }
 
@@ -76,14 +77,16 @@ function handleError(error) {
 function saveToken(msg,token,userInfo){
   const day_30 = 60 * 24 * 30;  // 计算存储天数，单位是分钟，共30天
   const day_1 = 60 * 24 * 1;  // 1 day
-  if(msg === "登录成功"){
+
+  if(msg === "登录成功" && userInfo){
     Storage.set('token',token,day_30);
     Storage.set('uname', userInfo.uname, day_30);
     Storage.set('uid',userInfo.uid,day_30);
   }
 
-
-  Storage.set('unread_count',userInfo.unread_count,day_1);
+  if(userInfo){
+    Storage.set('unread_count',userInfo.unread_count,day_1);
+  }
 
 }
 
@@ -103,6 +106,7 @@ export function get (url, options) {
 }
 
 export function post (url, options) {
+
   if(Storage.get('token')){
       // 已登录
       options.data.token = Storage.get('token');

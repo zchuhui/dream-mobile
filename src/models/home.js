@@ -22,7 +22,7 @@ export default modelExtend(model, {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
       const { data, code } = yield call(getDreamList, payload);
-      //console.log(payload);
+      //console.log('home',data);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { list: data.data } });
       }

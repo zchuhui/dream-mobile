@@ -95,9 +95,9 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(){
-    this.setState({
-      unread_count:Storage.get('unread_count')
-    })
+      this.setState({
+        unread_count:Storage.get('unread_count')
+      })
   }
 
 
