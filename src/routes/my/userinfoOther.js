@@ -109,12 +109,12 @@ class Userinfo extends React.Component {
             {
               obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
             }
-            <label>{obj.digg_count}</label>
+            <label>{obj.digg_count>0?obj.digg_count:null}</label>
           </span>
           <span className={styles.review}>
             <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
               <i className={styles.iconfontSmall}>&#xe60f;</i>
-              <label>{obj.comment_count}</label>
+              <label>{obj.comment_all_count>0?obj.comment_all_count:null}</label>
             </Link>
           </span>
 
@@ -132,12 +132,17 @@ class Userinfo extends React.Component {
 
     this.setState({ isLoading: true });
     this.state.currentPage = this.state.currentPage + 1;
-    this.props.dispatch({ type: 'my/getOtherInfo', payload: { uid: this.props.location.state, page: this.state.currentPage } });
+    this.props.dispatch({ type: 'my/getOtherInfo2', payload: { uid: this.props.location.state, page: this.state.currentPage } });
   }
 
   // 拉黑
-  addBlackList = () => {
-    const BUTTONS = ['拉黑', '取消'];
+  addBlackList = (isBlack) => {
+    let BUTTONS = ['拉黑', '取消'];
+
+    if(isBlack == true){
+      BUTTONS = ['解除', '取消'];
+    }
+
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: BUTTONS.length - 1,
@@ -146,27 +151,54 @@ class Userinfo extends React.Component {
       maskClosable: true,
     },
       (buttonIndex) => {
+        // 拉黑
         if (buttonIndex === 0) {
-          this.props.dispatch({
-            type: 'my/setBlack', payload: { 'black_uid': this.props.location.state}
-          });
+          // 解除
+          if(isBlack == true){
+            this.props.dispatch({
+              type: 'my/delBlack2', payload: { 'black_uid': this.props.location.state}
+            });
+          }else{
+            this.props.dispatch({
+              type: 'my/setBlack', payload: { 'black_uid': this.props.location.state}
+            });
+          }
+
+
         }
         else if(buttonIndex ===1 )
         {
+          // 取消
         }
       });
   }
+
+  	// 性别识别
+	sexsRender = (sex) => {
+
+		switch (parseInt(sex)) {
+			case 0:
+				return "男";
+			case 1:
+				return "女";
+			case 2:
+				return "男男";
+			case 3:
+				return "女女";
+			case 4:
+				return "异性";
+			case 5:
+				return "双性";
+			case 6:
+				return "无性";
+		}
+	}
 
   render() {
     const separator = (sectionID, rowID) => (
       <div
         key={`${sectionID}-${rowID}`}
-        style={{
-          backgroundColor: '#F5F5F9',
-          height: 7,
-          borderTop: '1px solid #ECECED',
-          borderBottom: '1px solid #ECECED',
-        }}
+        className={styles.separator}
       />
     );
     const uname = this.props.otherInfo ? this.props.otherInfo.uname : null;
@@ -181,12 +213,14 @@ class Userinfo extends React.Component {
         {
           UID?
           <div className={styles.userinfoWrap}>
-            <NavBarPage iconType="back" isFly='true' isFixed="true" title={uname} />
+            <NavBarPage iconType="back" isFly='false' isFixed="true" title={uname} />
             {/* 个人基本信息 */}
+            <div className={styles.userinfo}>
             {
               this.props.otherInfo ?
-                <div className={styles.userinfo}>
-                  <Icon style={{ position:'absolute',right:10}} type="ellipsis" size="xxs" onClick={this.addBlackList}/>
+                <div>
+                  <Icon style={{ position:'absolute',right:10}} type="ellipsis" size="xxs"
+                    onClick={this.addBlackList.bind(this,this.props.otherInfo.is_black?this.props.otherInfo.is_black:null)}/>
                   <div className={styles.title}>
                     <div className={styles.img}>
                       <img src={this.props.otherInfo.avatar ? this.props.otherInfo.avatar : Util.defaultImg} alt={this.props.otherInfo.uname} />
@@ -198,7 +232,7 @@ class Userinfo extends React.Component {
 
                   <ul>
                     <li>
-                      <i className={styles.iconfont}>&#xe67b;</i><span>{this.props.otherInfo.sex}</span></li>
+                      <i className={styles.iconfont}>&#xe67b;</i><span>{this.sexsRender(this.props.otherInfo.sex)}</span></li>
                     <li>
                       <i className={styles.iconfont}>&#xe613;</i><span>{this.props.otherInfo.location}</span></li>
                     <li>
@@ -212,23 +246,18 @@ class Userinfo extends React.Component {
                 </div>
                 : null
             }
+            </div>
+
 
             {/* 梦境列表 */}
             <div className={styles.dreamWrap}>
-              <StickyContainer>
-                  <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar} swipeable={false}>
-                  <div
-                    style={{
-                      // display: 'flex',
-                      // alignItems: 'center',
-                      // justifyContent: 'center',
-                      // backgroundColor: '#fff'
-                    }}>
+                <Tabs tabs={tabs} initalPage={'t2'}  swipeable={false}>
+                  <div>
                     <ListView
                       ref={el => this.lv = el}
                       dataSource={this.state.dataSource}
                       renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-                        {this.state.isLoading ? "加载中..." : null}
+                        {this.state.isLoading ? "加载中..." : <span className={styles.f12}>我是有底线的</span>}
                       </div>)}
                       renderRow={this.row}
                       renderSeparator={separator}
@@ -241,28 +270,7 @@ class Userinfo extends React.Component {
                       onEndReachedThreshold={10}
                     />
                   </div>
-                  {/* <div
-                                    style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '500px',
-                                    backgroundColor: '#fff'
-                                }}>
-                                    我的粉丝
-                                </div>
-                                <div
-                                    style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '500px',
-                                    backgroundColor: '#fff'
-                                }}>
-                                    我的关注
-                                </div> */}
                 </Tabs>
-              </StickyContainer>
             </div>
           </div>
           :

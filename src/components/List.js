@@ -129,7 +129,7 @@ class List extends React.Component {
                 <span className={styles.review}>
                   <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
                     <i className={styles.iconfontSmall}>&#xe60f;</i>
-                    <label>{obj.comment_count > 0 ? obj.comment_count : null}</label>
+                    <label>{obj.comment_all_count > 0 ? obj.comment_all_count : null}</label>
                   </Link>
                 </span>
                 <span>
@@ -163,7 +163,7 @@ class List extends React.Component {
                 </span>
                 <span className={styles.review}>
                     <i className={styles.iconfontSmall}>&#xe60f;</i>
-                    <label>{obj.comment_count > 0 ? obj.comment_count : null}</label>
+                    <label>{obj.comment_all_count > 0 ? obj.comment_all_count : null}</label>
                 </span>
                 <span>
                   <i className={styles.iconfontSmall}>&#xe606;</i>
