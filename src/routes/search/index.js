@@ -4,6 +4,7 @@ import { Link } from "dva/router"
 import { ListView, Icon, NavBar, SearchBar, Toast} from "antd-mobile";
 import styles from "./index.less";
 import Util from "../../utils/util";
+import Storage from "../../utils/storage"
 import List from '../../components/List'
 
 class Index extends React.Component {
@@ -23,12 +24,19 @@ class Index extends React.Component {
 			currentPage:1,
 			keyword:'',
 		};
-	}
+  }
 
-	componentDidMount() {
-		// 自动获取光标
-		this.autoFocusInst.focus();
-	}
+
+	componentWillMount() {
+    const keyword = Storage.get('keyword');
+    if(keyword){
+      this.onSearch(keyword);
+    }
+  }
+
+  componentDidMount() {
+      this.autoFocusInst.focus();
+  }
 
 	componentUpdateMount(){
 		this.setState({
@@ -66,7 +74,7 @@ class Index extends React.Component {
 	}
 
 	// 行
-/* 	row = (rowData, sectionID, rowID) => {
+  /* 	row = (rowData, sectionID, rowID) => {
 		const obj = rowData;
 		return (
 			<div className={styles.item}>
@@ -106,7 +114,8 @@ class Index extends React.Component {
 			</div>
 
 		);
-	}; */
+  };
+  */
 
     // 拉到底部刷新
 	onEndReached = (event) => {
@@ -132,14 +141,15 @@ class Index extends React.Component {
 		});
 
 		this.props.dispatch({ type: 'home/search',payload:{'keyword':value,page:this.state.currentPage} });
-
 	}
 
+  // 清除keyword记录
 	onCancel=()=>{
-		/* this.setState({
-			list:null
-		}); */
-		this.autoFocusInst.blur();
+    this.setState({
+      keyword:'',
+    });
+
+    Storage.remove('keyword');
 	}
 
 
@@ -159,10 +169,12 @@ class Index extends React.Component {
 		return (
 			<div>
 				<SearchBar
-				    className={styles.searchBar}
+				  className={styles.searchBar}
 					style={{padding:0,margin:0,textIndent:1}}
 					placeholder="search"
-					ref={ref => this.autoFocusInst = ref}
+          ref={ref => this.autoFocusInst = ref}
+          defaultValue={this.state.keyword}
+          onClear={this.onCancel}
 					onSubmit={this.onSearch.bind(this)}
 				/>
 				<div className={styles.chatWrap}>

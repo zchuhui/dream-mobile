@@ -98,8 +98,12 @@ class Detail extends React.Component {
     const textId =  document.getElementById('txtId')
     const val = textId.value;
     if (val == "") {
-      Toast.info("总得输入点什么吧？");
-    } else {
+      Toast.info("总得输入点什么吧？",1);
+    }
+    else if (val.length > 140) {
+      Toast.info("回复字数不能超过140",1);
+    }
+    else {
       const feed_id = this.props.location.state;
       this.props.dispatch({
         type: 'home/review',

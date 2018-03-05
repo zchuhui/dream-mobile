@@ -7,11 +7,10 @@ import { query, detail, getMsg, publish,
   updatedigg, review, delDream,delDreamReview,
   colletDream,colletDreamList
 } from '../services/home.js';
+import Storage from '../utils/storage'
 
 export default modelExtend(model, {
-
 	namespace: 'home',
-
 	state: {
 		loading: true,
 	},
@@ -32,15 +31,19 @@ export default modelExtend(model, {
 		// 搜索
 		*search({ payload }, { call, put }) {
 			yield put({ type: 'updateState', payload: { 'searchLoading': false, 'searchList': null } });
+      const { data, code, msg } = yield call(search, payload);
 
-			const { data, code, msg } = yield call(search, payload);
 			if (code == 200) {
 				if (data.data.length == 0){
 					Toast.info("木有更多了",1);
 				}
 				yield put({ type: 'updateState', payload: { 'searchList': data.data } });
-				yield put({ type: 'updateState', payload: { 'searchLoading': true } });
-				//Toast.info("加载完成", 1);
+        yield put({ type: 'updateState', payload: { 'searchLoading': true } });
+
+        const keyword = payload.keyword;
+        if (keyword) {
+          Storage.set('keyword',keyword);
+        }
 			}
 		},
 
