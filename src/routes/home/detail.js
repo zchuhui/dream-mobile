@@ -300,6 +300,7 @@ class Detail extends React.Component {
 
                     </div>
 
+
                     {/* 评论列表 */}
                     <div className={styles.reviewList}>
                       {
@@ -323,8 +324,10 @@ class Detail extends React.Component {
                                 {/* <span className={`${styles.iconfont} ${styles.more}`} onClick={this.showActionSheet}>&#xe679;</span> */}
 
                                 {
-                                  // 添加删除评论，只有自己才能删除
-                                  item.uid == UID?<Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview.bind(this,this.props.detail.info.feed_id,item.review_id)}/>
+                                  // 添加删除评论，只有自己或梦住才能删除
+                                  item.uid == UID || this.props.detail.info.uid == UID?
+                                  <Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs"
+                                    onClick={this.delReview.bind(this,this.props.detail.info.feed_id,item.review_id)}/>
                                   :null
                                 }
 
@@ -367,8 +370,10 @@ class Detail extends React.Component {
                                           <div className={styles.clear}>
                                             <span className={`${styles.time} ${styles.fl}`}>{item2.ctime}</span>
                                             {
-                                              // 添加删除评论，只有自己才能删除
-                                              item2.uid == UID?<Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs" onClick={this.delReview.bind(this,this.props.detail.info.feed_id,item2.review_id)}/>
+                                              // 添加删除评论，只有自己或梦住才能删除
+                                              item2.uid == UID || this.props.detail.info.uid == UID?
+                                                <Icon className={` ${styles.more} ${styles.fl}`} type="ellipsis" size="xxs"
+                                                onClick={this.delReview.bind(this,this.props.detail.info.feed_id,item2.review_id)}/>
                                               :null
                                             }
                                           </div>
