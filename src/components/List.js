@@ -90,7 +90,7 @@ class List extends React.Component {
       <div>
         {
           // 判断是否已拉黑对方
-          !obj.is_black?
+          //!obj.is_black?
             <div className={styles.item}>
               <div className={styles.head}>
                 <div className={styles.img}>
@@ -138,9 +138,9 @@ class List extends React.Component {
                 </span>
               </div>
             </div>
-            :
+            //:
             // 已拉入黑名单，不开放功能
-            <div className={styles.item} onClick={this.blackClick}>
+            /* <div className={styles.item} onClick={this.blackClick}>
               <div className={styles.head}>
                 <div className={styles.img}>
                   <img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
@@ -170,7 +170,7 @@ class List extends React.Component {
                   <i className={styles.iconfontSmall}>&#xe606;</i>
                 </span>
               </div>
-            </div>
+            </div> */
         }
       </div>
 
