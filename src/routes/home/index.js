@@ -71,7 +71,7 @@ class Index extends React.Component {
 	render() {
 		const tabs = [
 			{
-				title: "梦境",
+        title: <b className={styles.colorBlack}>梦境</b>,
 			}
 		];
 

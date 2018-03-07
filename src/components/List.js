@@ -104,7 +104,7 @@ class List extends React.Component {
                     <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream.bind(this, obj.feed_id)} />
                     : null
                 }
-                <span className={styles.name}><Link to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
+              <span className={styles.name}><Link className={styles.bold} to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
                 <span className={styles.time}>{obj.publish_time}</span>
               </div>
               <div className={styles.itemContent}>

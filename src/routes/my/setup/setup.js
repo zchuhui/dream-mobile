@@ -68,12 +68,25 @@ class Setup extends React.Component {
       }
     ];
 
+    const tabs = [
+      {
+        title: <b className={styles.colorBlack}>通知</b>,
+      },
+      {
+
+        title: <b className={styles.colorBlack}>账户</b>,
+      },
+      {
+        title: <b className={styles.colorBlack}>黑名单</b>,
+      }
+    ];
+
     return (
       <div className={styles.editWrap}>
 
         <NavBarPage iconType="back" isFly='false'  title="设置" />
 
-        <Tabs tabs={[{ title: "通知" }, { title: "账户" }, { title: "黑名单" }]} swipeable={false}>
+        <Tabs tabs={tabs} swipeable={false}>
           {/* 通知 */}
           <div>
             <WhiteSpace />

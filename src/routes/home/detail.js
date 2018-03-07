@@ -268,7 +268,7 @@ class Detail extends React.Component {
                         </Link>
                       </div>
                       <span className={styles.name}>
-                        <Link to={{ pathname: this.props.detail.info.uid == UID ? "/my/userinfo" :"/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link>
+                          <Link className={styles.bold} to={{ pathname: this.props.detail.info.uid == UID ? "/my/userinfo" :"/my/other", 'state': + this.props.detail.info.uid }}>{this.props.detail.info.uname}</Link>
                         {
                           // 是登陆账号的梦境时才能删除跟编辑
                           this.props.detail.info.uid == UID ?
@@ -315,7 +315,7 @@ class Detail extends React.Component {
                             </div>
                             <div className={styles.itemContent}>
                               <div className={styles.cnWrap} onClick={this.showModal("modal1", item.uname, item.review_id)}>
-                                <span className={styles.name}><Link to={{ pathname: item.uid == UID ? "/my/userinfo":"/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
+                                  <span className={styles.name}><Link className={styles.bold} to={{ pathname: item.uid == UID ? "/my/userinfo":"/my/other", 'state': + item.uid }}>{item.uname}</Link></span>
                                 <div className={styles.des}>{item.content}</div>
                               </div>
                               <div className={`${styles.time} ${styles.clear}`}>

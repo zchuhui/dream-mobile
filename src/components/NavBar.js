@@ -15,7 +15,7 @@ class NavBarPage extends React.Component{
         mode="light"
         icon={this.props.iconType == "back" ? < Icon type="left" onClick={() => history.go(-1)} /> : <i className={styles.iconfontBlue}>&#xe601;</i>}
         rightContent={
-          this.props.isFly == "true" ? <Link to="/fly"><i className={styles.iconfontBlue}>&#xe60d;</i></Link>
+          this.props.isFly == "true" ? <Link to="/fly"><i className={styles.iconfontBlack}>&#xe60d;</i></Link>
           : this.props.isLogin == "true" ? <Link to="/login">登录</Link>
             :null
         }

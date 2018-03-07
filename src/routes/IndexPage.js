@@ -35,7 +35,7 @@ class Home extends React.Component {
             <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
               <TabBar.Item
                 icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe6e1;</i>}
-                selectedIcon={<i className={styles.iconfontBlue} style={{fontSize:28}}>&#xe69e;</i>}
+                  selectedIcon={<i className={styles.iconfontBlack} style={{fontSize:28}}>&#xe69e;</i>}
                 //title="探索"
                 key="Friend"
                 selected={this.state.selectedTab === "tab1"}
@@ -47,7 +47,7 @@ class Home extends React.Component {
 
               <TabBar.Item
                 icon={<i className={styles.iconfont}>&#xe614;</i>}
-                selectedIcon={<i className={styles.iconfontBlue} >&#xe616;</i>}
+                  selectedIcon={<i className={styles.iconfontBlack} >&#xe616;</i>}
                 //title="搜索"
                 key="Koubei"
                 selected={this.state.selectedTab === "tab2"}
@@ -62,7 +62,7 @@ class Home extends React.Component {
                 //title="通知"
                 key="Life"
                 icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe603;</i>}
-                selectedIcon={<i className={styles.iconfontBlue} style={{fontSize:28}}>&#xe649;</i>}
+                  selectedIcon={<i className={styles.iconfontBlack} style={{fontSize:28}}>&#xe649;</i>}
                 selected={this.state.selectedTab === "tab3"}
                 dot={this.state.unread_count>0?true:false}
                 onPress={this.onPress.bind(this, 'tab3')}
@@ -74,7 +74,7 @@ class Home extends React.Component {
 
               <TabBar.Item
                 icon={<i className={styles.iconfont}>&#xe617;</i>}
-                selectedIcon={<i className={styles.iconfontBlue}>&#xe633;</i>}
+                  selectedIcon={<i className={styles.iconfontBlack}>&#xe633;</i>}
                 //title="我的"
                 key="my"
                 selected={this.state.selectedTab === "tab4"}

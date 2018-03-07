@@ -183,7 +183,7 @@ class Userinfo extends React.Component {
     const uname = this.props.otherInfo ? this.props.otherInfo.uname : null;
     const tabs = [
       {
-        title: uname + '的梦境'
+        title: <b className={styles.colorBlack}> {uname}的梦境</b>
       }
     ];
 

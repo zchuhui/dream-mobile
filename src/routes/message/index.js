@@ -128,7 +128,7 @@ class Index extends React.Component {
 
 		const tabs = [
 			{
-				title: <i className={styles.iconfontBlue}>&#xe60e;</i>
+        title: <i className={styles.iconfontBlack}>&#xe60e;</i>
 			},
 			// {
 			//     title: '点赞'
