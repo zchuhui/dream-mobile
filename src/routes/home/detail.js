@@ -100,7 +100,7 @@ class Detail extends React.Component {
     if (val == "") {
       Toast.info("总得输入点什么吧？",1);
     }
-    else if (val.length > 140) {
+    else if (val.length > 135) {
       Toast.info("回复字数不能超过140",1);
     }
     else {
