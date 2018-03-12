@@ -31,7 +31,7 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: true,
-			height: document.documentElement.clientHeight-(50+43.5),
+      height: document.documentElement.clientHeight - 139,
 			//height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
@@ -41,7 +41,7 @@ class Index extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const hei = document.documentElement.clientHeight-(50+43.5);
+		const hei = document.documentElement.clientHeight-139;
 		if (this.state.list !== nextProps.list) {
 			this.setState({
 				list: [...this.state.list, ...nextProps.list],
@@ -78,13 +78,13 @@ class Index extends React.Component {
 		return (
           <div className={styles.chatWrap}>
             <NavBarPage isFly="true"/>
-            <Tabs tabs={tabs} initalPage={'t2'} swipeable={false} swipeable={false}>
-              <List
-                dataSource = {this.state.dataSource}
-                isLoading = {this.state.isLoading}
-                height={this.state.height}
-                onEndReached={this.onEndReached} />
-            </Tabs>
+              <Tabs tabs={tabs} initalPage={'t2'} swipeable={false} swipeable={false}>
+                <List
+                  dataSource={this.state.dataSource}
+                  isLoading={this.state.isLoading}
+                  height={this.state.height}
+                  onEndReached={this.onEndReached} />
+              </Tabs>
         </div>
 		)
 	}

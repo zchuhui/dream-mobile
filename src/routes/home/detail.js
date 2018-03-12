@@ -424,7 +424,7 @@ class Detail extends React.Component {
                         size="small"
                         onClick={this.onReview}
                       >发表</Button> */}
-                      <div className={styles.rtRight} onClick={this.onReview}><i className={styles.iconfontBlue}>&#xe60d;</i></div>
+                      <div className={styles.rtRight} onClick={this.onReview}><i className={styles.iconfontBlack}>&#xe60d;</i></div>
                     </div>
                   </div>
 

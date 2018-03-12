@@ -33,7 +33,7 @@ class Index extends React.Component {
 			dataSource,
 			msgList: [],
 			isLoading: true,
-			height: document.documentElement.clientHeight -(50+43.5),
+      height: document.documentElement.clientHeight - 139,
 			currentPage: 1,
 		};
 	}
@@ -43,7 +43,7 @@ class Index extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const hei= document.documentElement.clientHeight -(50+43.5);
+		const hei= document.documentElement.clientHeight -139;
 		if (this.state.msgList !== nextProps.msgList && nextProps.msgList !== undefined) {
 
 			this.setState({

@@ -20,7 +20,7 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: false,
-			height: document.documentElement.clientHeight - 50,
+			height: document.documentElement.clientHeight - 100,
 			currentPage:1,
 			keyword:'',
 		};
