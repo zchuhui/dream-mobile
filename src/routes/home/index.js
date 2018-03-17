@@ -31,13 +31,17 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: true,
-      height: document.documentElement.clientHeight - 139,
+      		height: document.documentElement.clientHeight - 139,
 			//height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
 
-	componentWillMount() {
+	componentDidMount(){
 		this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
+	}
+
+	componentWillMount() {
+		//this.props.dispatch({ type: 'home/getDreamList', payload: { page: 1 } });
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -67,6 +71,10 @@ class Index extends React.Component {
 		this.state.currentPage = this.state.currentPage + 1;
 		this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } });
 	}
+
+	scroll = () =>{
+		console.log("scroll...11");
+	  }
 
 	render() {
 		const tabs = [

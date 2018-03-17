@@ -6,7 +6,7 @@ import React from "react";
 import { connect } from "dva";
 import { Link } from 'dva/router';
 import { hashHistory } from 'react-router';
-import { List, NavBar, Tabs, Icon, ListView } from "antd-mobile";
+import { List, NavBar, Tabs, Icon, ListView,Toast} from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
@@ -30,6 +30,7 @@ class Userinfo extends React.Component {
 			isLoading: true,
 			height: document.documentElement.clientHeight - (50 + 43.5),
 			currentPage: 1,
+			hasMore:true,
 		};
 	}
 
@@ -41,7 +42,7 @@ class Userinfo extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (this.state.list !== nextProps.list) {
-
+			console.log("list",nextProps.list);
 			this.setState({
 				list: [...this.state.list, ...nextProps.list],
 			})
@@ -52,6 +53,13 @@ class Userinfo extends React.Component {
 					isLoading: false,
 				});
 			}, 500)
+
+			// 不足10条，最后一页
+			if(nextProps.list <10){
+				this.setState({
+					hasMore:false
+				})
+			}
 		} else {
 			this.setState({
 				isLoading: false,
@@ -102,7 +110,12 @@ class Userinfo extends React.Component {
 
 	// 拉倒底部，再次获取数据
 	onEndReached = (event) => {
-		if (this.state.isLoading && !this.state.hasMore) {
+		if (this.state.isLoading) {
+			return;
+		}
+
+		if(this.state.hasMore){
+			Toast.info("没有更多了");
 			return;
 		}
 
@@ -136,21 +149,13 @@ class Userinfo extends React.Component {
 
 	render() {
 
-		/* const separator = (sectionID, rowID) => (
-			<div
-				key={`${sectionID}-${rowID}`}
-				className={styles.separator}
-			/>
-    ); */
-
-
-    const tabs = [
-      {
-        title: <b className={styles.colorBlack}>我的梦境</b>
-      },{
-        title: <b className={styles.colorBlack}>收藏夹</b>
-        }
-    ];
+		const tabs = [
+			{
+				title: <b className={styles.colorBlack}>我的梦境</b>
+			}, {
+				title: <b className={styles.colorBlack}>收藏夹</b>
+			}
+		];
 
 
 
@@ -192,43 +197,43 @@ class Userinfo extends React.Component {
 				{/* 梦境列表 */}
 				<div className={styles.dreamWrap}>
 					<StickyContainer>
-            <Tabs tabs={tabs} initalPage={'t2'} swipeable={false}>
-              {/* 我的梦境 */}
+						<Tabs tabs={tabs} initalPage={'t2'} swipeable={false}>
+							{/* 我的梦境 */}
 							<div>
 								{
-                  this.state.list.length > 0?
-                    <ListPage
-                      dataSource={this.state.dataSource}
-                      isLoading={this.state.isLoading}
-                      onEndReached={this.onEndReached}
-                      isUseBodyScroll={true}
-                    />
+									this.state.list.length > 0 ?
+										<ListPage
+											dataSource={this.state.dataSource}
+											isLoading={this.state.isLoading}
+											onEndReached={this.onEndReached}
+											isUseBodyScroll={true}
+										/>
 
-									/* <ListView
-										ref={el => this.lv = el}
-										dataSource={this.state.dataSource}
-										renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-											{this.state.isLoading ? "加载中..." :  <span className={styles.f12}>我是有底线的</span>}
-										</div>)}
-										renderRow={this.row}
-										renderSeparator={separator}
-										className="am-list"
-										pageSize={4}
-										useBodyScroll
-										onScroll={() => { console.log('scroll'); }}
-										scrollRenderAheadDistance={500}
-										onEndReached={this.onEndReached}
-										onEndReachedThreshold={10}
-                  />*/
+										/* <ListView
+											ref={el => this.lv = el}
+											dataSource={this.state.dataSource}
+											renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
+												{this.state.isLoading ? "加载中..." :  <span className={styles.f12}>我是有底线的</span>}
+											</div>)}
+											renderRow={this.row}
+											renderSeparator={separator}
+											className="am-list"
+											pageSize={4}
+											useBodyScroll
+											onScroll={() => { console.log('scroll'); }}
+											scrollRenderAheadDistance={500}
+											onEndReached={this.onEndReached}
+											onEndReachedThreshold={10}
+					  					/>*/
 
-									:<div style={{textAlign:'center',color:'#999',fontSize:'12px',marginTop:30}}>开展你的梦</div>
+										: <div style={{ textAlign: 'center', color: '#999', fontSize: '12px', marginTop: 30 }}>开展你的梦</div>
 								}
 							</div>
 
-              {/* 我的收藏 */}
+							{/* 我的收藏 */}
 							<div>
-                <CollectList />
-              </div>
+								<CollectList />
+							</div>
 
 						</Tabs>
 					</StickyContainer>

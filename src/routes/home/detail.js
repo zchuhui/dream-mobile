@@ -349,10 +349,8 @@ class Detail extends React.Component {
                                             :
                                           </span>
                                         </div> */}
-                                        <div className={styles.itemContent}
-                                        onClick={this.showModal("modal1", item2.uname, item2.review_id)}
-                                        >
-                                          <div className={`${styles.des}`}>
+                                        <div className={styles.itemContent}>
+                                          <div className={`${styles.des}`} onClick={this.showModal("modal1", item2.uname, item2.review_id)}>
                                             <div>
                                               <Link className={styles.uname} to={{ pathname: item2.uid == UID ? "/my/userinfo":"/my/other", 'state': + item2.uid }}>{item2.uname}</Link>
                                               {

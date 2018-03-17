@@ -13,7 +13,11 @@ const UID = Storage.get('uid');
 
 class List extends React.Component {
 	constructor(props, context) {
-		super(props, context);
+    super(props, context);
+    
+    this.state = {
+      height:this.props.height
+    }
   }
 
   // 编辑梦境
@@ -176,7 +180,9 @@ class List extends React.Component {
 
 
 		);
-	};
+  };
+  
+  
 
 	render() {
 
@@ -203,9 +209,10 @@ class List extends React.Component {
 					renderRow={this.row}
 					renderSeparator={separator}
 					style={{
-						height: this.props.height,
+						height: this.state.height,
 						overflow: 'auto',
-					}}
+          }}
+          onScroll={console.log("")} 
 					pageSize={4}
 					scrollRenderAheadDistance={500}
 					onEndReached={this.props.onEndReached}

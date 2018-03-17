@@ -35,7 +35,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-      this.autoFocusInst.focus();
+      //this.autoFocusInst.focus(); 
   }
 
 	componentUpdateMount(){
@@ -60,7 +60,7 @@ class Index extends React.Component {
 					list: [...this.state.list, ...nextProps.searchList],
 					height:hei
 				});
-				this.autoFocusInst.focus();
+				//this.autoFocusInst.focus();
 			}
 
 			setTimeout(() => {
