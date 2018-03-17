@@ -16,7 +16,7 @@ class List extends React.Component {
     super(props, context);
     
     this.state = {
-      height:this.props.height
+      height:this.props.height?this.props.height:1000, 
     }
   }
 
@@ -209,7 +209,7 @@ class List extends React.Component {
 					renderRow={this.row}
 					renderSeparator={separator}
 					style={{
-						height: this.state.height,
+						height: this.props.height,
 						overflow: 'auto',
           }}
           onScroll={console.log("")} 

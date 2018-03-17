@@ -25,30 +25,31 @@ class Home extends React.Component {
     };
   }
 
+  
+
   render() {
     return (
       <div>
         {
           UID?
-          // 已登录
-          <div className={styles.normal} style={{position: "fixed",height: "100%",width: "100%",top: 0}}>
+          //已登录  
+          <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
             <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
-              <TabBar.Item
-                icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe6e1;</i>}
+              <TabBar.Item 
+                icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe6e1;</i>}    
                   selectedIcon={<i className={styles.iconfontBlack} style={{fontSize:28}}>&#xe69e;</i>}
                 //title="探索"
-                key="Friend"
+                key="Friend1"
                 selected={this.state.selectedTab === "tab1"}
                 onPress={this.onPress.bind(this, 'tab1')}>
                 {
-                  this.state.selectedTab == "tab1" ? <HomePage /> : null
+                  this.state.selectedTab == "tab1" ? <HomePage />: null 
                 }
               </TabBar.Item>
 
               <TabBar.Item
                 icon={<i className={styles.iconfont}>&#xe614;</i>}
                   selectedIcon={<i className={styles.iconfontBlack} >&#xe616;</i>}
-                //title="搜索"
                 key="Koubei"
                 selected={this.state.selectedTab === "tab2"}
                 onPress={this.onPress.bind(this, 'tab2')}
@@ -59,7 +60,6 @@ class Home extends React.Component {
               </TabBar.Item>
 
               <TabBar.Item
-                //title="通知"
                 key="Life"
                 icon={<i className={styles.iconfont} style={{fontSize:28}}>&#xe603;</i>}
                   selectedIcon={<i className={styles.iconfontBlack} style={{fontSize:28}}>&#xe649;</i>}
@@ -75,7 +75,6 @@ class Home extends React.Component {
               <TabBar.Item
                 icon={<i className={styles.iconfont}>&#xe617;</i>}
                   selectedIcon={<i className={styles.iconfontBlack}>&#xe633;</i>}
-                //title="我的"
                 key="my"
                 selected={this.state.selectedTab === "tab4"}
                 onPress={this.onPress.bind(this, 'tab4')} >
@@ -84,10 +83,10 @@ class Home extends React.Component {
                 }
 
               </TabBar.Item>
-            </TabBar>
+            </TabBar>    
           </div>
-          :
-          // 未登录
+          : 
+          //未登录  
           <IndexNotLogin />
         }
         </div>

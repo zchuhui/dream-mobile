@@ -135,31 +135,43 @@ class Detail extends React.Component {
     });
   }
 
+  // 输入时，滚动，兼容ios
   TextareaFocus=()=>{
 
-    // var top = window.scrollTop();
-    // var bottom = window.scrollBottom();
-    // var height = window.height();//整个窗口高
-    // height = height / 4;
+    //try {
+      var top = window.scrollTop();
+      var bottom = window.scrollBottom();
+      var height = window.height();//整个窗口高
+      height = height / 4;
 
-    // let id = document.getElementById("reviewTextArea");
-    // id.style.position = 'absolute';
-    // id.style.bottom = bottom;
+      let id = document.getElementById("reviewTextArea");
+      id.style.position = 'absolute';
+      id.style.bottom = bottom;
 
 
-    // var i = 1;
-    // var int = setInterval(function() {
-    //   window.scrollTo(0, i);
-    //   i += 10;
-    //   if (i == 200) clearInterval(int);
-    // }, 20);
+      var i = 1;
+      var int = setInterval(function() { 
+        window.scrollTo(0, i);
+        i += 10;   
+        if (i == 100) clearInterval(int);
+      }, 20);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    
 
   }
 
   TextareaBlur=()=>{
     let id = document.getElementById("reviewTextArea");
-    id.style.position = 'fixed';
+    id.style.position = 'fixed'; 
     //id.style.bottom = 0;
+  }
+
+  removeFocus=()=>{
+    console.log('re f');
+    //document.getElementById('txtId').blur();
   }
 
   // 二级评论操作
@@ -245,13 +257,15 @@ class Detail extends React.Component {
       });
   }
 
+  
+
   render() {
     return (
       <div>
         {
           UID?
           // 已登录
-          <div className={styles.detailWrap}>
+          <div className={styles.detailWrap} onClick={this.removeFocus.bind(this)}> 
             <NavBarPage iconType="back" isFixed="true" title="梦境" />
             {
               this.props.detail && !this.props.detailLoading

@@ -26,12 +26,14 @@ class Index extends React.Component {
 			sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
 		});
 
+		let h = document.documentElement.clientHeight - 139;
+
 		this.state = {
 			currentPage: 1,
 			dataSource,
 			list: [],
 			isLoading: true,
-      		height: document.documentElement.clientHeight - 139,
+      		height: h>500?h:800, 
 			//height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
