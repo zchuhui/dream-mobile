@@ -44,7 +44,9 @@ class Detail extends React.Component {
   }
 
   componentWillMount() {
-    const feed_id = this.props.location.state;
+    //const feed_id = this.props.location.state;
+    const feed_id = window.location.hash.split('?')[1].split('&')[0].split('=')[1];
+
     if (feed_id) {
       this.props.dispatch({
         type: 'home/getDetail',
@@ -150,22 +152,22 @@ class Detail extends React.Component {
 
 
       var i = 1;
-      var int = setInterval(function() { 
+      var int = setInterval(function() {
         window.scrollTo(0, i);
-        i += 10;   
+        i += 10;
         if (i == 100) clearInterval(int);
       }, 20);
     // } catch (error) {
     //   console.log(error);
     // }
 
-    
+
 
   }
 
   TextareaBlur=()=>{
     let id = document.getElementById("reviewTextArea");
-    id.style.position = 'fixed'; 
+    id.style.position = 'fixed';
     //id.style.bottom = 0;
   }
 
@@ -257,15 +259,13 @@ class Detail extends React.Component {
       });
   }
 
-  
-
   render() {
     return (
       <div>
         {
           UID?
           // 已登录
-          <div className={styles.detailWrap} onClick={this.removeFocus.bind(this)}> 
+          <div className={styles.detailWrap} onClick={this.removeFocus.bind(this)}>
             <NavBarPage iconType="back" isFixed="true" title="梦境" />
             {
               this.props.detail && !this.props.detailLoading
@@ -293,7 +293,7 @@ class Detail extends React.Component {
                       <span className={styles.time}>{this.props.detail.info.publish_time}</span>
                     </div>
                     <div className={styles.itemContent}>
-                      <div className={styles.title}>{this.props.detail.info.title}</div>
+                      <h1 className={styles.title}>{this.props.detail.info.title}</h1>
                       <div className={styles.des}><pre>{this.props.detail.info.content}</pre></div>
                     </div>
                     <div className={styles.icons}>
@@ -478,3 +478,14 @@ function mapStateToProps(state) {
 
 const form = createForm()(Detail)
 export default connect(mapStateToProps)(form);
+
+
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");("&");
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable) { return pair[1]; }
+  }
+  return (false);
+}

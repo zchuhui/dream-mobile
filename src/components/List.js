@@ -14,9 +14,9 @@ const UID = Storage.get('uid');
 class List extends React.Component {
 	constructor(props, context) {
     super(props, context);
-    
+
     this.state = {
-      height:this.props.height?this.props.height:1000, 
+      height:this.props.height?this.props.height:1000,
     }
   }
 
@@ -112,13 +112,9 @@ class List extends React.Component {
                 <span className={styles.time}>{obj.publish_time}</span>
               </div>
               <div className={styles.itemContent}>
-                <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                {/* <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}> */}
+                <Link to={{ pathname: "/home/detail?id="+ obj.feed_id }}>
                   <div className={styles.title}>
-                    {/* {
-								obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
-									obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-										obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null
-							} */}
                     {obj.title}
                   </div>
                   <div className={styles.des}>{obj.content}</div>
@@ -181,8 +177,7 @@ class List extends React.Component {
 
 		);
   };
-  
-  
+
 
 	render() {
 
@@ -212,7 +207,7 @@ class List extends React.Component {
 						height: this.props.height,
 						overflow: 'auto',
           }}
-          onScroll={console.log("")} 
+          onScroll={console.log("")}
 					pageSize={4}
 					scrollRenderAheadDistance={500}
 					onEndReached={this.props.onEndReached}
