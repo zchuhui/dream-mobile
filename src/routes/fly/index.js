@@ -1,14 +1,23 @@
 import React from "react";
 import { connect } from "dva";
-import { List, TextareaItem, NavBar, Icon, Button, Toast } from "antd-mobile";
+import { List, TextareaItem, NavBar, Icon, Button, Toast, ImagePicker, Tag, Modal } from "antd-mobile";
 import styles from "./index.less";
 import { createForm } from 'rc-form';
+
+import TagModel from "./Model";
+
+const data = [{
+  url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
+  id: '2121',
+}];
+
 
 class Fly extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      files: data,
     };
   }
 
@@ -43,16 +52,43 @@ class Fly extends React.Component {
     }
   }
 
+  onChange = (files, type, index) => {
+    console.log(files, type, index);
+    this.setState({
+      files,
+    });
+  }
+
   render() {
+
     const { getFieldProps } = this.props.form;
+    const { files } = this.state;
+
+    const tagProps = {
+      tags:['假的','真的'],
+      addTags:()=>{
+        console.log();
+      },
+      selectTags:()=>{
+
+      }
+    }
+
     return (
       <div className={styles.flyWrap}>
         <NavBar
           mode="light"
           icon={<Icon type="left" />}
           onLeftClick={() => history.back()}
+          rightContent={[
+            <Button type="primary" inline size="small" key="flybtn"
+              //icon={<i className={styles.iconfont} style={{fontSize:14,color:'#fff'}}>&#xe68e;</i>}
+              onClick={this.handlePublish} className={styles.flyBtn}
+            >发布</Button>
+          ]}
           style={{ borderBottom: "1px solid #eee" }}
-        >iDream</NavBar>
+        >iDream
+        </NavBar>
 
         <TextareaItem
           placeholder="梦境标题"
@@ -62,6 +98,7 @@ class Fly extends React.Component {
           className={styles.title}
           ref={el => this.customFocusInst = el}
         />
+
         <TextareaItem
           {...getFieldProps('note1')}
           rows={10}
@@ -69,17 +106,28 @@ class Fly extends React.Component {
           className={styles.textarea}
           placeholder="真诚面对梦境，记下吧~~"
         />
-        <Button icon={<span className={styles.icon}></span>} type="primary" onClick={this.handlePublish} className={styles.flyBtn}>发梦</Button>
+
+        <ImagePicker
+          files={files}
+          onChange={this.onChange}
+          onImageClick={(index, fs) => console.log(index, fs)}
+          selectable={files.length < 3}
+          multiple={true}
+        />
+
+        <TagModel {...tagProps}/>
+
       </div>
     )
   }
 }
+
+
 
 function mapStateToProps(state) {
   return {
     ...state.home
   };
 }
-
 const form = createForm()(Fly)
 export default connect(mapStateToProps)(form);
