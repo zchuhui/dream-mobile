@@ -15,6 +15,7 @@ app.model(require('./models/login'));
 app.model(require('./models/home'));
 app.model(require('./models/my'));
 app.model(require('./models/message'));
+app.model(require('./models/fly'));
 
 // 4. Router
 app.router(require('./router'));

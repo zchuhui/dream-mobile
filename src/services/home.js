@@ -40,9 +40,9 @@ export async function search(params) {
 /**
  * 发梦
  */
-export async function publish(params) {
+/* export async function publish(params) {
   return post(dream.publish, {data: params});
-}
+} */
 
 /**
  * 删除梦境

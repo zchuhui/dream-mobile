@@ -22,7 +22,6 @@ export default modelExtend(model, {
 		// 梦境列表
 		*getDreamList({ payload }, { call, put }) {
       const { data, code } = yield call(getDreamList, payload);
-      console.log('home',data);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { list: data.data } });
       }
@@ -99,7 +98,7 @@ export default modelExtend(model, {
 		},
 
 		//发梦
-		*publishDream({ payload }, { call, put }) {
+		/* *publishDream({ payload }, { call, put }) {
 			Toast.loading("发送中...");
 			const { data, code, msg } = yield call(publish, payload);
 			if (code == 200) {
@@ -108,7 +107,7 @@ export default modelExtend(model, {
 					hashHistory.push('/');
 				}, 1000);
 			}
-    },
+    }, */
 
     // 编辑梦境
     *editDetail({ payload }, { call, put }) {
@@ -189,8 +188,6 @@ export default modelExtend(model, {
         yield put({ type: 'updateState', payload: { collectDreamList: data.data } });
       }
     },
-
-
 
 	},
 

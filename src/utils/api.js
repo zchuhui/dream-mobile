@@ -26,7 +26,6 @@ module.exports = {
   dream: {
     list: `${devApi}/feed/view`,
     search: `${devApi}/feed/search`,
-    publish: `${devApi}/feed/publish`,
     detail: `${devApi}/feed/info`,
     digg: `${devApi}/feed/updatedigg`,
 
@@ -36,6 +35,10 @@ module.exports = {
 
     collect: `${devApi}/wish/handle`,     // 梦境收藏
     collectList: `${devApi}/wish/list`,   // 梦境收藏列表
+
+
+    publish: `${devApi}/feed/publish`,      // 发梦
+    uploadImg: `${devApi}/feed/upload-img`, // 上传图片
 
   },
   user: {

@@ -6,32 +6,17 @@ import { createForm } from 'rc-form';
 
 import TagModel from "./Model";
 
-const data = [{
-  url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-  id: '2121',
-}];
-
-
 class Fly extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      files: data,
+      files: [],
     };
   }
 
-  onChangeFace = (key, val) => {
-    this.setState({
-    });
-
-    this.setState({
-      [key]: 0,
-      feeling: val
-    })
-  }
-
   handlePublish = () => {
+    const _this = this;
     const title = document.getElementById("titleId").value;
     const content = document.getElementById("txtId").value;
     const feeling = this.state.feeling;
@@ -43,10 +28,13 @@ class Fly extends React.Component {
     }
     else {
       this.props.dispatch({
-        type: 'home/publishDream', payload: {
+        type: 'fly/publishDream',
+        payload: {
           'title': title,
           'content': content,
-          'feeling': feeling
+          'feeling': feeling,
+          'img_url': _this.state.files,
+
         }
       })
     }
@@ -57,6 +45,16 @@ class Fly extends React.Component {
     this.setState({
       files,
     });
+
+    console.log(this.state.files);
+
+
+    /* this.props.dispatch({
+      type:'fly/uploadImg',
+      payload:{
+        img:files[0].url,
+      }
+    }) */
   }
 
   render() {
@@ -126,7 +124,7 @@ class Fly extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    ...state.home
+    ...state.fly
   };
 }
 const form = createForm()(Fly)
