@@ -2,112 +2,102 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import { Toast } from "antd-mobile";
-import { query, detail, getMsg, publish,
+import {
+  query, detail, getMsg, publish,
   getDreamList, search, getDreamDetail,
-  updatedigg, review, delDream,delDreamReview,
-  colletDream,colletDreamList
+  updatedigg, review, delDream, delDreamReview,
+  colletDream, colletDreamList,
+  setSecret
 } from '../services/home.js';
 import Storage from '../utils/storage'
 
 export default modelExtend(model, {
-	namespace: 'home',
-	state: {
-		loading: true,
-	},
+  namespace: 'home',
+  state: {
+    loading: true,
+  },
 
-	subscriptions: {
-	},
+  subscriptions: {
+  },
 
-	effects: {
-		// 梦境列表
-		*getDreamList({ payload }, { call, put }) {
+  effects: {
+    // 梦境列表
+    *getDreamList({ payload }, { call, put }) {
       const { data, code } = yield call(getDreamList, payload);
       if (code == 200) {
         yield put({ type: 'updateState', payload: { list: data.data } });
       }
-		},
+    },
 
-		// 搜索
-		*search({ payload }, { call, put }) {
-			yield put({ type: 'updateState', payload: { 'searchLoading': false, 'searchList': null } });
+    // 搜索
+    *search({ payload }, { call, put }) {
+      yield put({ type: 'updateState', payload: { 'searchLoading': false, 'searchList': null } });
       const { data, code, msg } = yield call(search, payload);
 
-			if (code == 200) {
-				if (data.data.length == 0){
-					Toast.info("木有更多了",1);
-				}
-				yield put({ type: 'updateState', payload: { 'searchList': data.data } });
+      if (code == 200) {
+        if (data.data.length == 0) {
+          Toast.info("木有更多了", 1);
+        }
+        yield put({ type: 'updateState', payload: { 'searchList': data.data } });
         yield put({ type: 'updateState', payload: { 'searchLoading': true } });
 
         const keyword = payload.keyword;
         if (keyword) {
-          Storage.set('keyword',keyword);
+          Storage.set('keyword', keyword);
         }
-			}
-		},
+      }
+    },
 
-		// 梦境详情
-		*getDetail({ payload }, { call, put }) {
-			yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
+    // 梦境详情
+    *getDetail({ payload }, { call, put }) {
+      yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
       //const { data } = yield call(detail, payload);
       const { data, code } = yield call(getDreamDetail, payload);
-			if (code == 200) {
-				yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
-			}else{
+      if (code == 200) {
+        yield put({ type: 'updateState', payload: { detail: data, detailLoading: false } });
+      } else {
         yield put({ type: 'updateState', payload: { detail: false, detailLoading: false } });
-			}
+      }
     },
 
     // 梦境详情2,只更新数据
-		*getDetail2({ payload }, { call, put }) {
+    *getDetail2({ payload }, { call, put }) {
       const { data, code } = yield call(getDreamDetail, payload);
-			if (code == 200) {
-				yield put({ type: 'updateState', payload: { detail: data } });
-			}
-		},
-
-		// 点赞
-		*updatedigg({ payload }, { call, put }) {
-			const { data, code } = yield call(updatedigg, payload);
-			if (code == 200) {
-
-				const { data, code } = yield call(getDreamDetail, payload);
-				if (code == 200) {
-					yield put({ type: 'updateState', payload: { detail: data } });
-				}
-			}
+      if (code == 200) {
+        yield put({ type: 'updateState', payload: { detail: data } });
+      }
     },
 
-		// 评论
-		*review({ payload }, { call, put }) {
-			const { data, code } = yield call(review, payload);
+    // 点赞
+    *updatedigg({ payload }, { call, put }) {
+      const { data, code } = yield call(updatedigg, payload);
+      if (code == 200) {
 
-			if (code == 200) {
-				Toast.info("评论成功");
-				const { data, code } = yield call(getDreamDetail, payload);
-				if (code == 200) {
-					yield put({ type: 'updateState', payload: { detail: data } });
-				}
-			}
-		},
+        const { data, code } = yield call(getDreamDetail, payload);
+        if (code == 200) {
+          yield put({ type: 'updateState', payload: { detail: data } });
+        }
+      }
+    },
+
+    // 评论
+    *review({ payload }, { call, put }) {
+      const { data, code } = yield call(review, payload);
+
+      if (code == 200) {
+        Toast.info("评论成功");
+        const { data, code } = yield call(getDreamDetail, payload);
+        if (code == 200) {
+          yield put({ type: 'updateState', payload: { detail: data } });
+        }
+      }
+    },
 
     // 消息
-		*getMsg({ payload }, { call, put }) {
-			const { data } = yield call(getMsg, payload);
-			yield put({ type: 'updateState', payload: { msgList: data } });
-		},
-
-		//发梦
-		/* *publishDream({ payload }, { call, put }) {
-			Toast.loading("发送中...");
-			const { data, code, msg } = yield call(publish, payload);
-			if (code == 200) {
-				Toast.success("发送成功!");
-				setTimeout(() => {
-					hashHistory.push('/');
-				}, 1000);
-			}
-    }, */
+    *getMsg({ payload }, { call, put }) {
+      const { data } = yield call(getMsg, payload);
+      yield put({ type: 'updateState', payload: { msgList: data } });
+    },
 
     // 编辑梦境
     *editDetail({ payload }, { call, put }) {
@@ -142,7 +132,7 @@ export default modelExtend(model, {
       Toast.loading("删除中...");
       const { data, code, msg } = yield call(delDream, payload);
       if (code == 200) {
-        Toast.success("删除成功！",1);
+        Toast.success("删除成功！", 1);
         setTimeout(() => {
           //history.go(-1);
           hashHistory.push('/');
@@ -155,7 +145,7 @@ export default modelExtend(model, {
       Toast.loading("删除中...");
       const { data, code, msg } = yield call(delDream, payload);
       if (code == 200) {
-        Toast.success("删除成功！",1);
+        Toast.success("删除成功！", 1);
 
         history.go(0);
       }
@@ -166,9 +156,9 @@ export default modelExtend(model, {
       Toast.loading("删除中...");
       const { data, code, msg } = yield call(delDreamReview, payload);
       if (code == 200) {
-        Toast.success("删除成功！",1);
+        Toast.success("删除成功！", 1);
 
-        yield put({type:'getDetail2',payload:{feed_id:payload.feed_id}});
+        yield put({ type: 'getDetail2', payload: { feed_id: payload.feed_id } });
       }
     },
 
@@ -189,10 +179,23 @@ export default modelExtend(model, {
       }
     },
 
-	},
+    // 设为私密
+    *setSecret({ payload }, { call, put }) {
+      const { data, code, msg } = yield call(setSecret, payload);
+      if (code == 200) {
+        Toast.success(msg);
 
-	reducers: {
+        yield put({
+          type: 'getDetail2',
+          payload: payload
+        })
+      }
+    },
 
-	},
+  },
+
+  reducers: {
+
+  },
 
 });

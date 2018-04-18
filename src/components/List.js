@@ -22,7 +22,7 @@ class List extends React.Component {
 
   // 编辑梦境
   editDream = (feedId) => {
-    const BUTTONS2 = ['编辑', '删除','取消'];
+    const BUTTONS2 = ['编辑','设为私密','删除','取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
       cancelButtonIndex: BUTTONS2.length - 1,
@@ -36,10 +36,19 @@ class List extends React.Component {
           // 跳转到编辑
           hashHistory.push('/fly/edit/' + feedId);
         }
-        else if(buttonIndex === 1){
+        else if(buttonIndex === 2){
           // 删除
           this.props.dispatch({
             type: 'home/delDream2',
+            payload: {
+              feed_id: feedId,
+            }
+          });
+        }
+        else if (buttonIndex === 1) {
+          // 设为私密
+          this.props.dispatch({
+            type: 'home/setSecret',
             payload: {
               feed_id: feedId,
             }

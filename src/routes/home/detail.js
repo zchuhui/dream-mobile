@@ -46,7 +46,7 @@ class Detail extends React.Component {
   componentWillMount() {
     const feed_id = this.props.location.state;
     //const feed_id = window.location.hash.split('?')[1].split('&')[0].split('=')[1];
-    console.log(feed_id);
+    //console.log(feed_id);
     if (feed_id) {
       this.props.dispatch({
         type: 'home/getDetail',
@@ -199,7 +199,9 @@ class Detail extends React.Component {
 
   // 编辑梦境
   editDream = () => {
-    const BUTTONS2 = ['编辑','设为私密', '删除', '取消'];
+    const { show_type } = this.props.detail.info;
+
+    const BUTTONS2 = ['编辑', show_type=='1'?'设为私密':'设为公开', '删除', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
       cancelButtonIndex: BUTTONS2.length - 1,
@@ -210,16 +212,15 @@ class Detail extends React.Component {
     },
       (buttonIndex) => {
         this.setState({ editDreamState: BUTTONS2[buttonIndex] });
+        const feed_id = this.props.location.state;
 
         // 编辑
         if (buttonIndex === 0) {
           // 跳转到编辑
-          const feed_id = this.props.location.state;
           hashHistory.push('/fly/edit/' + feed_id);
         }
         // 删除
         else if (buttonIndex === 2) {
-          const feed_id = this.props.location.state;
           this.props.dispatch({
             type: 'home/delDream',
             payload: {
@@ -228,8 +229,12 @@ class Detail extends React.Component {
           });
         }
         else if (buttonIndex === 1) {
-          console.log('私密');
-
+          this.props.dispatch({
+            type: 'home/setSecret',
+            payload: {
+              feed_id: feed_id,
+            }
+          });
         }
       });
   }

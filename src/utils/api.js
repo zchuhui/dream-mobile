@@ -33,12 +33,14 @@ module.exports = {
     del: `${devApi}/feed/del`,                // 删除梦境
     delReview: `${devApi}/feed/del-review`,   // 删除梦境评论
 
-    collect: `${devApi}/wish/handle`,     // 梦境收藏
-    collectList: `${devApi}/wish/list`,   // 梦境收藏列表
+    collect: `${devApi}/wish/handle`,         // 梦境收藏
+    collectList: `${devApi}/wish/list`,       // 梦境收藏列表
+
+    setSecret: `${devApi}/feed/set-secret`,    // 梦境设为私密
 
 
-    publish: `${devApi}/feed/publish`,      // 发梦
-    uploadImg: `${devApi}/feed/upload-img`, // 上传图片
+    publish: `${devApi}/feed/publish`,        // 发梦
+    uploadImg: `${devApi}/feed/upload-img`,   // 上传图片
 
   },
   user: {

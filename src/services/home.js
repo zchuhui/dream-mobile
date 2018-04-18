@@ -86,3 +86,10 @@ export async function colletDream(params) {
 export async function colletDreamList(params) {
   return post(dream.collectList, { data: params });
 }
+
+/**
+ * 梦境设为私密
+ */
+export async function setSecret(params) {
+  return post(dream.setSecret, { data: params });
+}
