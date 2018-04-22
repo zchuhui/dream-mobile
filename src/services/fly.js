@@ -16,3 +16,10 @@ export async function uploadImg(params) {
   return post(dream.uploadImg, { data: params });
 }
 
+/**
+ * 获取标签
+ */
+export async function getTags(params) {
+  return post(dream.getTags, { data: params });
+}
+

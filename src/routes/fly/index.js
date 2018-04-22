@@ -12,14 +12,12 @@ class Fly extends React.Component {
 
     this.state = {
       files: [],
-      tags: [],
+      //tags: [],
       selectTags: [],
     };
   }
 
-  componentWillReceiveProps = (props) => {
-    //console.log('props images',props.images);
-  }
+
 
   // 发布
   handlePublish = () => {
@@ -78,26 +76,12 @@ class Fly extends React.Component {
       });
     } else if (type == "remove") {
       this.props.dispatch({
-        type: 'fly/removeImg',
+        type: 'fly/removeImages',
         payload: {
           index: index
         }
       });
     }
-
-
-
-
-    // files.map((image)=>{
-    //   this.props.dispatch({
-    //     type:'fly/uploadImg',
-    //     payload:{
-    //       img:image.url
-    //     }
-    //   });
-    // });
-
-
   }
 
   render() {
@@ -107,14 +91,14 @@ class Fly extends React.Component {
     const { files } = this.state;
 
     const tagProps = {
-      tags: _this.state.tags,
+      tags: _this.props.tags,
       selectTags: _this.state.selectTags,
       onAddTag: (val) => {
-        let tags = _this.state.tags;
-        tags.push(val);
-
-        _this.setState({
-          tags: tags,
+        this.props.dispatch({
+          type:'fly/addTagItem',
+          payload:{
+            tag:val
+          }
         })
       },
       onSelectTag: (val, t) => {

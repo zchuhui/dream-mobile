@@ -36,12 +36,14 @@ class TagModel extends React.Component {
     }
   }
 
+
   showModal = key => (e) => {
     e.preventDefault();             // 修复 Android 上点击穿透
     this.setState({
       [key]: true,
     });
   }
+
   onClose = key => () => {
     this.setState({
       [key]: false,
@@ -56,6 +58,8 @@ class TagModel extends React.Component {
       if (!tags.contains(val)) {
         this.props.onAddTag(val);
       }
+
+      this.refs.inputTag.value = "";
     }
   }
 
@@ -86,14 +90,16 @@ class TagModel extends React.Component {
           transparent
           maskClosable={false}
           onClose={this.onClose('modal1')}
-          footer={[{ text: 'Ok', onPress: () => { console.log('ok'); this.onClose('modal1')(); } }]}
+          footer={[{ text: '确定', onPress: () => { this.onClose('modal1')(); } }]}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
           <div style={{ minHeight: 100, textAlign: 'left' }}>
-            <input type="text" placeholder="添加标签" className={styles.tagInput} onKeyUp={this.onAddTags.bind(this)} />
+            <input type="text" placeholder="添加标签（按回车添加）" ref="inputTag" className={styles.tagInput} onKeyUp={this.onAddTags.bind(this)} />
             {
               tags.map((item, index) => (
-                <Tag key={index}  style={{ marginRight: 5, marginBottom: 5 }} selected={selectTags.contains(item)} onChange={this.onSelectTag.bind(this, item)}>{item}</Tag>
+                  item !== "" ?
+                  <Tag key={index}  style={{ marginRight: 5, marginBottom: 5 }} selected={selectTags.contains(item)} onChange={this.onSelectTag.bind(this, item)}>{item}</Tag>
+                  :null
               ))
             }
           </div>

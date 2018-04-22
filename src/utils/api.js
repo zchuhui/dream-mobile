@@ -16,13 +16,6 @@ if (document.domain === 'h5.xiaoyiwo.net') {
 
 
 module.exports = {
-  chat: {
-    'list': 'https://www.easy-mock.com/mock/5a0a48fab31e3216824d454d/dream/chat_list',
-  },
-  home: {
-    'list': 'https://www.easy-mock.com/mock/5a0a48fab31e3216824d454d/dream/chat_list',
-    'list_item': 'https://www.easy-mock.com/mock/5a0a48fab31e3216824d454d/dream/home_list_item',
-  },
   dream: {
     list: `${devApi}/feed/view`,
     search: `${devApi}/feed/search`,
@@ -41,6 +34,7 @@ module.exports = {
 
     publish: `${devApi}/feed/publish`,        // 发梦
     uploadImg: `${devApi}/feed/upload-img`,   // 上传图片
+    getTags:`${devApi}/feed/get-tags`,      // 获取自定义标签
 
   },
   user: {
