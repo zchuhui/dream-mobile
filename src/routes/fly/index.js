@@ -12,9 +12,16 @@ class Fly extends React.Component {
 
     this.state = {
       files: [],
+      tags: [],
+      selectTags: [],
     };
   }
 
+  componentWillReceiveProps = (props) => {
+    //console.log('props images',props.images);
+  }
+
+  // 发布
   handlePublish = () => {
     const _this = this;
     const title = document.getElementById("titleId").value;
@@ -27,48 +34,104 @@ class Fly extends React.Component {
       Toast.info('请多少输入一点吧~~', 1);
     }
     else {
-      this.props.dispatch({
+
+      // 拼接图片/标签
+      let imgStr = "", tagStr = "";
+
+      _this.props.images.map(image => {
+        imgStr += image + ',';
+      })
+
+
+      _this.state.selectTags.map(tag => {
+        tagStr += tag + ',';
+      })
+
+      _this.props.dispatch({
         type: 'fly/publishDream',
         payload: {
           'title': title,
           'content': content,
           'feeling': feeling,
-          'img_url': _this.state.files,
-
+          'img_url': imgStr,
+          'tags': tagStr
         }
       })
     }
   }
 
+  // 选择图片
   onChange = (files, type, index) => {
-    console.log(files, type, index);
+    const _this = this;
+
     this.setState({
       files,
     });
 
-    console.log(this.state.files);
+    if (type == "add") {
+      const len = files.length - 1;
+      this.props.dispatch({
+        type: 'fly/uploadImg',
+        payload: {
+          img: files[len].url
+        }
+      });
+    } else if (type == "remove") {
+      this.props.dispatch({
+        type: 'fly/removeImg',
+        payload: {
+          index: index
+        }
+      });
+    }
 
 
-    /* this.props.dispatch({
-      type:'fly/uploadImg',
-      payload:{
-        img:files[0].url,
-      }
-    }) */
+
+
+    // files.map((image)=>{
+    //   this.props.dispatch({
+    //     type:'fly/uploadImg',
+    //     payload:{
+    //       img:image.url
+    //     }
+    //   });
+    // });
+
+
   }
 
   render() {
 
+    const _this = this;
     const { getFieldProps } = this.props.form;
     const { files } = this.state;
 
     const tagProps = {
-      tags:['假的','真的'],
-      addTags:()=>{
-        console.log();
-      },
-      selectTags:()=>{
+      tags: _this.state.tags,
+      selectTags: _this.state.selectTags,
+      onAddTag: (val) => {
+        let tags = _this.state.tags;
+        tags.push(val);
 
+        _this.setState({
+          tags: tags,
+        })
+      },
+      onSelectTag: (val, t) => {
+        let tags = this.state.selectTags
+
+        if (t) {
+          tags.push(val);
+
+          _this.setState({
+            selectTags: tags,
+          })
+        } else {
+          tags.splice(tags.indexOf(val), 1);
+          _this.setState({
+            selectTags: tags,
+          })
+        }
       }
     }
 
@@ -113,13 +176,24 @@ class Fly extends React.Component {
           multiple={true}
         />
 
-        <TagModel {...tagProps}/>
+        <TagModel {...tagProps} />
 
       </div>
     )
   }
 }
 
+/**
+ * 数组操作：获取元素下标
+ * @param  {[type]} val [元素]
+ * @return {[type]}     [description]
+ */
+Array.prototype.indexOf = function (val) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == val) return i;
+  }
+  return -1;
+};
 
 
 function mapStateToProps(state) {

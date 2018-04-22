@@ -24,17 +24,6 @@ class TagModel extends React.Component {
     };
   }
 
-  showModal = key => (e) => {
-    e.preventDefault(); // 修复 Android 上点击穿透
-    this.setState({
-      [key]: true,
-    });
-  }
-  onClose = key => () => {
-    this.setState({
-      [key]: false,
-    });
-  }
 
   onWrapTouchStart = (e) => {
     // fix touch to scroll background page on iOS
@@ -47,16 +36,50 @@ class TagModel extends React.Component {
     }
   }
 
-  render(){
+  showModal = key => (e) => {
+    e.preventDefault();             // 修复 Android 上点击穿透
+    this.setState({
+      [key]: true,
+    });
+  }
+  onClose = key => () => {
+    this.setState({
+      [key]: false,
+    });
+  }
 
-    const { tags, addTags, selectTags} = this.props;
+  // 添加标签
+  onAddTags = (event) => {
+    const { tags } = this.props;
+    if (event.keyCode == 13) {
+      const val = event.target.value;
+      if (!tags.contains(val)) {
+        this.props.onAddTag(val);
+      }
+    }
+  }
+
+  // 选择标签
+  onSelectTag = (t, val) => {
+    this.props.onSelectTag(t, val);
+  }
 
 
-    return(
+  render() {
+    const { tags, selectTags } = this.props;
+
+    return (
       <div>
         <span className={styles.tagBtn}
           onClick={this.showModal('modal1')}
         > <i className={styles.iconfont}>&#xe634;</i> 加标签</span>
+        <div style={{margin:'10px 0 0 5px'}}>
+          {
+            selectTags.map((item, index) => (
+              <span key={index} className={styles.tag}>{item}</span>
+            ))
+          }
+        </div>
 
         <Modal
           visible={this.state.modal1}
@@ -66,19 +89,11 @@ class TagModel extends React.Component {
           footer={[{ text: 'Ok', onPress: () => { console.log('ok'); this.onClose('modal1')(); } }]}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
-          <div style={{ minHeight: 100 ,textAlign:'left'}}>
-            <TextareaItem
-              placeholder="添加标签"
-              data-seed="logId"
-              id="tagId"
-              autoHeight
-              className={styles.tagInput}
-              ref={el => this.customFocusInst = el}
-            />
-
+          <div style={{ minHeight: 100, textAlign: 'left' }}>
+            <input type="text" placeholder="添加标签" className={styles.tagInput} onKeyUp={this.onAddTags.bind(this)} />
             {
-              tags.map((item)=>(
-                <Tag key={item} style={{ marginRight: 10}}>{item}</Tag>
+              tags.map((item, index) => (
+                <Tag key={index}  style={{ marginRight: 5, marginBottom: 5 }} selected={selectTags.contains(item)} onChange={this.onSelectTag.bind(this, item)}>{item}</Tag>
               ))
             }
           </div>
@@ -87,5 +102,46 @@ class TagModel extends React.Component {
     )
   }
 }
+
+/**
+ * 数组操作：判断元素是否在素组里面
+ * @param  {[type]} val [元素1]
+ * @return {[type]}     [description]
+ */
+Array.prototype.contains = function (val) {
+  var len = this.length;
+  while (len--) {
+    if (this[len] === val) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+/**
+ * 数组操作：获取元素下标
+ * @param  {[type]} val [元素]
+ * @return {[type]}     [description]
+ */
+Array.prototype.indexOf = function (val) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == val) return i;
+  }
+  return -1;
+};
+
+
+/**
+ * 数组操作：删除元素
+ * @param  {[type]} val [元素]
+ * @return {[type]}     [description]
+ */
+Array.prototype.remove = function (val) {
+  var index = this.indexOf(val);
+  if (index > -1) {
+    this.splice(index, 1);
+  }
+};
 
 export default TagModel;
