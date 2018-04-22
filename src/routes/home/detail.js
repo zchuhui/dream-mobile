@@ -160,13 +160,11 @@ class Detail extends React.Component {
 
 
   }
-
   TextareaBlur = () => {
     let id = document.getElementById("reviewTextArea");
     id.style.position = 'fixed';
     //id.style.bottom = 0;
   }
-
   removeFocus = () => {
     //console.log('re f');
     //document.getElementById('txtId').blur();
@@ -197,11 +195,13 @@ class Detail extends React.Component {
       });
   }
 
-  // 编辑梦境
+  // 梦境编辑、设置
   editDream = () => {
-    const { show_type } = this.props.detail.info;
+    // show_type：1（公开），2（私密）
+    let { show_type } = this.props.detail.info;
+    show_type = parseInt(show_type);
 
-    const BUTTONS2 = ['编辑', show_type=='1'?'设为私密':'设为公开', '删除', '取消'];
+    const BUTTONS2 = ['编辑', show_type == 1 ? '设为私密' : '设为公开', '删除', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
       cancelButtonIndex: BUTTONS2.length - 1,
@@ -219,8 +219,8 @@ class Detail extends React.Component {
           // 跳转到编辑
           hashHistory.push('/fly/edit/' + feed_id);
         }
-        // 删除
         else if (buttonIndex === 2) {
+          // 删除
           this.props.dispatch({
             type: 'home/delDream',
             payload: {
@@ -229,9 +229,11 @@ class Detail extends React.Component {
           });
         }
         else if (buttonIndex === 1) {
+          // 设为私密
           this.props.dispatch({
             type: 'home/setSecret',
             payload: {
+              is_show: show_type == 1 ? 2 : 1,
               feed_id: feed_id,
             }
           });

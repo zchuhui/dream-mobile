@@ -12,3 +12,7 @@ export async function register(params) {
 export async function resetPassword(params) {
     return postLogin(user.resetPassword, { data: params });
 }
+
+export async function setSecret(params) {
+  return post(user.setSecret, { data: params });
+}

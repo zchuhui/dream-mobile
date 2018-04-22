@@ -1,220 +1,169 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar, SearchBar, Toast} from "antd-mobile";
+import { ListView, Icon, NavBar, SearchBar, Toast, Tabs } from "antd-mobile";
 import styles from "./index.less";
 import Util from "../../utils/util";
 import Storage from "../../utils/storage"
 import List from '../../components/List'
+import MyDreamList from './MyDreamList'
+import UserList from "./UserList";
 
 class Index extends React.Component {
-	constructor(props, context) {
-		super(props, context);
+  constructor(props, context) {
+    super(props, context);
 
-		const dataSource = new ListView.DataSource({
-			rowHasChanged: (row1, row2) => row1 !== row2,
-			sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-		});
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+    });
 
-		this.state = {
-			dataSource,
-			list: [],
-			isLoading: false,
-			height: document.documentElement.clientHeight - 100,
-			currentPage:1,
-			keyword:'',
-		};
+    this.state = {
+      dataSource,
+      list: [],
+      isLoading: false,
+      height: document.documentElement.clientHeight - 100,
+      currentPage: 1,
+      keyword: '',
+      currentTab: 0,
+    };
   }
 
 
-	componentWillMount() {
+  componentWillMount() {
     const keyword = Storage.get('keyword');
-    if(keyword){
+    if (keyword) {
       this.onSearch(keyword);
     }
   }
 
-  componentDidMount() {
-      //this.autoFocusInst.focus(); 
+  componentUpdateMount() {
+    this.setState({
+      height: document.documentElement.clientHeight - 100
+    });
   }
 
-	componentUpdateMount(){
-		this.setState({
-			height:document.documentElement.clientHeight - 100
-		});
-	}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.searchList == null) return;
 
-	componentWillReceiveProps(nextProps) {
+    let hei = document.documentElement.clientHeight - 100;
 
-		let hei = document.documentElement.clientHeight - 100;
+    if (this.state.list !== nextProps.searchList) {
+      if (this.state.currentPage == 1) {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows([]),
+          list: [...nextProps.searchList],
+          height: hei,
+        })
+      } else {
+        this.setState({
+          list: [...this.state.list, ...nextProps.searchList],
+          height: hei
+        });
+        //this.autoFocusInst.focus();
+      }
 
-		if ( this.state.list !== nextProps.searchList) {
-			if(this.state.currentPage == 1){
-				this.setState({
-					dataSource: this.state.dataSource.cloneWithRows([]),
-					list: [...nextProps.searchList],
-					height:hei,
-				})
-			}else{
-				this.setState({
-					list: [...this.state.list, ...nextProps.searchList],
-					height:hei
-				});
-				//this.autoFocusInst.focus();
-			}
+      setTimeout(() => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.state.list),
+          isLoading: false,
+          height: hei
+        });
+      }, 500)
+    }
+  }
 
-			setTimeout(() => {
-				this.setState({
-					dataSource: this.state.dataSource.cloneWithRows(this.state.list),
-					isLoading: false,
-					height:hei
-				});
-			}, 500)
-		}
-	}
+  // 拉到底部刷新
+  onEndReached = (event) => {
+    if (this.state.isLoading && !this.state.hasMore) {
+      return;
+    }
 
-	// 行
-  /* 	row = (rowData, sectionID, rowID) => {
-		const obj = rowData;
-		return (
-			<div className={styles.item}>
-				<div className={styles.head}>
-					<div className={styles.img}>
-						<Link to={{ pathname: "/my/other", 'state': + obj.uid }}>
-							<img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
-						</Link>
-					</div>
-					<span className={styles.name}><Link to={{ pathname: "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
-					<span className={styles.time}>{obj.publish_time}</span>
-				</div>
-				<div className={styles.itemContent}>
-					<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-						<div className={styles.title}>
+    const that = this;
+    this.setState({
+      isLoading: true,
+      currentPage: that.state.currentPage + 1
+    });
 
-							{obj.title}
-						</div>
-						<div className={styles.des}>{obj.content}</div>
-					</Link>
-				</div>
-				<div className={styles.icons}>
-					<span className={styles.praise}>
-						{
-							obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
-						}
-						<label>{obj.digg_count>0?obj.digg_count:null}</label>
-					</span>
-					<span className={styles.review}>
-						<Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-							<i className={styles.iconfontSmall}>&#xe60f;</i>
-							<label>{obj.comment_all_count>0?obj.comment_all_count:null}</label>
-						</Link>
-					</span>
+    this.props.dispatch({ type: 'search/search', payload: { 'keyword': that.state.keyword, 'is_me': false, page: that.state.currentPage } });
+  }
 
-				</div>
-			</div>
+  // 搜索
+  onSearch = (value) => {
+    this.setState({
+      keyword: value,
+      isLoading: true,
+      currentPage: 1,
+      currentTab: 0,
+    });
 
-		);
-  };
-  */
-
-    // 拉到底部刷新
-	onEndReached = (event) => {
-		if (this.state.isLoading && !this.state.hasMore) {
-			return;
-		}
-
-		const that = this;
-		this.setState({
-			isLoading: true,
-			currentPage: that.state.currentPage + 1
-		});
-
-		this.props.dispatch({ type: 'home/search', payload: { 'keyword': that.state.keyword, page: that.state.currentPage} });
-	}
-
-	// 搜索
-	onSearch=(value)=>{
-		this.setState({
-			keyword:value,
-			isLoading:true,
-			currentPage:1,
-		});
-
-		this.props.dispatch({ type: 'home/search',payload:{'keyword':value,page:this.state.currentPage} });
-	}
+    this.props.dispatch({ type: 'search/search', payload: { 'keyword': value, 'is_me': false, 'page': 1 } });
+    this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
+    this.props.dispatch({ type: 'search/searchUsers', payload: { 'uname': value, 'page': 1 } });
+  }
 
   // 清除keyword记录
-	onCancel=()=>{
+  onCancel = () => {
     this.setState({
-      keyword:'',
+      keyword: '',
     });
 
     Storage.remove('keyword');
-	}
+  }
 
 
-	render() {
-		const separator = (sectionID, rowID) => (
-			<div
-				key={`${sectionID}-${rowID}`}
-				style={{
-					backgroundColor: '#F5F5F9',
-					height: 7,
-					borderTop: '1px solid #ECECED',
-					borderBottom: '1px solid #ECECED',
-				}}
-			/>
-		);
+  render() {
 
-		return (
-			<div>
-				<SearchBar
-				  className={styles.searchBar}
-					style={{padding:0,margin:0,textIndent:1}}
-					placeholder="search"
+    const tabs = [
+      {
+        title: <b className={styles.colorBlack}>梦境</b>
+      },
+      {
+        title: <b className={styles.colorBlack}>我的</b>
+      },
+      {
+        title: <b className={styles.colorBlack}>用户</b>
+      }
+    ];
+
+    return (
+      <div>
+        <SearchBar
+          className={styles.searchBar}
+          style={{ padding: 0, margin: 0, textIndent: 1 }}
+          placeholder="search"
           ref={ref => this.autoFocusInst = ref}
           defaultValue={this.state.keyword}
           onClear={this.onCancel}
-					onSubmit={this.onSearch.bind(this)}
-				/>
-				<div className={styles.chatWrap}>
+          onSubmit={this.onSearch.bind(this)}
+        />
+        <div className={styles.chatWrap}>
+          <Tabs tabs={tabs} initalPage={this.state.currentTab} swipeable={false}>
+            <div>
+              <List
+                dataSource={this.state.dataSource}
+                isLoading={this.state.isLoading}
+                height={this.state.height}
+                onEndReached={this.onEndReached} />
+            </div>
+            <div>
+              <MyDreamList keyword={this.state.keyword} />
+            </div>
+            <div>
+              <UserList keyword={this.state.keyword} />
+            </div>
+          </Tabs>
+        </div>
+      </div>
 
-          <List
-            dataSource = {this.state.dataSource}
-            isLoading = {this.state.isLoading}
-            height={this.state.height}
-            onEndReached={this.onEndReached} />
-
-            {/* <ListView
-              ref={el => this.lv = el}
-              dataSource={this.state.dataSource}
-              renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
-                {this.state.isLoading ? "加载中..." : '搜索，搜你想知道的'}
-              </div>)}
-              renderRow={this.row}
-              renderSeparator={separator}
-              style={{
-                height: this.state.height,
-                overflow: 'auto',
-              }}
-              pageSize={4}
-              onScroll={() => { this.setState({height:document.documentElement.clientHeight - 100}); }}
-              scrollRenderAheadDistance={500}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={10}
-            /> */}
-
-				</div>
-			</div>
-
-		)
-	}
+    )
+  }
 }
 
 
 function mapStateToProps(state) {
-	return {
-		...state.home
-	};
+  return {
+    ...state.search
+  };
 }
 export default connect(mapStateToProps)(Index);

@@ -1,0 +1,90 @@
+@import '../../assets/styles/base.less';
+
+
+.dreamWrap {
+
+    .item {
+        text-align: left;
+        padding: 15px 10px;
+        line-height: 30px;
+        margin-top: -1px;
+        .head {
+            .img {
+                float: left;
+                display: block;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin: 0 auto;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #999;
+                }
+            }
+            .name {
+                display: block;
+                line-height: 20px;
+                margin-left: 10px;
+                text-indent: 10px;
+            }
+            .time {
+                display: block;
+                text-indent: 10px;
+                color: #999;
+            }
+        }
+        .itemContent {
+            display: block;
+            margin-left: 50px;
+            .title {
+                font-size: 16px;
+                color: #333;
+                font-weight: bold;
+                margin: 3px 0;
+                i.iconfont {
+                    font-size: 18px;
+                    margin: 0 5px;
+                }
+            }
+            .des {
+                line-height: 20px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+                color: #999;
+                word-break: break-all
+            }
+        }
+        .icons {
+            height: 40px;
+            border-top: 1px solid #eee;
+            margin: 10px -10px -15px -10px;
+            margin-bottom: -15px;
+            line-height: 40px;
+            color: #bfbfbf;
+            text-align: center;
+            span {
+                position: relative;
+                float: left;
+                display: block;
+                width: 33%;
+                height: 40px;
+                label {
+                    display: inline-block;
+                    height: 40px;
+                    vertical-align: top;
+                    color: #bfbfbf;
+                }
+            }
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+}

@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { connect } from "dva";
-import { List, NavBar, Button, Checkbox, Icon, Toast, Tabs,WhiteSpace} from "antd-mobile";
+import { List, NavBar, Button, Checkbox, Icon, Toast, Tabs, WhiteSpace, Radio } from "antd-mobile";
 import styles from "./setup.less";
 
 import NavBarPage from "../../../components/NavBar"
@@ -14,7 +14,8 @@ import Blacklist from "./blacklist"
 
 const Item = List.Item,
   CheckboxItem = Checkbox.CheckboxItem,
-  AgreeItem = Checkbox.AgreeItem;
+  AgreeItem = Checkbox.AgreeItem,
+  RadioItem = Radio.RadioItem;
 
 class Setup extends React.Component {
   constructor(props, context) {
@@ -28,12 +29,16 @@ class Setup extends React.Component {
         is_personal: 2,
         is_review: 1,
         is_store: 1,
-      }
+      },
+      value:1,          // 隐私状态
     }
   }
 
   componentWillMount() {
-    this.props.dispatch({ type: 'message/getNotice', payload: { token: null } })
+    this.props.dispatch({ type: 'message/getNotice', payload: { token: null } });
+
+    //this.props.dispatch({ type: 'message/setSecret', payload: { token: null } });
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,27 +50,11 @@ class Setup extends React.Component {
   }
 
   render() {
+    const { value } = this.state;
 
     const data = [
-      {
-        value: 0,
-        label: '评论',
-      }, {
-        value: 1,
-        label: '转发'
-      }, {
-        value: 2,
-        label: '点赞'
-      }, {
-        value: 3,
-        label: '收藏'
-      }, {
-        value: 4,
-        label: '私信'
-      }, {
-        value: 5,
-        label: '新跟随'
-      }
+      { value: 1, label: '公开' },
+      { value: 2, label: '自己查看' },
     ];
 
     const tabs = [
@@ -73,7 +62,9 @@ class Setup extends React.Component {
         title: <b className={styles.colorBlack}>通知</b>,
       },
       {
-
+        title: <b className={styles.colorBlack}>隐私</b>,
+      },
+      {
         title: <b className={styles.colorBlack}>账户</b>,
       },
       {
@@ -84,7 +75,7 @@ class Setup extends React.Component {
     return (
       <div className={styles.editWrap}>
 
-        <NavBarPage iconType="back" isFly='false'  title="设置" />
+        <NavBarPage iconType="back" isFly='false' title="设置" />
 
         <Tabs tabs={tabs} swipeable={false}>
           {/* 通知 */}
@@ -130,6 +121,24 @@ class Setup extends React.Component {
                   }}>退出账号</div>
               </Item>
             </List>
+
+          </div>
+
+          {/* 隐私 */}
+          <div>
+            <WhiteSpace />
+            {
+              this.props.notice ?
+                <List>
+                    {data.map(i => (
+                      <RadioItem key={i.value} checked={value === i.value} onChange={() => this.onRadioChange(i.value)}>
+                        {i.label}
+                      </RadioItem>
+                    ))}
+                </List>
+                :
+                <div style={{ textAlign: 'center', margin: '50px auto' }}> <Icon type="loading" /></div>
+            }
 
           </div>
 
@@ -182,6 +191,20 @@ class Setup extends React.Component {
     });
 
   }
+
+  onRadioChange = (value) => {
+    this.setState({
+      value,
+    });
+
+    this.props.dispatch({
+      type: 'message/setSecrets',
+      payload: {
+        is_show:value
+      }
+    });
+
+  };
 }
 
 function mapStateToProps(state) {

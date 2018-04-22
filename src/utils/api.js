@@ -47,10 +47,15 @@ module.exports = {
     login: `${devApi}/login/validate`,
     register: `${devApi}/login/register`,
     resetPassword: `${devApi}/login/resetpassword`,
+
+    usersSearch: `${devApi}/users/users-search`,
+    setSecret: `${devApi}/users/set-secret`,
+
   },
   my: {
     getUserHome: `${devApi}/users/get-user-home`,
     editUser: `${devApi}/users/edit-user`,
+
     opinion: `${devApi}/opinion/add`,
     loginout: `${devApi}/login/loginout`,
 

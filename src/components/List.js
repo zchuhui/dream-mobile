@@ -21,8 +21,13 @@ class List extends React.Component {
   }
 
   // 编辑梦境
-  editDream = (feedId) => {
-    const BUTTONS2 = ['编辑','设为私密','删除','取消'];
+  editDream = (feedId,show_type) => {
+
+    // show_type：1（公开），2（私密）
+    show_type = parseInt(show_type);
+
+    const BUTTONS2 = ['编辑', show_type == 1 ? '设为私密' : '设为公开','删除','取消'];
+
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
       cancelButtonIndex: BUTTONS2.length - 1,
@@ -48,8 +53,9 @@ class List extends React.Component {
         else if (buttonIndex === 1) {
           // 设为私密
           this.props.dispatch({
-            type: 'home/setSecret',
+            type: 'home/setSecretInList',
             payload: {
+              is_show: show_type == 1 ? 2 : 1,
               feed_id: feedId,
             }
           });
@@ -74,7 +80,6 @@ class List extends React.Component {
       //wrapProps,
     },
       (buttonIndex) => {
-        console.log(UID);
 
           // 收藏梦境
           if (buttonIndex === 0) {
@@ -114,7 +119,7 @@ class List extends React.Component {
                 {
                   // 用户自己的梦境操作
                   obj.uid === UID ?
-                    <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream.bind(this, obj.feed_id)} />
+                    <Icon className={styles.fr} type="ellipsis" size="xxs" onClick={this.editDream.bind(this, obj.feed_id,obj.show_type)} />
                     : null
                 }
               <span className={styles.name}><Link className={styles.bold} to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
