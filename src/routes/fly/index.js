@@ -3,6 +3,7 @@ import { connect } from "dva";
 import { List, TextareaItem, NavBar, Icon, Button, Toast, ImagePicker, Tag, Modal } from "antd-mobile";
 import styles from "./index.less";
 import { createForm } from 'rc-form';
+import Storage from '../../utils/storage'
 
 import TagModel from "./Model";
 
@@ -12,12 +13,9 @@ class Fly extends React.Component {
 
     this.state = {
       files: [],
-      //tags: [],
       selectTags: [],
     };
   }
-
-
 
   // 发布
   handlePublish = () => {
@@ -32,7 +30,6 @@ class Fly extends React.Component {
       Toast.info('请多少输入一点吧~~', 1);
     }
     else {
-
       // 拼接图片/标签
       let imgStr = "", tagStr = "";
 
@@ -84,6 +81,69 @@ class Fly extends React.Component {
     }
   }
 
+  autoSaveSet = () => {
+    const _this = this;
+    const title = document.getElementById("titleId").value,
+      content = document.getElementById("txtId").value,
+      images = _this.props.images,
+      tags = _this.state.selectTags,
+      timer = 1000 * 60 * 60 * 24;         // 存储时间，24小时
+
+    if (title !== "") {
+      Storage.set('title', title, timer)
+    }
+    if (content !== "") {
+      Storage.set('content', content, timer)
+    }
+    if (images && images.length > 0) {
+      Storage.set('images', JSON.stringify(images), timer)
+    }
+    if (tags && tags.length > 0) {
+      Storage.set('tags', JSON.stringify(tags), timer)
+    }
+
+
+
+  }
+
+  autoSaveGet = () => {
+
+    const title = Storage.get('title'),
+      content = Storage.get('content'),
+      images = Storage.get('images'),
+      tags = Storage.get('tags');
+
+    if(title){
+      document.getElementById("titleId").value = title;
+    }
+    if(content){
+      document.getElementById("txtId").value = content;
+    }
+    if(images){
+      this.setState({
+        files: JSON.parse(images),
+      });
+    }
+    if (tags) {
+      this.setState({
+        selectTags: JSON.parse(tags)
+      });
+    }
+
+
+
+  }
+
+  componentDidMount() {
+    const _this = this;
+
+    _this.autoSaveGet()
+
+    setInterval(() => {
+      _this.autoSaveSet();
+    }, 1000 * 50);
+  }
+
   render() {
 
     const _this = this;
@@ -95,9 +155,9 @@ class Fly extends React.Component {
       selectTags: _this.state.selectTags,
       onAddTag: (val) => {
         this.props.dispatch({
-          type:'fly/addTagItem',
-          payload:{
-            tag:val
+          type: 'fly/addTagItem',
+          payload: {
+            tag: val
           }
         })
       },
@@ -145,11 +205,11 @@ class Fly extends React.Component {
         />
 
         <TextareaItem
-          {...getFieldProps('note1')}
           rows={10}
           id="txtId"
           className={styles.textarea}
           placeholder="真诚面对梦境，记下吧~~"
+          ref={el => this.customFocusInst = el}
         />
 
         <ImagePicker
@@ -162,10 +222,15 @@ class Fly extends React.Component {
 
         <TagModel {...tagProps} />
 
+        <p className={styles.autoSaveMsg}>
+          系统每50秒自动保存一次
+        </p>
+
       </div>
     )
   }
 }
+
 
 /**
  * 数组操作：获取元素下标
@@ -185,5 +250,7 @@ function mapStateToProps(state) {
     ...state.fly
   };
 }
+
+
 const form = createForm()(Fly)
 export default connect(mapStateToProps)(form);

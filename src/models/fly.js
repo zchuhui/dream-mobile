@@ -32,6 +32,11 @@ export default modelExtend(model, {
         setTimeout(() => {
           hashHistory.push('/');
         }, 1000);
+
+        Storage.remove('title');
+        Storage.remove('content');
+        Storage.remove('images');
+        Storage.remove('tags');
       }
     },
 
