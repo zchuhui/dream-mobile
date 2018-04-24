@@ -81,6 +81,7 @@ class Fly extends React.Component {
     }
   }
 
+  // 自动缓存到本地
   autoSaveSet = () => {
     const _this = this;
     const title = document.getElementById("titleId").value,
@@ -106,6 +107,7 @@ class Fly extends React.Component {
 
   }
 
+  // 获取缓存的数据
   autoSaveGet = () => {
 
     const title = Storage.get('title'),
@@ -137,8 +139,10 @@ class Fly extends React.Component {
   componentDidMount() {
     const _this = this;
 
+    // 获取未发布的信息
     _this.autoSaveGet()
 
+    // 每隔50秒自动保存一次
     setInterval(() => {
       _this.autoSaveSet();
     }, 1000 * 50);
