@@ -44,14 +44,12 @@ class Detail extends React.Component {
   }
 
   componentWillMount() {
-    const feed_id = this.props.location.state;
-    //const feed_id = window.location.hash.split('?')[1].split('&')[0].split('=')[1];
-    //console.log(feed_id);
-    if (feed_id) {
+    const query = this.props.location.query;
+    if (query) {
       this.props.dispatch({
         type: 'home/getDetail',
         payload: {
-          feed_id: feed_id,
+          feed_id: query.id,
           page: 1
         }
       });
@@ -62,7 +60,16 @@ class Detail extends React.Component {
     setTimeout(() => {
       document.getElementById('txtId').focus();
     }, 500)
+
+    window.socialShare('#socialShare', {
+       // 这里配置各种参数
+        sites: ['weibo', 'wechat', 'twitter','google'],
+        mode: 'prepend',
+        url: 'www.dream.com',
+        title:'这是一个厉害的人' ,
+      })
   }
+
 
   onWrapTouchStart = (e) => {
     // fix touch to scroll background page on iOS
@@ -471,6 +478,8 @@ class Detail extends React.Component {
             // 未登录
             <DetailNotLogin feedId={this.props.location.state} />
         }
+
+        <div id="socialShare"></div>
       </div>
 
     );

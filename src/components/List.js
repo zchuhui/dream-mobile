@@ -126,8 +126,8 @@ class List extends React.Component {
                 <span className={styles.time}>{obj.publish_time}</span>
               </div>
               <div className={styles.itemContent}>
-                <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-                {/* <Link to={{ pathname: "/home/detail?id="+ obj.feed_id }}> */}
+                {/* <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>  */}
+              <Link to={{ pathname: "/home/detail", query: { id: obj.feed_id} }}>
                   <div className={styles.title}>
                     {obj.title}
                   </div>

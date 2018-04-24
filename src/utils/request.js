@@ -46,11 +46,10 @@ function handleData (res) {
   const data = res.data
   if (data && data.msg && parseInt(data.code) !== 200) {
 
-    Toast.fail(data.msg,2)
-
-    if(data.code == 401){
+    //Toast.fail(data.msg,2)
+   /*  if(data.code == 401){
       window.location.href = '#/login';
-    }
+    } */
   }
   else if(data && data.msg && data.code == 200) {
     // 存储token
