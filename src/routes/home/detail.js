@@ -39,7 +39,9 @@ class Detail extends React.Component {
       review_id: 0,
 
       delReviewState: 'none',
-      editDreamState: 'none'
+      editDreamState: 'none',
+
+      shareModal: false,
     };
   }
 
@@ -57,17 +59,12 @@ class Detail extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    /* setTimeout(() => {
       document.getElementById('txtId').focus();
-    }, 500)
+    }, 500) */
 
-    window.socialShare('#socialShare', {
-       // 这里配置各种参数
-        sites: ['weibo', 'wechat', 'twitter','google'],
-        mode: 'prepend',
-        url: 'www.dream.com',
-        title:'这是一个厉害的人' ,
-      })
+
+
   }
 
 
@@ -250,6 +247,7 @@ class Detail extends React.Component {
 
   // 梦境收藏、分享
   collectShow = () => {
+
     const BUTTONS = ['添加到收藏夹', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
@@ -273,6 +271,27 @@ class Detail extends React.Component {
         }
       });
   }
+
+  onShowShareModal=()=>{
+
+    this.setState({ shareModal: true })
+
+    setTimeout(() => {
+      // 分享配置
+      window.socialShare('#socialShare', {
+        // 这里配置各种参数
+        sites: ['weibo', 'wechat', 'douban', 'qq'],
+        mode: 'prepend',
+        url: window.location.href,
+        title: this.props.detail ? this.props.detail.info.title : null, //'这是一个厉害的人' ,
+        wechatQrcodeTitle: '',// "微信扫一扫",
+        wechatQrcodeHelper: '',//'<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
+      });
+    }, 100);
+
+
+  }
+
 
   render() {
     return (
@@ -324,7 +343,7 @@ class Detail extends React.Component {
                           <label>{this.props.detail.info.comment_all_count > 0 ? this.props.detail.info.comment_all_count : null}</label>
                         </span>
                         <span>
-                          <i className={styles.iconfontSmall} onClick={this.collectShow}>&#xe606;</i>
+                          <i className={styles.iconfontSmall} onClick={ this.onShowShareModal }>&#xe606;</i>
                         </span>
 
                       </div>
@@ -479,7 +498,21 @@ class Detail extends React.Component {
             <DetailNotLogin feedId={this.props.location.state} />
         }
 
-        <div id="socialShare"></div>
+        {/* <div id="socialShare" style={{display:none}}></div> */}
+
+        <Modal
+          popup
+          visible={this.state.shareModal}
+          onClose={() => { this.setState({ shareModal:false})}}
+          animationType="slide-up"
+        >
+          <div>
+
+            <Button>复制链接</Button>
+            <Button>收藏</Button>
+            <div style={{padding:10}} id="socialShare"></div>
+          </div>
+        </Modal>
       </div>
 
     );
@@ -497,7 +530,7 @@ const form = createForm()(Detail)
 export default connect(mapStateToProps)(form);
 
 
-function getQueryVariable(variable) {
+/* function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split("&"); ("&");
   for (var i = 0; i < vars.length; i++) {
@@ -506,3 +539,4 @@ function getQueryVariable(variable) {
   }
   return (false);
 }
+ */
