@@ -33,7 +33,7 @@ class Index extends React.Component {
 			dataSource,
 			list: [],
 			isLoading: true,
-      		height: h>500?h:800, 
+      		height: h>500?h:800,
 			//height: document.documentElement.clientHeight * 3 / 4,
 		};
 	}
@@ -74,9 +74,7 @@ class Index extends React.Component {
 		this.props.dispatch({ type: 'home/getDreamList', payload: { page: this.state.currentPage } });
 	}
 
-	scroll = () =>{
-		console.log("scroll...11");
-	  }
+	scroll = () =>{}
 
 	render() {
 		const tabs = [
