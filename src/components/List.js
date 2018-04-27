@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "dva";
 import { Link } from "dva/router"
-import { ListView, Icon, NavBar, Tabs, ActionSheet, Toast,Modal,Button } from "antd-mobile";
+import { ListView, Icon, NavBar, Tabs, ActionSheet, Toast, Modal, Button } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import { hashHistory } from 'react-router';
 import Clipboard from 'react-clipboard.js';
@@ -20,7 +20,7 @@ class List extends React.Component {
     this.state = {
       height: this.props.height ? this.props.height : 1000,
       shareModal: false,
-      shareId:null
+      shareId: null
     }
   }
 
@@ -87,7 +87,7 @@ class List extends React.Component {
     }
 
     const { feed_id, title, content } = item;
-    this.setState({ shareModal: true, shareId:feed_id });
+    this.setState({ shareModal: true, shareId: feed_id });
 
     setTimeout(() => {
       // 分享配置
@@ -96,8 +96,8 @@ class List extends React.Component {
         sites: ['weibo', 'wechat', 'douban', 'qq'],
         mode: 'prepend',
         url: `h5.xiaoyiwo.net/#/home/detail?id=${feed_id}`,
-        description:'IDream梦食者',
-        image:'<img href="http://p1.so.qhimgs1.com/bdr/_240_/t01bf87639a91ee0a0d.png" />',
+        description: 'IDream梦食者',
+        image: '<img href="http://p1.so.qhimgs1.com/bdr/_240_/t01bf87639a91ee0a0d.png" />',
         title: `【${title}】${content.substr(0, 10)}... http://${window.location.host}/#/home/detail?id=${feed_id}（来自IDream梦境网）`,
         wechatQrcodeTitle: '',// "微信扫一扫",
         wechatQrcodeHelper: '',//'<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
@@ -149,6 +149,21 @@ class List extends React.Component {
                   {obj.title}
                 </div>
                 <div className={styles.des}>{obj.content}</div>
+                {
+
+                  obj.imgInfo.length > 0 ?
+                    <div className={styles.imgs}>
+                      {
+                        obj.imgInfo.map((img) => (
+                          <div className={styles.imgbox}>
+                            <img src={img} alt="" />
+                          </div>
+                        ))
+                      }
+                    </div>
+                    : null
+                }
+
               </Link>
             </div>
             <div className={styles.icons}>

@@ -8,6 +8,7 @@ import Storage from "../../utils/storage"
 import List from '../../components/List'
 import MyDreamList from './MyDreamList'
 import UserList from "./UserList";
+import NavBarPage from "../../components/NavBar"
 
 class Index extends React.Component {
   constructor(props, context) {
@@ -18,6 +19,7 @@ class Index extends React.Component {
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
     });
 
+
     this.state = {
       dataSource,
       list: [],
@@ -26,15 +28,24 @@ class Index extends React.Component {
       currentPage: 1,
       keyword: '',
       currentTab: 0,
+
+      isMe: this.props.location ? this.props.location.query.isMe : false,
     };
   }
 
 
   componentWillMount() {
+    // 如果已有关键词，则按照关键词开始搜索
     const keyword = Storage.get('keyword');
     if (keyword) {
       this.onSearch(keyword);
+    } else {
+      if (this.state.isMe) {
+        this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': '', 'is_me': true, 'page': 1 } });
+      }
     }
+
+
   }
 
   componentUpdateMount() {
@@ -97,9 +108,16 @@ class Index extends React.Component {
       currentTab: 0,
     });
 
-    this.props.dispatch({ type: 'search/search', payload: { 'keyword': value, 'is_me': false, 'page': 1 } });
-    this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
-    this.props.dispatch({ type: 'search/searchUsers', payload: { 'uname': value, 'page': 1 } });
+    // 只搜索我自己的梦境
+    if (this.state.isMe) {
+      this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
+    }
+    else {
+      // 搜索全部
+      this.props.dispatch({ type: 'search/search', payload: { 'keyword': value, 'is_me': false, 'page': 1 } });
+      this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
+      this.props.dispatch({ type: 'search/searchUsers', payload: { 'uname': value, 'page': 1 } });
+    }
   }
 
   // 清除keyword记录
@@ -111,9 +129,7 @@ class Index extends React.Component {
     Storage.remove('keyword');
   }
 
-
   render() {
-
     const tabs = [
       {
         title: <b className={styles.colorBlack}>梦境</b>
@@ -126,34 +142,64 @@ class Index extends React.Component {
       }
     ];
 
+    const tabsMe = [
+      {
+        title: <b className={styles.colorBlack}>我的梦境</b>
+      }
+    ];
+
     return (
       <div>
-        <SearchBar
-          className={styles.searchBar}
-          style={{ padding: 0, margin: 0, textIndent: 1 }}
-          placeholder="search"
-          ref={ref => this.autoFocusInst = ref}
-          defaultValue={this.state.keyword}
-          onClear={this.onCancel}
-          onSubmit={this.onSearch.bind(this)}
-        />
-        <div className={styles.chatWrap}>
-          <Tabs tabs={tabs} initalPage={this.state.currentTab} swipeable={false}>
+        {
+          !this.state.isMe ?
+            // all
             <div>
-              <List
-                dataSource={this.state.dataSource}
-                isLoading={this.state.isLoading}
-                height={this.state.height}
-                onEndReached={this.onEndReached} />
+              <SearchBar
+                className={styles.searchBar}
+                style={{ padding: 0, margin: 0, textIndent: 1 }}
+                placeholder="search"
+                ref={ref => this.autoFocusInst = ref}
+                defaultValue={this.state.keyword}
+                onClear={this.onCancel}
+                onSubmit={this.onSearch.bind(this)}
+              />
+              <div className={styles.chatWrap}>
+                <Tabs tabs={tabs} initalPage={this.state.currentTab} swipeable={false}>
+                  <div>
+                    <List
+                      dataSource={this.state.dataSource}
+                      isLoading={this.state.isLoading}
+                      height={this.state.height}
+                      onEndReached={this.onEndReached} />
+                  </div>
+                  <div>1
+                <MyDreamList keyword={this.state.keyword} />
+                  </div>
+                  <div>2
+                <UserList keyword={this.state.keyword} />
+                  </div>
+                </Tabs>
+
+              </div>
             </div>
+            :
+            // 我的
             <div>
-              <MyDreamList keyword={this.state.keyword} />
+              <NavBarPage iconType="back" title="搜索我的梦境"/>
+              <SearchBar
+                className={styles.searchBar}
+                style={{ padding: 0, margin: 0, textIndent: 1 }}
+                placeholder="search"
+                ref={ref => this.autoFocusInst = ref}
+                defaultValue={this.state.keyword}
+                onClear={this.onCancel}
+                onSubmit={this.onSearch.bind(this)}
+              />
+              <div className={styles.chatWrap}>
+                <MyDreamList keyword={this.state.keyword} />
+              </div>
             </div>
-            <div>
-              <UserList keyword={this.state.keyword} />
-            </div>
-          </Tabs>
-        </div>
+        }
       </div>
 
     )

@@ -17,7 +17,6 @@ import Clipboard from 'react-clipboard.js';
 import styles from "./detail.less";
 import Util from "../../utils/util";
 import Storage from '../../utils/storage';
-
 import NavBarPage from "../../components/NavBar"
 import DetailNotLogin from "./detail-not-login"
 
@@ -349,7 +348,16 @@ class Detail extends React.Component {
                       <div className={styles.itemContent}>
                         <h1 className={styles.title}>{this.props.detail.info.title}</h1>
                         <div className={styles.des}><pre>{this.props.detail.info.content}</pre></div>
+                        <div className={styles.imgs}>
+                          {
+                            this.props.detail.info.imgInfo.map((img)=>(
+                              <img src={img} alt=""/>
+                            ))
+                          }
+                        </div>
                       </div>
+
+                      {/* 点赞/分享等 */}
                       <div className={styles.icons}>
                         <span className={styles.praise} onClick={this.handleUpdatedigg}>
                           {/* <i className={this.props.detail.info.hasDigg == 0 ? styles.iconfont : styles.iconfontBlue}>&#xe71a;</i> */}
@@ -367,7 +375,6 @@ class Detail extends React.Component {
                         </span>
 
                       </div>
-
 
                       {/* 评论列表 */}
                       <div className={styles.reviewList}>

@@ -39,10 +39,10 @@ class MyDreamList extends React.Component {
     // if(keyword){
     //   this.props.dispatch({ type: 'search/searchMy', payload: { is_me: true,keyword:keyword,page:1 } });
     // }
+
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('my dream list',nextProps.searchMyList);
     if (nextProps.searchMyList == null) return;
 
     let hei = document.documentElement.clientHeight - 100;
@@ -83,18 +83,26 @@ class MyDreamList extends React.Component {
     this.setState({ isLoading: true });
     this.state.currentPage = this.state.currentPage + 1;
 
-    this.props.dispatch({ type: 'search/searchMy', payload: {is_me: true,keyword:this.props.keyword, page: this.state.currentPage } });
+    this.props.dispatch({ type: 'search/searchMy', payload: { is_me: true, keyword: this.props.keyword, page: this.state.currentPage } });
   }
 
 
   render() {
 
     return (
-      <List
-        dataSource={this.state.dataSource}
-        isLoading={this.state.isLoading}
-        height={this.state.height}
-        onEndReached={this.onEndReached} />
+      <div>
+        {
+          this.state.list.length > 0 ?
+            <List
+              dataSource={this.state.dataSource}
+              isLoading={this.state.isLoading}
+              height={this.state.height}
+              onEndReached={this.onEndReached} />
+            : null
+        }
+      </div>
+
+
     )
   }
 
