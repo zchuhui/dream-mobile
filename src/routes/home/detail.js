@@ -12,6 +12,8 @@ import {
   ActionSheet
 } from "antd-mobile";
 import { createForm } from 'rc-form';
+import Clipboard from 'react-clipboard.js';
+
 import styles from "./detail.less";
 import Util from "../../utils/util";
 import Storage from '../../utils/storage';
@@ -62,9 +64,6 @@ class Detail extends React.Component {
     /* setTimeout(() => {
       document.getElementById('txtId').focus();
     }, 500) */
-
-
-
   }
 
 
@@ -111,11 +110,11 @@ class Detail extends React.Component {
       Toast.info("回复字数不能超过140", 1);
     }
     else {
-      const feed_id = this.props.location.state;
+      const {id} = this.props.location.query; //this.props.location.state;
       this.props.dispatch({
         type: 'home/review',
         payload: {
-          feed_id: feed_id,
+          feed_id: id,
           content: val,
           review_id: this.state.review_id,
         }
@@ -133,11 +132,11 @@ class Detail extends React.Component {
 
   // 点赞
   handleUpdatedigg = () => {
-    const feed_id = this.props.location.state;
+    const { id } = this.props.location.query;
     this.props.dispatch({
       type: 'home/updatedigg',
       payload: {
-        feed_id: feed_id,
+        feed_id: id,
       }
     });
   }
@@ -216,19 +215,20 @@ class Detail extends React.Component {
     },
       (buttonIndex) => {
         this.setState({ editDreamState: BUTTONS2[buttonIndex] });
-        const feed_id = this.props.location.state;
+        //const feed_id = this.props.location.state;
+        const { id } = this.props.location.query;
 
         // 编辑
         if (buttonIndex === 0) {
           // 跳转到编辑
-          hashHistory.push('/fly/edit/' + feed_id);
+          hashHistory.push('/fly/edit/' + id);
         }
         else if (buttonIndex === 2) {
           // 删除
           this.props.dispatch({
             type: 'home/delDream',
             payload: {
-              feed_id: feed_id,
+              feed_id: id,
             }
           });
         }
@@ -238,17 +238,30 @@ class Detail extends React.Component {
             type: 'home/setSecret',
             payload: {
               is_show: show_type == 1 ? 2 : 1,
-              feed_id: feed_id,
+              feed_id: id,
             }
           });
         }
       });
   }
 
-  // 梦境收藏、分享
+  // 梦境收藏
   collectShow = () => {
 
-    const BUTTONS = ['添加到收藏夹', '取消'];
+    const query = this.props.location.query;
+
+    this.props.dispatch({
+      type: 'home/colletDream',
+      payload: {
+        feed_id: query.id
+      }
+    });
+
+    this.setState({
+      shareModal: false
+    })
+
+    /* const BUTTONS = ['添加到收藏夹', '取消'];
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: BUTTONS.length - 1,
@@ -269,10 +282,12 @@ class Detail extends React.Component {
             }
           })
         }
-      });
+      }); */
+
   }
 
-  onShowShareModal=()=>{
+  // 分享
+  onShowShareModal = () => {
 
     this.setState({ shareModal: true })
 
@@ -283,7 +298,7 @@ class Detail extends React.Component {
         sites: ['weibo', 'wechat', 'douban', 'qq'],
         mode: 'prepend',
         url: window.location.href,
-        title: this.props.detail ? this.props.detail.info.title : null, //'这是一个厉害的人' ,
+        title: `【${this.props.detail.info.title}】${this.props.detail.info.content.substr(0, 10)}... ${window.location.href}（来自IDream梦境网）`,
         wechatQrcodeTitle: '',// "微信扫一扫",
         wechatQrcodeHelper: '',//'<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
       });
@@ -292,6 +307,11 @@ class Detail extends React.Component {
 
   }
 
+  // 复制
+  onSuccess = () => {
+    this.setState({ shareModal: false })
+    Toast.success('复制成功！',1);
+  }
 
   render() {
     return (
@@ -343,7 +363,7 @@ class Detail extends React.Component {
                           <label>{this.props.detail.info.comment_all_count > 0 ? this.props.detail.info.comment_all_count : null}</label>
                         </span>
                         <span>
-                          <i className={styles.iconfontSmall} onClick={ this.onShowShareModal }>&#xe606;</i>
+                          <i className={styles.iconfontSmall} onClick={this.onShowShareModal}>&#xe606;</i>
                         </span>
 
                       </div>
@@ -495,7 +515,7 @@ class Detail extends React.Component {
             </div>
             :
             // 未登录
-            <DetailNotLogin feedId={this.props.location.state} />
+            <DetailNotLogin feedId={this.props.location.query.id} />
         }
 
         {/* <div id="socialShare" style={{display:none}}></div> */}
@@ -503,14 +523,15 @@ class Detail extends React.Component {
         <Modal
           popup
           visible={this.state.shareModal}
-          onClose={() => { this.setState({ shareModal:false})}}
+          onClose={() => { this.setState({ shareModal: false }) }}
           animationType="slide-up"
         >
           <div>
-
-            <Button>复制链接</Button>
-            <Button>收藏</Button>
-            <div style={{padding:10}} id="socialShare"></div>
+            <Clipboard data-clipboard-text={window.location.href} onSuccess={this.onSuccess} style={{ width: '100%',border:0,background:'white',padding:0 }}>
+              <Button>复制链接</Button>
+            </Clipboard>
+            <Button onClick={this.collectShow}>添加到收藏夹</Button>
+            <div style={{ padding: 10 }} id="socialShare"></div>
           </div>
         </Modal>
       </div>
