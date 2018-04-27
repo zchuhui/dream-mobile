@@ -172,10 +172,10 @@ class Index extends React.Component {
                       height={this.state.height}
                       onEndReached={this.onEndReached} />
                   </div>
-                  <div>1
+                  <div>
                 <MyDreamList keyword={this.state.keyword} />
                   </div>
-                  <div>2
+                  <div>
                 <UserList keyword={this.state.keyword} />
                   </div>
                 </Tabs>
