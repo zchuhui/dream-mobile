@@ -109,7 +109,7 @@ class Detail extends React.Component {
       Toast.info("回复字数不能超过140", 1);
     }
     else {
-      const {id} = this.props.location.query; //this.props.location.state;
+      const { id } = this.props.location.query; //this.props.location.state;
       this.props.dispatch({
         type: 'home/review',
         payload: {
@@ -203,11 +203,15 @@ class Detail extends React.Component {
     let { show_type } = this.props.detail.info;
     show_type = parseInt(show_type);
 
-    const BUTTONS2 = ['编辑', show_type == 1 ? '设为私密' : '设为公开', '删除', '取消'];
+    const BUTTONS2 = ['编辑',
+      show_type == 1 ? <span><i className={styles.iconfont} style={{ verticalAlign: 'top' }}>&#xe6d9;</i>&nbsp;设为私密</span>
+        : <span><i className={styles.iconfont} style={{ verticalAlign: 'top' }}>&#xe6d9;</i>&nbsp;设为公开</span>,
+      '删除'];
+
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
-      cancelButtonIndex: BUTTONS2.length - 1,
-      destructiveButtonIndex: BUTTONS2.length - 2,
+      cancelButtonIndex: -1,
+      destructiveButtonIndex: 2,
       message: null,
       maskClosable: true,
       //wrapProps,
@@ -236,7 +240,7 @@ class Detail extends React.Component {
           this.props.dispatch({
             type: 'home/setSecret',
             payload: {
-              is_show: show_type == 1 ? 2 : 1,
+              show_type: show_type == 1 ? 2 : 1,
               feed_id: id,
             }
           });
@@ -296,9 +300,10 @@ class Detail extends React.Component {
         // 这里配置各种参数
         sites: ['weibo', 'wechat', 'douban', 'qq'],
         mode: 'prepend',
+        description: 'IDream梦食者',
         url: window.location.href,
         title: `【${this.props.detail.info.title}】${this.props.detail.info.content.substr(0, 10)}... ${window.location.href}（来自IDream梦境网）`,
-        wechatQrcodeTitle: '',// "微信扫一扫",
+        wechatQrcodeTitle: "微信扫一扫分享",
         wechatQrcodeHelper: '',//'<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
       });
     }, 100);
@@ -309,7 +314,11 @@ class Detail extends React.Component {
   // 复制
   onSuccess = () => {
     this.setState({ shareModal: false })
-    Toast.success('复制成功！',1);
+    Toast.success('复制成功！', 1);
+  }
+
+  handleCloseShareModal = () => {
+    this.setState({ shareModal: false })
   }
 
   render() {
@@ -350,8 +359,8 @@ class Detail extends React.Component {
                         <div className={styles.des}><pre>{this.props.detail.info.content}</pre></div>
                         <div className={styles.imgs}>
                           {
-                            this.props.detail.info.imgInfo.map((img)=>(
-                              <img src={img} alt=""/>
+                            this.props.detail.info.imgInfo.map((img, index) => (
+                              <img src={img} key={index} alt="" />
                             ))
                           }
                         </div>
@@ -525,8 +534,7 @@ class Detail extends React.Component {
             <DetailNotLogin feedId={this.props.location.query.id} />
         }
 
-        {/* <div id="socialShare" style={{display:none}}></div> */}
-
+        {/* 分享弹窗 */}
         <Modal
           popup
           visible={this.state.shareModal}
@@ -534,11 +542,17 @@ class Detail extends React.Component {
           animationType="slide-up"
         >
           <div>
-            <Clipboard data-clipboard-text={window.location.href} onSuccess={this.onSuccess} style={{ width: '100%',border:0,background:'white',padding:0 }}>
-              <Button>复制链接</Button>
+            <Clipboard data-clipboard-text={window.location.href} onSuccess={this.onSuccess} style={{ width: '100%', border: 0, background: 'white', padding: 0 }}>
+              <Button type="default">复制链接</Button>
             </Clipboard>
-            <Button onClick={this.collectShow}>添加到收藏夹</Button>
-            <div style={{ padding: 10 }} id="socialShare"></div>
+            <Button type="default" style={{marginTop:-1}} onClick={this.collectShow}>添加到收藏夹</Button>
+
+            <div style={{ padding: 10 }} id="socialShare" data-initialized="true">
+              <a href="#" className="social-share-icon icon-weibo" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe66e;</i></a>
+              <a href="#" className="social-share-icon icon-wechat" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe63d;</i></a>
+              <a href="#" className="social-share-icon icon-qq" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe612;</i></a>
+              <a href="#" className="social-share-icon icon-douban" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe64e;</i></a>
+            </div>
           </div>
         </Modal>
       </div>

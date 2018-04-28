@@ -30,15 +30,13 @@ class Setup extends React.Component {
         is_review: 1,
         is_store: 1,
       },
-      value:1,          // 隐私状态
+
+      is_show: this.props.user ? this.props.user.is_show:1,
     }
   }
 
   componentWillMount() {
     this.props.dispatch({ type: 'message/getNotice', payload: { token: null } });
-
-    //this.props.dispatch({ type: 'message/setSecret', payload: { token: null } });
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,7 +48,6 @@ class Setup extends React.Component {
   }
 
   render() {
-    const { value } = this.state;
 
     const data = [
       { value: 1, label: '公开' },
@@ -130,11 +127,11 @@ class Setup extends React.Component {
             {
               this.props.notice ?
                 <List>
-                    {data.map(i => (
-                      <RadioItem key={i.value} checked={value === i.value} onChange={() => this.onRadioChange(i.value)}>
-                        {i.label}
-                      </RadioItem>
-                    ))}
+                  {data.map(i => (
+                    <RadioItem key={i.value} checked={this.state.is_show == i.value} onChange={() => this.onRadioChange(i.value)}>
+                      {i.label}
+                    </RadioItem>
+                  ))}
                 </List>
                 :
                 <div style={{ textAlign: 'center', margin: '50px auto' }}> <Icon type="loading" /></div>
@@ -193,14 +190,15 @@ class Setup extends React.Component {
   }
 
   onRadioChange = (value) => {
+
     this.setState({
-      value,
-    });
+      is_show: value
+    })
 
     this.props.dispatch({
       type: 'message/setSecrets',
       payload: {
-        is_show:value
+        is_show: value
       }
     });
 
@@ -209,7 +207,8 @@ class Setup extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    ...state.message
+    ...state.message,
+    user: state.my.user
   };
 }
 

@@ -30,12 +30,16 @@ class List extends React.Component {
     // show_type：1（公开），2（私密）
     show_type = parseInt(show_type);
 
-    const BUTTONS2 = ['编辑', show_type == 1 ? '设为私密' : '设为公开', '删除', '取消'];
+    //const BUTTONS2 = ['编辑', show_type == 1 ? '设为私密' : '设为公开', '删除', '取消'];
+    const BUTTONS2 = ['编辑',
+      show_type == 1 ? <span><i className={styles.iconfont} style={{ verticalAlign: 'top' }}>&#xe6d9;</i>&nbsp;设为私密</span>
+        : <span><i className={styles.iconfont} style={{ verticalAlign: 'top' }}>&#xe6d9;</i>&nbsp;设为公开</span>,
+      '删除'];
 
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS2,
-      cancelButtonIndex: BUTTONS2.length - 1,
-      destructiveButtonIndex: BUTTONS2.length - 2,
+      cancelButtonIndex: - 1,
+      destructiveButtonIndex: 2,
       message: null,
       maskClosable: true,
     },
@@ -97,9 +101,8 @@ class List extends React.Component {
         mode: 'prepend',
         url: `h5.xiaoyiwo.net/#/home/detail?id=${feed_id}`,
         description: 'IDream梦食者',
-        image: '<img href="http://p1.so.qhimgs1.com/bdr/_240_/t01bf87639a91ee0a0d.png" />',
         title: `【${title}】${content.substr(0, 10)}... http://${window.location.host}/#/home/detail?id=${feed_id}（来自IDream梦境网）`,
-        wechatQrcodeTitle: '',// "微信扫一扫",
+        wechatQrcodeTitle: "微信扫一扫分享",
         wechatQrcodeHelper: '',//'<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
 
       });
@@ -154,8 +157,8 @@ class List extends React.Component {
                   obj.imgInfo.length > 0 ?
                     <div className={styles.imgs}>
                       {
-                        obj.imgInfo.map((img) => (
-                          <div className={styles.imgbox}>
+                        obj.imgInfo.map((img,index) => (
+                          <div className={styles.imgbox} key={index}>
                             <img src={img} alt="" />
                           </div>
                         ))
@@ -228,6 +231,8 @@ class List extends React.Component {
           useBodyScroll={this.props.isUseBodyScroll ? true : false}
 
         />
+
+        {/* 分享弹框 */}
         <Modal
           popup
           visible={this.state.shareModal}
@@ -235,11 +240,17 @@ class List extends React.Component {
           animationType="slide-up"
         >
           <div>
-            <Clipboard data-clipboard-text={`${window.location.host}#/home/detail?id=${this.state.shareId}`} onSuccess={this.onSuccess} style={{ width: '100%', border: 0, background: 'white', padding: 0 }}>
-              <Button>复制链接</Button>
+            <Clipboard data-clipboard-text={window.location.href} onSuccess={this.onSuccess} style={{ width: '100%', border: 0, background: 'white', padding: 0 }}>
+              <Button type="default">复制链接</Button>
             </Clipboard>
-            <Button onClick={this.collectShow}>添加到收藏夹</Button>
-            <div style={{ padding: 10 }} id="socialShare"></div>
+            <Button type="default" style={{ marginTop: -1 }} onClick={this.collectShow}>添加到收藏夹</Button>
+
+            <div style={{ padding: 10 }} id="socialShare" data-initialized="true">
+              <a href="#" className="social-share-icon icon-weibo" style={{ border: 0 }} ><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe66e;</i></a>
+              <a href="#" className="social-share-icon icon-wechat" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe63d;</i></a>
+              <a href="#" className="social-share-icon icon-qq" style={{ border: 0 }} ><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe612;</i></a>
+              <a href="#" className="social-share-icon icon-douban" style={{ border: 0 }} ><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe64e;</i></a>
+            </div>
           </div>
         </Modal>
       </div>
