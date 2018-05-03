@@ -122,6 +122,9 @@ class List extends React.Component {
     Toast.info('sorry,他设置了不开放', 1);
   }
 
+  handleContentSlide = (t) =>{
+  }
+
   // 行
   row = (rowData, sectionID, rowID) => {
     const obj = rowData;
@@ -130,6 +133,7 @@ class List extends React.Component {
       <div>
         {
           <div className={styles.item}>
+            {/* 用户名、时间、操作 */}
             <div className={styles.head}>
               <div className={styles.img}>
                 <Link to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>
@@ -145,33 +149,33 @@ class List extends React.Component {
               <span className={styles.name}><Link className={styles.bold} to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
               <span className={styles.time}>{obj.publish_time}</span>
             </div>
+            {/* 标题、内容 */}
             <div className={styles.itemContent}>
-              {/* <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>  */}
-              <Link to={{ pathname: "/home/detail", query: { id: obj.feed_id } }}>
-                <div className={styles.title}>
-                  {obj.title}
-                </div>
-                <div className={styles.des}>{obj.content}</div>
-                {
+                <Link to={{ pathname: "/home/detail", query: { id: obj.feed_id } }}>
+                  <div className={styles.title}>
+                    {obj.title}
+                  </div>
+                </Link>
+                <div className={styles.des}  onClick={this.handleContentSlide}>{obj.content}</div>
 
+                {
                   obj.imgInfo && obj.imgInfo.length > 0 ?
                     <div className={styles.imgs}>
                       {
-                        obj.imgInfo.map((img,index) => (
+                        obj.imgInfo.map((img, index) => (
                           // 最多只显示3张图片
                           index <= 2 ?
                             <div className={styles.imgbox} key={index}>
                               <img src={img} alt="" />
                             </div>
-                          :null
+                            : null
                         ))
                       }
                     </div>
                     : null
                 }
-
-              </Link>
             </div>
+            {/* 点赞、评论数、分享 */}
             <div className={styles.icons}>
               <span className={styles.praise}>
                 {
@@ -186,11 +190,12 @@ class List extends React.Component {
                 </Link>
               </span>
               {
-                this.props.isShare!==false?
+                // 是否可分享
+                this.props.isShare !== false ?
                   <span>
                     <i className={styles.iconfontSmall} onClick={this.onShowShareModal.bind(this, obj)}>&#xe606;</i>
                   </span>
-                  :null
+                  : null
               }
 
             </div>
