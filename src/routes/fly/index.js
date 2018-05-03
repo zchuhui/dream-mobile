@@ -4,7 +4,6 @@ import { List, TextareaItem, NavBar, Icon, Button, Toast, ImagePicker, Tag, Moda
 import styles from "./index.less";
 import { createForm } from 'rc-form';
 import Storage from '../../utils/storage'
-
 import TagModel from "./Model";
 
 class Fly extends React.Component {
@@ -84,8 +83,8 @@ class Fly extends React.Component {
   // 自动缓存到本地
   autoSaveSet = () => {
     const _this = this;
-    const title = document.getElementById("titleId").value,
-      content = document.getElementById("txtId").value,
+    const title = document.getElementById("titleId")?document.getElementById("titleId").value:'',
+      content = document.getElementById("txtId")?document.getElementById("txtId").value:'',
       images = _this.props.images,
       tags = _this.state.selectTags,
       timer = 1000 * 60 * 60 * 24;         // 存储时间，24小时
@@ -102,9 +101,6 @@ class Fly extends React.Component {
     if (tags && tags.length > 0) {
       Storage.set('tags', JSON.stringify(tags), timer)
     }
-
-
-
   }
 
   // 获取缓存的数据
@@ -131,9 +127,6 @@ class Fly extends React.Component {
         selectTags: JSON.parse(tags)
       });
     }
-
-
-
   }
 
   componentDidMount() {

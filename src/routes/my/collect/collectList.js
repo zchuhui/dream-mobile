@@ -11,6 +11,7 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import styles from "./collectList.less";
 import Util from "../../../utils/util";
 import NavBarPage from "../../../components/NavBar"
+import ListPage from '../../../components/List'
 
 
 class collectList extends React.Component {
@@ -37,7 +38,7 @@ class collectList extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.collectDreamList);
+
     if (this.state.list !== nextProps.collectDreamList) {
 
       this.setState({
@@ -57,54 +58,6 @@ class collectList extends React.Component {
     }
   }
 
-  // 行
-  row = (rowData, sectionID, rowID) => {
-    const obj = rowData;
-    return (
-      <div className={styles.item}>
-        <div className={styles.head}>
-          <div className={styles.img}>
-            {/* <Link to={{ pathname: "/my/other", 'state': + obj.uid }}> */}
-            <img src={obj.avatar ? obj.avatar : Util.defaultImg} alt={obj.uname} />
-            {/* </Link> */}
-          </div>
-          <span className={styles.name}>{obj.uname}</span>
-          <span className={styles.time}>{obj.publish_time}</span>
-        </div>
-        <div className={styles.itemContent}>
-          <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-            <div className={styles.title}>
-              {
-								/*  obj.feeling == 0 ? <i className={styles.iconfont} style={{ color: '#ff5050' }}>&#xe608;</i> :
-										 obj.feeling == 1 ? <i className={styles.iconfont} style={{ color: '#ffcc00' }}>&#xe791;</i> :
-												 obj.feeling == 2 ? <i className={styles.iconfont} style={{ color: '#33cc33' }}>&#xe609;</i> : null */
-              }
-
-              {obj.title}
-            </div>
-            <div className={styles.des}>{obj.content}</div>
-          </Link>
-        </div>
-        <div className={styles.icons}>
-          <span className={styles.praise}>
-            {
-              obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
-            }
-            <label>{obj.digg_count > 0 ?obj.digg_count:null}</label>
-          </span>
-          <span className={styles.review}>
-            <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
-              <i className={styles.iconfontSmall}>&#xe60e;</i>
-              <label>{obj.comment_all_count > 0 ?obj.comment_all_count :null}</label>
-            </Link>
-          </span>
-
-        </div>
-      </div>
-
-    );
-  };
-
   // 拉倒底部，再次获取数据
   onEndReached = (event) => {
     if (this.state.isLoading && !this.state.hasMore) {
@@ -120,24 +73,12 @@ class collectList extends React.Component {
 
   render() {
 
-    const separator = (sectionID, rowID) => (
-      <div
-        key={`${sectionID}-${rowID}`}
-        style={{
-          backgroundColor: '#F5F5F9',
-          height: 7,
-          borderTop: '1px solid #ECECED',
-          borderBottom: '1px solid #ECECED',
-        }}
-      />
-    );
-
     return (
       <div className={styles.dreamWrap}>
         {/* 我的收藏 */}
         {
-          this.state.list.length > 0 ?
-            <ListView
+          this.state.list && this.state.list.length > 0 ?
+              /* <ListView
               ref={el => this.lv = el}
               dataSource={this.state.dataSource}
               renderFooter={() => (<div style={{ padding: 5, textAlign: 'center' }}>
@@ -152,10 +93,18 @@ class collectList extends React.Component {
               scrollRenderAheadDistance={500}
               onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
-            />
+            /> */
+             <ListPage
+                dataSource={this.state.dataSource}
+                isLoading={this.state.isLoading}
+                onEndReached={this.onEndReached}
+                isUseBodyScroll={true}
+                isShare={false}
+              />
             : <div style={{ textAlign: 'center', color: '#999', fontSize: '12px', marginTop: 30 }}>您还没有收藏梦境喔</div>
         }
       </div>
+
     )
   }
 

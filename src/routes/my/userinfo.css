@@ -1,0 +1,317 @@
+html,
+body,
+ul,
+ol,
+dl,
+li,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+input {
+  font-family: '微软雅黑';
+  font-size: 14px;
+}
+html,
+body {
+  height: 100%;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clear {
+  zoom: 1;
+}
+a {
+  color: #333;
+}
+.colorBlack {
+  color: #333;
+}
+.bold {
+  font-weight: bold !important;
+}
+.clear:after {
+  content: "";
+  display: block;
+  height: 0;
+  visibility: visible;
+  clear: both;
+}
+@font-face {
+  font-family: 'iconfont';
+  /* project id 481348 */
+  src: url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.eot');
+  src: url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.woff') format('woff'), url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  color: #afaeae;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontBlue {
+  font-family: "iconfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  color: #108ee9;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontBlack {
+  font-family: "iconfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontSmall {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+  color: #afaeae;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfontBlueSmall {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+  color: #108ee9;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.navBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  border-bottom: 1px solid #ececed;
+}
+.navBar2 {
+  border-bottom: 1px solid #ececed;
+}
+.null {
+  padding: 20px 0;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+}
+.msgOrange {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: coral;
+  border-radius: 50%;
+}
+.userinfoWrap {
+  margin-top: 50px;
+  background: #fff;
+}
+.userinfoWrap .userinfo {
+  border-bottom: 1px solid #ececed;
+  padding: 15px 0;
+  min-height: 300px;
+}
+.userinfoWrap .userinfo .title {
+  text-align: center;
+}
+.userinfoWrap .userinfo .title .img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.userinfoWrap .userinfo .title .img img {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border: none;
+  color: #999;
+}
+.userinfoWrap .userinfo .title b {
+  text-align: center;
+  line-height: 30px;
+  font-size: 16px;
+}
+.userinfoWrap .userinfo ul li {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  font-size: 14px;
+  text-indent: 10px;
+}
+.userinfoWrap .userinfo ul li i {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  vertical-align: top;
+  margin-right: 20px;
+  line-height: 26px;
+  font-size: 22px;
+}
+.userinfoWrap .userinfo .opinion {
+  padding: 0 40px;
+  color: #999;
+  line-height: 20px;
+}
+.userinfoWrap .userinfo .opinion span {
+  display: block;
+  width: 80px;
+  color: #333;
+  text-align: center;
+  padding: 3px;
+  background: #eff5fd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.userinfoWrap .userinfo .tagsBox {
+  margin: 10px 40px;
+}
+.userinfoWrap .userinfo .tagsBox .tag {
+  display: inline-block;
+  padding: 5px 5px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  margin: 3px;
+  font-size: 12px;
+  color: #999;
+}
+.userinfoWrap .dreamWrap {
+  border-top: 10px solid #F5F5F9;
+}
+.userinfoWrap .dreamWrap .item {
+  text-align: left;
+  padding: 15px 10px;
+  line-height: 30px;
+  margin-top: -1px;
+}
+.userinfoWrap .dreamWrap .item .head .img {
+  float: left;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.userinfoWrap .dreamWrap .item .head .img img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #999;
+}
+.userinfoWrap .dreamWrap .item .head .name {
+  display: block;
+  line-height: 20px;
+  margin-left: 10px;
+  text-indent: 10px;
+}
+.userinfoWrap .dreamWrap .item .head .time {
+  display: block;
+  text-indent: 10px;
+  color: #999;
+}
+.userinfoWrap .dreamWrap .item .itemContent {
+  display: block;
+  margin-left: 50px;
+}
+.userinfoWrap .dreamWrap .item .itemContent .title {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  margin: 3px 0;
+}
+.userinfoWrap .dreamWrap .item .itemContent .title i.iconfont {
+  font-size: 18px;
+  margin: 0 5px;
+}
+.userinfoWrap .dreamWrap .item .itemContent .des {
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  color: #999;
+  word-break: break-all;
+}
+.userinfoWrap .dreamWrap .item .icons {
+  height: 40px;
+  border-top: 1px solid #eee;
+  margin: 10px -10px -15px -10px;
+  margin-bottom: -15px;
+  line-height: 40px;
+  color: #bfbfbf;
+  text-align: center;
+}
+.userinfoWrap .dreamWrap .item .icons span {
+  position: relative;
+  float: left;
+  display: block;
+  width: 33%;
+  height: 40px;
+}
+.userinfoWrap .dreamWrap .item .icons span label {
+  display: inline-block;
+  height: 40px;
+  vertical-align: top;
+  color: #bfbfbf;
+}
+.userinfoWrap .dreamWrap .item .icons i {
+  margin-right: 5px;
+}
+.userinfoWrap .dreamWrap .separator {
+  width: 100%;
+  background-color: #F5F5F9;
+  height: 7px;
+  border-top: 1px solid #ECECED;
+  border-bottom: 1px solid #ECECED;
+}
+.userinfoWrap .dreamWrap .separator:last-child {
+  display: none;
+}
+.userinfoWrap .setup {
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+.userinfoWrap .logo {
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/images/logo.png) center center / 30px 30px no-repeat;
+}
+.userinfoWrap .fly {
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/images/fly2.png) center center / 30px 30px no-repeat;
+}

@@ -154,13 +154,16 @@ class List extends React.Component {
                 <div className={styles.des}>{obj.content}</div>
                 {
 
-                  obj.imgInfo.length > 0 ?
+                  obj.imgInfo && obj.imgInfo.length > 0 ?
                     <div className={styles.imgs}>
                       {
                         obj.imgInfo.map((img,index) => (
-                          <div className={styles.imgbox} key={index}>
-                            <img src={img} alt="" />
-                          </div>
+                          // 最多只显示3张图片
+                          index <= 2 ?
+                            <div className={styles.imgbox} key={index}>
+                              <img src={img} alt="" />
+                            </div>
+                          :null
                         ))
                       }
                     </div>
@@ -177,15 +180,19 @@ class List extends React.Component {
                 <label>{obj.digg_count > 0 ? obj.digg_count : null}</label>
               </span>
               <span className={styles.review}>
-                {/* <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}> */}
                 <Link to={{ pathname: "/home/detail", query: { id: obj.feed_id } }}>
                   <i className={styles.iconfontSmall}>&#xe60f;</i>
                   <label>{obj.comment_all_count > 0 ? obj.comment_all_count : null}</label>
                 </Link>
               </span>
-              <span>
-                <i className={styles.iconfontSmall} onClick={this.onShowShareModal.bind(this, obj)}>&#xe606;</i>
-              </span>
+              {
+                this.props.isShare!==false?
+                  <span>
+                    <i className={styles.iconfontSmall} onClick={this.onShowShareModal.bind(this, obj)}>&#xe606;</i>
+                  </span>
+                  :null
+              }
+
             </div>
           </div>
         }

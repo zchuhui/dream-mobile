@@ -2,7 +2,7 @@ import modelExtend from 'dva-model-extend';
 import { model } from './common.js';
 import { hashHistory } from 'react-router';
 import { Toast } from "antd-mobile";
-import { publish, uploadImg,getTags } from '../services/fly.js';
+import { publish, uploadImg, getTags, getDreamDetail } from '../services/fly.js';
 
 import Storage from '../utils/storage'
 
@@ -45,6 +45,37 @@ export default modelExtend(model, {
       const { data, code, msg } = yield call(uploadImg, payload);
       if (code === 200) {
         yield put({ type: 'addImages', payload: data.url });
+      }
+    },
+
+    // 更新梦境
+    *updateDream({ payload }, { call, put }) {
+      Toast.loading("更新中...");
+      console.log('params:', payload);
+
+      const { data, code, msg } = yield call(publish, payload);
+      if (code == 200) {
+        Toast.success("更新成功!");
+        history.go(-1);
+      }
+    },
+
+    // 编辑梦境
+    *editDetail({ payload }, { call, put }) {
+      yield put({ type: 'updateState', payload: { detailLoading: false, detail: null, } });
+      const { data, code } = yield call(getDreamDetail, payload);
+      if (code == 200) {
+        let imgFiles = [];
+        data.info.imgInfo.map((img,index)=>{
+          imgFiles.push({
+            url:img,
+            id:index
+          })
+        });
+
+        yield put({ type: 'updateState', payload: { editDetail: data.info, images: imgFiles, editDetailLoading: false } });
+      } else {
+        yield put({ type: 'updateState', payload: { editDetail: false, editDetailLoading: false } });
       }
     },
 

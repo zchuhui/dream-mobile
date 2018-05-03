@@ -53,8 +53,8 @@ a {
 @font-face {
   font-family: 'iconfont';
   /* project id 481348 */
-  src: url('//at.alicdn.com/t/font_481348_psc1unxgy1awnrk9.eot');
-  src: url('//at.alicdn.com/t/font_481348_psc1unxgy1awnrk9.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_psc1unxgy1awnrk9.woff') format('woff'), url('//at.alicdn.com/t/font_481348_psc1unxgy1awnrk9.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_psc1unxgy1awnrk9.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.eot');
+  src: url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.woff') format('woff'), url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.ttf') format('truetype'), url('//at.alicdn.com/t/font_481348_ba3vlzc2imcgnwmi.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -144,6 +144,9 @@ a {
   border-radius: 5px;
   margin: 10px auto;
   background: #f3f3f3;
+}
+.flyWrap .flyUpdateBtn {
+  margin: 20px 10px;
 }
 .flyWrap .faceWrap {
   margin: 20px 0;

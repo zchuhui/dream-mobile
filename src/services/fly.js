@@ -23,3 +23,9 @@ export async function getTags(params) {
   return post(dream.getTags, { data: params });
 }
 
+/**
+ * 梦境详情
+ */
+export async function getDreamDetail(params) {
+  return post(dream.detail, { data: params });
+}

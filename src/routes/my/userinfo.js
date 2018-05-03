@@ -6,7 +6,7 @@ import React from "react";
 import { connect } from "dva";
 import { Link } from 'dva/router';
 import { hashHistory } from 'react-router';
-import { List, NavBar, Tabs, Icon, ListView, Toast } from "antd-mobile";
+import { List, NavBar, Tabs, Icon, ListView, Toast,Tag} from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
@@ -38,6 +38,7 @@ class Userinfo extends React.Component {
     // 获取用户信息
     const uid = Storage.get('uid');
     this.props.dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -114,12 +115,15 @@ class Userinfo extends React.Component {
       }
     ];
 
+    const { tags } = this.props;
+
+
     return (
       <div className={styles.userinfoWrap}>
 
         <NavBarPage iconType="back" isSearch='true' isFixed="true" />
 
-				{/* 个人基本信息 */}
+        {/* 个人基本信息 */}
         {
           this.props.user ?
             <div className={styles.userinfo}>
@@ -142,6 +146,11 @@ class Userinfo extends React.Component {
                 <li>
                   <i className={styles.iconfont}>&#xe60b;</i><span>{this.props.user.age}</span></li>
               </ul>
+              <div className={styles.tagsBox}>
+                {
+                  Object.keys(tags).map((tag) => (<span className={styles.tag} key={tag}>{tags[tag]}</span>))
+                }
+              </div>
               <div className={styles.opinion}>
                 {this.props.user.intro}
               </div>
@@ -162,6 +171,7 @@ class Userinfo extends React.Component {
                       isLoading={this.state.isLoading}
                       onEndReached={this.onEndReached}
                       isUseBodyScroll={true}
+                      isShare={false}
                     />
                     : <div style={{ textAlign: 'center', color: '#999', fontSize: '12px', marginTop: 30 }}>开展你的梦</div>
                 }
@@ -183,7 +193,8 @@ class Userinfo extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    ...state.my
+    ...state.my,
+    tags: state.fly.tags
   };
 }
 export default connect(mapStateToProps)(Userinfo);

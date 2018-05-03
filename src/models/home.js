@@ -111,21 +111,16 @@ export default modelExtend(model, {
     },
 
     // 更新梦境
-    *updateDream({ payload }, { call, put }) {
+    /* *updateDream({ payload }, { call, put }) {
       Toast.loading("更新中...");
+      console.log('params:',payload);
+
       const { data, code, msg } = yield call(publish, payload);
       if (code == 200) {
         Toast.success("更新成功!");
         history.go(-1);
-        // setTimeout(() => {
-        //   var path = {
-        //     pathname: '/home/detail',
-        //     state: payload.feed_id,
-        //   }
-        //   hashHistory.push(path);
-        // }, 1000);
       }
-    },
+    }, */
 
     // 删除梦境
     *delDream({ payload }, { call, put }) {

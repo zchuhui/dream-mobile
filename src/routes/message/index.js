@@ -86,7 +86,8 @@ class Index extends React.Component {
 					</span>
 					<span className={styles.review}></span>
 				</div>
-					<Link to={{ pathname: "/home/detail", 'state': + obj.feed.feed_id }}>
+				  {/* 	<Link to={{ pathname: "/home/detail", 'state': + obj.feed.feed_id }}> */}
+          <Link to={{ pathname: "/home/detail", query: { id: obj.feed.feed_id } }}>
 						<div className={styles.reviewContent}>
 							{obj.fromUser.reviewContent}
 						</div>
