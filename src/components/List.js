@@ -5,6 +5,8 @@ import { ListView, Icon, NavBar, Tabs, ActionSheet, Toast, Modal, Button } from 
 import { StickyContainer, Sticky } from 'react-sticky';
 import { hashHistory } from 'react-router';
 import Clipboard from 'react-clipboard.js';
+import ImageView from 'react-mobile-imgview';
+import 'react-mobile-imgview/dist/react-mobile-imgview.css'
 
 import styles from "./List.less";
 import Util from "../utils/util";
@@ -20,7 +22,11 @@ class List extends React.Component {
     this.state = {
       height: this.props.height ? this.props.height : 1000,
       shareModal: false,
-      shareId: null
+      shareId: null,
+
+      showViewer: false,
+      imagelist:null,
+      imagelistCurrent:0,
     }
   }
 
@@ -122,7 +128,18 @@ class List extends React.Component {
     Toast.info('sorry,他设置了不开放', 1);
   }
 
+  // 内容展开与隐藏
   handleContentSlide = (t) =>{
+  }
+
+  // 点赞
+  handleUpdatedigg = (id) => {
+    this.props.dispatch({
+      type: 'home/updateListDigg',
+      payload: {
+        feed_id: id,
+      }
+    });
   }
 
   // 行
@@ -147,7 +164,7 @@ class List extends React.Component {
                   : null
               }
               <span className={styles.name}><Link className={styles.bold} to={{ pathname: obj.uid == UID ? "/my/userinfo" : "/my/other", 'state': + obj.uid }}>{obj.uname}</Link></span>
-              <span className={styles.time}>{obj.publish_time}</span>
+              <Link to={{ pathname: "/home/detail", query: { id: obj.feed_id } }}><span className={styles.time}>{obj.publish_time}</span></Link>
             </div>
             {/* 标题、内容 */}
             <div className={styles.itemContent}>
@@ -166,7 +183,7 @@ class List extends React.Component {
                           // 最多只显示3张图片
                           index <= 2 ?
                             <div className={styles.imgbox} key={index}>
-                              <img src={img} alt="" />
+                              <img src={img} alt="" onClick={()=>{this.setState({showViewer:true,imagelist:obj.imgInfo,imagelistCurrent:index})}} />
                             </div>
                             : null
                         ))
@@ -177,9 +194,9 @@ class List extends React.Component {
             </div>
             {/* 点赞、评论数、分享 */}
             <div className={styles.icons}>
-              <span className={styles.praise}>
+              <span className={styles.praise} onClick={this.handleUpdatedigg.bind(this,obj.feed_id)}>
                 {
-                  obj.hasDigg == 1 ? <i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
+                  obj.hasDigg == 1 ?  <i className={styles.iconfontSmall} style={{ color: '#108ee9' }}>&#xe64d;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>//<i className={styles.iconfont}>&#xe707;</i> : <i className={styles.iconfontSmall}>&#xe604;</i>
                 }
                 <label>{obj.digg_count > 0 ? obj.digg_count : null}</label>
               </span>
@@ -266,6 +283,10 @@ class List extends React.Component {
             </div>
           </div>
         </Modal>
+
+        {
+           !!this.state.showViewer && <ImageView imagelist={this.state.imagelist} current={this.state.imagelistCurrent} close={()=>{this.setState({showViewer:false})}} />
+        }
       </div>
     )
   }
@@ -277,4 +298,4 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(List);
-//export default List;
+

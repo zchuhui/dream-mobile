@@ -29,24 +29,18 @@ export default modelExtend(model, {
       }
     },
 
-    // 搜索
-    // *search({ payload }, { call, put }) {
-    //   yield put({ type: 'updateState', payload: { 'searchLoading': false, 'searchList': null } });
-    //   const { data, code, msg } = yield call(search, payload);
+    // 列表点赞
+    *updateListDigg({ payload }, { call, put }) {
+      const { data, code } = yield call(updatedigg, payload);
+      if (code == 200) {
+        yield put({
+          type: 'getDreamList',
+          payload: {}
+        })
 
-    //   if (code == 200) {
-    //     if (data.data.length == 0) {
-    //       Toast.info("木有更多了", 1);
-    //     }
-    //     yield put({ type: 'updateState', payload: { 'searchList': data.data } });
-    //     yield put({ type: 'updateState', payload: { 'searchLoading': true } });
+      }
+    },
 
-    //     const keyword = payload.keyword;
-    //     if (keyword) {
-    //       Storage.set('keyword', keyword);
-    //     }
-    //   }
-    // },
 
     // 梦境详情
     *getDetail({ payload }, { call, put }) {
@@ -68,7 +62,7 @@ export default modelExtend(model, {
       }
     },
 
-    // 点赞
+    // 详情点赞
     *updatedigg({ payload }, { call, put }) {
       const { data, code } = yield call(updatedigg, payload);
       if (code == 200) {
