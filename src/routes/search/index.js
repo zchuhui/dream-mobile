@@ -44,8 +44,6 @@ class Index extends React.Component {
         this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': '', 'is_me': true, 'page': 1 } });
       }
     }
-
-
   }
 
   componentUpdateMount() {
@@ -105,7 +103,7 @@ class Index extends React.Component {
       keyword: value,
       isLoading: true,
       currentPage: 1,
-      currentTab: 0,
+      //currentTab: 0,
     });
 
     // 只搜索我自己的梦境
@@ -113,10 +111,17 @@ class Index extends React.Component {
       this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
     }
     else {
-      // 搜索全部
-      this.props.dispatch({ type: 'search/search', payload: { 'keyword': value, 'is_me': false, 'page': 1 } });
-      this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
-      this.props.dispatch({ type: 'search/searchUsers', payload: { 'uname': value, 'page': 1 } });
+      switch(this.state.currentTab){
+        case 0:
+          this.props.dispatch({ type: 'search/search', payload: { 'keyword': value, 'is_me': false, 'page': 1 } });
+          break;
+        case 1:
+          this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': value, 'is_me': true, 'page': 1 } });
+          break;
+        case 2:
+          this.props.dispatch({ type: 'search/searchUsers', payload: { 'uname': value, 'page': 1 } });
+          break;
+      }
     }
   }
 
@@ -148,6 +153,25 @@ class Index extends React.Component {
       }
     ];
 
+    // 切换tab，搜索
+    const handleChangeTab = (tab,index) => {
+      this.setState({
+        currentTab:index,
+      });
+
+      switch(index){
+        case 0:
+          this.props.dispatch({ type: 'search/search', payload: { 'keyword': this.state.keyword, 'is_me': false, 'page': 1 } });
+          break;
+        case 1:
+          this.props.dispatch({ type: 'search/searchMy', payload: { 'keyword': this.state.keyword, 'is_me': true, 'page': 1 } });
+          break;
+        case 2:
+          this.props.dispatch({ type: 'search/searchUsers', payload: { 'uname': this.state.keyword, 'page': 1 } });
+          break;
+      }
+    }
+
     return (
       <div>
         {
@@ -164,28 +188,31 @@ class Index extends React.Component {
                 onSubmit={this.onSearch.bind(this)}
               />
               <div className={styles.chatWrap}>
-                <Tabs tabs={tabs} initalPage={this.state.currentTab} swipeable={false}>
-                  <div>
-                    <List
-                      dataSource={this.state.dataSource}
-                      isLoading={this.state.isLoading}
-                      height={this.state.height}
-                      onEndReached={this.onEndReached} />
-                  </div>
-                  <div>
-                <MyDreamList keyword={this.state.keyword} />
-                  </div>
-                  <div>
-                <UserList keyword={this.state.keyword} />
-                  </div>
-                </Tabs>
-
+                {
+                  this.state.keyword !== ""?
+                    <Tabs tabs={tabs} initalPage={this.state.currentTab} onChange={handleChangeTab} swipeable={false}>
+                    <div>
+                      <List
+                        dataSource={this.state.dataSource}
+                        isLoading={this.state.isLoading}
+                        height={this.state.height}
+                        onEndReached={this.onEndReached} />
+                    </div>
+                    <div>
+                      <MyDreamList keyword={this.state.keyword} />
+                    </div>
+                    <div>
+                      <UserList keyword={this.state.keyword} />
+                    </div>
+                  </Tabs>
+                  :<p className={styles.txtCenter}>开始搜索吧~</p>
+                }
               </div>
             </div>
             :
             // 我的
             <div>
-              <NavBarPage iconType="back" title="搜索我的梦境"/>
+              <NavBarPage iconType="back" title="搜索我的梦境" />
               <SearchBar
                 className={styles.searchBar}
                 style={{ padding: 0, margin: 0, textIndent: 1 }}

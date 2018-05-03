@@ -23,7 +23,7 @@ export default modelExtend(model, {
 
       if (code == 200) {
         if (data.data.length == 0) {
-          Toast.info("木有更多了", 1);
+          //Toast.info("木有更多了", 1);
         }
         yield put({ type: 'updateState', payload: { 'searchList': data.data } });
         yield put({ type: 'updateState', payload: { 'searchLoading': true } });
@@ -42,7 +42,7 @@ export default modelExtend(model, {
 
       if (code == 200) {
         if (data.data.length == 0) {
-          Toast.info("木有更多了", 1);
+          //Toast.info("木有更多了", 1);
         }
         yield put({ type: 'updateState', payload: { 'searchMyList': data.data } });
         yield put({ type: 'updateState', payload: { 'searchMyLoading': true } });
@@ -61,7 +61,7 @@ export default modelExtend(model, {
 
       if (code == 200) {
         if (data.data.length == 0) {
-          Toast.info("木有更多了", 1);
+          //Toast.info("木有更多了", 1);
         }
 
         yield put({ type: 'updateState', payload: { 'userList': data.data } });

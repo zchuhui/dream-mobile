@@ -177,7 +177,8 @@ class List extends React.Component {
                 <label>{obj.digg_count > 0 ? obj.digg_count : null}</label>
               </span>
               <span className={styles.review}>
-                <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}>
+                {/* <Link to={{ pathname: "/home/detail", 'state': + obj.feed_id }}> */}
+                <Link to={{ pathname: "/home/detail", query: { id: obj.feed_id } }}>
                   <i className={styles.iconfontSmall}>&#xe60f;</i>
                   <label>{obj.comment_all_count > 0 ? obj.comment_all_count : null}</label>
                 </Link>

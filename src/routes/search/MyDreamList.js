@@ -91,15 +91,15 @@ class MyDreamList extends React.Component {
 
     return (
       <div>
-        {
-          this.state.list.length > 0 ?
+        {/* {
+          this.state.list.length > 0 ? */}
             <List
               dataSource={this.state.dataSource}
               isLoading={this.state.isLoading}
               height={this.state.height}
               onEndReached={this.onEndReached} />
-            : null
-        }
+            {/* : null
+        } */}
       </div>
 
 

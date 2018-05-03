@@ -32,14 +32,6 @@ class UserList extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // 搜索自己的梦境
-    // const keyword = this.props.keyword;
-    // console.log(keyword);
-    // if(keyword){
-    //   this.props.dispatch({ type: 'search/searchMy', payload: { is_me: true,keyword:keyword,page:1 } });
-    // }
-  }
 
   componentWillReceiveProps(nextProps) {
 
@@ -79,11 +71,10 @@ class UserList extends React.Component {
     if (this.state.isLoading && !this.state.hasMore) {
       return;
     }
-
     this.setState({ isLoading: true });
     this.state.currentPage = this.state.currentPage + 1;
 
-    this.props.dispatch({ type: 'search/searchUsers', payload: {'uname': value, page: this.state.currentPage } });
+    this.props.dispatch({ type: 'search/searchUsers', payload: {'uname': this.props.keyword, page: this.state.currentPage } });
   }
 
 
