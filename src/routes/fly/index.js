@@ -220,7 +220,9 @@ class Fly extends React.Component {
         <TagModel {...tagProps} />
 
         <p className={styles.autoSaveMsg}>
-          系统每50秒自动保存一次
+          系统每50秒自动保存一次 <br />
+          可用3张图片展示你的梦境内容 <br/>
+          图片通过审核后呈上（感谢你支持过虑不良相关图片）
         </p>
 
       </div>

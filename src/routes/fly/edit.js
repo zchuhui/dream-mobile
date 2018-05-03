@@ -31,7 +31,8 @@ class FlyEdit extends React.Component {
   componentWillReceiveProps(props){
     if(props.images){
       this.setState({
-        files: props.images
+        files: props.imagesEdit,
+        selectTags: props.tagsEdit
       })
     }
   }
@@ -84,14 +85,14 @@ class FlyEdit extends React.Component {
     if (type == "add") {
       const len = files.length - 1;
       this.props.dispatch({
-        type: 'fly/uploadImg',
+        type: 'fly/uploadImgEdit',
         payload: {
           img: files[len].url
         }
       });
     } else if (type == "remove") {
       this.props.dispatch({
-        type: 'fly/removeImages',
+        type: 'fly/removeImagesEdit',
         payload: {
           index: index
         }
