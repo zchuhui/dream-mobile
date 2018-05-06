@@ -161,7 +161,7 @@ class Userinfo extends React.Component {
         {/* 梦境列表 */}
         <div className={styles.dreamWrap}>
           <StickyContainer>
-            <Tabs tabs={tabs} initalPage={'t2'} swipeable={false}>
+            <Tabs tabs={tabs} initialPage={this.props.userInfoInitTabs} swipeable={false} onChange={()=>{this.setState({tabsInitPage:this.state.tabsInitPage==0?0:1})}}>
               {/* 我的梦境 */}
               <div>
                 {

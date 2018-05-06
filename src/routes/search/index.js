@@ -46,6 +46,10 @@ class Index extends React.Component {
     }
   }
 
+  componentDidMount(){
+    this.autoFocusInst.focus();
+  }
+
   componentUpdateMount() {
     this.setState({
       height: document.documentElement.clientHeight - 100
@@ -69,7 +73,6 @@ class Index extends React.Component {
           list: [...this.state.list, ...nextProps.searchList],
           height: hei
         });
-        //this.autoFocusInst.focus();
       }
 
       setTimeout(() => {
@@ -182,9 +185,9 @@ class Index extends React.Component {
                 className={styles.searchBar}
                 style={{ padding: 0, margin: 0, textIndent: 1 }}
                 placeholder="search"
-                ref={ref => this.autoFocusInst = ref}
                 defaultValue={this.state.keyword}
                 onClear={this.onCancel}
+                ref={ref => this.autoFocusInst = ref}
                 onSubmit={this.onSearch.bind(this)}
               />
               <div className={styles.chatWrap}>
@@ -214,12 +217,12 @@ class Index extends React.Component {
             <div>
               <NavBarPage iconType="back" title="搜索我的梦境" />
               <SearchBar
-                className={styles.searchBar}
-                style={{ padding: 0, margin: 0, textIndent: 1 }}
+                style={{ padding: 0, margin: 0, textIndent: 0 }}
                 placeholder="search"
                 ref={ref => this.autoFocusInst = ref}
                 defaultValue={this.state.keyword}
                 onClear={this.onCancel}
+                autoFocus={true}
                 onSubmit={this.onSearch.bind(this)}
               />
               <div className={styles.chatWrap}>
@@ -228,7 +231,6 @@ class Index extends React.Component {
             </div>
         }
       </div>
-
     )
   }
 }

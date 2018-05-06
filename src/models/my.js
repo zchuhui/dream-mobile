@@ -13,7 +13,7 @@ import Storage from '../utils/storage';
 export default modelExtend(model, {
 	namespace: 'my',
 	state: {
-
+    userInfoInitTabs:0,
 	},
 	subscriptions: {setup({ dispatch, history }) {
 		//dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
@@ -178,6 +178,8 @@ export default modelExtend(model, {
 
 	},
 
-	reducers: {	}
+	reducers: {
+
+  }
 
 });
