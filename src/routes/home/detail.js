@@ -547,11 +547,11 @@ class Detail extends React.Component {
             </Clipboard>
             <Button type="default" style={{marginTop:-1}} onClick={this.collectShow}>添加到收藏夹</Button>
 
-            <div style={{ padding: 10 }} id="socialShare" data-initialized="true">
-              <a href="#" className="social-share-icon icon-weibo" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe66e;</i></a>
+            <div style={{ padding: 10 }} id="socialShare">
+              {/* <a href="#" className="social-share-icon icon-weibo" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe66e;</i></a>
               <a href="#" className="social-share-icon icon-wechat" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe63d;</i></a>
               <a href="#" className="social-share-icon icon-qq" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe612;</i></a>
-              <a href="#" className="social-share-icon icon-douban" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe64e;</i></a>
+              <a href="#" className="social-share-icon icon-douban" style={{ border: 0 }}><i className={styles.iconfont} style={{ fontSize: 30 }}>&#xe64e;</i></a> */}
             </div>
           </div>
         </Modal>

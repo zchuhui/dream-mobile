@@ -21,6 +21,7 @@ class TagModel extends React.Component {
     super(props);
     this.state = {
       modal1: false,
+
     };
   }
 
@@ -52,15 +53,17 @@ class TagModel extends React.Component {
 
   // 添加标签
   onAddTags = (event) => {
-    const { tags } = this.props;
-    if (event.keyCode == 13) {
-      const val = event.target.value;
-      if (!tags.contains(val)) {
-        this.props.onAddTag(val);
-      }
 
-      this.refs.inputTag.value = "";
+    const { tags } = this.props;
+    const val = this.refs.inputTag.value;
+    if (!tags.contains(val)) {
+      this.props.onAddTag(val);
     }
+
+    this.setState({
+      modal1: false,
+    });
+
   }
 
   // 选择标签
@@ -76,11 +79,22 @@ class TagModel extends React.Component {
       <div>
         <span className={styles.tagBtn}
           onClick={this.showModal('modal1')}
-        > <i className={styles.iconfont}>&#xe634;</i> 加标签</span>
-        <div style={{margin:'10px 0 0 5px'}}>
+        > <i className={styles.iconfont}>&#xe634;</i> 自定义标签</span>
+
+        {/* <div style={{ margin: '10px 0 0 5px' }}>
           {
             selectTags.map((item, index) => (
               <span key={index} className={styles.tag}>{item}</span>
+            ))
+          }
+        </div> */}
+
+        <div style={{ margin: '10px 0 0 10px' }}>
+          {
+            tags.map((item, index) => (
+              item !== "" ?
+                <Tag key={index} style={{ marginRight: 5, marginBottom: 5 }} selected={selectTags.contains(item)} onChange={this.onSelectTag.bind(this, item)}>{item}</Tag>
+                : null
             ))
           }
         </div>
@@ -90,24 +104,18 @@ class TagModel extends React.Component {
           transparent
           maskClosable={false}
           onClose={this.onClose('modal1')}
-          footer={[{ text: '确定', onPress: () => { this.onClose('modal1')(); } }]}
+          footer={[{ text: '取消', onPress: () => { this.onClose('modal1')(); } }, { text: '确定', onPress: this.onAddTags }]}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
-          <div style={{ minHeight: 100, textAlign: 'left' }}>
-            <input type="text" placeholder="添加标签（按回车添加）" ref="inputTag" className={styles.tagInput} onKeyUp={this.onAddTags.bind(this)} />
-            {
-              tags.map((item, index) => (
-                  item !== "" ?
-                  <Tag key={index}  style={{ marginRight: 5, marginBottom: 5 }} selected={selectTags.contains(item)} onChange={this.onSelectTag.bind(this, item)}>{item}</Tag>
-                  :null
-              ))
-            }
+          <div style={{ minHeight: 50, textAlign: 'left' }}>
+            <input type="text" placeholder="输入标签" ref="inputTag" className={styles.tagInput} />
           </div>
         </Modal>
       </div>
     )
   }
 }
+
 
 /**
  * 数组操作：判断元素是否在素组里面
