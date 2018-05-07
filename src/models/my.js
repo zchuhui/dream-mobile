@@ -16,7 +16,7 @@ export default modelExtend(model, {
     userInfoInitTabs:0,
 	},
 	subscriptions: {setup({ dispatch, history }) {
-		//dispatch({ type: 'my/getUserHome', payload: { uid: uid, page: 1 } });
+
 	}},
 
 	effects: {
@@ -179,7 +179,11 @@ export default modelExtend(model, {
 	},
 
 	reducers: {
-
+    changeUserInfoInitTabs(state,{payload}){
+      return {
+        ...state, ...payload
+      }
+    }
   }
 
 });

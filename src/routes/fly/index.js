@@ -214,7 +214,7 @@ class Fly extends React.Component {
           onChange={this.onChange}
           onImageClick={(index, fs) => console.log(index, fs)}
           selectable={files.length < 3}
-          multiple={true}
+          multiple={1}
         />
 
         <TagModel {...tagProps} />

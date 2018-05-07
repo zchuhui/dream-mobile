@@ -6,7 +6,7 @@ import React from "react";
 import { connect } from "dva";
 import { Link } from 'dva/router';
 import { hashHistory } from 'react-router';
-import { List, NavBar, Tabs, Icon, ListView, Toast,Tag} from "antd-mobile";
+import { List, NavBar, Tabs, Icon, ListView, Toast, Tag } from "antd-mobile";
 import { StickyContainer, Sticky } from 'react-sticky';
 import Storage from '../../utils/storage';
 import styles from "./userinfo.less";
@@ -117,6 +117,15 @@ class Userinfo extends React.Component {
 
     const { tags } = this.props;
 
+    const handleInitTabs = (val) => {
+      const tabsInitPage = this.props.userInfoInitTabs;
+      this.props.dispatch({
+        type: 'my/changeUserInfoInitTabs',
+        payload: {
+          userInfoInitTabs: tabsInitPage == 0 ? 1 : 0
+        }
+      })
+    }
 
     return (
       <div className={styles.userinfoWrap}>
@@ -161,7 +170,7 @@ class Userinfo extends React.Component {
         {/* 梦境列表 */}
         <div className={styles.dreamWrap}>
           <StickyContainer>
-            <Tabs tabs={tabs} initialPage={this.props.userInfoInitTabs} swipeable={false} onChange={()=>{this.setState({tabsInitPage:this.state.tabsInitPage==0?0:1})}}>
+            <Tabs tabs={tabs} initialPage={this.props.userInfoInitTabs} swipeable={false} onChange={handleInitTabs}>
               {/* 我的梦境 */}
               <div>
                 {
